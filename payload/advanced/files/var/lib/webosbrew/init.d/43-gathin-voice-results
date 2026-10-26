@@ -1,0 +1,5 @@
+#!/bin/sh
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+[ -f /home/root/DISABLE-GATHIN-YOUTUBE-VOICE ] && exit 0
+/usr/bin/python /var/lib/webosbrew/gathin-youtube-voice/disable-results.py > /var/lib/webosbrew/gathin-youtube-voice/results-guard.log 2>&1

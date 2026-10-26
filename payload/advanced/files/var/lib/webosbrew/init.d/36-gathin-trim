@@ -1,0 +1,5 @@
+#!/bin/sh
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+[ -f /home/root/DISABLE-GATHIN-TRIM ] && exit 0
+/usr/bin/python /var/lib/webos-debloat/kept-apps/optional-jobs.py > /var/lib/webos-debloat/kept-apps/boot.log 2>&1

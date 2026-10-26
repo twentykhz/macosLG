@@ -1,0 +1,14 @@
+#!/bin/sh
+MARKER=/home/root/DISABLE-GATHIN-HOME
+SCRIPT=/home/root/gathin-home-keyhook.py
+PIDFILE=/tmp/gathin-home-keyhook.pid
+LOG=/tmp/gathin-home-keyhook.log
+[ -e "$MARKER" ] && { echo "failsafe active; keyhook not started" >> "$LOG"; exit 0; }
+if [ -f "$PIDFILE" ]; then
+    p="$(cat "$PIDFILE" 2>/dev/null)"
+    if [ -n "$p" ] && [ -r "/proc/$p/cmdline" ] && tr '\000' ' ' < "/proc/$p/cmdline" | grep -F "$SCRIPT" >/dev/null 2>&1; then exit 0; fi
+fi
+/usr/bin/python "$SCRIPT" </dev/null >> "$LOG" 2>&1 &
+p=$!
+echo "$p" > "$PIDFILE"
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] keyhook started pid=$p" >> "$LOG"

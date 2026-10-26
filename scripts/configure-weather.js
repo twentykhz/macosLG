@@ -1,0 +1,12 @@
+﻿'use strict';
+const fs=require('node:fs'),path=require('node:path');
+const {root}=require('../lib/local');
+const weather=JSON.parse(fs.readFileSync(path.join(root,'config/weather.json')));
+if(!Number.isFinite(weather.latitude)||Math.abs(weather.latitude)>90||!Number.isFinite(weather.longitude)||Math.abs(weather.longitude)>180||typeof weather.name!=='string'||weather.name.length>80)throw Error('Invalid weather configuration');
+const app=path.join(root,'payload/app');
+let js=fs.readFileSync(path.join(app,'app.js'),'utf8');
+js=js.replace(/latitude=-?[0-9.]+&longitude=-?[0-9.]+/g,()=>`latitude=${weather.latitude}&longitude=${weather.longitude}`);
+fs.writeFileSync(path.join(app,'app.js'),js);
+let html=fs.readFileSync(path.join(app,'index.html'),'utf8');
+const safe=weather.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+html=html.replace(/(id="weatherLocation">)[^<]*/,(_,prefix)=>prefix+safe);fs.writeFileSync(path.join(app,'index.html'),html);

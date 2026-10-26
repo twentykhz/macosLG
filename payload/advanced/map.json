@@ -1,0 +1,74 @@
+[
+  {
+    "remote": "/home/root/gathin-youtube-voice-router.py",
+    "local": "payload/advanced/files/home/root/gathin-youtube-voice-router.py"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-youtube-voice/commands.py",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-youtube-voice/disable-results.py",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/disable-results.py"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-controls/bridge.py",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-controls/permissions.py",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py"
+  },
+  {
+    "remote": "/var/lib/webos-debloat/gathin-final/debloat.py",
+    "local": "payload/advanced/files/var/lib/webos-debloat/gathin-final/debloat.py"
+  },
+  {
+    "remote": "/var/lib/webos-debloat/kept-apps/optional-jobs.py",
+    "local": "payload/advanced/files/var/lib/webos-debloat/kept-apps/optional-jobs.py"
+  },
+  {
+    "remote": "/home/root/gathin-lgws/boot.sh",
+    "local": "payload/advanced/files/home/root/gathin-lgws/boot.sh"
+  },
+  {
+    "remote": "/home/root/gathin-lgws/notify.py",
+    "local": "payload/advanced/files/home/root/gathin-lgws/notify.py"
+  },
+  {
+    "remote": "/home/root/gathin-lgws/LGWS.qml",
+    "local": "payload/advanced/files/home/root/gathin-lgws/LGWS.qml"
+  },
+  {
+    "remote": "/var/lib/webosbrew/lifesgoodwithoutspying.conf",
+    "local": "payload/advanced/files/var/lib/webosbrew/lifesgoodwithoutspying.conf"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/35-gathin-debloat",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/35-gathin-debloat"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/36-gathin-trim",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/36-gathin-trim"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/38-gathin-controls",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/38-gathin-controls"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/42-gathin-youtube-voice",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/42-gathin-youtube-voice"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/43-gathin-voice-results",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/43-gathin-voice-results"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying"
+  },
+  {
+    "remote": "/media/developer/apps/usr/palm/applications/youtube.leanback.v4/webOSUserScripts/userScript.js",
+    "local": "payload/advanced/youtube-userScript.js"
+  }
+]

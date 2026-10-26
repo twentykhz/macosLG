@@ -1,0 +1,28 @@
+#!/bin/sh
+SCRIPT=/home/root/gathin-youtube-voice-router.py
+STATE=/var/lib/webosbrew/gathin-youtube-voice
+mkdir -p "$STATE"
+chmod 700 "$STATE"
+PIDFILE="$STATE/router.pid"
+LOG="$STATE/router.log"
+[ -e /home/root/DISABLE-GATHIN-YOUTUBE-VOICE ] && exit 0
+if [ -f "$PIDFILE" ]; then
+    p=$(cat "$PIDFILE")
+    case "$p" in ''|*[!0-9]*) p=;; esac
+    if [ -n "$p" ] && [ -r "/proc/$p/cmdline" ] && tr '\000' ' ' < "/proc/$p/cmdline" | grep -F "$SCRIPT" >/dev/null; then exit 0; fi
+fi
+# Recover an existing instance if a runtime cleanup removed its PID file.
+found=$(/usr/bin/python - <<'PY'
+import os
+for name in os.listdir('/proc'):
+ if not name.isdigit(): continue
+ try:
+  args=open('/proc/'+name+'/cmdline').read().split('\0')
+  if len(args)>1 and args[1]=='/home/root/gathin-youtube-voice-router.py':
+   print(name); break
+ except IOError: pass
+PY
+)
+if [ -n "$found" ]; then echo "$found" > "$PIDFILE"; exit 0; fi
+/usr/bin/python "$SCRIPT" </dev/null >> "$LOG" 2>&1 &
+echo $! > "$PIDFILE"

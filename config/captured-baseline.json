@@ -1,0 +1,483 @@
+{
+  "capturedAt": "2026-10-26T13:53:33.804Z",
+  "device": {
+    "returnValue": true,
+    "modelName": "55SK8000PTA",
+    "firmwareVersion": "05.50.70",
+    "sdkVersion": "4.4.0",
+    "boardType": "M16PP_DVB_EU"
+  },
+  "edition": "current features, Inter share font; owner backup separate",
+  "files": [
+    {
+      "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
+      "size": 1167054,
+      "sha256": "147b1f6f3ec6880af0215887c0e0d191cb4d96e78f4853449e0c18960ca3e096"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
+      "size": 9480,
+      "sha256": "7161e9a940416a159a6d6ffff40d0cdcc9c38ef4723a0157cffc3bae52f7cbe8"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-home-launch.sh",
+      "size": 623,
+      "sha256": "288b4e78c312f21991fb5f95f6af75baf55ab9d5d5188f433a4ea62d72946ede"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-home-replacement/boot.sh",
+      "size": 1434,
+      "sha256": "a429c7cb2ec00789d256f67f9b9f1d1026b3a0541d39e91f42d604b8143cfc80"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-lgws/LGWS.qml",
+      "size": 1640,
+      "sha256": "6ed7caabc534441692fccc64a6836b92a72fabf8b0833c027c708194a286f805"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-lgws/boot.sh",
+      "size": 1100,
+      "sha256": "9fadbce8246bcd99e2fbd24c7a5c1651300968ae05279508f562f88b5ad0d096"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-lgws/notify.py",
+      "size": 437,
+      "sha256": "e93b2b44cb2596b998eabf8e0008f310adad1ac2a54b1285a5652ef3d84aeb23"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-youtube-voice-router.py",
+      "size": 19320,
+      "sha256": "9b664cf1535f830ae1e0a094d0475797cb4362fb33cd0aef47071f5a12f5ece2"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webos-debloat/gathin-final/debloat.py",
+      "size": 5250,
+      "sha256": "e9a742cb2d448b918656d264b12ca7ce5273e11428ca0dd92f5592165440e90d"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webos-debloat/kept-apps/optional-jobs.py",
+      "size": 1030,
+      "sha256": "7538635922a2fa9a0646a0966099c8c7f5e8a15caa50b1242b2efd419a790c0e"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py",
+      "size": 6397,
+      "sha256": "332891faacd35795b80782536305c5d9aa3c46ee8935fb233085d0f8b1143646"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py",
+      "size": 1592,
+      "sha256": "9791360ff7d88e9804cfb005925aadcb905902eb3be4c3f2253076eb9e4bd2e5"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
+      "size": 7164,
+      "sha256": "0abfd5fcacd9ce56d8099cc30707f0eca8f5f1be1a46c2633f73015a8facc19e"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/disable-results.py",
+      "size": 507,
+      "sha256": "16049cd46d2f84eb6f62ea40b226b43a1e1a03110341c9e099b05353b3d7e570"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/35-gathin-debloat",
+      "size": 266,
+      "sha256": "82c6ff6593987d13d2acc99b052427bde66481f8dcc63cd86c01d8b1d6225e1d"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/36-gathin-trim",
+      "size": 220,
+      "sha256": "74f577728c962a67085f337311bf6d6c8cde57c4203c52b2babc7a1193238fa2"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/38-gathin-controls",
+      "size": 519,
+      "sha256": "3727748ed05aae54df63326dd022c40c3bd912c3194080e9fcd17722cde270a3"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/41-gathin-home-keyhook",
+      "size": 606,
+      "sha256": "41e8fc64e39b8511fdcb0ba1cc16d00bb588ef1835721f48ef433b17f69e2f64"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/42-gathin-youtube-voice",
+      "size": 988,
+      "sha256": "87f3a217c0bc169d557177e23595be026d5395e3d679f21c08c78ead18e4cb96"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/43-gathin-voice-results",
+      "size": 254,
+      "sha256": "89fc406fcdcd3e9843445a234b0b3d6dc537433ad382d90e235b92d90df16ee3"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying",
+      "size": 93,
+      "sha256": "8097a87989e834a823b56a66d1ac06c26cfd723c62a637aa033c80c4acf398de"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/lifesgoodwithoutspying.conf",
+      "size": 278,
+      "sha256": "70b19393ab3b0284a34b641f4aaf195fb8b194aace596e513a89d0cc516d61ae"
+    },
+    {
+      "path": "payload/advanced/map.json",
+      "size": 2863,
+      "sha256": "39185cf6ba071daa68110f6b6312f408811763dcd0051bbca6747afbba79da4c"
+    },
+    {
+      "path": "payload/advanced/youtube-userScript.js",
+      "size": 260728,
+      "sha256": "8f2d13c2c0060a54f2742292216042d52d9bd296fac699c75397750dfb696836"
+    },
+    {
+      "path": "payload/app/app.js",
+      "size": 13033,
+      "sha256": "767c492e00b5f4ee0203f7b4c43643fcd1dd1e803a641f8ce0e71eb2c6328511"
+    },
+    {
+      "path": "payload/app/appinfo.json",
+      "size": 406,
+      "sha256": "ff0775da494c3be82b50a65494de5ea2d2721e4a44c5f29b7b8b93580012cf9c"
+    },
+    {
+      "path": "payload/app/apps.js",
+      "size": 1012,
+      "sha256": "de5a34a80ec3581ef1febb8576358ea6b79c7225871c94ae186ea056cb95fd72"
+    },
+    {
+      "path": "payload/app/config.js",
+      "size": 454,
+      "sha256": "3018125341eec3f4516abf2c4946d707240be28c065ee3677d23039586ad2cb7"
+    },
+    {
+      "path": "payload/app/controls.css",
+      "size": 6819,
+      "sha256": "9149ab7c87c8294c9d112b76cb950bc9b7887d8fdbeedf46d295ebd781a8ae2e"
+    },
+    {
+      "path": "payload/app/controls.js",
+      "size": 15124,
+      "sha256": "da4378e7e230569b0a6aa271a92cf3f71de081e388f74e4ad77cb14164c36b16"
+    },
+    {
+      "path": "payload/app/fonts/Inter-Light.woff2",
+      "size": 112592,
+      "sha256": "e111a1e2ad914ccda9179b95e83fb10234dd52a1932e0b93c480476227983fd9"
+    },
+    {
+      "path": "payload/app/fonts/Inter-Regular.woff2",
+      "size": 111268,
+      "sha256": "e06f6b1bc553aaea4e4668023ed0ab0a147129c3107f511bc7d03d361b0ae085"
+    },
+    {
+      "path": "payload/app/fonts/Inter-SemiBold.woff2",
+      "size": 114812,
+      "sha256": "5cb7103e4e605989afebc03d989c79201e54b21b5183db33981f70db9178a301"
+    },
+    {
+      "path": "payload/app/fonts/OFL.txt",
+      "size": 4377,
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "path": "payload/app/icon.png",
+      "size": 3542,
+      "sha256": "d3e30036106ef8c85dcf3ddc5af05c97d3077a1c83e984f6396bd6a665548fc3"
+    },
+    {
+      "path": "payload/app/icons/airplay.png",
+      "size": 882,
+      "sha256": "0839262f72af868497225e4eae9f6ed7768ae7935ff207c038c643ae6a58fb7c"
+    },
+    {
+      "path": "payload/app/icons/com.apple.appletv.png",
+      "size": 2391,
+      "sha256": "831d0cee733f32ad92252110ff535f07d1586f7a89b5676f959dfbb56d315326"
+    },
+    {
+      "path": "payload/app/icons/com.fpt.fptplay.png",
+      "size": 4477,
+      "sha256": "1ea95affbf28add193cb0db50ed534b314db2b93fc0c71a7478339244affab5d"
+    },
+    {
+      "path": "payload/app/icons/com.gathin.tvhome.png",
+      "size": 6021,
+      "sha256": "04f21d1bcf6da74f2b4e5f84fb0910f5d3e03ccba638f61f110c3fa7ac8ad1b4"
+    },
+    {
+      "path": "payload/app/icons/com.mytvb2c.app.png",
+      "size": 10749,
+      "sha256": "6091b52d526d95971212f201143281a0f5f8b55866697b9c89046e88b308e4d1"
+    },
+    {
+      "path": "payload/app/icons/com.viettel.media.tv360.png",
+      "size": 6151,
+      "sha256": "3cadb317482c834753cd470a876f50426dc8ecb46abd71c4edca13602d88f5dd"
+    },
+    {
+      "path": "payload/app/icons/com.vtvgotv.app.png",
+      "size": 7206,
+      "sha256": "1b2acba21f517921c36d90631138166edc53a5c1e8933a504af11914e4f93116"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.accessibility.png",
+      "size": 2471,
+      "sha256": "6e361ceadca370b2f4accad8fd1b01e27321b514cd503f101d37e66837b0e789"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.browser.png",
+      "size": 4936,
+      "sha256": "e10d10873245b58186057668ea1bc659ce49d6ca63b2c9c20602fb3bf71176cc"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.btspeakerapp.png",
+      "size": 3867,
+      "sha256": "e385734ddc338653db317358040638e2fe597c0073c2993c3664d836d2053f46"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.connectionwizard.png",
+      "size": 6576,
+      "sha256": "9a7d089fcc76baf0525217cf3c9c2c9fc93b84baee4022d74fba9df7f253ef8a"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.discovery.png",
+      "size": 2804,
+      "sha256": "80f2efdc6bcfc3792793389e696e1a37165ad9a25a6ad52a27c44199b4f66f9e"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.hdmi3.png",
+      "size": 3988,
+      "sha256": "64fc85c7cfebcd06ee8d171f1ae41df368a2da3210b8e544cfca32ce3425a402"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.hdmi4.png",
+      "size": 4031,
+      "sha256": "9d191a1bafdca9f4b5add9cc557b711c1148b54e9c23df15525b7e5857125cda"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.igallery.png",
+      "size": 2828,
+      "sha256": "eb65675f0d9800fd5a50d9f7beb620d4459f177ba329bc8f2f7788ecd05b9c71"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.livemenu.png",
+      "size": 2831,
+      "sha256": "33373a73d2b0b69ba942e9d13844ecc365718c48f3d577b14f21f47e3bf5920b"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.livetv.png",
+      "size": 3936,
+      "sha256": "bdd10001627bf499f7e2b9fff57f8365acdc9b0ccc9b65d56decbbdfe397f15d"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.miracast.png",
+      "size": 4061,
+      "sha256": "70d3f0d649b74f46ac39987d5467e7e423d47de4c65aedb695436ccf721aa7fc"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.multiview.png",
+      "size": 2642,
+      "sha256": "a36a9694edbe2bf580480db58ead8a99995781dc8b82d6e630a32c383b83f0d9"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.music.png",
+      "size": 4161,
+      "sha256": "12d7890f38114c7617551921837726e8b9653b06afd5a244c1479e96771313eb"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.notificationcenter.png",
+      "size": 6103,
+      "sha256": "f52af8e588af9fbdecf9b611072910c4aa908afe3fa03d3bea080989300391aa"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.photovideo.png",
+      "size": 4809,
+      "sha256": "7997d431011478ec4605d7a166e60e4f1171dfc597f5d9a1c95d1a17291eac6a"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.recordings.png",
+      "size": 5706,
+      "sha256": "64f91c34cd674b999ff1f15f0eb6ae0404fb2d102f36d068dc80dc77f8a6df4d"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.remoteservice.png",
+      "size": 3801,
+      "sha256": "cf783d41dbab1cef4d3950c9dfc39559699d3ce03b9852bb0df1a4c294e589b1"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.scheduler.png",
+      "size": 5221,
+      "sha256": "bb9b993b9bac84f353e87b74e50d462a5d173834af977d7d4fbb16838841c531"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.tvuserguide.png",
+      "size": 5626,
+      "sha256": "8af12eeba984bfe1dcd399380f50090d52d27b74b6230ee8a4c4fa1b028deacf"
+    },
+    {
+      "path": "payload/app/icons/macos-airplay.svg",
+      "size": 493,
+      "sha256": "8b595ddae82a20d1698738f07a4b08141f38b5f74bc73f1dcb17570272caca9f"
+    },
+    {
+      "path": "payload/app/icons/macos-browser.svg",
+      "size": 1156,
+      "sha256": "efda5360ef1e0877667e286e53506c90b71fdedcecbdf1ce09fdca7b67d17dac"
+    },
+    {
+      "path": "payload/app/icons/macos-com.fpt.fptplay.svg",
+      "size": 7002,
+      "sha256": "7349a404351337d435f602bf353c58b0d80324b57501cf776efe10169ab70a34"
+    },
+    {
+      "path": "payload/app/icons/macos-com.viettel.media.tv360.svg",
+      "size": 9234,
+      "sha256": "f285be7b0e81f6561b8e32ce724190935a3f39ce0431099828ba59bd56a708c7"
+    },
+    {
+      "path": "payload/app/icons/macos-homebrew.svg",
+      "size": 1213,
+      "sha256": "b309e958e5831ee428a1990162a52ab2676f08799885a4ed57fa20e6436977eb"
+    },
+    {
+      "path": "payload/app/icons/macos-netflix.svg",
+      "size": 9262,
+      "sha256": "4aeaa9560f5a37466303f79f2121a7353181f41ef81cffbd6487dd4ba8ef9c58"
+    },
+    {
+      "path": "payload/app/icons/macos-privacy.svg",
+      "size": 1013,
+      "sha256": "b5aab763fd1ec8577ca99fabe4b7938fbac921c49f8de5f2afae3014a5f57e1c"
+    },
+    {
+      "path": "payload/app/icons/macos-store.svg",
+      "size": 1068,
+      "sha256": "af953c0927495edaebb450ea91dd949b0f714a92f3f35f623021e4207c5f7568"
+    },
+    {
+      "path": "payload/app/icons/macos-tv-hdmi3.svg",
+      "size": 809,
+      "sha256": "a17cd384f01c65e06cc416d70335e864a80048ed912e06b1f79b7724d0354541"
+    },
+    {
+      "path": "payload/app/icons/macos-tv.amasian.webos.vn1.channels.svg",
+      "size": 10814,
+      "sha256": "8062515d49757106220983b48d972ef3579c1e69a47d19b22a9cdf77bf3dbcaf"
+    },
+    {
+      "path": "payload/app/icons/macos-update.svg",
+      "size": 1128,
+      "sha256": "5b32302d4f24070d1cdf7f5be27a7274bb51bc65a47174ae5a37f2ce2ec0a696"
+    },
+    {
+      "path": "payload/app/icons/macos-youtube.leanback.v4.svg",
+      "size": 13846,
+      "sha256": "fe3f6bbbbf60cc6128fdfe1ccd0a65dc51cd6273398f3ddfcdd9dd840f3d8860"
+    },
+    {
+      "path": "payload/app/icons/netflix.png",
+      "size": 6172,
+      "sha256": "a2f831ceef57ba6e101c203346c280976831f3e4c22605211a0f29c53b5402e2"
+    },
+    {
+      "path": "payload/app/icons/ooo.lew.lifesgoodwithoutspying.png",
+      "size": 4186,
+      "sha256": "fc8d8422490fb351751cbfa978f5065f6176f695d6c768bafaebd84e5a89e99a"
+    },
+    {
+      "path": "payload/app/icons/org.webosbrew.appupdateblocker.png",
+      "size": 29190,
+      "sha256": "056edb327a90c549da8475f1d3f6e020a5cddfe5fdba72d6f6bae449a0290bee"
+    },
+    {
+      "path": "payload/app/icons/org.webosbrew.hbchannel.png",
+      "size": 5246,
+      "sha256": "252d842e64e9b8ec74d506e80913061e226eaaf5a7ce8b00eaebfdb92799e864"
+    },
+    {
+      "path": "payload/app/icons/org.webosbrew.inputhook.png",
+      "size": 8191,
+      "sha256": "6eacec93acb87e10c4802dcdf236690cfbea63040c0e9d1110325a41d57a507c"
+    },
+    {
+      "path": "payload/app/icons/tv.amasian.webos.vn1.channels.png",
+      "size": 7338,
+      "sha256": "a2e1addfbb3e2d01b11d8cc38541ddeab88d56f36190b10b111c5682810eb900"
+    },
+    {
+      "path": "payload/app/icons/webos.day.png",
+      "size": 9530,
+      "sha256": "54505f56ff1c3587d95a5f4bc66e156a312a0d4f783de9a86cd8d6ebfa37705d"
+    },
+    {
+      "path": "payload/app/icons/youtube.leanback.v4.png",
+      "size": 9611,
+      "sha256": "b04a9825bcceff796d93b628808cc5e9ef480155bef24af2ddd52c0e703cf375"
+    },
+    {
+      "path": "payload/app/index.html",
+      "size": 4171,
+      "sha256": "a978b3ed42219fc263fc4876781ce2faf2dede9e078c994576e5110cf4fd9168"
+    },
+    {
+      "path": "payload/app/largeIcon.png",
+      "size": 6975,
+      "sha256": "325a231b6d01cff26545b47400ec3b45e7b1b7b0148ab9fb9e9e1df1266a939d"
+    },
+    {
+      "path": "payload/app/lgws-order.js",
+      "size": 1050,
+      "sha256": "cdd52028542aba0bd1b93db2e93958ad1c1b947dcf9f927e130c9465f2135a72"
+    },
+    {
+      "path": "payload/app/lunar-calendar.js",
+      "size": 2149,
+      "sha256": "987f48889ea382c798cb2ad18f46eb2cbf984b7e9c88cbdcf0d227ecc4dfbea8"
+    },
+    {
+      "path": "payload/app/style.css",
+      "size": 11430,
+      "sha256": "bdc38d4dca37da1162d7bc924c37a06fcfc7b43ed53dcbe152d8b74d81142e76"
+    },
+    {
+      "path": "payload/app/tv-shortcut-order.js",
+      "size": 548,
+      "sha256": "64f118c211dfacf3f36aa932144ca6238ee6c0cb4f9201240435c81fc74b4ee2"
+    },
+    {
+      "path": "payload/app/wallpaper.jpg",
+      "size": 599627,
+      "sha256": "c0d4e55b375ada0ae49ba61abfd581d51218c507c9d23501961ef4fe7247dcc1"
+    },
+    {
+      "path": "payload/home/41-gathin-home-keyhook",
+      "size": 606,
+      "sha256": "41e8fc64e39b8511fdcb0ba1cc16d00bb588ef1835721f48ef433b17f69e2f64"
+    },
+    {
+      "path": "payload/home/boot.sh",
+      "size": 1434,
+      "sha256": "a429c7cb2ec00789d256f67f9b9f1d1026b3a0541d39e91f42d604b8143cfc80"
+    },
+    {
+      "path": "payload/home/disable-home.sh",
+      "size": 540,
+      "sha256": "59f331af827d5bd215592a029d9e6c8a8c0416d2e90dd08f9eae27d70e958d73"
+    },
+    {
+      "path": "payload/home/home-keyhook.py",
+      "size": 9480,
+      "sha256": "7161e9a940416a159a6d6ffff40d0cdcc9c38ef4723a0157cffc3bae52f7cbe8"
+    },
+    {
+      "path": "payload/home/launch.sh",
+      "size": 623,
+      "sha256": "288b4e78c312f21991fb5f95f6af75baf55ab9d5d5188f433a4ea62d72946ede"
+    },
+    {
+      "path": "payload/privacy/lifesgoodwithoutspying.conf",
+      "size": 278,
+      "sha256": "70b19393ab3b0284a34b641f4aaf195fb8b194aace596e513a89d0cc516d61ae"
+    }
+  ]
+}

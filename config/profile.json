@@ -1,0 +1,22 @@
+{
+  "modelName": "55SK8000PTA",
+  "firmwareVersion": "05.50.70",
+  "sdkVersion": "4.4.0",
+  "boardType": "M16PP_DVB_EU",
+  "architecture": "armv7l",
+  "appId": "com.gathin.tvhome",
+  "appVersion": "1.4.0",
+  "sourceDeviceName": "LGE M-RCU - Builtin [0]",
+  "targetDeviceName": "LGE M-RCU - Builtin [1]",
+  "homeCode": 773,
+  "verifiedAt": "2026-10-26",
+  "thirdPartyApps": [
+    "org.webosbrew.hbchannel",
+    "youtube.leanback.v4",
+    "ooo.lew.lifesgoodwithoutspying",
+    "com.fpt.fptplay",
+    "com.viettel.media.tv360",
+    "netflix"
+  ],
+  "backCode": 412
+}

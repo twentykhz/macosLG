@@ -1,0 +1,10 @@
+node_modules/
+.local/
+*.log
+*.pem
+*.key
+.env
+config/device.json
+backups/
+__pycache__/
+*.pyc

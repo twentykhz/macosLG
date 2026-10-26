@@ -1,0 +1,72 @@
+#controlCenter { position:absolute; z-index:20; top:148px; right:74px; width:452px; padding:22px; border:1px solid rgba(255,255,255,.45); border-radius:28px; background:linear-gradient(145deg,rgba(170,202,225,.96),rgba(116,156,189,.96)); box-shadow:0 18px 45px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.4); color:#12263b; }
+#controlCenter.cc-hidden { display:none; }
+#controlCenter button { font:inherit; color:inherit; border:0; cursor:pointer; outline:none; }
+.cc-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.cc-heading h2 { font-size:23px; font-weight:600; }
+#ccClose { width:34px; height:34px; background:rgba(255,255,255,.35); border-radius:50%; font-size:28px !important; }
+.cc-toggles { display:flex; margin-bottom:14px; }
+.cc-toggle { display:flex; align-items:center; text-align:left; width:196px; min-height:108px; padding:14px 10px; border-radius:18px; background:rgba(255,255,255,.32); }
+.cc-toggle + .cc-toggle { margin-left:12px; }
+.cc-symbol { display:flex; flex-shrink:0; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; margin-right:9px; background:rgba(49,75,95,.15); color:#344e67; }
+.cc-toggle.enabled .cc-symbol { background:#0789f5; color:white; }
+#controlCenter svg { width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+#ccWifiSymbol .wifi-mark { fill:currentColor; stroke:none; }
+.cc-toggle strong { display:block; font-size:19px; font-weight:600; }
+.cc-toggle small { display:block; font-size:16px; margin-top:4px; color:#35536d; }
+.cc-block { padding:16px; background:rgba(255,255,255,.32); border-radius:18px; margin-bottom:14px; }
+.cc-label { font-size:20px; font-weight:600; margin-bottom:12px; }
+.cc-picture { display:flex; align-items:center; }
+.cc-picture button { height:52px; border-radius:12px; background:rgba(255,255,255,.25); }
+#ccPrev,#ccNext { width:38px; flex-shrink:0; font-size:32px !important; }
+#ccPicture { display:flex; align-items:center; justify-content:center; width:268px; margin:0 8px; font-size:18px !important; }
+#ccPicture svg { margin-right:10px; flex-shrink:0; }
+#ccVolumeValue { float:right; font-size:17px; font-weight:400; }
+.cc-volume-row { display:flex; align-items:center; }
+.cc-volume-row button { width:34px; height:40px; background:transparent; font-size:27px !important; }
+#ccVolume { -webkit-appearance:none; width:290px; height:26px; margin:0 9px; border-radius:14px; background:rgba(255,255,255,.7); outline:none; cursor:pointer; }
+#ccVolume::-webkit-slider-thumb { -webkit-appearance:none; width:30px; height:30px; border-radius:50%; background:white; box-shadow:0 2px 6px rgba(0,0,0,.25); }
+#ccMute { display:block; margin:12px auto 0; padding:8px 22px; border-radius:12px; background:rgba(255,255,255,.35); font-size:17px !important; }
+#controlCenter .cc-focused,#controlCenter button:focus,#ccVolume:focus { box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(22,100,170,.6); }
+#ccMessage { font-size:16px; min-height:0; line-height:1.35; color:#762738; }
+#ccMessage:not(:empty) { margin-top:10px; }
+
+/* Lightweight translucent glass, with a static fallback on webOS 4. */
+#controlCenter { color:#fff; background:linear-gradient(145deg,rgba(108,117,131,.68),rgba(53,62,77,.60)); border-color:rgba(255,255,255,.38); box-shadow:0 16px 38px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.3); }
+#controlCenter button { color:inherit; }
+#controlCenter .cc-toggle,#controlCenter .cc-block { background:rgba(220,228,240,.15); box-shadow:inset 0 1px 0 rgba(255,255,255,.1); }
+#controlCenter .cc-toggle small { color:rgba(255,255,255,.78); max-width:113px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cc-toggle > span:last-child { min-width:0; }
+#controlCenter .cc-symbol { color:#fff; background:rgba(255,255,255,.18); }
+#ccMessage { color:#ffd8bf; }
+#controlCenter .cc-label { color:rgba(255,255,255,.94); }
+#ccDevices { position:absolute; top:68px; left:20px; right:20px; z-index:3; max-height:450px; overflow:auto; padding:18px; background:rgba(57,65,80,.97); border:1px solid rgba(255,255,255,.35); border-radius:20px; box-shadow:0 14px 30px rgba(0,0,0,.25); }
+#ccDevices.cc-hidden { display:none; }
+#ccDevices strong { display:block; font-size:22px; margin-bottom:14px; }
+#ccDevices button { display:block; width:100%; text-align:left; padding:14px 12px; margin:8px 0; font-size:19px; border-radius:12px; background:rgba(255,255,255,.12); }
+#ccDevices button:disabled { opacity:.65; cursor:default; }
+#dockBand { background:linear-gradient(145deg,rgba(167,175,190,.23),rgba(58,65,80,.28)); border-color:rgba(255,255,255,.32); box-shadow:0 12px 30px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.22); }
+@supports (backdrop-filter:blur(8px)) { #controlCenter,#dockBand { backdrop-filter:blur(12px); } }
+@supports (-webkit-backdrop-filter:blur(8px)) { #controlCenter,#dockBand { -webkit-backdrop-filter:blur(12px); } }
+
+/* webOS 4: opaque-enough static glass; never blur the wallpaper behind controls. */
+#controlCenter { background:linear-gradient(145deg,rgba(82,91,105,.97),rgba(46,55,69,.97)) !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow:0 10px 26px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.26) !important; }
+#dockBand { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+#controlCenter .cc-toggle,#controlCenter .cc-block { background:rgba(220,228,240,.12); }
+
+/* Preserve the compact panel height after adding the backlight row. */
+#controlCenter { padding:18px 20px; }
+#controlCenter .cc-heading { margin-bottom:12px; }
+#controlCenter .cc-toggle { min-height:82px; padding:10px; }
+#controlCenter .cc-toggles { margin-bottom:10px; }
+#controlCenter .cc-block { padding:12px 14px; margin-bottom:10px; }
+#controlCenter .cc-label { margin-bottom:8px; font-size:19px; }
+#controlCenter .cc-picture button { height:42px; }
+#controlCenter .cc-volume-row button { height:32px; }
+#controlCenter #ccMute { margin-top:8px; padding:6px 18px; }
+#ccBrightnessValue { float:right; font-size:17px; font-weight:400; }
+#ccBrightness { -webkit-appearance:none; width:290px; height:22px; margin:0 9px; border-radius:14px; background:rgba(255,255,255,.7); outline:none; cursor:pointer; }
+#ccBrightness::-webkit-slider-thumb { -webkit-appearance:none; width:28px; height:28px; border-radius:50%; background:white; box-shadow:0 2px 5px rgba(0,0,0,.2); }
+#controlCenter #ccBrightness:focus { box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(22,100,170,.6); }
+#controlCenter .cc-toggle.connected { background:#087af2 !important; color:white; }
+#controlCenter .cc-toggle.connected small { color:rgba(255,255,255,.92); }
+#controlCenter .cc-toggle.connected .cc-symbol { background:rgba(255,255,255,.16); color:white; }

@@ -1,0 +1,12 @@
+#!/bin/sh
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+root=/var/lib/webosbrew/gathin-controls
+[ -f /home/root/DISABLE-GATHIN-CONTROLS ] && exit 0
+/usr/bin/python "$root/permissions.py" > "$root/permissions.log" 2>&1
+if [ -f "$root/bridge.pid" ]; then
+ pid=$(cat "$root/bridge.pid")
+ if [ -r "/proc/$pid/cmdline" ] && tr '\000' ' ' < "/proc/$pid/cmdline" | grep -q '/gathin-controls/bridge.py'; then exit 0; fi
+fi
+/usr/bin/python "$root/bridge.py" > "$root/bridge.log" 2>&1 < /dev/null &
+echo $! > "$root/bridge.pid"

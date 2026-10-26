@@ -1,0 +1,1438 @@
+{
+  "version": "3.0.0",
+  "builtAt": "2026-10-26T14:12:11.624Z",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "11716e9307f52f171fa2ac63b849ba433c2c44ca1752a22137c64471d246dfc6"
+    },
+    {
+      "path": "checksums.json",
+      "sha256": "c0cbafde66a07bbe69e37e71a6c2ee80522dad65c69a6a9a81c6ba459a98e383"
+    },
+    {
+      "path": "config/bootstrap.json",
+      "sha256": "fb98be5fe9b6cfbb7895027582d4c8936fda5ec14b737ae220e5e50e9c19bca3"
+    },
+    {
+      "path": "config/captured-baseline.json",
+      "sha256": "8187879d3a48d05a74736a0ac82ce2721838f0bb84d01bf554d382858340bb2d"
+    },
+    {
+      "path": "config/device.example.json",
+      "sha256": "a522c207569065ca459064776da47799eb4a815649beebaad293bd831eb6c006"
+    },
+    {
+      "path": "config/node-runtime.json",
+      "sha256": "b12f72c85ace3bf23f680c2b6f5c7e70c7b7c3d14a3448fce18babee187e5caf"
+    },
+    {
+      "path": "config/profile.json",
+      "sha256": "8ad6f87fec5760579243439bc7df8bf3f01b0d1ed946a3da1172a6016a5fe0b0"
+    },
+    {
+      "path": "config/weather.json",
+      "sha256": "50758ad5ffbf506042f5f61b019ec3430d20470b00ee0fbd056af09a9c1ca3e2"
+    },
+    {
+      "path": "docs/CHANGELOG-v2.md",
+      "sha256": "993dd5e8e634f329cb86a4e1b1a00de9bf139369389ae318be0e187eb7b7833c"
+    },
+    {
+      "path": "docs/KHAC-PHUC.md",
+      "sha256": "cefd663a25f82b8d2ed915ac96ee48333c074dcb8fb9b53335b0e933bab3ad4b"
+    },
+    {
+      "path": "docs/KIEM-THU.md",
+      "sha256": "99f3579ea1344e38bbe2e0ab944833cb0fe041f41cfeb6f5f529ebf1d48e61f0"
+    },
+    {
+      "path": "docs/ROOT-LAI.md",
+      "sha256": "d5f4284dcb219b9c3d69479527e67bc9005117a56b8253577b75e9347b430ebb"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "773937ae91696b74af5a7e1ed821089fbb48f4d654e2c8ebd32ac306f8ec0ac2"
+    },
+    {
+      "path": "lib/advanced.js",
+      "sha256": "f22d9a3e454da368e8375a78a08dee99b2fa55e310101097060719a7c7dbe1eb"
+    },
+    {
+      "path": "lib/assets.js",
+      "sha256": "6cb842c503c848f8c096dd901177a45fdec28d3b8486ef87e9770ceb59c7c4fb"
+    },
+    {
+      "path": "lib/autoroot.js",
+      "sha256": "2231339be832c1d78bd4d1083ead66a934aa6100187326fdbcb2719435953b14"
+    },
+    {
+      "path": "lib/backup-reader.js",
+      "sha256": "5f237fce67ae2b5460a2e936eeb3a891a4ee52f9c8d946c60cae3d3aa8113b6c"
+    },
+    {
+      "path": "lib/local.js",
+      "sha256": "c893492e2d2b01d6f76647b739b1f7a48eff3860fdc5436967f1455c6d6f46b4"
+    },
+    {
+      "path": "lib/provision.js",
+      "sha256": "090badd20c0d1a4ff7b7318a110b62a7e4a5685f16159dd558f9da026de9b6be"
+    },
+    {
+      "path": "lib/ssh.js",
+      "sha256": "0257c5634ee3d2188f1e3a0072a1006da4e1ddfdf7f01c7cf005b5d88d1ab16d"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "1393062c68b63c158e1d579ad71b6043733e95cd8dcfbe1fdadcb8c1b87d2e8e"
+    },
+    {
+      "path": "node_modules/.package-lock.json",
+      "sha256": "ff00d8dd31d654846be7b4dfb3c0a90e12aecd5c31f749ef53e160bfbaa27daf"
+    },
+    {
+      "path": "node_modules/asn1/Jenkinsfile",
+      "sha256": "53d887b9847a68726f6e753be54a7b91f31e20767102b14b27073b15d77eb14d"
+    },
+    {
+      "path": "node_modules/asn1/lib/ber/errors.js",
+      "sha256": "9408a1b48a19eb728cf9ed781b90bc03ddd111d88156d5b5913ce9b837487164"
+    },
+    {
+      "path": "node_modules/asn1/lib/ber/index.js",
+      "sha256": "8da323efc9ac8f5bb3b5fb4f067ca272796b31610c015f36762933551f04594b"
+    },
+    {
+      "path": "node_modules/asn1/lib/ber/reader.js",
+      "sha256": "5d0d7ec2de73921f0bff71872610488b30936b8cc4c98997966224c463046bbc"
+    },
+    {
+      "path": "node_modules/asn1/lib/ber/types.js",
+      "sha256": "87c9fbe37ac7a2c83726a952881efd6829dc3a9dc7a1e9e485a9201cd7714c13"
+    },
+    {
+      "path": "node_modules/asn1/lib/ber/writer.js",
+      "sha256": "839731c9473b8c4faf09db9411a6d149bc365a6bde239c80e5993ed63a134878"
+    },
+    {
+      "path": "node_modules/asn1/lib/index.js",
+      "sha256": "4db109c1c247a751645717e696e04eab975eef06bdf4713a16e81efc63575d87"
+    },
+    {
+      "path": "node_modules/asn1/LICENSE",
+      "sha256": "f4b6bd1a9437d0f66ff46d8f4dca185c31a069ba11e437f3b8506ec4424be9cf"
+    },
+    {
+      "path": "node_modules/asn1/package.json",
+      "sha256": "9931ef8d2e8857b7be3cc1fb13af4c943165046fe66337a8d7fec50fee8a5764"
+    },
+    {
+      "path": "node_modules/asn1/README.md",
+      "sha256": "1f964fb2873218cc81366ef235e99182f0ea8474228c1e4eedcc92cc71ce4d4b"
+    },
+    {
+      "path": "node_modules/bcrypt-pbkdf/CONTRIBUTING.md",
+      "sha256": "c917b9f83eaacd96a019958017dd11a4d9a7b5e985d8b542069fd168652913b2"
+    },
+    {
+      "path": "node_modules/bcrypt-pbkdf/index.js",
+      "sha256": "e1589c001f45f4cd8bf569b92a585b48f73e8b85b97302a6e56dfcddb38ce17d"
+    },
+    {
+      "path": "node_modules/bcrypt-pbkdf/LICENSE",
+      "sha256": "b5f71fac3ae50115c65ee70551bdbaeed89b4f7a76ac36dc8c576e3036bcd604"
+    },
+    {
+      "path": "node_modules/bcrypt-pbkdf/package.json",
+      "sha256": "06fc161a503054580e1e975c384436da3901ee5c6cbd9a29454947c669fe8890"
+    },
+    {
+      "path": "node_modules/bcrypt-pbkdf/README.md",
+      "sha256": "499c20327ec3eb313a97b5b057e863c3f035ae97fcfb0f36056f59e9bd507193"
+    },
+    {
+      "path": "node_modules/buildcheck/.eslintrc.js",
+      "sha256": "df85748adac0bd2d13fb6f3b3833d3cda0429e60296a111057dc05fbe3b00025"
+    },
+    {
+      "path": "node_modules/buildcheck/.npmignore",
+      "sha256": "a0721cc448e2cf546e6b259138d2fcab70efd435bd828ad6002a4f1529ce54c9"
+    },
+    {
+      "path": "node_modules/buildcheck/deps/Find-VisualStudio.cs",
+      "sha256": "bdb19763c5d23fab534ddc945f64c4cd956584eac934f0bed96c536d3fc53502"
+    },
+    {
+      "path": "node_modules/buildcheck/lib/findvs.js",
+      "sha256": "0cfeabffc073e77d4b11b9ef369266abda2f00b8a208fd1ff4f83cabeb0bc19d"
+    },
+    {
+      "path": "node_modules/buildcheck/lib/index.js",
+      "sha256": "fea36b83d82f627dce30f29ab6aa5d7194b0a619f50bce394b6344b64bae5365"
+    },
+    {
+      "path": "node_modules/buildcheck/LICENSE",
+      "sha256": "d06b5d27bbbbe22c36b1fd88406b1208876e2d37d795f5b8eaed951a459a3111"
+    },
+    {
+      "path": "node_modules/buildcheck/package.json",
+      "sha256": "8595d74bff1913518d2a2f9205edd42ab9392f51479a195df5a1cd0996d9ac62"
+    },
+    {
+      "path": "node_modules/buildcheck/README.md",
+      "sha256": "2f4645dc768ff7f72c1cf9334063cb7744dd9416033fb8b2295c14cf52194d50"
+    },
+    {
+      "path": "node_modules/cpu-features/.eslintrc.js",
+      "sha256": "df85748adac0bd2d13fb6f3b3833d3cda0429e60296a111057dc05fbe3b00025"
+    },
+    {
+      "path": "node_modules/cpu-features/binding.gyp",
+      "sha256": "464d1b00cbeb76f6a8d07ba6a049e36fdacbddfaacdb1bb49a0c9eef00c6da44"
+    },
+    {
+      "path": "node_modules/cpu-features/buildcheck.js",
+      "sha256": "69bfa1f857933ea2059ae67eba3832f9b1604519996541a530174839eecd5ee0"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/.clang-format",
+      "sha256": "cd25bfb8127eecadfc680968435b58abde752791866cdd80e4030bfac9e39cfa"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/.dockerignore",
+      "sha256": "c9d3ae1f17de303abbee13f957129402f79b0ebababc175ac4c9fc9670593356"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/.grenrc.yml",
+      "sha256": "a1c1175df21f002cbc1e1ea9978cec55aa06ca4d44f3a4ef0b3dc011202a4c94"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/.npmignore",
+      "sha256": "a07509e963dc26bb611bb420fbfbdcc3c70a46ab1f0eda79aa769cb03622fbd7"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/bazel/ci/README.md",
+      "sha256": "0ad23eeebc57ebe55e8377615258ba2ad79af54c5fd5cb395fd8c02c41da92f9"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/bazel/platforms.bzl",
+      "sha256": "72fa63f0feb9b65da3745e6cd4a252797d37d1df348a3b184337f5aa42102b90"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/BUILD.bazel",
+      "sha256": "34c63e24ec5299a3cb1cd0ad6b97e2f0801158efd0efbeef17ae1ced06ba3e71"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/doc/docker.dot",
+      "sha256": "0426787a95f70006ffef1c1b881c6e857d7adf84abd7b3c2e26368eb7509f58c"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/doc/docker.svg",
+      "sha256": "2e5f44b2f1fd39d4f7b136f3d327f9c7fa3f1669fbed4a91833319a1a679977b"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/doc/generate_image.sh",
+      "sha256": "debb342125c2a4f9c53d8bfe2924b862ff22ce298709614f63a0fec348690f19"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/docker/amd64/Dockerfile",
+      "sha256": "916e8b8a8ed393bb3955b986f96d58e30fadf35b0dd5d13aeaafcbda5ab93392"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/docker/toolchain/Dockerfile",
+      "sha256": "f2ea6b990345ed10a4dcb14a2e6124f1585f623cee6a1ab1a5a3fd69c49a7e4f"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/Makefile",
+      "sha256": "e3625bcca471894e5bd534b0a95e956ca8f8363d0b573133f9ef2f21cdcda994"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/README.md",
+      "sha256": "08c0db85f13f3b3e38248a684fb21a1f66d5a2e39500fdf4e5e9964d2b7058e9"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/sample/CMakeLists.txt",
+      "sha256": "da1b8787d87e97eaea85417dc58e9b68b273eee5262a3b97c90db5d99f19b4b6"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/sample/main.cpp",
+      "sha256": "b4a8cb688aada97fbb1fa24bf6c8ef24bf2b24b4b3f8829f63b04f46f24c1646"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/ci/vagrant/freebsd/Vagrantfile",
+      "sha256": "3920f312fe4c4f17405921a9ea25e102362ec55f5dd67eb3c99fe4e35352f882"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/CpuFeaturesConfig.cmake.in",
+      "sha256": "b5fc45ee49bdbffdc602892c5063f827e280c6ca26d4dbec320a0cacefdf0d7c"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/CpuFeaturesNdkCompatConfig.cmake.in",
+      "sha256": "8665646deb58ba8f9b42ab058fbe345f95c43be8c9e826ab477edca9929c0276"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/googletest.CMakeLists.txt.in",
+      "sha256": "9a778386a3d198afd7119c587f6f70f788dff0e61cccdd73ca26f4bcbe659ac4"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cmake/README.md",
+      "sha256": "273aacc7d3dab4f4ff444b751e58a1a90f243fe8db7316a46c995e6f45856945"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/CMakeLists.txt",
+      "sha256": "073745e7eb1dfe8194d2d79b6f64d7f089dafcc9b59d28f57879104a397f6b94"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/CONTRIBUTING.md",
+      "sha256": "a8cf9af75c89c31372be3c69613533e0a98379b81bed84ed0f5abb5677678c30"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/cpu_features.gyp",
+      "sha256": "e9f3ff9f05577ffe3b8363fa71861842cd038df9ad966e361227632e05055b55"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_aarch64.h",
+      "sha256": "19658304aaccba251a5a971f4918f3b15288f65fe7cefe4bb89d908b70b87933"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_arm.h",
+      "sha256": "97a6ccee97fa06cd91a66c1e49cf679b059ba85d04f27d84564082fa9ecdc715"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_mips.h",
+      "sha256": "b7169d8b24ed76d192449e0377b9279ac4255d3c5819ab7fe3b7476013b49d92"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_ppc.h",
+      "sha256": "defd6bcb8739c2865f72e437cd79790564e0b152ebb7f71caea0c373ab807fd2"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_riscv.h",
+      "sha256": "0fa06f542ca0214c7b260e662ea352d4dc7992924800457c4f61f60310da9e0e"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_s390x.h",
+      "sha256": "ddaefedf6f01e68fb8e76b2aae85a26ca98819b0bcefab54d1d4f0d6f204f366"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpuinfo_x86.h",
+      "sha256": "c48393860d65580d6a06e8ae9c03caf8abc71f9cf044c198e55c083f491adea1"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpu_features_cache_info.h",
+      "sha256": "6d9d7456fd182d598a10d098f6f5f9ba0abc9abcd1849088adb07c5ddd8653ab"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/cpu_features_macros.h",
+      "sha256": "3c94fef7c305b6886c1356aca96f73fdc22586ca2ad926bec9688e3938fd4666"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/bit_utils.h",
+      "sha256": "866d308bc0dd754b836cb37d062cb687b2e835c04f111bdbfc313ee06731eedc"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/cpuid_x86.h",
+      "sha256": "daaccb823289f9c9b11c78066895b5d18904eb27619584a157077b679ec13d29"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/filesystem.h",
+      "sha256": "fa89e83792ae259a458e3e43c11195de367be0db97747676ac579e9556028f63"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/hwcaps.h",
+      "sha256": "95657ac7fc32748a9ace7bce66e11b96925d9279aaac959b5f28ad89cc8c017e"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/stack_line_reader.h",
+      "sha256": "23f7e45950e27802a2c15fc77aaf92a9f1a97571db8bf75bfc5aa9f398571ff9"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/string_view.h",
+      "sha256": "be910b66b0693c691c8c15cb83ae436b0aad6865f9b03d33d108c398e5adda00"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/include/internal/windows_utils.h",
+      "sha256": "a359d4c914dfd18c8b02b101276afae2606b825e31a28f3a06b60f1c5d103fc1"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/LICENSE",
+      "sha256": "af272c1b4dd08dd61d43e001d3134119d03ca7a2b057a64f7355fdf27fbea3dd"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/ndk_compat/CMakeLists.txt",
+      "sha256": "2f012871958b162f54c0f03b782bba03a729a2d8354cbc718056938e7e229074"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/ndk_compat/cpu-features.c",
+      "sha256": "9e8f3e26e30085d007d04c25983e0db39c6a77e1b80d11e1f1a5c3d1967ce4fe"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/ndk_compat/cpu-features.h",
+      "sha256": "0cdf2c0ddfbf125e022f0d7a69965975b4c9861eda898bad5b0fa9627eb34229"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/ndk_compat/ndk-compat-test.c",
+      "sha256": "9ba64daf56af38e72ef407060755a30c7257c6909249eb61ad962f348607c8fb"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/ndk_compat/README.md",
+      "sha256": "86ea69fc248fe1f7f69ef4827c1a15f54035f6dcf08a13135878ca98e8f81319"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/patches/0001-Add-Apple-Silicon-Support.patch",
+      "sha256": "a31b912f63cea87dd6c3d21cd2b6822f982676316a63a2a8d4ec8a99a95472e8"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/README.md",
+      "sha256": "0f825056a2fecd9b10ba6af3f6faf702fe6b402d68b7e0182854f6e9ff591e92"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/scripts/generate_badges.d",
+      "sha256": "a741a15db1297e253f61481178ccd1d4e5052ee65541137b730342070c96d718"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/scripts/make_release.sh",
+      "sha256": "98fbb6633c72414462d3328e1c9e3dc56559aa525beae5de62d9c8f2c6209caf"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/scripts/run_integration.sh",
+      "sha256": "2acbcf066d2b20c398b9a02b6f3eb11592396c41b5a19981aa660b8af74edbd4"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/scripts/test_integration.sh",
+      "sha256": "6e59badc2f3a0f709b886e6f0901758a48f68f99b9facc3cd090b9eb96b3fce0"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/copy.inl",
+      "sha256": "17aeacabd35a380bdda0f713ec2332b84b31ffcc12cab68b55008e63931aec33"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/define_introspection.inl",
+      "sha256": "502cee0d1cffe99bd4a8863d577b372e2cb5a370fdd2f6f1990f8cdf20a3cdbf"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/define_introspection_and_hwcaps.inl",
+      "sha256": "d179a7239204f9e1b4f25b74c7950edb7fa5ba65197011fef3846522f8014c33"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/equals.inl",
+      "sha256": "8b84162d9e1f05d28490d67f12f1ae6b7d78e8103396726b2384048238cf6c68"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/filesystem.c",
+      "sha256": "ba6a9ce5c4f3a810fa4e9407b8dc21e6314bc1b6a7399c4c349e52f87aa5c3eb"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/hwcaps.c",
+      "sha256": "3761e1ee3566acd5fc3c2737cf75c63b3e134e340d7d09c60d4c0ee5a5aad892"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_aarch64_linux_or_android.c",
+      "sha256": "f352cb5a9ac66e00cbc0addb0d962746586128f883a27a9d8ea488b5b0cf97aa"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_aarch64_macos_or_iphone.c",
+      "sha256": "7313496fec1ebbb4ee86cdef502f1f912ebe3aa3df3e1e6cc9af1bbf609093d0"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_aarch64_windows.c",
+      "sha256": "a00d032157940b05e79ac4f2202229fff52c818a270d7550ea94bbf43f331f60"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_aarch64__base_implementation.inl",
+      "sha256": "ec2100f6dead0dff18bbbcdc86440df36389fd9ae3329abbaefde8410a4b3373"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_arm_linux_or_android.c",
+      "sha256": "09622942aa099565fb1b400908c8dc16f863e70ca5e5e3b867731ace40a38039"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_mips_linux_or_android.c",
+      "sha256": "a7430a4c310c3802e2e55a5b8373434ec1e42289188e69f21e5af3fd1fea8412"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_ppc_linux.c",
+      "sha256": "221d909ed3d426a63f2a94660cea4233b41a78f9e299a10d3d6bf33626425b52"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_riscv_linux.c",
+      "sha256": "5777a6ecd1b3867f3df85d5cc54f01511429f328e94095b884c0733605761954"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_s390x_linux.c",
+      "sha256": "1fb582bc463e9ac926c6348f579437c842d11837ba97847e8f32dfc507b854ff"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_x86_freebsd.c",
+      "sha256": "28ba193941e6d76c523771e9ef6bbe8b975a3b164062484dcf6bf41bf4bb88c9"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_x86_linux_or_android.c",
+      "sha256": "49b9afa41966172cf7e37412b80b37cacfaa419e597387c86d1af0556d29aaec"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_x86_macos.c",
+      "sha256": "06ed5cd7bbfdda099fe8559584daf138c44392b9bb53c22468859eb203abe628"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_x86_windows.c",
+      "sha256": "fe4b6730f132d842475545f274cb1b4ab8378546e9f7c03bfaf761a65db4a005"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/impl_x86__base_implementation.inl",
+      "sha256": "404fa4d7fb20532133a2d675b77062057636fcef8a1890c5a683c0204e351885"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/stack_line_reader.c",
+      "sha256": "5bfffd626483cf0ba6739641b9a0051b31d78bad2da7d639bfb7422867129235"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/string_view.c",
+      "sha256": "2dae10784257dddb3c78bf4066d6509e1916821f4ec249f493969fab3f62bf55"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/src/utils/list_cpu_features.c",
+      "sha256": "f756bd53642c97b6eada5fe7979af80f7b4a9f3b0cf5ba090284d4433ae1b22d"
+    },
+    {
+      "path": "node_modules/cpu-features/deps/cpu_features/WORKSPACE",
+      "sha256": "6fa2c3ea88550b1952fd5bc88c77fc09c9a72da643e7ff0b328e0acab841c798"
+    },
+    {
+      "path": "node_modules/cpu-features/lib/index.js",
+      "sha256": "fbdd49dfead22e1fbd0cfee47457dc343d3a5950092cf7922a671b2d40595771"
+    },
+    {
+      "path": "node_modules/cpu-features/LICENSE",
+      "sha256": "7c28463b739e2e73a49bf127d0bda427f8c55f0b37365a044c3c3f254716118b"
+    },
+    {
+      "path": "node_modules/cpu-features/package.json",
+      "sha256": "c47e0020f5434c5b87b7a108c07fd7042656c2524ca2387c4b132adde52fa985"
+    },
+    {
+      "path": "node_modules/cpu-features/README.md",
+      "sha256": "adda64d9b1aed9c060738fdcdd628e534deefa5c7bda1456a28dbd1cfa7fb3d7"
+    },
+    {
+      "path": "node_modules/cpu-features/src/binding.cc",
+      "sha256": "58d27bee5e4421269f75d65fbea5555d50547e331cf99665eca3a404f23e34c9"
+    },
+    {
+      "path": "node_modules/nan/.pre-commit-config.yaml",
+      "sha256": "a70cfad83aaea29ed7be8c8b6c45ed6ed2bad70be55b7d3c5fdd793a33b7afbc"
+    },
+    {
+      "path": "node_modules/nan/CHANGELOG.md",
+      "sha256": "68cf2e93b304591218583e11e5e19fef45037ba62acd57fac0337a3f67b5f392"
+    },
+    {
+      "path": "node_modules/nan/CMakeLists.txt",
+      "sha256": "867b5468b4876acca6feceda80ac58dbfed09e9e414b6355ff1bce6fc33ecd46"
+    },
+    {
+      "path": "node_modules/nan/doc/asyncworker.md",
+      "sha256": "8899c8dd17a770c6464c17521f6e78de83eddc3009d07194e88c021afe1c63f7"
+    },
+    {
+      "path": "node_modules/nan/doc/buffers.md",
+      "sha256": "b0729c1f183d135e7720e4a04cf060dbeba7d86454a75454018949b5d38ba403"
+    },
+    {
+      "path": "node_modules/nan/doc/callback.md",
+      "sha256": "1e0a33a866a7fee7a2a036f93982b2e57ed8ed6885d94a559856baad3ab4e45f"
+    },
+    {
+      "path": "node_modules/nan/doc/converters.md",
+      "sha256": "5729d8ec9ac3f745b3599e773248a667de73176f2c11e5f79678b1af5ad652b0"
+    },
+    {
+      "path": "node_modules/nan/doc/errors.md",
+      "sha256": "87a6d68a696d1270d6bcbbe4554ba3f880b5738f30ab0f74b0dab9b1d4b62f7f"
+    },
+    {
+      "path": "node_modules/nan/doc/json.md",
+      "sha256": "2ca07b2c8582c9cd774e04db3ba433ca074df49353a30345a11227ee9ce49e68"
+    },
+    {
+      "path": "node_modules/nan/doc/maybe_types.md",
+      "sha256": "ef82717e77c8da7d5d3ecbcf84b4e57d7ace120a969988de3c4ddb2792ef6fc4"
+    },
+    {
+      "path": "node_modules/nan/doc/methods.md",
+      "sha256": "883fb171fa3970d5e091b78c2ef0453426f6de0de67fa47e1d4186a8183f236a"
+    },
+    {
+      "path": "node_modules/nan/doc/new.md",
+      "sha256": "27a7478fb2d2e907b27431db232276add7f17a9a9b4d83a58c087e57494332bd"
+    },
+    {
+      "path": "node_modules/nan/doc/node_misc.md",
+      "sha256": "7a356164d3e282bc69713f4b5905c5ab6f7a92fe1461d8c7bf4d413b3efdcbb9"
+    },
+    {
+      "path": "node_modules/nan/doc/object_wrappers.md",
+      "sha256": "06a59cd59a0d6e75a9c4588df69aac843c39ace9b24001f999c0d570fd8a0362"
+    },
+    {
+      "path": "node_modules/nan/doc/persistent.md",
+      "sha256": "f02866d69e105cc6cab69cbe9d1246352da40b56d253fc3f13065d0c6e4e23d1"
+    },
+    {
+      "path": "node_modules/nan/doc/scopes.md",
+      "sha256": "33cde5199d3d3b6ac4d8e73261ac23a6941db2ede7a8427d73e63b198e323811"
+    },
+    {
+      "path": "node_modules/nan/doc/script.md",
+      "sha256": "3dbefed20733372f194502cf91d8313c836bb6aab3314deed5db81bd71ab577b"
+    },
+    {
+      "path": "node_modules/nan/doc/string_bytes.md",
+      "sha256": "99230ecfddbcfbe9f00b7781ebcafd181b4b72e4a14fbc390b54fcaa22da2cb1"
+    },
+    {
+      "path": "node_modules/nan/doc/v8_internals.md",
+      "sha256": "0f6b1f49743b2e6eb877cbaab729d7377699631d866f0f69f906ef6b305256d0"
+    },
+    {
+      "path": "node_modules/nan/doc/v8_misc.md",
+      "sha256": "58a371b74df52c2499abef3e19c7f307f3d2a678138cda8f9b4a91ef5d2916de"
+    },
+    {
+      "path": "node_modules/nan/include_dirs.js",
+      "sha256": "c32b11511aba771a4c6765de2c73be416f205316ca9f37283170627e778e8d65"
+    },
+    {
+      "path": "node_modules/nan/LICENSE.md",
+      "sha256": "95d152af7a776fba93bd795d3235d478cca4a207f8e1475fc9a3d71d28964c39"
+    },
+    {
+      "path": "node_modules/nan/nan.h",
+      "sha256": "8297d78a42a4f4c99c296a31b873aee89f3386303206c3af472ff826c7322e02"
+    },
+    {
+      "path": "node_modules/nan/nan_callbacks.h",
+      "sha256": "4fb3cb6a3dd382f1ad4a3959ddf9823b7bca23ed43d132b1f5026ea268f05eaa"
+    },
+    {
+      "path": "node_modules/nan/nan_callbacks_12_inl.h",
+      "sha256": "9f1ef6aa3e3e0f6b0c1385e1639e86e7bbe681022ae8f1cb83f5c9222687cf81"
+    },
+    {
+      "path": "node_modules/nan/nan_callbacks_pre_12_inl.h",
+      "sha256": "cbb14b37b34251aa13d9024a3ad6b7f70469902d8647fd182c25996a82f27f4d"
+    },
+    {
+      "path": "node_modules/nan/nan_converters.h",
+      "sha256": "6e92e34bb6915434f8093d80db908929984222dfd6b5ce70095fa9400a196154"
+    },
+    {
+      "path": "node_modules/nan/nan_converters_43_inl.h",
+      "sha256": "7045e630e82c24629d8dfeaa375b4fb471dd24b6df72fb2b89d3803c41139e9d"
+    },
+    {
+      "path": "node_modules/nan/nan_converters_pre_43_inl.h",
+      "sha256": "5c2eaa295ec1caf3f3ef319b785b436b3e0bd2c4440ff576b5aba82d12262394"
+    },
+    {
+      "path": "node_modules/nan/nan_define_own_property_helper.h",
+      "sha256": "cae6c4f3bdba55e362011702976075a8f23c2b555fdbd22ea0a90d3ac5572a20"
+    },
+    {
+      "path": "node_modules/nan/nan_implementation_12_inl.h",
+      "sha256": "344a228c571a22fbf501a3c60bdeedf5dc74ee00f87767ef0a2158d9dd2237b0"
+    },
+    {
+      "path": "node_modules/nan/nan_implementation_pre_12_inl.h",
+      "sha256": "09bcabcf7d99588c375545a7e6862374e717f5bdd7f6387b2c76377863b7817b"
+    },
+    {
+      "path": "node_modules/nan/nan_json.h",
+      "sha256": "db8990e9fd1c1fef3a354f9e8ecb0830a41be9ac5f6754af520252f513c046b9"
+    },
+    {
+      "path": "node_modules/nan/nan_maybe_43_inl.h",
+      "sha256": "da4e3b969814ad805d6349a10fca375223831c58437a5950e43592d32f26b1b3"
+    },
+    {
+      "path": "node_modules/nan/nan_maybe_pre_43_inl.h",
+      "sha256": "7f58c0a422e6aad77d952b9a924dda5fb579463ab0d5dc2dc77ddd2e94417d24"
+    },
+    {
+      "path": "node_modules/nan/nan_new.h",
+      "sha256": "11fbc38eb49cb6f3c142022c5b47bccc6a18047ad7d509af011feee48f02d7fd"
+    },
+    {
+      "path": "node_modules/nan/nan_object_wrap.h",
+      "sha256": "57cf6cd941b4a807bcbe69d3555bcefd0dca0ec77f459ad77dac07b491f063d5"
+    },
+    {
+      "path": "node_modules/nan/nan_persistent_12_inl.h",
+      "sha256": "f720e2e961664e897bf8e82d9181d810f0cb681a7e7bd5b8200c55649d3f02b2"
+    },
+    {
+      "path": "node_modules/nan/nan_persistent_pre_12_inl.h",
+      "sha256": "f502353164d1538f8059c2cf999e55fa462e38cdb15ae97f94af0aaed51e58d2"
+    },
+    {
+      "path": "node_modules/nan/nan_private.h",
+      "sha256": "c9a7b80803ee292a0e89ea40a5afffd21f2c5af387ddec405fd215e8dd3d60f7"
+    },
+    {
+      "path": "node_modules/nan/nan_scriptorigin.h",
+      "sha256": "e21a9796a94183a29bfe9ccd000dfc187a0e4586e91236da42cc56f30dfcd203"
+    },
+    {
+      "path": "node_modules/nan/nan_string_bytes.h",
+      "sha256": "e06ce2cde16826c454691f8f310c3562ddc0d560f132db2fe61b3cb6dd29f101"
+    },
+    {
+      "path": "node_modules/nan/nan_typedarray_contents.h",
+      "sha256": "13753e3ee8f62e602ee572861bc6a3b0b33fe288d3b65a96edea12fdb02f67f0"
+    },
+    {
+      "path": "node_modules/nan/nan_weak.h",
+      "sha256": "4cf8896fd92bce0b0732f57291a882e464f2784f186c7aed0df9f4e27672c5af"
+    },
+    {
+      "path": "node_modules/nan/package.json",
+      "sha256": "8bb09416f39989970b9d873c131836bae1460a1bb764469baa56d98996f1a12f"
+    },
+    {
+      "path": "node_modules/nan/README.md",
+      "sha256": "d1d175a6a12c2375b79d5c7f816aa45c811eb67f373e60a6b652a3285505b621"
+    },
+    {
+      "path": "node_modules/nan/tools/1to2.js",
+      "sha256": "1805f1f8810ce080b0fdc472bc792fcb55a6e8a04e257cc011bc12013a1a80b4"
+    },
+    {
+      "path": "node_modules/nan/tools/package.json",
+      "sha256": "26c59824a231aa81659c1d72c0a359e271889881218212ececcd4b393dfe13aa"
+    },
+    {
+      "path": "node_modules/nan/tools/README.md",
+      "sha256": "a5e5b621d84fb9b98c84d5276f0b14ac022b752d2258388c2a1f56af7d830859"
+    },
+    {
+      "path": "node_modules/safer-buffer/dangerous.js",
+      "sha256": "1dc2900bcc8ffc375af0d2fc99a03ecad2dcbb85d278fbf26982e87707bea53f"
+    },
+    {
+      "path": "node_modules/safer-buffer/LICENSE",
+      "sha256": "4bc935e71be198c67ddf3c2b5fddb195f6edc182bfc155a96a6db61b44b494b9"
+    },
+    {
+      "path": "node_modules/safer-buffer/package.json",
+      "sha256": "4247a3a63c45a6a7ced1557fe4dd9d2a163af4915d594b95e5867b69a53edb52"
+    },
+    {
+      "path": "node_modules/safer-buffer/Porting-Buffer.md",
+      "sha256": "134523d05b39e177135c2a2070a426eb319657dfc77589e38ef7cf13cd50e730"
+    },
+    {
+      "path": "node_modules/safer-buffer/Readme.md",
+      "sha256": "d4331b7c5af9c02161150daf9451ee6bc7a73ece3ec0312603fae09f46a817d8"
+    },
+    {
+      "path": "node_modules/safer-buffer/safer.js",
+      "sha256": "37f9716144105051ab302f6a0c30a52ff5de7269b9e1173ac22be798fc11ccad"
+    },
+    {
+      "path": "node_modules/safer-buffer/tests.js",
+      "sha256": "511906fdf6a233c84a9216065d1701dbfd84f380fbd495ae1cf5a002370b9885"
+    },
+    {
+      "path": "node_modules/ssh2/.eslintignore",
+      "sha256": "e32f444e9b9da9883e7cc37eff35c03da954f7c85c1388e0922aa5347193ae2d"
+    },
+    {
+      "path": "node_modules/ssh2/.eslintrc.js",
+      "sha256": "df85748adac0bd2d13fb6f3b3833d3cda0429e60296a111057dc05fbe3b00025"
+    },
+    {
+      "path": "node_modules/ssh2/install.js",
+      "sha256": "52c970cf01ed6e93f04300a2e9f68d1b9a00a4d0dcfaa77aa5d520fc8e2a0a73"
+    },
+    {
+      "path": "node_modules/ssh2/lib/agent.js",
+      "sha256": "cc6987488bf45f73e0ac5d8bbe59912b70a144cd73b53c83919f188f4cc3f2be"
+    },
+    {
+      "path": "node_modules/ssh2/lib/Channel.js",
+      "sha256": "53e92988a025009b192b72be110bd240b5653f88dbdec93e515e3e401e7f94aa"
+    },
+    {
+      "path": "node_modules/ssh2/lib/client.js",
+      "sha256": "edd3484daa9d942bc5a6412edc9cf11f85df40b2db10b07877bbfe694beac7f4"
+    },
+    {
+      "path": "node_modules/ssh2/lib/http-agents.js",
+      "sha256": "477d34701116572f2af06ac545994f3e2d2f14b26c5ae76bff2b13de2289339d"
+    },
+    {
+      "path": "node_modules/ssh2/lib/index.js",
+      "sha256": "27e942aba52a13d7b72a846a4b3fd98d69b65431725b651e7523b74499a2ed26"
+    },
+    {
+      "path": "node_modules/ssh2/lib/keygen.js",
+      "sha256": "03d0be43e78ca4f82d4c96d084a39c0242f9c56f343da17a819f8bd0d873f06c"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/constants.js",
+      "sha256": "a3894fdd8e294109b55f06fbda69e467741f15a250801b744b6b0487bbf32529"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/crypto/binding.gyp",
+      "sha256": "174aa22357a2e6b6adcf77b16b0aafb579c558d5a067ad909877ecf95b7ddce3"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/crypto/poly1305.js",
+      "sha256": "55a579ed6a30022054fd1dd822b1b49e2fc51bfbdfa933bfe441de8b7e4dce40"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/crypto/src/binding.cc",
+      "sha256": "2b976ce86c43b0d2bda5ae104b0fb075b1ad8ecda65c6a0a7979be040475f88c"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/crypto.js",
+      "sha256": "a729d2064e787e2a4589c25a284444fe54a58b7434a4e6e5e8e9c73c6d91e28e"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/handlers.js",
+      "sha256": "b15f990134a4f69b7492d0b875d80d8c28228907045619b01ec30871ac711df9"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/handlers.misc.js",
+      "sha256": "8927c504c3c338187f36f0304a3452d6396ec9fc907af3db2be46a5f175c36a1"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/kex.js",
+      "sha256": "054ba4b81801596350f0e2e939746d2966297cffd4303b342c25b2fd5d295755"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/keyParser.js",
+      "sha256": "ba4f40a5a9edef15ff49a38226e2be2e66f75aa2673840dd18b807bb7943eca9"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/node-fs-compat.js",
+      "sha256": "d46a25cc158456c4a82b686ceed9a8267dc7d1bb69b6fd1d1f9b09d467951b4d"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/Protocol.js",
+      "sha256": "c1104b49087de7a91cd3ffaac8807c05eebf49f61effd084d0b0caf29fde6af4"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/SFTP.js",
+      "sha256": "615871028340d9be98eb564ab6bdd021fe8ae44a4a25df928038e14e3bc5c201"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/utils.js",
+      "sha256": "402b39e75ede9e3dc99af5e8af008602546f35aa1472bd4232c06f606987f053"
+    },
+    {
+      "path": "node_modules/ssh2/lib/protocol/zlib.js",
+      "sha256": "8cd9f4c1825cbc394ddf9cf076a5ba9195ec255db9e904182ae9c25a1036e2d6"
+    },
+    {
+      "path": "node_modules/ssh2/lib/server.js",
+      "sha256": "128b58ee54cf97a5ae17e18836ff4472de4a5e4e591f2862a5c9ec7f148befe5"
+    },
+    {
+      "path": "node_modules/ssh2/lib/utils.js",
+      "sha256": "bbae8286bc64b049499ce353e8dc4eefbbedefca8f50591432c1057276097aee"
+    },
+    {
+      "path": "node_modules/ssh2/LICENSE",
+      "sha256": "d06b5d27bbbbe22c36b1fd88406b1208876e2d37d795f5b8eaed951a459a3111"
+    },
+    {
+      "path": "node_modules/ssh2/package.json",
+      "sha256": "e6fd4e4c3e69e4ad185c87cb5ee1df631e3f4cbd43cf89470f83c1e5d1a76dfb"
+    },
+    {
+      "path": "node_modules/ssh2/README.md",
+      "sha256": "34038366db735162d2c3138a3d636d3d631bb2de370db468877dbd96ba6f56f5"
+    },
+    {
+      "path": "node_modules/ssh2/SFTP.md",
+      "sha256": "9648b6c7da1b011b5cf2c4505e6bceb09ee11716a61941ae5d7bffa40f4ab95f"
+    },
+    {
+      "path": "node_modules/ssh2/util/build_pagent.bat",
+      "sha256": "a53d135864c0049e1ba1e956a99f31bddaccddb49aebf15b1dc39c0e0fcf2284"
+    },
+    {
+      "path": "node_modules/ssh2/util/pagent.c",
+      "sha256": "6a4825742849e5b1ee0b79e860746e8ceab511ef896d585ae4fc8e50567cfa46"
+    },
+    {
+      "path": "node_modules/ssh2/util/pagent.exe",
+      "sha256": "282aa0848b35408f8aa3caca0d7185d2c79abf1ec07fec8038893d0d4e16b796"
+    },
+    {
+      "path": "node_modules/tweetnacl/.npmignore",
+      "sha256": "fcba86d1ea23147ce7cf18a6db42bbb5b662dac471b39f2085ccb88fbccb36a6"
+    },
+    {
+      "path": "node_modules/tweetnacl/AUTHORS.md",
+      "sha256": "8feb6d2a264181d5c3ec1fd41cd5d70052bb319f7a0dcaf71bd7305eba61c635"
+    },
+    {
+      "path": "node_modules/tweetnacl/CHANGELOG.md",
+      "sha256": "f1eb453cf7365a0cdfe340a93f26d9200336f08e40fe2dbf784d6351a6100d9f"
+    },
+    {
+      "path": "node_modules/tweetnacl/LICENSE",
+      "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd"
+    },
+    {
+      "path": "node_modules/tweetnacl/nacl-fast.js",
+      "sha256": "432333a18cef679d16c71328fcc18cc547e58d7d1c2b880a581b2d7ee4248027"
+    },
+    {
+      "path": "node_modules/tweetnacl/nacl-fast.min.js",
+      "sha256": "0811a2e109217daf3bede7d6d38a55718b214c6ba047645a419bea0d79694553"
+    },
+    {
+      "path": "node_modules/tweetnacl/nacl.d.ts",
+      "sha256": "775da466a05294cc4662acb973858f2c2526456da00139f242df99a75de2b702"
+    },
+    {
+      "path": "node_modules/tweetnacl/nacl.js",
+      "sha256": "f15290381b06a1156f3e9aedcb25d252531f0ff36324e3f56ced190935cb051c"
+    },
+    {
+      "path": "node_modules/tweetnacl/nacl.min.js",
+      "sha256": "a19ca28cbbd3cf50f21d02d699141d66b9c96a11359f4f8b376ca79b44301640"
+    },
+    {
+      "path": "node_modules/tweetnacl/package.json",
+      "sha256": "4d4e7122e483ab7bed48c884bb0de1471d3cb3753e1a334e3aafa3c32c22923e"
+    },
+    {
+      "path": "node_modules/tweetnacl/PULL_REQUEST_TEMPLATE.md",
+      "sha256": "65fe41cbd990b3dd0f7062a6052b8876e221b29e1ed12eac186bf87436e244cb"
+    },
+    {
+      "path": "node_modules/tweetnacl/README.md",
+      "sha256": "b6ca7b2414a48f030af21b9a91503a7be310b9b6d9816701c6d986837409df79"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "dbbd5e37e6bde976047424820029d577a841117b5856bb9809608919499f3f10"
+    },
+    {
+      "path": "package.json",
+      "sha256": "5db3f8fe39e04902d39ca3f332859c0371a38f2108fbba0349522245c4cef105"
+    },
+    {
+      "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
+      "sha256": "147b1f6f3ec6880af0215887c0e0d191cb4d96e78f4853449e0c18960ca3e096"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
+      "sha256": "7161e9a940416a159a6d6ffff40d0cdcc9c38ef4723a0157cffc3bae52f7cbe8"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-home-launch.sh",
+      "sha256": "288b4e78c312f21991fb5f95f6af75baf55ab9d5d5188f433a4ea62d72946ede"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-home-replacement/boot.sh",
+      "sha256": "a429c7cb2ec00789d256f67f9b9f1d1026b3a0541d39e91f42d604b8143cfc80"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-lgws/boot.sh",
+      "sha256": "9fadbce8246bcd99e2fbd24c7a5c1651300968ae05279508f562f88b5ad0d096"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-lgws/LGWS.qml",
+      "sha256": "6ed7caabc534441692fccc64a6836b92a72fabf8b0833c027c708194a286f805"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-lgws/notify.py",
+      "sha256": "e93b2b44cb2596b998eabf8e0008f310adad1ac2a54b1285a5652ef3d84aeb23"
+    },
+    {
+      "path": "payload/advanced/files/home/root/gathin-youtube-voice-router.py",
+      "sha256": "9b664cf1535f830ae1e0a094d0475797cb4362fb33cd0aef47071f5a12f5ece2"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webos-debloat/gathin-final/debloat.py",
+      "sha256": "e9a742cb2d448b918656d264b12ca7ce5273e11428ca0dd92f5592165440e90d"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webos-debloat/kept-apps/optional-jobs.py",
+      "sha256": "7538635922a2fa9a0646a0966099c8c7f5e8a15caa50b1242b2efd419a790c0e"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py",
+      "sha256": "332891faacd35795b80782536305c5d9aa3c46ee8935fb233085d0f8b1143646"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py",
+      "sha256": "9791360ff7d88e9804cfb005925aadcb905902eb3be4c3f2253076eb9e4bd2e5"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
+      "sha256": "0abfd5fcacd9ce56d8099cc30707f0eca8f5f1be1a46c2633f73015a8facc19e"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/disable-results.py",
+      "sha256": "16049cd46d2f84eb6f62ea40b226b43a1e1a03110341c9e099b05353b3d7e570"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/35-gathin-debloat",
+      "sha256": "82c6ff6593987d13d2acc99b052427bde66481f8dcc63cd86c01d8b1d6225e1d"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/36-gathin-trim",
+      "sha256": "74f577728c962a67085f337311bf6d6c8cde57c4203c52b2babc7a1193238fa2"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/38-gathin-controls",
+      "sha256": "3727748ed05aae54df63326dd022c40c3bd912c3194080e9fcd17722cde270a3"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/41-gathin-home-keyhook",
+      "sha256": "41e8fc64e39b8511fdcb0ba1cc16d00bb588ef1835721f48ef433b17f69e2f64"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/42-gathin-youtube-voice",
+      "sha256": "87f3a217c0bc169d557177e23595be026d5395e3d679f21c08c78ead18e4cb96"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/43-gathin-voice-results",
+      "sha256": "89fc406fcdcd3e9843445a234b0b3d6dc537433ad382d90e235b92d90df16ee3"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying",
+      "sha256": "8097a87989e834a823b56a66d1ac06c26cfd723c62a637aa033c80c4acf398de"
+    },
+    {
+      "path": "payload/advanced/files/var/lib/webosbrew/lifesgoodwithoutspying.conf",
+      "sha256": "70b19393ab3b0284a34b641f4aaf195fb8b194aace596e513a89d0cc516d61ae"
+    },
+    {
+      "path": "payload/advanced/map.json",
+      "sha256": "39185cf6ba071daa68110f6b6312f408811763dcd0051bbca6747afbba79da4c"
+    },
+    {
+      "path": "payload/advanced/youtube-userScript.js",
+      "sha256": "8f2d13c2c0060a54f2742292216042d52d9bd296fac699c75397750dfb696836"
+    },
+    {
+      "path": "payload/app/app.js",
+      "sha256": "767c492e00b5f4ee0203f7b4c43643fcd1dd1e803a641f8ce0e71eb2c6328511"
+    },
+    {
+      "path": "payload/app/appinfo.json",
+      "sha256": "ff0775da494c3be82b50a65494de5ea2d2721e4a44c5f29b7b8b93580012cf9c"
+    },
+    {
+      "path": "payload/app/apps.js",
+      "sha256": "de5a34a80ec3581ef1febb8576358ea6b79c7225871c94ae186ea056cb95fd72"
+    },
+    {
+      "path": "payload/app/config.js",
+      "sha256": "3018125341eec3f4516abf2c4946d707240be28c065ee3677d23039586ad2cb7"
+    },
+    {
+      "path": "payload/app/controls.css",
+      "sha256": "9149ab7c87c8294c9d112b76cb950bc9b7887d8fdbeedf46d295ebd781a8ae2e"
+    },
+    {
+      "path": "payload/app/controls.js",
+      "sha256": "da4378e7e230569b0a6aa271a92cf3f71de081e388f74e4ad77cb14164c36b16"
+    },
+    {
+      "path": "payload/app/fonts/Inter-Light.woff2",
+      "sha256": "e111a1e2ad914ccda9179b95e83fb10234dd52a1932e0b93c480476227983fd9"
+    },
+    {
+      "path": "payload/app/fonts/Inter-Regular.woff2",
+      "sha256": "e06f6b1bc553aaea4e4668023ed0ab0a147129c3107f511bc7d03d361b0ae085"
+    },
+    {
+      "path": "payload/app/fonts/Inter-SemiBold.woff2",
+      "sha256": "5cb7103e4e605989afebc03d989c79201e54b21b5183db33981f70db9178a301"
+    },
+    {
+      "path": "payload/app/fonts/OFL.txt",
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "path": "payload/app/icon.png",
+      "sha256": "d3e30036106ef8c85dcf3ddc5af05c97d3077a1c83e984f6396bd6a665548fc3"
+    },
+    {
+      "path": "payload/app/icons/airplay.png",
+      "sha256": "0839262f72af868497225e4eae9f6ed7768ae7935ff207c038c643ae6a58fb7c"
+    },
+    {
+      "path": "payload/app/icons/com.apple.appletv.png",
+      "sha256": "831d0cee733f32ad92252110ff535f07d1586f7a89b5676f959dfbb56d315326"
+    },
+    {
+      "path": "payload/app/icons/com.fpt.fptplay.png",
+      "sha256": "1ea95affbf28add193cb0db50ed534b314db2b93fc0c71a7478339244affab5d"
+    },
+    {
+      "path": "payload/app/icons/com.gathin.tvhome.png",
+      "sha256": "04f21d1bcf6da74f2b4e5f84fb0910f5d3e03ccba638f61f110c3fa7ac8ad1b4"
+    },
+    {
+      "path": "payload/app/icons/com.mytvb2c.app.png",
+      "sha256": "6091b52d526d95971212f201143281a0f5f8b55866697b9c89046e88b308e4d1"
+    },
+    {
+      "path": "payload/app/icons/com.viettel.media.tv360.png",
+      "sha256": "3cadb317482c834753cd470a876f50426dc8ecb46abd71c4edca13602d88f5dd"
+    },
+    {
+      "path": "payload/app/icons/com.vtvgotv.app.png",
+      "sha256": "1b2acba21f517921c36d90631138166edc53a5c1e8933a504af11914e4f93116"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.accessibility.png",
+      "sha256": "6e361ceadca370b2f4accad8fd1b01e27321b514cd503f101d37e66837b0e789"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.browser.png",
+      "sha256": "e10d10873245b58186057668ea1bc659ce49d6ca63b2c9c20602fb3bf71176cc"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.btspeakerapp.png",
+      "sha256": "e385734ddc338653db317358040638e2fe597c0073c2993c3664d836d2053f46"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.connectionwizard.png",
+      "sha256": "9a7d089fcc76baf0525217cf3c9c2c9fc93b84baee4022d74fba9df7f253ef8a"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.discovery.png",
+      "sha256": "80f2efdc6bcfc3792793389e696e1a37165ad9a25a6ad52a27c44199b4f66f9e"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.hdmi3.png",
+      "sha256": "64fc85c7cfebcd06ee8d171f1ae41df368a2da3210b8e544cfca32ce3425a402"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.hdmi4.png",
+      "sha256": "9d191a1bafdca9f4b5add9cc557b711c1148b54e9c23df15525b7e5857125cda"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.igallery.png",
+      "sha256": "eb65675f0d9800fd5a50d9f7beb620d4459f177ba329bc8f2f7788ecd05b9c71"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.livemenu.png",
+      "sha256": "33373a73d2b0b69ba942e9d13844ecc365718c48f3d577b14f21f47e3bf5920b"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.livetv.png",
+      "sha256": "bdd10001627bf499f7e2b9fff57f8365acdc9b0ccc9b65d56decbbdfe397f15d"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.miracast.png",
+      "sha256": "70d3f0d649b74f46ac39987d5467e7e423d47de4c65aedb695436ccf721aa7fc"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.multiview.png",
+      "sha256": "a36a9694edbe2bf580480db58ead8a99995781dc8b82d6e630a32c383b83f0d9"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.music.png",
+      "sha256": "12d7890f38114c7617551921837726e8b9653b06afd5a244c1479e96771313eb"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.notificationcenter.png",
+      "sha256": "f52af8e588af9fbdecf9b611072910c4aa908afe3fa03d3bea080989300391aa"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.photovideo.png",
+      "sha256": "7997d431011478ec4605d7a166e60e4f1171dfc597f5d9a1c95d1a17291eac6a"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.recordings.png",
+      "sha256": "64f91c34cd674b999ff1f15f0eb6ae0404fb2d102f36d068dc80dc77f8a6df4d"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.remoteservice.png",
+      "sha256": "cf783d41dbab1cef4d3950c9dfc39559699d3ce03b9852bb0df1a4c294e589b1"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.scheduler.png",
+      "sha256": "bb9b993b9bac84f353e87b74e50d462a5d173834af977d7d4fbb16838841c531"
+    },
+    {
+      "path": "payload/app/icons/com.webos.app.tvuserguide.png",
+      "sha256": "8af12eeba984bfe1dcd399380f50090d52d27b74b6230ee8a4c4fa1b028deacf"
+    },
+    {
+      "path": "payload/app/icons/macos-airplay.svg",
+      "sha256": "8b595ddae82a20d1698738f07a4b08141f38b5f74bc73f1dcb17570272caca9f"
+    },
+    {
+      "path": "payload/app/icons/macos-browser.svg",
+      "sha256": "efda5360ef1e0877667e286e53506c90b71fdedcecbdf1ce09fdca7b67d17dac"
+    },
+    {
+      "path": "payload/app/icons/macos-com.fpt.fptplay.svg",
+      "sha256": "7349a404351337d435f602bf353c58b0d80324b57501cf776efe10169ab70a34"
+    },
+    {
+      "path": "payload/app/icons/macos-com.viettel.media.tv360.svg",
+      "sha256": "f285be7b0e81f6561b8e32ce724190935a3f39ce0431099828ba59bd56a708c7"
+    },
+    {
+      "path": "payload/app/icons/macos-homebrew.svg",
+      "sha256": "b309e958e5831ee428a1990162a52ab2676f08799885a4ed57fa20e6436977eb"
+    },
+    {
+      "path": "payload/app/icons/macos-netflix.svg",
+      "sha256": "4aeaa9560f5a37466303f79f2121a7353181f41ef81cffbd6487dd4ba8ef9c58"
+    },
+    {
+      "path": "payload/app/icons/macos-privacy.svg",
+      "sha256": "b5aab763fd1ec8577ca99fabe4b7938fbac921c49f8de5f2afae3014a5f57e1c"
+    },
+    {
+      "path": "payload/app/icons/macos-store.svg",
+      "sha256": "af953c0927495edaebb450ea91dd949b0f714a92f3f35f623021e4207c5f7568"
+    },
+    {
+      "path": "payload/app/icons/macos-tv-hdmi3.svg",
+      "sha256": "a17cd384f01c65e06cc416d70335e864a80048ed912e06b1f79b7724d0354541"
+    },
+    {
+      "path": "payload/app/icons/macos-tv.amasian.webos.vn1.channels.svg",
+      "sha256": "8062515d49757106220983b48d972ef3579c1e69a47d19b22a9cdf77bf3dbcaf"
+    },
+    {
+      "path": "payload/app/icons/macos-update.svg",
+      "sha256": "5b32302d4f24070d1cdf7f5be27a7274bb51bc65a47174ae5a37f2ce2ec0a696"
+    },
+    {
+      "path": "payload/app/icons/macos-youtube.leanback.v4.svg",
+      "sha256": "fe3f6bbbbf60cc6128fdfe1ccd0a65dc51cd6273398f3ddfcdd9dd840f3d8860"
+    },
+    {
+      "path": "payload/app/icons/netflix.png",
+      "sha256": "a2f831ceef57ba6e101c203346c280976831f3e4c22605211a0f29c53b5402e2"
+    },
+    {
+      "path": "payload/app/icons/ooo.lew.lifesgoodwithoutspying.png",
+      "sha256": "fc8d8422490fb351751cbfa978f5065f6176f695d6c768bafaebd84e5a89e99a"
+    },
+    {
+      "path": "payload/app/icons/org.webosbrew.appupdateblocker.png",
+      "sha256": "056edb327a90c549da8475f1d3f6e020a5cddfe5fdba72d6f6bae449a0290bee"
+    },
+    {
+      "path": "payload/app/icons/org.webosbrew.hbchannel.png",
+      "sha256": "252d842e64e9b8ec74d506e80913061e226eaaf5a7ce8b00eaebfdb92799e864"
+    },
+    {
+      "path": "payload/app/icons/org.webosbrew.inputhook.png",
+      "sha256": "6eacec93acb87e10c4802dcdf236690cfbea63040c0e9d1110325a41d57a507c"
+    },
+    {
+      "path": "payload/app/icons/tv.amasian.webos.vn1.channels.png",
+      "sha256": "a2e1addfbb3e2d01b11d8cc38541ddeab88d56f36190b10b111c5682810eb900"
+    },
+    {
+      "path": "payload/app/icons/webos.day.png",
+      "sha256": "54505f56ff1c3587d95a5f4bc66e156a312a0d4f783de9a86cd8d6ebfa37705d"
+    },
+    {
+      "path": "payload/app/icons/youtube.leanback.v4.png",
+      "sha256": "b04a9825bcceff796d93b628808cc5e9ef480155bef24af2ddd52c0e703cf375"
+    },
+    {
+      "path": "payload/app/index.html",
+      "sha256": "a978b3ed42219fc263fc4876781ce2faf2dede9e078c994576e5110cf4fd9168"
+    },
+    {
+      "path": "payload/app/largeIcon.png",
+      "sha256": "325a231b6d01cff26545b47400ec3b45e7b1b7b0148ab9fb9e9e1df1266a939d"
+    },
+    {
+      "path": "payload/app/lgws-order.js",
+      "sha256": "cdd52028542aba0bd1b93db2e93958ad1c1b947dcf9f927e130c9465f2135a72"
+    },
+    {
+      "path": "payload/app/lunar-calendar.js",
+      "sha256": "987f48889ea382c798cb2ad18f46eb2cbf984b7e9c88cbdcf0d227ecc4dfbea8"
+    },
+    {
+      "path": "payload/app/style.css",
+      "sha256": "bdc38d4dca37da1162d7bc924c37a06fcfc7b43ed53dcbe152d8b74d81142e76"
+    },
+    {
+      "path": "payload/app/tv-shortcut-order.js",
+      "sha256": "64f118c211dfacf3f36aa932144ca6238ee6c0cb4f9201240435c81fc74b4ee2"
+    },
+    {
+      "path": "payload/app/wallpaper.jpg",
+      "sha256": "c0d4e55b375ada0ae49ba61abfd581d51218c507c9d23501961ef4fe7247dcc1"
+    },
+    {
+      "path": "payload/home/41-gathin-home-keyhook",
+      "sha256": "41e8fc64e39b8511fdcb0ba1cc16d00bb588ef1835721f48ef433b17f69e2f64"
+    },
+    {
+      "path": "payload/home/boot.sh",
+      "sha256": "a429c7cb2ec00789d256f67f9b9f1d1026b3a0541d39e91f42d604b8143cfc80"
+    },
+    {
+      "path": "payload/home/disable-home.sh",
+      "sha256": "59f331af827d5bd215592a029d9e6c8a8c0416d2e90dd08f9eae27d70e958d73"
+    },
+    {
+      "path": "payload/home/home-keyhook.py",
+      "sha256": "7161e9a940416a159a6d6ffff40d0cdcc9c38ef4723a0157cffc3bae52f7cbe8"
+    },
+    {
+      "path": "payload/home/launch.sh",
+      "sha256": "288b4e78c312f21991fb5f95f6af75baf55ab9d5d5188f433a4ea62d72946ede"
+    },
+    {
+      "path": "payload/privacy/lifesgoodwithoutspying.conf",
+      "sha256": "70b19393ab3b0284a34b641f4aaf195fb8b194aace596e513a89d0cc516d61ae"
+    },
+    {
+      "path": "README.md",
+      "sha256": "d5f4284dcb219b9c3d69479527e67bc9005117a56b8253577b75e9347b430ebb"
+    },
+    {
+      "path": "Restore-TV.ps1",
+      "sha256": "4a86ed9999040d0b427c27b513dd78c10f63034b6007f250ac65a167534554c8"
+    },
+    {
+      "path": "scripts/AutoSetup.template.ps1",
+      "sha256": "2e0be7435da1f510cb2a97ddc33c7b0ce906c3f04f005fa65212075bd37eade2"
+    },
+    {
+      "path": "scripts/bootstrap.js",
+      "sha256": "d6387edfc84b046aca3d1f170828606eb4c2e54fe3a323a597b6d7ea002492b4"
+    },
+    {
+      "path": "scripts/build-single.js",
+      "sha256": "3d4e462886b40cb2a94c8d90677f1138784b14c2f074635c64e04ee475f9257e"
+    },
+    {
+      "path": "scripts/build.js",
+      "sha256": "fe1b179d1930b46f979f890ff473134f96c0833beaf58b5ec317f9897cc2840c"
+    },
+    {
+      "path": "scripts/capture-baseline.js",
+      "sha256": "0d44e99b4916e070d52fcf0960ef56a7b1cfc7b869b39d4c28615aa8fa5980cd"
+    },
+    {
+      "path": "scripts/check-live.js",
+      "sha256": "a9ac2a5ebc88a7aed9a5971e8afc8cb58a9eff6dad4bd16db072595c74ebd3c8"
+    },
+    {
+      "path": "scripts/configure-weather.js",
+      "sha256": "31ad9e5cd23656788a5a7c3a1db8f59b79dfdacf101dc35d3d4e3598c970df68"
+    },
+    {
+      "path": "scripts/init-repo.js",
+      "sha256": "9b6d33bae500e8e7bbead40ff866f6be00c0d8951e8c4f05a9b3a5b354fd7960"
+    },
+    {
+      "path": "scripts/install-advanced.py",
+      "sha256": "d6699623988eebaaef2ef1c93abe7839cf3ddec9e2ea30164f54b8cf87b11ab6"
+    },
+    {
+      "path": "scripts/pin-bootstrap-assets.js",
+      "sha256": "7153736ee34e5c6664e1de21833cb8d949f53c35332f912ad27188655d5ff405"
+    },
+    {
+      "path": "scripts/prepare-v3.py",
+      "sha256": "b2e0565ce13378ae5132f12f411860e152e92c36947c87e1ac84f53e4be1b9da"
+    },
+    {
+      "path": "scripts/remove-devmode.py",
+      "sha256": "0743fb22ab2188f3f0b6747f522a98d24984c1ce06c187007147b8b5186a06c0"
+    },
+    {
+      "path": "scripts/remove-extra-apps.py",
+      "sha256": "47ada9e4acede11d133932fc85c7ddc1275e58ec4082aba80103e41097ac5905"
+    },
+    {
+      "path": "scripts/run.js",
+      "sha256": "a92ed1a865fa00a83a1716a67e6211856ccade1f0819ba24bd8ddf3e1065d60e"
+    },
+    {
+      "path": "scripts/tv.js",
+      "sha256": "0d394e87758a67c44a96fec0ff4fea8d405b666523cb1e81ed45f96f720588f8"
+    },
+    {
+      "path": "scripts/verify.js",
+      "sha256": "1fcdec0a9dc6bb4d40e58c7d178b34e6f266f2ecda1e08343c24c60a4fa44cd4"
+    },
+    {
+      "path": "scripts/zip.ps1",
+      "sha256": "3b3fc7176b9716cf0765f4f99a3f63dfa1ccb9af7fbf9ef52c75ca71de2fc560"
+    },
+    {
+      "path": "Setup-TV.ps1",
+      "sha256": "92be304b0edc7b55617afd26f7b98067afbaaddeca29c00f0ca6e7c93b886dfb"
+    },
+    {
+      "path": "test/advanced.test.js",
+      "sha256": "2f048c30b47cdee3e037eae1896ab177e4f31e8ed77360501a61198b87775ef5"
+    },
+    {
+      "path": "test/assets.test.js",
+      "sha256": "a520be3e51fb52866d56c0c8bb8d798668b82c2cf1b6be366534f79b36d58ccd"
+    },
+    {
+      "path": "test/backup-reader.test.js",
+      "sha256": "de199d27fc7d464168dcc3ac800eca4fc1356035fe462e8630271cdfacdf680c"
+    },
+    {
+      "path": "test/install.test.js",
+      "sha256": "1317cc9780ef37d32ff6196bf0d9282dfd373c657d1b35e91267c12217b4137d"
+    },
+    {
+      "path": "test/local.test.js",
+      "sha256": "07d3f8b5bbb569cca7f422722a2503e622d19fbc4d50681d31f6aac92f6a87d4"
+    },
+    {
+      "path": "test/provision.test.js",
+      "sha256": "f185876a96a03e25296452c76936ddfe706d58c10b80b95b2e83c95d256b25af"
+    },
+    {
+      "path": "test/restore.test.js",
+      "sha256": "ab2cd6187c337925650a4380d3ac16365d1bab90f7ea4ac40186fca36215aef8"
+    },
+    {
+      "path": "THIRD-PARTY.md",
+      "sha256": "c62164420b07ed50108c385615b5297df212301a6bd7dee61d0d61a687f629ae"
+    },
+    {
+      "path": "upstream/faultmanager-autoroot.sh",
+      "sha256": "66a8a2816567a3c3d29768095873d347ec6bb2cbf60208979d15d7a42525d4d0"
+    },
+    {
+      "path": "upstream/faultmanager-COPYING",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "path": "upstream/hbchannel.ipk",
+      "sha256": "d10bf3c753551d7c72fb7a92b20fcd2317e502a220ac668ba8e76f6ea78b363c"
+    },
+    {
+      "path": "upstream/privacy.ipk",
+      "sha256": "5725be152fa55696c203a26aabd1dada52ae41a69b5f6f84f8991413190ad10c"
+    },
+    {
+      "path": "upstream/youtube.ipk",
+      "sha256": "9c4f1dd0b04fd712adb6a9a1c5838da49b1003cd96de8354c10467b52d73259d"
+    }
+  ]
+}

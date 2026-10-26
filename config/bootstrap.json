@@ -1,0 +1,43 @@
+{
+  "upstream": "https://github.com/throwaway96/faultmanager-autoroot",
+  "commit": "a972c95f4f4dbacdb72215409ea0c9eff39dabc1",
+  "reviewedAt": "2026-10-26",
+  "autoroot": {
+    "name": "faultmanager-autoroot.sh",
+    "url": "https://raw.githubusercontent.com/throwaway96/faultmanager-autoroot/a972c95f4f4dbacdb72215409ea0c9eff39dabc1/autoroot.sh",
+    "sha256": "66a8a2816567a3c3d29768095873d347ec6bb2cbf60208979d15d7a42525d4d0",
+    "size": 18430
+  },
+  "license": {
+    "name": "faultmanager-COPYING",
+    "url": "https://raw.githubusercontent.com/throwaway96/faultmanager-autoroot/a972c95f4f4dbacdb72215409ea0c9eff39dabc1/COPYING",
+    "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+    "size": 34523
+  },
+  "homebrew": {
+    "name": "hbchannel.ipk",
+    "id": "org.webosbrew.hbchannel",
+    "version": "0.7.3",
+    "url": "https://github.com/webosbrew/webos-homebrew-channel/releases/download/v0.7.3/org.webosbrew.hbchannel_0.7.3_all.ipk",
+    "sha256": "d10bf3c753551d7c72fb7a92b20fcd2317e502a220ac668ba8e76f6ea78b363c",
+    "size": 1699858
+  },
+  "apps": [
+    {
+      "name": "youtube.ipk",
+      "id": "youtube.leanback.v4",
+      "version": "0.5.3",
+      "url": "https://github.com/webosbrew/youtube-webos/releases/download/v0.5.3/youtube.leanback.v4_0.5.3_all.ipk",
+      "sha256": "9c4f1dd0b04fd712adb6a9a1c5838da49b1003cd96de8354c10467b52d73259d",
+      "size": 479722
+    },
+    {
+      "name": "privacy.ipk",
+      "id": "ooo.lew.lifesgoodwithoutspying",
+      "version": "0.7.0",
+      "url": "https://github.com/lewisdoesstuff/lifesgoodwithoutspying/releases/download/v0.7.0/ooo.lew.lifesgoodwithoutspying.ipk",
+      "sha256": "5725be152fa55696c203a26aabd1dada52ae41a69b5f6f84f8991413190ad10c",
+      "size": 116624
+    }
+  ]
+}

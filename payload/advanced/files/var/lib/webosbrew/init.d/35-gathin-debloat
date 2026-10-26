@@ -1,0 +1,4 @@
+#!/bin/sh
+# Optional UI apps only. No boot, voice, HDMI, networking or root service changes.
+[ -f /home/root/DISABLE-GATHIN-DEBLOAT ] && exit 0
+/usr/bin/python /var/lib/webos-debloat/gathin-final/debloat.py apply >> /var/lib/webos-debloat/gathin-final/boot.log 2>&1

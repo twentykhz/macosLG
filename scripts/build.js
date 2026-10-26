@@ -1,0 +1,14 @@
+'use strict';
+const fs=require('node:fs');
+const path=require('node:path');
+const {spawnSync}=require('node:child_process');
+const {root,profile,manifest}=require('../lib/local');
+require('./configure-weather');
+fs.mkdirSync(path.join(root,'packages'),{recursive:true});
+const cli=require.resolve('@webos-tools/cli/bin/ares-package.js');
+const result=spawnSync(process.execPath,[cli,path.join(root,'payload/app'),'-o',path.join(root,'packages')],{cwd:root,stdio:'inherit'});
+if(result.status!==0)process.exit(result.status||1);
+const expected=path.join(root,'packages',`${profile.appId}_${profile.appVersion}_all.ipk`);
+if(!fs.existsSync(expected))throw new Error('Expected package was not produced');
+fs.writeFileSync(path.join(root,'checksums.json'),JSON.stringify(manifest(),null,2)+'\n');
+console.log('Package and checksums updated.');
