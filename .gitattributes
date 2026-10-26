@@ -8,3 +8,5 @@
 *.css text eol=lf
 *.conf text eol=lf
 *.md text eol=lf
+
+*.ps1 -text

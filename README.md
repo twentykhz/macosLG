@@ -4,15 +4,9 @@ GathinTV AutoSetup là bộ cài tự động dành cho TV LG webOS đã đượ
 
 Script sẽ tự dùng Node.js đang có trên máy hoặc tải bản portable từ `nodejs.org`, kiểm tra SHA-256 rồi mới chạy.
 
-> **Profile đã kiểm tra:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · Magic Remote hai kênh input · Python 2/ARM32.
+> **Profile tham chiếu đã kiểm tra:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · Magic Remote hai kênh input · Python 2/ARM32.
 >
-> Nếu TV không khớp profile này, bộ cài sẽ dừng trước bước root/cài đặt. Đây không phải bộ root chung cho mọi TV LG.
-
----
-
-## Giao diện sau khi cài đặt
-
-![GathinTV Launcher](preview.jpg)
+> TV LG khác vẫn có thể chạy bộ cài ở chế độ tương thích. Bộ cài sẽ tự nhận diện những tính năng phù hợp với TV đang kết nối và bỏ qua các thành phần phần cứng/ABI không tương thích thay vì dừng toàn bộ quá trình.
 
 ---
 
