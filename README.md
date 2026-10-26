@@ -10,6 +10,12 @@ Script sẽ tự dùng Node.js đang có trên máy hoặc tải bản portable 
 
 ---
 
+## Giao diện sau khi cài đặt
+
+![GathinTV Launcher](preview.jpg)
+
+---
+
 ## 1. Nếu vừa factory reset TV
 
 Trước khi chạy bộ cài trên máy tính, cần làm vài bước trực tiếp trên TV:
