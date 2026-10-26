@@ -1,7 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Gathin
-Copyright (c) 2026 OmkarK97
+Copyright (c) 2026 twentykhz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +22,21 @@ SOFTWARE.
 
 ---
 
-The Outfit typeface in launcher/app/src/main/res/font/outfit.ttf is copyright
-The Outfit Project Authors and licensed under the SIL Open Font License 1.1,
-see launcher/FONT-LICENSE-OFL.txt.
+Third-Party Notices
+
+This project may include or be derived from third-party open-source software.
+Any third-party components remain subject to their respective copyright
+notices and license terms.
+
+The Outfit typeface located at:
+
+launcher/app/src/main/res/font/outfit.ttf
+
+is copyright The Outfit Project Authors and is licensed under the
+SIL Open Font License 1.1.
+
+See:
+
+launcher/FONT-LICENSE-OFL.txt
+
+for the full font license.
