@@ -19,6 +19,8 @@
     xhr.onerror=xhr.ontimeout=function(){if(done)done({returnValue:false,errorText:'Local controls unavailable'});};
     xhr.send(JSON.stringify(data));
   }
+  window.GathinOpenSettings=function(){rootCall('settings_key',{},function(r){if(r.returnValue===false)message('Không mở được cài đặt TV');});};
+  window.GathinVoiceSearch=function(done){rootCall('voice_search',{},function(r){if(r.returnValue===false)message('Không mở được tìm kiếm giọng nói');if(done)done(r);});};
   window.GathinNativeInput=function(){rootCall('input',{},function(r){if(r.returnValue===false)message('Input menu unavailable');});};
   function call(endpoint, data, done, subscription) {
     var actions={'com.webos.service.settings/getSystemSettings':'picture','com.webos.service.settings/getSystemSettingValues':'modes','com.webos.service.settings/setSystemSettings':'set_picture'};
@@ -75,7 +77,7 @@
     clearTimeout(volumeTimer);volumeTimer=setTimeout(function(){call('com.webos.audio/setVolume',{volume:value},function(r){if(!failed(r))call('com.webos.audio/getVolume',{},readVolume);});},100);
   }
   function mute() {call('com.webos.audio/setMuted',{muted:!state.muted},function(r){if(!failed(r)){state.muted=!state.muted;paint();}});}
-  function targets(){return [$('ccWifi'),$('ccBluetooth'),$('ccPicture'),$('ccBrightness'),$('ccVolume'),$('ccMute'),$('ccClose')];}
+  function targets(){return [$('ccWifi'),$('ccBluetooth'),$('ccPicture'),$('ccBrightness'),$('ccVolume'),$('ccMute'),$('ccWallpaper'),$('ccClose')];}
   function focus(index){focusIndex=Math.max(0,Math.min(targets().length-1,index));targets().forEach(function(e,i){e.classList.toggle('cc-focused',i===focusIndex);});targets()[focusIndex].focus();}
   function close() {
     $('ccDevices').classList.add('cc-hidden');
@@ -111,7 +113,7 @@
       '<button id="ccBluetooth" class="cc-toggle"><span class="cc-symbol"><svg viewBox="0 0 24 24"><path d="m7 7 10 10-5 4V3l5 4-10 10"/></svg></span><span><strong>Bluetooth</strong><small id="ccBluetoothState">Đang đọc…</small></span></button></div>'+
       '<div class="cc-block"><div class="cc-label">Chế độ hình ảnh</div><div class="cc-picture"><button id="ccPrev" aria-label="Chế độ trước">‹</button><button id="ccPicture"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg><span id="ccMode">Đang đọc…</span></button><button id="ccNext" aria-label="Chế độ tiếp">›</button></div></div>'+
       '<div class="cc-block cc-brightness"><div class="cc-label">Độ sáng <span id="ccBrightnessValue">—</span></div><div class="cc-volume-row"><button id="ccDim" aria-label="Giảm độ sáng">☼</button><input id="ccBrightness" aria-label="Độ sáng màn hình" type="range" min="0" max="100" value="0"><button id="ccBright" aria-label="Tăng độ sáng">☀</button></div></div>'+
-      '<div class="cc-block"><div class="cc-label">Âm lượng <span id="ccVolumeValue">—</span></div><div class="cc-volume-row"><button id="ccMinus" aria-label="Giảm âm lượng">−</button><input id="ccVolume" aria-label="Âm lượng" type="range" min="0" max="100" value="0"><button id="ccPlus" aria-label="Tăng âm lượng">+</button></div><button id="ccMute">Tắt tiếng</button></div><div id="ccMessage" role="status"></div>';
+      '<div class="cc-block"><div class="cc-label">Âm lượng <span id="ccVolumeValue">—</span></div><div class="cc-volume-row"><button id="ccMinus" aria-label="Giảm âm lượng">−</button><input id="ccVolume" aria-label="Âm lượng" type="range" min="0" max="100" value="0"><button id="ccPlus" aria-label="Tăng âm lượng">+</button></div><button id="ccMute">Tắt tiếng</button></div><button id="ccWallpaper" type="button">Điều khiển từ xa & Thiết lập</button><div id="ccMessage" role="status"></div>';
     document.body.appendChild(panel);var devices=document.createElement('section');devices.id='ccDevices';devices.className='cc-hidden';panel.appendChild(devices);
     $('ccWifiSymbol').innerHTML='<svg viewBox="0 0 24 24"><g class="wifi-mark"><path d="M1.6 7.7a16.3 16.3 0 0 1 20.8 0l-2.3 2.8a12.7 12.7 0 0 0-16.2 0Zm4 4.8a10 10 0 0 1 12.8 0L16 15.4a6.2 6.2 0 0 0-8 0Zm4 4.9a3.8 3.8 0 0 1 4.8 0L12 20.3Z"/></g></svg>';
     ['wifi','bluetooth'].forEach(function(kind){
@@ -124,7 +126,7 @@
     $('ccPrev').onclick=function(){mode(-1);};$('ccNext').onclick=$('ccPicture').onclick=function(){mode(1);};
     $('ccBrightness').oninput=function(){brightness(Number(this.value));};$('ccDim').onclick=function(){if(state.brightness!==null)brightness(state.brightness-5);};$('ccBright').onclick=function(){if(state.brightness!==null)brightness(state.brightness+5);};
     $('ccVolume').oninput=function(){volume(Number(this.value));};$('ccMinus').onclick=function(){if(state.volume!==null)volume(state.volume-2);};$('ccPlus').onclick=function(){if(state.volume!==null)volume(state.volume+2);};
-    $('ccMute').onclick=mute;$('ccClose').onclick=close;
+    $('ccWallpaper').onclick=function(){window.GathinWallpaper();};$('ccMute').onclick=mute;$('ccClose').onclick=close;
     targets().forEach(function(el,i){el.addEventListener('mouseover',function(){if(open)focus(i);});});
     document.addEventListener('keydown',function(e){
       if(!open)return;
@@ -134,7 +136,7 @@
       else if(k===38)focus(focusIndex-1);
       else if(k===40)focus(focusIndex+1);
       else if(k===37||k===39){if(focusIndex<2)focus(k===37?0:1);else if(focusIndex===2)mode(k===37?-1:1);else if(focusIndex===3&&state.brightness!==null)brightness(state.brightness+(k===37?-5:5));else if(focusIndex===4&&state.volume!==null)volume(state.volume+(k===37?-2:2));}
-      else if(k===13){if(focusIndex<2){if(!keyPress){keyPress=true;startHold(focusIndex===0?'wifi':'bluetooth');}}else if(focusIndex===2)mode(1);else if(focusIndex===5)mute();else if(focusIndex===6)close();}
+      else if(k===13){if(focusIndex<2){if(!keyPress){keyPress=true;startHold(focusIndex===0?'wifi':'bluetooth');}}else if(focusIndex===2)mode(1);else if(focusIndex===5)mute();else if(focusIndex===6)window.GathinWallpaper();else if(focusIndex===7)close();}
       else return;
       e.preventDefault();e.stopImmediatePropagation();
     },true);

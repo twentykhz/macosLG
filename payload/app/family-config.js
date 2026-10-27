@@ -1,0 +1,1 @@
+window.GATHIN_FAMILY=[{"name":"Thành viên 1","day":1,"month":1,"year":2000},{"name":"Thành viên 2","day":1,"month":1,"year":2001},{"name":"Thành viên 3","day":1,"month":1,"year":2002},{"name":"Thành viên 4","day":1,"month":1,"year":2003},{"name":"Thành viên 5","day":1,"month":1,"year":2004},{"name":"Thành viên 6","day":1,"month":1,"year":2005}];

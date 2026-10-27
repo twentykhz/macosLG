@@ -12,6 +12,10 @@ def luna(endpoint,data):
   if p.poll() is None:p.terminate()
   p.stdin.close()
 def run(action,data):
+ if action=='voice_search':
+  luna('com.webos.applicationManager/closeByAppId',{'id':'com.webos.app.voice'})
+  return luna('com.webos.service.sysuicompmgr/launch',{'appId':'com.webos.app.voiceagent','main':'file://usr/palm/applications/com.webos.app.voiceagent/Main.qml','params':{'activateType':'mrcu','launchMode':'voice','pressed':True,'walkietalkie':False}})
+ if action=='settings_key':return luna('com.webos.service.networkinput/test/sendKeyCode',{'keyCode':139})
  if action=='input':return luna('com.webos.surfacemanager/showInputPicker',{})
  if action=='backlight':return luna('com.webos.service.settings/getSystemSettings',{'category':'picture','keys':['backlight']})
  if action=='set_backlight':

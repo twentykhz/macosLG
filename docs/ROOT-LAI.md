@@ -1,3 +1,5 @@
+> Historical technical reference / Tài liệu kỹ thuật cũ. Current beginner guide / Hướng dẫn hiện hành: [Tiếng Việt](INSTALL.vi.md) · [English](INSTALL.en.md).
+
 ﻿# GathinTV AutoSetup 3.0
 
 Một file `GathinTV-AutoSetup.ps1` chạy bằng PowerShell trên Windows 10/11 64-bit. Không cần cài Node.js, npm, Dev Manager hay USB root trước: script dùng Node đang có hoặc tải bản portable từ nodejs.org, kiểm tra SHA-256 rồi chạy.

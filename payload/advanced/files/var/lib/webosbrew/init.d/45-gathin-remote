@@ -1,0 +1,6 @@
+#!/bin/sh
+[ -f /home/root/DISABLE-GATHIN-REMOTE ] && exit 0
+ROOT=/var/lib/webosbrew/gathin-remote
+if [ -f "$ROOT/server.pid" ] && kill -0 "$(cat "$ROOT/server.pid")" 2>/dev/null; then exit 0; fi
+/usr/bin/node "$ROOT/server.js" >>/tmp/gathin-tv-remote.log 2>&1 </dev/null &
+echo $! > "$ROOT/server.pid"

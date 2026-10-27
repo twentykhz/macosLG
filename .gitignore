@@ -8,3 +8,15 @@ config/device.json
 backups/
 __pycache__/
 *.pyc
+
+*.token
+**/access-key
+**/desktop-pin
+**/slideshow.json
+**/server.pid
+
+# Generated release assets belong in GitHub Releases, not source history.
+/GathinTV-AutoSetup.ps1
+/GathinTV-AutoSetup.ps1.sha256
+/release-manifest.json
+/GathinTV-Source.zip

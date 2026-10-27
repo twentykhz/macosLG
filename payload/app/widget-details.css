@@ -1,0 +1,118 @@
+#widgetDetailBackdrop{position:absolute;inset:0;top:0;left:0;width:1920px;height:1080px;z-index:500;background:rgba(4,10,20,.72);}
+#widgetDetail{position:absolute;left:235px;top:85px;width:1450px;height:910px;padding:22px 30px;box-sizing:border-box;border:1px solid rgba(255,255,255,.35);border-radius:36px;background:linear-gradient(155deg,#447eaf,#163a69 65%,#102a50);color:#fff;box-shadow:0 24px 80px rgba(0,0,0,.45);}
+#widgetDetail.night{background:linear-gradient(155deg,#293d70,#111e3e);}
+#widgetDetail.rainy{background:linear-gradient(155deg,#607e97,#263e59);}
+.wd-toolbar{display:flex;align-items:center;justify-content:space-between;height:46px;font-size:25px;}
+#widgetDetail button{border:0;border-radius:14px;background:rgba(255,255,255,.14);color:white;font:inherit;cursor:pointer;padding:10px 16px;outline:none;}
+#widgetDetail button:focus{box-shadow:0 0 0 3px white;}
+#wdContent{height:calc(100% - 54px);overflow:auto;margin-top:8px;outline:none;}
+.wd-loading{text-align:center;font-size:30px;padding:180px 30px;line-height:2;}
+.wd-weather-hero{text-align:center;font-size:25px;margin:0 0 12px;}
+.wd-weather-hero h1{font-size:30px;font-weight:500;}
+.wd-current{font-size:80px;font-weight:300;line-height:1.1;}
+.wd-weather-hero small{font-size:21px;}
+.wd-glass{background:rgba(11,32,57,.4);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:14px 20px;margin-bottom:12px;}
+.wd-glass h2{font-size:17px;letter-spacing:.05em;font-weight:500;color:#d6e8fa;margin-bottom:8px;}
+.wd-hourly{display:flex;overflow-x:auto;}
+.wd-hour{min-width:110px;flex:1;text-align:center;font-size:21px;display:flex;flex-direction:column;align-items:center;}
+#widgetDetail svg{width:32px;height:32px;fill:none;stroke:#e6edf6;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible;}
+#widgetDetail svg.sun{fill:#ffd467;stroke:#ffe49a;}
+.wd-hour small{font-size:16px;color:#a7d7ff;}
+.wd-day{display:flex;align-items:center;height:43px;border-top:1px solid rgba(255,255,255,.12);font-size:24px;}
+.wd-day-name{width:220px;flex-shrink:0;}
+.wd-day-name small{font-size:18px;color:#d4e1ed;margin-left:10px;}
+.wd-day-icon{width:70px;text-align:center;}
+.wd-rain{width:95px;color:#a8d9ff;text-align:center;font-size:20px;}
+.wd-low{width:70px;text-align:right;color:#c4d5e5;}
+.wd-high{width:70px;font-weight:500;}
+.wd-rail{height:7px;border-radius:5px;background:rgba(0,0,0,.2);position:relative;flex:1;margin:0 24px;overflow:hidden;}
+.wd-rail i{position:absolute;top:0;height:100%;border-radius:5px;background:linear-gradient(90deg,#71d0ee,#cfe47a,#ffc965);}
+.wd-source{text-align:center;font-size:16px;color:#d0dfed;}
+#widgetDetail.lunar-detail{background:linear-gradient(145deg,#35485f,#172639);}
+.wd-calendar{display:flex;margin-top:16px;}
+.wd-calendar>.wd-glass:first-child{width:750px;box-sizing:border-box;margin-right:20px;}
+.wd-lunar-info{width:600px;box-sizing:border-box;}
+.wd-calendar-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;font-size:26px;}
+.wd-calendar h1{font-size:30px;font-weight:500;}
+.wd-weekdays,.wd-month-grid{display:flex;flex-wrap:wrap;}
+.wd-weekdays span{width:14.285%;text-align:center;font-size:23px;padding:10px 0;color:#c7d7e8;}
+#widgetDetail .wd-date-cell{width:14.285%;height:77px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid transparent;background:transparent;border-radius:16px;padding:4px;}
+.wd-date-cell b{font-size:28px;font-weight:500;}.wd-date-cell small{font-size:18px;color:#ffd88d;}.wd-date-cell.outside{opacity:.4;}
+#widgetDetail .wd-date-cell.selected{background:#ffffff25;border-color:white;}.wd-date-cell.today b{color:#9bdbff;}
+#wdToday{margin-top:18px;font-size:24px;}.wd-calendar-hint{font-size:20px;color:#c8d9e9;margin-top:18px;}
+.wd-lunar-info{font-size:24px;line-height:1.45;}.wd-lunar-info p{margin:8px 0 16px;}.wd-lunar-date{font-size:44px;margin-top:12px;}.wd-fortune{font-size:24px;padding:10px 14px;background:#ffffff16;border-radius:12px;margin-bottom:18px;color:#ffe0a0;}.wd-good-hours{display:flex;flex-wrap:wrap;margin-bottom:18px;}.wd-good-hours span{width:50%;font-size:23px;margin-bottom:8px;}.wd-good-hours b{font-weight:500;color:#ffe0a0;}.wd-holiday{padding:12px;border-radius:12px;background:#ffcb6c22;color:#ffe4ad;margin-bottom:12px;}.wd-calendar-method{font-size:16px;color:#c4d2e2;}
+.wd-lunar-info { height:710px; overflow-y:auto; }
+.wd-lunar-info .wd-lunar-date { font-size:40px; margin-top:5px; }
+.wd-lunar-info .wd-can-chi-summary { font-size:21px; margin:6px 0 10px; }
+.wd-lunar-info .wd-fortune { padding:8px 12px; margin-bottom:12px; font-size:22px; }
+.wd-lunar-info .wd-good-hours { margin-bottom:12px; }
+.wd-lunar-info .wd-good-hours span { font-size:22px; margin-bottom:4px; }
+.wd-family-tabs { display:flex; flex-wrap:wrap; margin-bottom:8px; }
+#widgetDetail .wd-member { width:31%; box-sizing:border-box; margin:0 2% 7px 0; padding:6px 10px; font-size:21px; }
+#widgetDetail .wd-member.selected { background:rgba(129,185,233,.25); }
+.wd-family-birth { font-size:18px; color:#d9e5ef; line-height:1.4; }
+.wd-lunar-info .wd-family-advice { font-size:22px; line-height:1.4; margin:8px 0; }
+.wd-lunar-info .wd-calendar-method { font-size:15px; }
+/* One-screen weather view: distribute the ten rows into the available height. */
+.weather-detail #wdContent{display:flex;flex-direction:column;overflow:hidden;}
+.weather-detail .wd-weather-hero{flex-shrink:0;font-size:23px;margin-bottom:8px;line-height:1.18;}
+.weather-detail .wd-weather-hero h1{font-size:28px;line-height:1.2;}
+.weather-detail .wd-current{font-size:68px;line-height:1;}
+.weather-detail .wd-weather-hero small{font-size:20px;}
+.weather-detail .wd-glass{padding:10px 18px;margin-bottom:8px;flex-shrink:0;}
+.weather-detail .wd-glass h2{font-size:16px;line-height:1.15;margin-bottom:5px;}
+.weather-detail .wd-hour{font-size:20px;min-width:100px;line-height:1.15;}
+.weather-detail .wd-hour svg{height:28px;width:28px;}
+.weather-detail .wd-hour small{font-size:15px;}
+.weather-detail .wd-daily{flex:1;min-height:0;display:flex;flex-direction:column;}
+.weather-detail .wd-day{flex:1;min-height:31px;height:auto;font-size:23px;line-height:1.15;}
+.weather-detail .wd-day-icon svg{height:28px;width:28px;}
+.weather-detail .wd-source{font-size:15px;line-height:1.2;flex-shrink:0;}
+/* Month picker is two thirds its former width; details take the remaining space. */
+.wd-calendar>.wd-glass:first-child{width:500px;flex-shrink:0;height:752px;}
+.wd-calendar .wd-lunar-info{width:850px;height:752px;flex-shrink:0;}
+.wd-calendar-nav{font-size:23px;margin-bottom:10px;}
+.wd-calendar-nav h1{font-size:25px;}
+.wd-weekdays span{font-size:21px;padding:8px 0;}
+#widgetDetail .wd-date-cell{height:67px;}
+.wd-date-cell b{font-size:26px;}.wd-date-cell small{font-size:17px;}
+.wd-calendar-hint{font-size:18px;line-height:1.5;}
+.wd-calendar .wd-family-tabs{flex-wrap:nowrap;}
+#widgetDetail .wd-calendar .wd-member{width:auto;flex:1;margin-right:7px;font-size:21px;}
+.wd-calendar .wd-lunar-info .wd-family-advice{font-size:24px;line-height:1.4;}
+.lunar-detail:not(.calendar-reading) .wd-lunar-info{opacity:.72;}
+.calendar-reading .wd-lunar-info{opacity:1;}
+.wd-calendar-top{display:flex;align-items:flex-start;justify-content:space-between;margin-top:8px;}
+.wd-top-date{width:46%;min-width:0;}
+.wd-top-hours{width:50%;padding:12px 14px;box-sizing:border-box;border-radius:16px;background:rgba(255,255,255,.06);}
+.wd-top-hours h2{font-size:17px!important;line-height:1.3;letter-spacing:.015em;margin-bottom:10px;}
+.wd-top-hours .wd-good-hours{margin:0;}
+.wd-top-hours .wd-good-hours span{font-size:22px!important;width:50%;margin-bottom:9px!important;white-space:nowrap;}
+.wd-calendar .wd-top-date .wd-lunar-date{font-size:37px;}
+.wd-calendar .wd-top-date .wd-can-chi-summary{font-size:20px;line-height:1.5;}
+#widgetDetail #wdToday{display:block;width:100%;box-sizing:border-box;font-size:25px;font-weight:600;padding:14px 22px;margin-top:18px;background:rgba(113,177,235,.32);color:#fff;border:1px solid rgba(205,232,255,.4);border-radius:15px;}
+#widgetDetail #wdToday:focus{background:rgba(138,198,249,.46);box-shadow:0 0 0 3px #fff;}
+#widgetDetail .wd-date-cell{height:64px;}
+#widgetDetail #wdToday{margin-top:12px;}
+.wd-calendar-hint{font-size:17px;line-height:1.35;margin-top:12px;}
+/* Fixed TV frame: smaller calendar, larger dates, side-by-side activity lists. */
+.lunar-detail #wdContent{overflow:hidden;}
+.wd-calendar>.wd-glass:first-child{width:440px;}
+.wd-calendar .wd-lunar-info{width:910px;overflow:hidden;}
+#widgetDetail .wd-date-cell{height:66px;}
+.wd-date-cell b{font-size:30px;line-height:1;}
+.wd-date-cell small{font-size:19px;line-height:1.1;}
+body #widgetDetail .wd-date-cell{background:transparent!important;}
+body #widgetDetail .wd-date-cell.selected{background:rgba(255,255,255,.17)!important;}
+.wd-calendar-nav h1{font-size:23px;}
+.wd-family-meta{display:flex;align-items:center;justify-content:space-between;margin:8px 0;}
+.wd-family-meta .wd-family-birth{width:62%;font-size:18px;}
+.wd-family-meta .wd-family-index{width:36%;font-size:17px;text-align:right;margin:0;}
+.wd-family-meta .wd-family-index strong{font-size:29px;}
+#widgetDetail .wd-lunar-info .wd-family-advice{display:flex;align-items:flex-start;font-size:24px;line-height:1.4;margin:8px 0;}
+.wd-family-advice>section{width:49%;min-width:0;box-sizing:border-box;}
+.wd-family-advice>section+section{margin-left:2%;}
+#widgetDetail .wd-family-advice h3{margin:0 0 9px;font-size:21px;}
+#widgetDetail .wd-family-advice ul{margin:0;padding-left:24px;}
+#widgetDetail .wd-family-advice li{margin-bottom:9px;overflow-wrap:break-word;}
+.wd-lunar-info .wd-calendar-method{display:block;margin-top:9px;font-size:14px;}

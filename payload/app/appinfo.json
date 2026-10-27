@@ -4,14 +4,18 @@
   "vendor": "tv-vibehack",
   "type": "web",
   "main": "index.html",
-  "title": "Trang chá»§",
+  "title": "GathinTV",
   "icon": "icon.png",
   "largeIcon": "largeIcon.png",
   "bgColor": "#000000",
   "iconColor": "#000000",
   "resolution": "1920x1080",
-  "appCategory": ["home"],
+  "appCategory": [
+    "home"
+  ],
   "disableBackHistoryAPI": true,
-  "requiredACG": ["application.launcher", "network.query"]
+  "requiredACG": [
+    "application.launcher",
+    "network.query"
+  ]
 }
-

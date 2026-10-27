@@ -1,0 +1,16 @@
+#weather { display:none !important; }
+#leftBlock { left:32%; width:780px; top:45%; }
+#multiWeather { position:absolute; top:29%; right:7.2%; width:390px; color:#fff; pointer-events:none; }
+.mw-card { padding:18px 22px; border-radius:24px; background:rgba(24,30,44,.68); border:1px solid rgba(255,255,255,.2); box-shadow:0 10px 28px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08); text-shadow:0 2px 8px rgba(0,0,0,.65); }
+.mw-card + .mw-card { margin-top:16px; }
+.mw-location { font-size:21px; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mw-main { display:flex; align-items:center; justify-content:space-between; margin:8px 0 6px; }
+.mw-temp { font-size:64px; line-height:1; font-weight:300; }
+.mw-icon svg { width:62px; height:62px; fill:none; stroke:#e5edf7; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; overflow:visible; }
+.mw-icon .sun { fill:#ffd45b; stroke:#ffe38b; }
+.mw-icon .snow { stroke:#c6ecff; stroke-width:2.5; }
+.mw-bottom { display:flex; align-items:center; justify-content:space-between; font-size:19px; }
+.mw-condition { max-width:205px; line-height:1.3; }
+.mw-range { white-space:nowrap; font-size:20px; }
+.mw-status { font-size:14px; color:#d7e2ef; }
+.mw-status:not(:empty) { margin-top:7px; }

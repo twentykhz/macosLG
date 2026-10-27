@@ -5,6 +5,13 @@
   <title>Trang chủ</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="controls.css">
+<link rel="stylesheet" href="launcher-light.css?v=columns-20261027">
+<link rel="stylesheet" href="font-dense.css?v=columns-20261027">
+<link rel="stylesheet" href="power-toolbar.css?v=soft-neutral-20261027">
+<link rel="stylesheet" href="neutral-surfaces.css?v=solid-gray-widgets-20261027">
+<link rel="stylesheet" href="glass-dock.css?v=columns-20261027">
+<link rel="stylesheet" href="widget-readability.css?v=readable-20261027">
+<link rel="stylesheet" href="voice-weather-widget.css">
 </head>
 <body>
   <!-- Ambient glow layers: unused in this skin (kept for app.js element lookups). -->
@@ -35,10 +42,11 @@
       <div id="weatherCondition">—</div>
       <div id="weatherRange">↑—°　↓—°</div>
     </section>
-    <div id="topButtons">
-      <button class="system-button" id="btnInputs" type="button" aria-label="Nguồn vào TV" title="Nguồn vào TV" tabindex="0">
+    <div id="leftButtons"><button class="system-button" id="btnPower" type="button" aria-label="Nguồn TV" title="Nguồn TV" tabindex="0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></button><button class="system-button" id="btnInputs" type="button" aria-label="Nguồn vào TV" title="Nguồn vào TV" tabindex="0">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2.2"/><path d="M8 21h8m-4-4v4M7 10h10m-3-3 3 3-3 3"/></svg>
-      </button>
+      </button></div>
+<div id="topButtons">
+
       <button class="system-button" id="btnWifi" style="display:none" aria-hidden="true" type="button" aria-label="Kết nối mạng" title="Kết nối mạng" tabindex="0">
         <svg viewBox="0 0 24 24" aria-hidden="true"><g class="wifi-mark"><path d="M1.6 7.7a16.3 16.3 0 0 1 20.8 0l-2.3 2.8a12.7 12.7 0 0 0-16.2 0Zm4 4.8a10 10 0 0 1 12.8 0L16 15.4a6.2 6.2 0 0 0-8 0Zm4 4.9a3.8 3.8 0 0 1 4.8 0L12 20.3Z"/></g><g class="ethernet-mark"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9v3m3-3v3m4-3v3m3-3v3M8 19v2m8-2v2"/></g><g class="offline-mark"><path d="M3 9a14 14 0 0 1 18 0M5 5l14 14"/></g></svg>
       </button>
@@ -65,12 +73,31 @@
 
   <script src="config.js"></script>
   <script src="apps.js"></script>
+  <script src="family-config.js"></script>
   <script src="lunar-calendar.js"></script>
   <script src="tv-shortcut-order.js"></script>
   <script src="lgws-order.js"></script>
   <script src="app.js"></script>
   <script src="control-token.js"></script>
-  <script src="controls.js"></script>
+  <link rel="stylesheet" href="wallpaper-panel.css">
+<script src="wall.js"></script>
+<script src="qrcode.js"></script>
+<script src="wallpaper-motion.js?v=columns-20261027"></script>
+<script src="remote-access.js"></script>
+<script src="wallpaper-panel.js?v=remote-control-20261027"></script>
+<link rel="stylesheet" href="weather-dual.css">
+<script src="place-names.js"></script>
+<script src="weather-dual.js"></script>
+<link rel="stylesheet" href="lunar-widget.css?v=columns-20261027">
+<link rel="stylesheet" href="macos-polish.css">
+<script src="almanac-rules.js"></script>
+<script src="lunar-widget.js?v=columns-20261027"></script>
+<script src="voice-search.js"></script>
+<script src="widget-open.js?v=columns-20261027"></script>
+<script src="dock-compact.js?v=columns-20261027"></script>
+<script src="controls.js"></script>
+<script src="visible-runtime.js?v=columns-20261027"></script>
+<script src="power-toolbar.js?v=soft-neutral-20261027"></script>
 </body>
 </html>
 

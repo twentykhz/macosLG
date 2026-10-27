@@ -7,7 +7,7 @@ APP='/media/developer/apps/usr/palm/applications/com.gathin.tvhome'
 entries=json.load(open(STAGE+'/manifest.json'))
 allowed=set(e['remote'] for e in entries) | set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-home-launch.sh','/home/root/gathin-home-replacement/boot.sh','/var/lib/webosbrew/init.d/41-gathin-home-keyhook'])
 def allowed_target(path):
- return path in allowed or (path.startswith(APP+'/') and '..' not in path.split('/') and not path.endswith('/control-token.js'))
+ return path in allowed or (path.startswith(APP+'/') and '..' not in path.split('/') and not path.endswith(('/control-token.js','/remote-access.js','/wall.js','/family-config.js')))
 def atomic(path,data,mode=0o644):
  parent=os.path.dirname(path)
  if not os.path.isdir(parent):os.makedirs(parent)
@@ -15,7 +15,7 @@ def atomic(path,data,mode=0o644):
  with open(tmp,'wb') as stream:stream.write(data)
  os.chmod(tmp,mode);os.rename(tmp,path)
 def stop_runtimes():
- targets=set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py'])
+ targets=set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
  found=[]
  for name in os.listdir('/proc'):
   if not name.isdigit():continue
@@ -39,6 +39,8 @@ for entry in entries:
  if hashlib.sha256(data).hexdigest()!=entry['sha256']:raise RuntimeError('Staged file hash mismatch')
  if path.endswith('.py'):compile(data,path,'exec')
  if path.endswith('.sh') or '/init.d/' in path:subprocess.check_call(['/bin/sh','-n',STAGE+'/'+relative])
+# Check the lightweight web runtime before changing any running service.
+subprocess.check_call(['/usr/bin/node','-e','var http=require("http"),crypto=require("crypto");'])
 # Optional owner backup: copy only approved static paths, never extract a tar blindly.
 owner_updates=[]
 snapshot=STAGE+'/owner-backup.json'
@@ -61,7 +63,7 @@ if os.path.isfile(snapshot):
    if path.endswith('.sh') or '/init.d/' in path:
     check=STAGE+'/owner-check-'+str(len(owner_updates));open(check,'wb').write(data);subprocess.check_call(['/bin/sh','-n',check])
    owner_updates.append((path,data,mode))
-markers=['/home/root/DISABLE-GATHIN-HOME','/home/root/DISABLE-GATHIN-YOUTUBE-VOICE','/home/root/DISABLE-GATHIN-CONTROLS','/home/root/DISABLE-GATHIN-TRIM','/home/root/DISABLE-GATHIN-LGWS']
+markers=['/home/root/DISABLE-GATHIN-HOME','/home/root/DISABLE-GATHIN-YOUTUBE-VOICE','/home/root/DISABLE-GATHIN-CONTROLS','/home/root/DISABLE-GATHIN-TRIM','/home/root/DISABLE-GATHIN-LGWS','/home/root/DISABLE-GATHIN-REMOTE','/home/root/DISABLE-GATHIN-WALLPAPER']
 for path in markers:open(path,'a').close()
 stop_runtimes()
 for entry in entries:atomic(entry['remote'],open(STAGE+'/'+entry['stage'],'rb').read(),int(entry['mode'],8))

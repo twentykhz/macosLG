@@ -1,0 +1,44 @@
+#leftBlock { left:50%; top:28%; width:960px; }
+#clock { font-size:200px; }
+#date { font-size:28px; margin-bottom:10px; }
+#multiWeather { left:246px; right:auto; top:506px; width:1428px; height:280px; display:flex; justify-content:space-between; }
+#multiWeather .mw-card { width:360px; height:280px; padding:22px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; }
+#multiWeather .mw-card + .mw-card { margin-top:0; }
+#multiWeather .mw-main { margin:14px 0; }
+#multiWeather .mw-temp { font-size:80px; }
+#multiWeather .mw-icon svg { width:72px; height:72px; }
+#multiWeather .mw-status:empty { display:none; }
+#lunarWidget { position:absolute; left:630px; top:506px; width:660px; height:280px; padding:20px 24px; box-sizing:border-box; border-radius:24px; background:rgba(24,30,44,.78); border:1px solid rgba(255,255,255,.2); box-shadow:0 10px 28px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08); color:white; text-shadow:0 2px 8px rgba(0,0,0,.5); }
+.lw-heading { display:flex; align-items:center; justify-content:space-between; font-size:19px; letter-spacing:.02em; }
+#lwFortune { padding:6px 10px; border-radius:9px; font-size:19px; letter-spacing:0; }
+#lwFortune.favorable { background:rgba(57,142,104,.3); color:#beffda; }
+#lwFortune.consider { background:rgba(165,127,54,.3); color:#ffe3a6; }
+.lw-date { display:flex; align-items:baseline; margin-top:3px; }
+#lwDay { font-size:66px; line-height:1.1; font-weight:500; margin-right:16px; }
+#lwMonth { font-size:29px; }
+#lwCanChi { font-size:23px; color:#dbe4ef; margin:6px 0 12px; }
+.lw-label { font-size:12px; letter-spacing:.05em; color:#c9d5e3; margin-bottom:5px; }
+#lwHours { display:flex; flex-wrap:wrap; }
+#lwHours span { width:33.333%; box-sizing:border-box; font-size:15px; margin-bottom:5px; }
+#lwHours b { font-weight:500; color:#ffe7ab; }
+#lwActivities { margin-top:8px; font-size:23px; line-height:1.3; }
+.lw-note { font-size:12px; margin-top:8px; color:#b9c8d8; }
+#multiWeather .mw-location { font-size:24px; }
+#multiWeather .mw-bottom { font-size:23px; flex-wrap:wrap; }
+#multiWeather .mw-range { font-size:23px; }
+#multiWeather .mw-condition { max-width:100%; }
+.mw-card,#lunarWidget { pointer-events:auto; cursor:pointer; outline:none; }
+.mw-card.widget-focused,#lunarWidget.widget-focused,.mw-card:focus,#lunarWidget:focus { box-shadow:0 0 0 3px #fff,0 8px 28px rgba(0,0,0,.3); }
+#lwCurrentHour { margin-top:9px; font-size:20px; line-height:1.3; }
+#lwCurrentHour.is-good { color:#baf6d1; }
+#lwCurrentHour.is-waiting { color:#d8e4f1; }
+/* Compact, centered row: 360 + 24 + 560 + 24 + 360. */
+#multiWeather{left:296px;width:1328px;}
+#lunarWidget{left:680px;width:560px;padding:18px 20px;}
+#lunarWidget .lw-heading{flex-wrap:wrap;line-height:1.25;}
+#lunarWidget .lw-date{min-width:0;}
+#lunarWidget #lwDay{font-size:62px;margin-right:12px;flex-shrink:0;}
+#lunarWidget #lwMonth{font-size:27px;line-height:1.2;overflow-wrap:break-word;}
+#lunarWidget #lwCanChi{font-size:22px;margin:4px 0 6px;line-height:1.25;overflow-wrap:break-word;}
+#lunarWidget #lwActivities{font-size:21px;line-height:1.25;margin-top:7px;overflow-wrap:break-word;}
+#lunarWidget #lwCurrentHour{font-size:19px;line-height:1.25;margin-top:8px;overflow-wrap:break-word;}

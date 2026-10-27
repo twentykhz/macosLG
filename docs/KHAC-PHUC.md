@@ -1,3 +1,5 @@
+> Historical technical reference / Tài liệu kỹ thuật cũ. Current beginner guide / Hướng dẫn hiện hành: [Tiếng Việt](INSTALL.vi.md) · [English](INSTALL.en.md).
+
 ﻿# Khôi phục nhanh
 
 Đọc README.md ở thư mục gốc. Nếu TV còn root, chạy file AutoSetup với `-Mode Restore`; không cài Developer Mode lên TV đang root. Nếu đã reset mất root, bật Developer Mode/Key Server rồi chạy Setup. Backup riêng dùng `-BackupFile`.

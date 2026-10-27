@@ -1,3 +1,5 @@
+> Historical technical reference / Tài liệu kỹ thuật cũ. Current beginner guide / Hướng dẫn hiện hành: [Tiếng Việt](INSTALL.vi.md) · [English](INSTALL.en.md).
+
 # 2.0 — 26/10/2026
 
 - Entry point mới `Setup-TV.ps1`: tự động từ Developer Mode tới root và giao diện, dùng đúng `throwaway96/faultmanager-autoroot`.

@@ -10,3 +10,17 @@
 *.md text eol=lf
 
 *.ps1 -text
+
+payload/** text=auto eol=lf
+packages/*.ipk -text
+*.jpg -text
+*.png -text
+*.webp -text
+*.ttf -text
+*.woff -text
+*.woff2 -text
+
+*.cmd text eol=crlf
+*.yml text eol=lf
+
+*.ps1 whitespace=cr-at-eol

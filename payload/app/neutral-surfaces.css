@@ -1,0 +1,30 @@
+/* Color-only overrides. Geometry, opacity, motion and timing stay untouched. */
+body #lunarWidget,body #multiWeather .mw-card{background:#585858!important;border-color:rgba(255,255,255,.27)!important;}
+body #lunarWidget.widget-focused,body #lunarWidget:focus,body #multiWeather .mw-card.widget-focused,body #multiWeather .mw-card:focus{background:#707070!important;}
+body #controlCenter,body #powerMenu{background:linear-gradient(145deg,rgba(70,71,73,.97),rgba(48,49,51,.97))!important;}
+body #controlCenter .cc-toggle,body #controlCenter .cc-block{background:rgba(230,230,230,.12)!important;}
+body #controlCenter .cc-toggle.connected{background:#087aff!important;color:#fff!important;}
+body #controlCenter .cc-picture button,body #controlCenter #ccMute{background:rgba(255,255,255,.18)!important;}
+body #controlCenter #ccWallpaper,body #wallpaperDialog button{background:rgba(230,230,230,.12)!important;}
+body #ccDevices{background:rgba(53,54,56,.97)!important;}
+body #wallpaperDialog{background:rgba(44,45,47,.98)!important;}
+body #widgetDetail,body #widgetDetail.night,body #widgetDetail.rainy,body #widgetDetail.lunar-detail{background:linear-gradient(155deg,#515254,#393a3c 65%,#303133)!important;}
+body #widgetDetail .wd-glass{background:rgba(26,27,29,.4)!important;border-color:rgba(255,255,255,.12)!important;}
+body #widgetDetail button,body #powerMenu button{background:rgba(255,255,255,.14)!important;}
+body #widgetDetail .wd-member.selected,body #widgetDetail #wdToday{background:rgba(225,225,225,.25)!important;}
+body #widgetDetail button:focus,body #widgetDetail #wdToday:focus,body #powerMenu button:focus{background:rgba(235,235,235,.30)!important;}
+body #widgetDetail #wdToday{border-color:rgba(235,235,235,.4)!important;}
+body #widgetDetailBackdrop{background:rgba(8,8,8,.72)!important;}
+body #powerMenuBackdrop{background:transparent!important;}
+body #dockBand{background:linear-gradient(140deg,rgba(194,194,194,.24),rgba(77,77,77,.30))!important;border-color:rgba(255,255,255,.36)!important;}
+body .system-button{background:linear-gradient(145deg,rgba(255,255,255,.23),rgba(200,200,200,.08))!important;}
+body .system-button:hover,body .system-button.focused,body .system-button:focus{background:linear-gradient(145deg,rgba(255,255,255,.34),rgba(215,215,215,.18))!important;}
+
+body #controlCenter #ccWallpaper{font-size:26px!important;font-weight:500!important;color:#fff!important;}
+body #controlCenter .cc-toggle.connected *{color:#fff!important;}
+
+body #controlCenter #ccWallpaper{font-size:20px!important;font-weight:600!important;}
+
+body #controlCenter #ccWallpaper{font-size:20px!important;font-weight:600!important;}
+
+body #controlCenter #ccWallpaper{font-size:20px!important;font-weight:600!important;}

@@ -51,8 +51,8 @@ async function main(args=process.argv.slice(2)){
    await luna(client,'com.webos.applicationManager/launch',{id:'com.webos.app.discovery'});
    console.log('LG Content Store opened. Install FPT Play/TV360/Netflix using the TV, then run -Mode Sync.');
   }else if(mode==='Disable'){
-   await exec(client,"touch /home/root/DISABLE-GATHIN-HOME /home/root/DISABLE-GATHIN-YOUTUBE-VOICE /home/root/DISABLE-GATHIN-CONTROLS /home/root/DISABLE-GATHIN-TRIM /home/root/DISABLE-GATHIN-LGWS");
-   await exec(client,"python -c "+require('../lib/local').quote("import os,signal; targets=['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py']; records=[]\nfor name in os.listdir('/proc'):\n if not name.isdigit():continue\n try:\n  args=open('/proc/'+name+'/cmdline').read().split(chr(0))\n  if len(args)>1 and args[1] in targets:records.append(int(name))\n except IOError:pass\nfor pid in records:\n try:os.kill(pid,signal.SIGTERM)\n except OSError:pass"));
+   await exec(client,"touch /home/root/DISABLE-GATHIN-HOME /home/root/DISABLE-GATHIN-YOUTUBE-VOICE /home/root/DISABLE-GATHIN-CONTROLS /home/root/DISABLE-GATHIN-TRIM /home/root/DISABLE-GATHIN-LGWS /home/root/DISABLE-GATHIN-REMOTE /home/root/DISABLE-GATHIN-WALLPAPER");
+   await exec(client,"python -c "+require('../lib/local').quote("import os,signal; targets=['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js']; records=[]\nfor name in os.listdir('/proc'):\n if not name.isdigit():continue\n try:\n  args=open('/proc/'+name+'/cmdline').read().split(chr(0))\n  if len(args)>1 and args[1] in targets:records.append(int(name))\n except IOError:pass\nfor pid in records:\n try:os.kill(pid,signal.SIGTERM)\n except OSError:pass"));
    await luna(client,'com.webos.applicationManager/lockApp',{id:'com.webos.app.voiceview',lock:false});
    console.log('Custom input/voice/control runtimes disabled. Root and installed apps retained. Run Restore to re-enable.');
   }

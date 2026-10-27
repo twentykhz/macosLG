@@ -1,0 +1,14 @@
+/* Static surfaces: no fullscreen compositing, blur, or layout transitions. */
+html,body{background-image:none;}
+#viewport,#dockBand,#stage,.card,#glass,.name,.system-button{transition:none!important;animation:none!important;}
+#clock{text-shadow:0 3px 8px rgba(0,0,0,.9)!important;-webkit-text-stroke:.6px rgba(0,0,0,.55);}
+.mw-card,#lunarWidget{box-shadow:inset 0 1px 0 rgba(255,255,255,.15)!important;}
+.mw-card.widget-focused,#lunarWidget.widget-focused,.mw-card:focus,#lunarWidget:focus{outline:4px solid #fff!important;outline-offset:4px;background:rgba(69,88,111,.96)!important;box-shadow:none!important;}
+.wd-family-tabs{position:relative;}
+.wd-lunar-info{scroll-behavior:auto!important;}
+#widgetDetail .wd-family-advice{font-size:23px;line-height:1.5;}
+#widgetDetail .wd-family-advice li{margin-bottom:10px;}
+.mw-card.widget-focused,#lunarWidget.widget-focused,.mw-card:focus,#lunarWidget:focus{outline:none!important;outline-offset:0!important;transform:scale(1.025);transition:transform 120ms ease,background-color 120ms ease!important;background:rgba(91,112,139,.88)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 7px 20px rgba(0,0,0,.18)!important;}
+#stage .item{width:104px!important;}
+#stage .card{width:104px!important;height:104px!important;}
+#stage .name{font-size:19px!important;line-height:23px;height:23px;}

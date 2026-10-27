@@ -1,0 +1,20 @@
+/* SF Pro remains the installed typeface; restrained static glass suits this TV. */
+body,button,input{font-family:'SF Pro',system-ui,sans-serif!important;-webkit-font-smoothing:antialiased;letter-spacing:-.018em;font-weight:400;}
+#date{font-weight:400;letter-spacing:-.025em;font-size:28px;line-height:1.25;}
+#clock{font-weight:300;letter-spacing:-.055em;font-variant-numeric:tabular-nums;}
+.mw-location{font-weight:500!important;letter-spacing:-.025em;}
+.mw-temp{font-weight:300!important;letter-spacing:-.045em;}
+.mw-bottom,.mw-range{font-weight:400;letter-spacing:-.025em;}
+#lunarWidget,.mw-card{border-radius:26px!important;border-color:rgba(255,255,255,.27)!important;background:linear-gradient(140deg,rgba(54,65,80,.74),rgba(24,33,47,.73))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 10px 28px rgba(0,0,0,.18)!important;}
+.lw-heading{font-size:18px;letter-spacing:.01em;font-weight:500;}
+#lwDay{font-weight:400;letter-spacing:-.04em;}#lwMonth{font-weight:400;letter-spacing:-.03em;}
+#lwCanChi{color:#e2e9f0;font-weight:400;letter-spacing:-.02em;}
+#lwActivities{font-size:22px;line-height:1.35;letter-spacing:-.025em;font-weight:500;}
+#lwCurrentHour{font-size:20px;font-weight:400;letter-spacing:-.02em;}
+#lwFortune{font-size:18px;font-weight:500;letter-spacing:-.015em;}
+#dockBand{border-radius:30px!important;background:linear-gradient(140deg,rgba(180,193,209,.24),rgba(65,75,92,.30))!important;border-color:rgba(255,255,255,.36)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 10px 28px rgba(0,0,0,.18)!important;}
+.name{font-size:20px!important;font-weight:500!important;letter-spacing:-.02em!important;}
+.wd-family-advice ul{padding-left:23px;margin:5px 0 12px;}.wd-family-advice li{margin-bottom:7px;}
+.wd-family-advice h3{font-size:20px;font-weight:600;margin:12px 0 6px;color:#b9efd2;}
+.wd-family-advice h3.avoid{color:#ffdaad;}.wd-family-index{font-size:21px;color:#ffe0a0;margin:9px 0;}.wd-family-index strong{font-size:31px;font-weight:500;}
+.wd-lunar-info .wd-family-advice{font-size:21px;line-height:1.45;}.wd-lunar-info{scrollbar-width:thin;}

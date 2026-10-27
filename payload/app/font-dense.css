@@ -1,0 +1,12 @@
+/* Stronger SF Pro hierarchy for viewing at TV distance. */
+body,#controlCenter,#widgetDetail,.mw-card,#lunarWidget{font-weight:500;}
+#clock{font-weight:600!important;letter-spacing:-.055em!important;-webkit-text-stroke:.35px rgba(0,0,0,.45)!important;text-shadow:0 3px 8px rgba(0,0,0,.75)!important;}
+#date{font-size:36px!important;font-weight:600!important;line-height:1.25!important;letter-spacing:-.025em!important;}
+#leftBlock{top:calc(28% - 24px)!important;}
+.mw-location,#lwMonth,#lwCanChi,#lwActivities,#lwCurrentHour{font-weight:500!important;}
+.mw-card .mw-temp,#lwDay{font-weight:500!important;}
+.lw-heading,#lwFortune,.cc-heading h2,.wd-toolbar{font-weight:600!important;}
+.mw-bottom,.mw-range,.name,#controlCenter button{font-weight:500!important;}
+#widgetDetail h1,#widgetDetail h2,#widgetDetail h3{font-weight:600;}
+#widgetDetail .wd-date-cell b{font-weight:500;}
+#widgetDetail .wd-family-advice{font-weight:500;}

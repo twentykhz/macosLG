@@ -1,0 +1,43 @@
+name: Installation / setup help
+description: Vietnamese or English support. Do not include secrets.
+title: "[Setup] "
+body:
+  - type: markdown
+    attributes:
+      value: "Read docs/INSTALL.vi.md or docs/INSTALL.en.md first. Che QR, passphrase, token, tài khoản và khóa riêng. Hide credentials, QR codes and private keys."
+  - type: input
+    id: model
+    attributes:
+      label: TV model / Model TV
+      placeholder: LG 55SK8000PTA
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware and webOS SDK if known / Firmware và SDK nếu biết
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version and release tag / Windows và bản GathinTV
+    validations:
+      required: true
+  - type: dropdown
+    id: rooted
+    attributes:
+      label: Starting TV state / Tình trạng trước khi cài
+      options:
+        - Not rooted / Chưa root
+        - Already rooted / Đã root
+        - Unsure / Không biết
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: Step, exact error and expected result / Bước, lỗi và kết quả mong muốn
+      description: Remove secrets before submitting. Do not upload private backups.
+    validations:
+      required: true

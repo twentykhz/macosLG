@@ -4,6 +4,7 @@ const path=require('node:path');
 const {spawnSync}=require('node:child_process');
 const {root,profile,manifest}=require('../lib/local');
 require('./configure-weather');
+require('./configure-launcher');
 fs.mkdirSync(path.join(root,'packages'),{recursive:true});
 const cli=require.resolve('@webos-tools/cli/bin/ares-package.js');
 const result=spawnSync(process.execPath,[cli,path.join(root,'payload/app'),'-o',path.join(root,'packages')],{cwd:root,stdio:'inherit'});

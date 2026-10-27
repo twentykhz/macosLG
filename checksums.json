@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 1167054,
-    "sha256": "147b1f6f3ec6880af0215887c0e0d191cb4d96e78f4853449e0c18960ca3e096"
+    "size": 5630598,
+    "sha256": "5af662f820d8d53af20618d816999dbf99faa5f74cdddf986de66d7f2ec12a9c"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -51,13 +51,43 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py",
-    "size": 6397,
-    "sha256": "332891faacd35795b80782536305c5d9aa3c46ee8935fb233085d0f8b1143646"
+    "size": 6741,
+    "sha256": "5d13f956c879f2618c3f130a58cea98bf779115b291654adf0555301b6e1d158"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py",
     "size": 1592,
     "sha256": "9791360ff7d88e9804cfb005925aadcb905902eb3be4c3f2253076eb9e4bd2e5"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/remote.html",
+    "size": 8925,
+    "sha256": "ca8c8fbbd407b3b150205e587981e3f2d21506a2386299a42d96baa220be3108"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/server.js",
+    "size": 8634,
+    "sha256": "d075f9b13c5a8d40c155edbe6839f7c0d08f7a6fa697075883f9d9f70e40ad50"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/defaults.json",
+    "size": 915,
+    "sha256": "19b0976af05a4876820e04c75705551144787473fe442d816322bcf8356a090d"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/place-names.js",
+    "size": 1010,
+    "sha256": "cb40434d52d0ce56425ff9da0ae91fcd647c1e94ffdeb1caf9023ee6036fdfcd"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js",
+    "size": 9554,
+    "sha256": "6fe9931476ce0bd5fd1c34348d2224f95c1e8e76946898391f8e69fc659c532a"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-upload.html",
+    "size": 15004,
+    "sha256": "ee3ccfeab85723e13502b60088af1ad31aa952f9009c152f9c93df741cb22f21"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
@@ -85,6 +115,11 @@
     "sha256": "3727748ed05aae54df63326dd022c40c3bd912c3194080e9fcd17722cde270a3"
   },
   {
+    "path": "payload/advanced/files/var/lib/webosbrew/init.d/39-gathin-wallpaper",
+    "size": 320,
+    "sha256": "63ae656e7f6529f8edfc6ff178f9db6730ddcc070619e929155370bba9f2bdda"
+  },
+  {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/41-gathin-home-keyhook",
     "size": 606,
     "sha256": "41e8fc64e39b8511fdcb0ba1cc16d00bb588ef1835721f48ef433b17f69e2f64"
@@ -100,6 +135,11 @@
     "sha256": "89fc406fcdcd3e9843445a234b0b3d6dc537433ad382d90e235b92d90df16ee3"
   },
   {
+    "path": "payload/advanced/files/var/lib/webosbrew/init.d/45-gathin-remote",
+    "size": 302,
+    "sha256": "2ede775ffdfb6e8871caf6d9bdbddcad06bc7ea93d6f78386c1477a8739ff63e"
+  },
+  {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying",
     "size": 93,
     "sha256": "8097a87989e834a823b56a66d1ac06c26cfd723c62a637aa033c80c4acf398de"
@@ -111,23 +151,28 @@
   },
   {
     "path": "payload/advanced/map.json",
-    "size": 2863,
-    "sha256": "39185cf6ba071daa68110f6b6312f408811763dcd0051bbca6747afbba79da4c"
+    "size": 4079,
+    "sha256": "e5b1b5dccb9b1bff07a28770818f331a72164e6680cd9584c930af9239fa7e48"
   },
   {
     "path": "payload/advanced/youtube-userScript.js",
-    "size": 260728,
-    "sha256": "8f2d13c2c0060a54f2742292216042d52d9bd296fac699c75397750dfb696836"
+    "size": 260698,
+    "sha256": "28d5e020d8f74487d0cb353ca2633da36ccaaa4731be0513121955b5063ae45d"
+  },
+  {
+    "path": "payload/app/almanac-rules.js",
+    "size": 4013,
+    "sha256": "c253d3dc330af62ed482fc5a308115c22737347ab2a9f9dc5a8b7a74d81cdeea"
   },
   {
     "path": "payload/app/app.js",
-    "size": 13033,
-    "sha256": "767c492e00b5f4ee0203f7b4c43643fcd1dd1e803a641f8ce0e71eb2c6328511"
+    "size": 13140,
+    "sha256": "c923e9778856ecfc52b5bb7c49e0d5a72a10ecbfa1e8bf818b566f56a0aeff8f"
   },
   {
     "path": "payload/app/appinfo.json",
-    "size": 406,
-    "sha256": "ff0775da494c3be82b50a65494de5ea2d2721e4a44c5f29b7b8b93580012cf9c"
+    "size": 418,
+    "sha256": "2d8dc090a748db8072f774a717177067133723bc912281374c79a6016a0e070b"
   },
   {
     "path": "payload/app/apps.js",
@@ -136,8 +181,8 @@
   },
   {
     "path": "payload/app/config.js",
-    "size": 454,
-    "sha256": "3018125341eec3f4516abf2c4946d707240be28c065ee3677d23039586ad2cb7"
+    "size": 521,
+    "sha256": "22187ee04038d6d8cd1b1219e7902d0563d6737781b08cf4e9ad3957f79f395d"
   },
   {
     "path": "payload/app/controls.css",
@@ -146,8 +191,23 @@
   },
   {
     "path": "payload/app/controls.js",
-    "size": 15124,
-    "sha256": "da4378e7e230569b0a6aa271a92cf3f71de081e388f74e4ad77cb14164c36b16"
+    "size": 15680,
+    "sha256": "6c2cc1306d3775581b886f7967704d5e32d62531950e5a80940f0c03902f0825"
+  },
+  {
+    "path": "payload/app/dock-compact.js",
+    "size": 2188,
+    "sha256": "57755e7dda6137863d46f4f05d0e2082f4b3f709da36de34370d2a56a6d109b9"
+  },
+  {
+    "path": "payload/app/family-config.js",
+    "size": 360,
+    "sha256": "26b11c4afc323048be77599cea6b2e8e53a9195a3aacfd981d714b3e5f1a0a5f"
+  },
+  {
+    "path": "payload/app/font-dense.css",
+    "size": 929,
+    "sha256": "a91e6caf5882ade94c80eb9c1aaeab2cb9f1b70e7605682a832c28ae0d8254d4"
   },
   {
     "path": "payload/app/fonts/Inter-Light.woff2",
@@ -165,9 +225,29 @@
     "sha256": "5cb7103e4e605989afebc03d989c79201e54b21b5183db33981f70db9178a301"
   },
   {
-    "path": "payload/app/fonts/OFL.txt",
+    "path": "payload/app/fonts/InterVariable.ttf",
+    "size": 876576,
+    "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031"
+  },
+  {
+    "path": "payload/app/fonts/OFL-Inter.txt",
     "size": 4377,
     "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+  },
+  {
+    "path": "payload/app/fonts/OFL.txt",
+    "size": 4389,
+    "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416"
+  },
+  {
+    "path": "payload/app/fonts/outfit.ttf",
+    "size": 110884,
+    "sha256": "fc7287273e66929776e2ba54f144fe699080bec29f61bf649d70d871468aeade"
+  },
+  {
+    "path": "payload/app/glass-dock.css",
+    "size": 944,
+    "sha256": "58f0eb036fd089120ff07264092f9c1b31e86d297cae8f9a39c18b040b11e09b"
   },
   {
     "path": "payload/app/icon.png",
@@ -406,13 +486,18 @@
   },
   {
     "path": "payload/app/index.html",
-    "size": 4171,
-    "sha256": "a978b3ed42219fc263fc4876781ce2faf2dede9e078c994576e5110cf4fd9168"
+    "size": 5785,
+    "sha256": "97bdb6f036fd954f8b24f51ae05845c7eb60486c7820ff4ff7cf5f5179951924"
   },
   {
     "path": "payload/app/largeIcon.png",
     "size": 6975,
     "sha256": "325a231b6d01cff26545b47400ec3b45e7b1b7b0148ab9fb9e9e1df1266a939d"
+  },
+  {
+    "path": "payload/app/launcher-light.css",
+    "size": 1340,
+    "sha256": "13b7541a6f6cba172a215081437636da6f187ceb85198da1fb7f8a77c93c6435"
   },
   {
     "path": "payload/app/lgws-order.js",
@@ -421,13 +506,58 @@
   },
   {
     "path": "payload/app/lunar-calendar.js",
-    "size": 2149,
-    "sha256": "987f48889ea382c798cb2ad18f46eb2cbf984b7e9c88cbdcf0d227ecc4dfbea8"
+    "size": 4663,
+    "sha256": "dbed16a63a2b6625bd4d232a8ac6c80f59e2c306a5a5ecfb5d8087773dc61372"
+  },
+  {
+    "path": "payload/app/lunar-widget.css",
+    "size": 3245,
+    "sha256": "014b8147015ae8d383b71de029717f71c0e11b1711b27600f57d9bedc108e7c5"
+  },
+  {
+    "path": "payload/app/lunar-widget.js",
+    "size": 5300,
+    "sha256": "8c51ef38d20ceb10c104f9602f0552c396e612498a11c34563d1c5d5d1230666"
+  },
+  {
+    "path": "payload/app/macos-polish.css",
+    "size": 2088,
+    "sha256": "2bbaa09effaba9aa87b838f4a521fdf84d8c9b72961015bb0d91214680108983"
+  },
+  {
+    "path": "payload/app/neutral-surfaces.css",
+    "size": 2730,
+    "sha256": "4b78317cc0b0e2eeefdc2cd9ea03cfc2c689834a987057f6deef07b57b35f975"
+  },
+  {
+    "path": "payload/app/place-names.js",
+    "size": 1010,
+    "sha256": "cb40434d52d0ce56425ff9da0ae91fcd647c1e94ffdeb1caf9023ee6036fdfcd"
+  },
+  {
+    "path": "payload/app/power-toolbar.css",
+    "size": 1057,
+    "sha256": "275da397375baf47a7b7f85638e816a85ba4150eef186f4ac7b8c854a7cd490e"
+  },
+  {
+    "path": "payload/app/power-toolbar.js",
+    "size": 3035,
+    "sha256": "3aaec9a8298f5b7b6ec17acc101d1c8467aca11f11a172354a702a7af23e6276"
+  },
+  {
+    "path": "payload/app/qrcode.js",
+    "size": 20313,
+    "sha256": "3697709bbfa31f65ab1fe3e786aeb5a5d6fa9e0a87dd7afb697930e72f2e9032"
+  },
+  {
+    "path": "payload/app/remote-access.js",
+    "size": 78,
+    "sha256": "7827df3a0c7d596f937370b01fd1c92698fbd09274a20b1cdd81e942642fd6d8"
   },
   {
     "path": "payload/app/style.css",
-    "size": 11430,
-    "sha256": "bdc38d4dca37da1162d7bc924c37a06fcfc7b43ed53dcbe152d8b74d81142e76"
+    "size": 11057,
+    "sha256": "df26fbc06753efa15866417a01f342e45a2ebb74a2319f31bada2a68320a79e5"
   },
   {
     "path": "payload/app/tv-shortcut-order.js",
@@ -435,9 +565,104 @@
     "sha256": "64f118c211dfacf3f36aa932144ca6238ee6c0cb4f9201240435c81fc74b4ee2"
   },
   {
+    "path": "payload/app/visible-runtime.js",
+    "size": 1201,
+    "sha256": "abc7f832776b518adab20a7f3c8c6d5ac14a21a2194f7fec0b479f53f0ca315d"
+  },
+  {
+    "path": "payload/app/voice-search.js",
+    "size": 2887,
+    "sha256": "328eb83b0f2e384dcb52c1db446f5007197472b3ef1c02bc03f0545f0d5993cd"
+  },
+  {
+    "path": "payload/app/voice-weather-widget.css",
+    "size": 4675,
+    "sha256": "642058fa67dd4a73ebf40ff08bdd88624c59740e4faccc8f8a54441d3496bbad"
+  },
+  {
+    "path": "payload/app/wall-09a1f7d757f68bc77530.jpg",
+    "size": 538673,
+    "sha256": "1d8d4f1668b9a34d46c13c858c4ad0866508cc7f55e59dc97f68b57d2cfbdac5"
+  },
+  {
+    "path": "payload/app/wall-19f86cf4071aedbad4b7.jpg",
+    "size": 628346,
+    "sha256": "b2d8c6adcfb981f6f56c62072670277c6668bc49253ba1ac88eccf6ecea551c6"
+  },
+  {
+    "path": "payload/app/wall-975fd2376977da05994d.jpg",
+    "size": 660046,
+    "sha256": "74762be790cd3dee754b9b3586f4c45db41f6ef372e15e0f613f88d4bfc915c2"
+  },
+  {
+    "path": "payload/app/wall-bd925b6c7d52405576b2.jpg",
+    "size": 715376,
+    "sha256": "54c7148aafd84044fc8c54360defd71a3b704ae668f9a4982c48081e6fcf7d40"
+  },
+  {
+    "path": "payload/app/wall-d95524167aa96e5f3ddf.jpg",
+    "size": 688389,
+    "sha256": "80a7b1709d4c7a193d3eea2eef2372a7fd5d928d088e75110458d045efc64e6f"
+  },
+  {
+    "path": "payload/app/wall-dde60ea098bf075d0de7.jpg",
+    "size": 555838,
+    "sha256": "9433acc47b5a70023ffe2be0bf3987d2acbcfb7fc3e21c840a9bbd56865628ef"
+  },
+  {
+    "path": "payload/app/wall.js",
+    "size": 269,
+    "sha256": "cb200fa1afaa0e37e4d6696fe872a341ace9f0eb6dd59d34fe78c1a9d973fbe8"
+  },
+  {
+    "path": "payload/app/wallpaper-motion.js",
+    "size": 3909,
+    "sha256": "94fd967681e6e5c0f3f84996761ffde9741cb352056eb7a9b3fedb6fe366ced7"
+  },
+  {
+    "path": "payload/app/wallpaper-panel.css",
+    "size": 1485,
+    "sha256": "f0d5554f70497cd72ddb9bc5598fb72433b53e40285da41bd84e81d5c4cfbe53"
+  },
+  {
+    "path": "payload/app/wallpaper-panel.js",
+    "size": 2239,
+    "sha256": "22b0b2f519c47e75965212f303fa50c054680975994881773d7156a7eff330ed"
+  },
+  {
     "path": "payload/app/wallpaper.jpg",
-    "size": 599627,
-    "sha256": "c0d4e55b375ada0ae49ba61abfd581d51218c507c9d23501961ef4fe7247dcc1"
+    "size": 715376,
+    "sha256": "54c7148aafd84044fc8c54360defd71a3b704ae668f9a4982c48081e6fcf7d40"
+  },
+  {
+    "path": "payload/app/weather-dual.css",
+    "size": 1272,
+    "sha256": "5855b8729b76d07d0a6e57cde07da134885062b1fc4ca2633ab0cf6925ad1c62"
+  },
+  {
+    "path": "payload/app/weather-dual.js",
+    "size": 4800,
+    "sha256": "38ccbba57cae356fab948f1fd0e4c673c1df6862ef4d13a97644321de0f18b05"
+  },
+  {
+    "path": "payload/app/widget-details.css",
+    "size": 9737,
+    "sha256": "878ec4ad3beae351d14a0b27c8644930155d9339cba4b352fb2c53f083bd569a"
+  },
+  {
+    "path": "payload/app/widget-details.js",
+    "size": 16347,
+    "sha256": "9f2cce26f5b004fd2bb46a6aea6a63ee982093a314f6894a95a002d7ff7b3091"
+  },
+  {
+    "path": "payload/app/widget-open.js",
+    "size": 4819,
+    "sha256": "d8d958a667947081e70a1d8ae484a21a801607591a733a720a4714981c63d8c8"
+  },
+  {
+    "path": "payload/app/widget-readability.css",
+    "size": 1193,
+    "sha256": "53ff1a250685ffac8b4d7ba6078a7c3001d7f86c72dd441f636b12b03731dd2e"
   },
   {
     "path": "payload/home/41-gathin-home-keyhook",

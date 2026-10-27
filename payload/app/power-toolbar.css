@@ -1,0 +1,10 @@
+#leftButtons{position:absolute;top:54px;left:74px;display:flex;z-index:4;pointer-events:auto;}
+#leftButtons .system-button+.system-button{margin-left:9.75px;}
+#topButtons #btnAction{margin-left:0!important;}
+#powerMenuBackdrop{position:absolute;top:148px;left:74px;width:390px;height:auto;z-index:600;display:block;}
+#powerMenu{width:390px;padding:20px;border:1px solid rgba(255,255,255,.3);border-radius:26px;background:linear-gradient(145deg,rgba(70,71,73,.97),rgba(48,49,51,.97));color:#fff;box-sizing:border-box;box-shadow:0 12px 32px rgba(0,0,0,.25);}
+#powerMenu h2{font-size:26px;font-weight:600;margin-bottom:16px;}
+#powerMenu button{display:block;width:100%;padding:14px 16px;margin-top:10px;border:0;border-radius:16px;background:rgba(230,230,230,.12);color:white;font:inherit;font-size:23px;text-align:left;outline:none;cursor:pointer;}
+#powerMenu button:focus{background:rgba(220,228,240,.28);box-shadow:inset 0 0 0 2px rgba(255,255,255,.75);}
+#powerMenu button:disabled{opacity:.5;}
+#powerMenu p{font-size:19px;line-height:1.4;margin-top:16px;}

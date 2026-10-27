@@ -70,5 +70,37 @@
   {
     "remote": "/media/developer/apps/usr/palm/applications/youtube.leanback.v4/webOSUserScripts/userScript.js",
     "local": "payload/advanced/youtube-userScript.js"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-wallpaper/wallpaper-upload.html",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-upload.html"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-wallpaper/place-names.js",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/place-names.js"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-remote/server.js",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-remote/server.js"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-remote/remote.html",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-remote/remote.html"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/39-gathin-wallpaper",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/39-gathin-wallpaper"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/45-gathin-remote",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/45-gathin-remote"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-wallpaper/defaults.json",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/defaults.json"
   }
 ]

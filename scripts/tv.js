@@ -8,7 +8,7 @@ const {connect,exec,luna,upload,archive,installPackage}=require('../lib/ssh');
 function parse(argv){
   const [command='help',...args]=argv;
   const configPath=path.join(root,'config/device.json');
-  const options={host:'192.168.1.11',port:22,username:'root',...(fs.existsSync(configPath)?JSON.parse(fs.readFileSync(configPath)): {})};
+  const options={host:'',port:22,username:'root',...(fs.existsSync(configPath)?JSON.parse(fs.readFileSync(configPath)): {})};
   const flags={'--host':'host','--port':'port','--key':'key','--backup-file':'backupFile'};
   const switches={'--dry-run':'dryRun','--trust-new-host':'trustNewHost','--allow-firmware-mismatch':'allowFirmwareMismatch','--privacy':'privacy','--advanced':'advanced','--remove-extra-apps':'removeExtraApps'};
   for(let i=0;i<args.length;i++){
@@ -16,9 +16,11 @@ function parse(argv){
     else if(switches[args[i]])options[switches[args[i]]]=true;
     else throw new Error('Unknown option: '+args[i]);
   }
+  if(!['help','doctor','backup','restore','sync-apps','disable','enable','reboot'].includes(command))throw new Error('Unknown command: '+command);
+  if(options.dryRun&&!['restore','sync-apps'].includes(command))throw new Error('--dry-run is only supported for restore and sync-apps');
   options.port=Number(options.port);
   if(!options.key&&fs.existsSync(rootKeyFile(options.host)))options.key=rootKeyFile(options.host);
-  if(!options.host||options.username!=='root'||!Number.isInteger(options.port)||options.port<1||options.port>65535)throw new Error('Invalid device connection settings');
+  if(command!=='help'&&(!options.host||options.username!=='root'||!Number.isInteger(options.port)||options.port<1||options.port>65535))throw new Error('Invalid device connection settings');
   if('password' in options)throw new Error('Do not put passwords in config/device.json; use the hidden prompt or --key.');
   if(!['help','doctor','backup','restore','sync-apps','disable','enable','reboot'].includes(command))throw new Error('Unknown command: '+command);
   if(options.dryRun&&!['restore','sync-apps'].includes(command))throw new Error('--dry-run is only supported for restore and sync-apps');

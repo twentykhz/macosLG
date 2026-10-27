@@ -1,1 +1,113 @@
-!function(t){"use strict";var e=Math.PI;function a(t,e,a){var n=Math.floor((14-e)/12),o=a+4800-n,r=e+12*n-3,h=t+Math.floor((153*r+2)/5)+365*o+Math.floor(o/4)-Math.floor(o/100)+Math.floor(o/400)-32045;return h<2299161&&(h=t+Math.floor((153*r+2)/5)+365*o+Math.floor(o/4)-32083),h}function n(t){var a=t/1236.85,n=a*a,o=n*a,r=e/180,h=2415020.75933+29.53058868*t+1178e-7*n-155e-9*o;h+=33e-5*Math.sin((166.56+132.87*a-.009173*n)*r);var i=359.2242+29.10535608*t-333e-7*n-347e-8*o,M=306.0253+385.81691806*t+.0107306*n+1236e-8*o,f=21.2964+390.67050646*t-.0016528*n-239e-8*o,s=(.1734-393e-6*a)*Math.sin(i*r)+.0021*Math.sin(2*i*r)-.4068*Math.sin(M*r)+.0161*Math.sin(2*M*r)-4e-4*Math.sin(3*M*r)+.0104*Math.sin(2*f*r)-.0051*Math.sin((i+M)*r)-.0074*Math.sin((i-M)*r)+4e-4*Math.sin((2*f+i)*r)-4e-4*Math.sin((2*f-i)*r)-6e-4*Math.sin((2*f+M)*r)+.001*Math.sin((2*f-M)*r)+5e-4*Math.sin((2*M+i)*r),u=a<-11?.001+839e-6*a+2261e-7*n-845e-8*o-81e-9*a*o:265e-6*a-278e-6+262e-6*n;return Math.floor(h+s-u+.5+7/24)}function o(t){var a=(t-2451545)/36525,n=a*a,o=e/180,r=357.5291+35999.0503*a-1559e-7*n-48e-8*a*n,h=125.04-1934.136*a,i=(280.46645+36000.76983*a+3032e-7*n+((1.9146-.004817*a-14e-6*n)*Math.sin(o*r)+(.019993-101e-6*a)*Math.sin(2*o*r)+29e-5*Math.sin(3*o*r))-.00569-.00478*Math.sin(h*o))*o;return i-=2*e*Math.floor(i/(2*e)),Math.floor(i/e*6)}function r(t){var e=a(31,12,t)-2415021,r=Math.floor(e/29.530588853),h=n(r);return o(h)>=9&&(h=n(r-1)),h}function h(t){var e=t instanceof Date?t:new Date(t||Date.now()),h=new Date(e.getTime()+252e5),i=h.getUTCDate(),M=h.getUTCMonth()+1,f=h.getUTCFullYear(),s=a(i,M,f),u=Math.floor((s-2415021.076998695)/29.530588853),l=n(u+1);l>s&&(l=n(u));var v,d=r(f),c=d;d>=l?(v=f,d=r(f-1)):(v=f+1,c=r(f+1));var w=s-l+1,m=Math.floor((l-d)/29),D=m+11,g=!1;if(c-d>365){var p=function(t){for(var e=Math.floor(.5+(t-2415021.076998695)/29.530588853),a=0,r=1,h=o(n(e+r));h!==a&&r<14;)a=h,h=o(n(e+ ++r));return r-1}(d);m>=p&&(D=m+10,m===p&&(g=!0))}return D>12&&(D-=12),D>=11&&m<4&&v--,{day:w,month:D,year:v,isLeap:g}}t.getVietnameseLunarDate=h,"undefined"!=typeof module&&module.exports&&(module.exports=h)}("undefined"!=typeof window?window:this);
+/* Vietnamese lunar calendar conversion (Ho Ngoc Duc astronomical algorithm), fixed UTC+7. */
+(function (root) {
+  'use strict';
+
+  var PI = Math.PI;
+  var TIME_ZONE = 7;
+
+  function jdFromDate(day, month, year) {
+    var a = Math.floor((14 - month) / 12);
+    var y = year + 4800 - a;
+    var m = month + 12 * a - 3;
+    var jd = day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) -
+      Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+    if (jd < 2299161) jd = day + Math.floor((153 * m + 2) / 5) + 365 * y + Math.floor(y / 4) - 32083;
+    return jd;
+  }
+
+  function newMoonDay(k) {
+    var t = k / 1236.85;
+    var t2 = t * t;
+    var t3 = t2 * t;
+    var dr = PI / 180;
+    var jd1 = 2415020.75933 + 29.53058868 * k + 0.0001178 * t2 - 0.000000155 * t3;
+    jd1 += 0.00033 * Math.sin((166.56 + 132.87 * t - 0.009173 * t2) * dr);
+    var m = 359.2242 + 29.10535608 * k - 0.0000333 * t2 - 0.00000347 * t3;
+    var m1 = 306.0253 + 385.81691806 * k + 0.0107306 * t2 + 0.00001236 * t3;
+    var f = 21.2964 + 390.67050646 * k - 0.0016528 * t2 - 0.00000239 * t3;
+    var c1 = (0.1734 - 0.000393 * t) * Math.sin(m * dr) + 0.0021 * Math.sin(2 * m * dr) -
+      0.4068 * Math.sin(m1 * dr) + 0.0161 * Math.sin(2 * m1 * dr) - 0.0004 * Math.sin(3 * m1 * dr) +
+      0.0104 * Math.sin(2 * f * dr) - 0.0051 * Math.sin((m + m1) * dr) -
+      0.0074 * Math.sin((m - m1) * dr) + 0.0004 * Math.sin((2 * f + m) * dr) -
+      0.0004 * Math.sin((2 * f - m) * dr) - 0.0006 * Math.sin((2 * f + m1) * dr) +
+      0.0010 * Math.sin((2 * f - m1) * dr) + 0.0005 * Math.sin((2 * m1 + m) * dr);
+    var deltaT = t < -11 ? 0.001 + 0.000839 * t + 0.0002261 * t2 - 0.00000845 * t3 - 0.000000081 * t * t3 :
+      -0.000278 + 0.000265 * t + 0.000262 * t2;
+    return Math.floor(jd1 + c1 - deltaT + 0.5 + TIME_ZONE / 24);
+  }
+
+  function sunLongitudeSector(dayNumber) {
+    var t = (dayNumber - 0.5 - TIME_ZONE / 24 - 2451545.0) / 36525;
+    var t2 = t * t;
+    var dr = PI / 180;
+    var m = 357.52910 + 35999.05030 * t - 0.0001559 * t2 - 0.00000048 * t * t2;
+    var l0 = 280.46645 + 36000.76983 * t + 0.0003032 * t2;
+    var dl = (1.914600 - 0.004817 * t - 0.000014 * t2) * Math.sin(dr * m) +
+      (0.019993 - 0.000101 * t) * Math.sin(2 * dr * m) + 0.000290 * Math.sin(3 * dr * m);
+    var omega = 125.04 - 1934.136 * t;
+    var longitude = (l0 + dl - 0.00569 - 0.00478 * Math.sin(omega * dr)) * dr;
+    longitude -= 2 * PI * Math.floor(longitude / (2 * PI));
+    return Math.floor(longitude / PI * 6);
+  }
+
+  function lunarMonth11(year) {
+    var off = jdFromDate(31, 12, year) - 2415021;
+    var k = Math.floor(off / 29.530588853);
+    var nm = newMoonDay(k);
+    if (sunLongitudeSector(nm) >= 9) nm = newMoonDay(k - 1);
+    return nm;
+  }
+
+  function leapMonthOffset(a11) {
+    var k = Math.floor(0.5 + (a11 - 2415021.076998695) / 29.530588853);
+    var last = 0;
+    var i = 1;
+    var arc = sunLongitudeSector(newMoonDay(k + i));
+    while (arc !== last && i < 14) {
+      last = arc;
+      i++;
+      arc = sunLongitudeSector(newMoonDay(k + i));
+    }
+    return i - 1;
+  }
+
+  function getVietnameseLunarDate(date) {
+    var instant = date instanceof Date ? date : new Date(date || Date.now());
+    // Shift the instant to Vietnam time, then use UTC fields to avoid host timezone/DST effects.
+    var vn = new Date(instant.getTime() + TIME_ZONE * 60 * 60 * 1000);
+    var day = vn.getUTCDate();
+    var month = vn.getUTCMonth() + 1;
+    var year = vn.getUTCFullYear();
+    var dayNumber = jdFromDate(day, month, year);
+    var k = Math.floor((dayNumber - 2415021.076998695) / 29.530588853);
+    var monthStart = newMoonDay(k + 1);
+    if (monthStart > dayNumber) monthStart = newMoonDay(k);
+    var a11 = lunarMonth11(year);
+    var b11 = a11;
+    var lunarYear;
+    if (a11 >= monthStart) {
+      lunarYear = year;
+      a11 = lunarMonth11(year - 1);
+    } else {
+      lunarYear = year + 1;
+      b11 = lunarMonth11(year + 1);
+    }
+    var lunarDay = dayNumber - monthStart + 1;
+    var diff = Math.floor((monthStart - a11) / 29);
+    var lunarMonth = diff + 11;
+    var isLeap = false;
+    if (b11 - a11 > 365) {
+      var leapDiff = leapMonthOffset(a11);
+      if (diff >= leapDiff) {
+        lunarMonth = diff + 10;
+        if (diff === leapDiff) isLeap = true;
+      }
+    }
+    if (lunarMonth > 12) lunarMonth -= 12;
+    if (lunarMonth >= 11 && diff < 4) lunarYear--;
+    return { day: lunarDay, month: lunarMonth, year: lunarYear, isLeap: isLeap };
+  }
+
+  root.getVietnameseLunarDate = getVietnameseLunarDate;
+  if (typeof module !== 'undefined' && module.exports) module.exports = getVietnameseLunarDate;
+}(typeof window !== 'undefined' ? window : this));

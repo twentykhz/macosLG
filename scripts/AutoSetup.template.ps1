@@ -2,11 +2,13 @@
 param(
  [ValidateSet('Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Prepare','Extract')][string]$Mode='Setup',
  [string]$HostName,
- [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,
+ [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,
  [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,
  [string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'GathinTV')
 )
 $ErrorActionPreference='Stop'
+trap { Write-Host ('Stopped: '+$_.Exception.Message) -ForegroundColor Red; if(-not $NoPause){[void](Read-Host 'Press Enter to close')}; exit 1 }
+Write-Host 'GathinTV 3.1: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -17,7 +19,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.0.0-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.1.0-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'GathinTV-source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)
@@ -61,6 +63,15 @@ if(-not $node){
 if($Mode -eq 'Prepare'){& $node (Join-Path $release 'scripts/verify.js');if($LASTEXITCODE -ne 0){throw 'Payload verification failed.'};Write-Host 'PC is ready; no TV connection was made.';return}
 if(-not $HostName){$HostName=Read-Host 'TV IP address'}
 if($HostName -notmatch '^[a-zA-Z0-9.-]+$'){throw 'Invalid TV address.'}
+$taskKnownHosts=Join-Path $DataDirectory 'state/known-hosts.json'
+$taskKnown=$false
+if(Test-Path -LiteralPath $taskKnownHosts){try{$taskEntries=Get-Content -LiteralPath $taskKnownHosts -Raw|ConvertFrom-Json;$taskPort=if($Mode -eq 'Setup' -and -not $AlreadyRooted){9922}else{22};$taskKnown=$null -ne $taskEntries.PSObject.Properties[($HostName+':'+$taskPort)]}catch{}}
+if(-not $TrustNewHost -and -not $taskKnown){
+ Write-Host ('First connection to '+$HostName+'. Check this IP on YOUR TV before accepting its new SSH host key.')
+ $taskAnswer=Read-Host 'Type YES only if this is your TV on your trusted home network'
+ if($taskAnswer -cne 'YES'){throw 'Connection cancelled before trusting the TV. Check the IP and try again.'}
+ $TrustNewHost=$true
+}
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){
  Write-Host 'On the TV: install Developer Mode, enable Dev Mode Status, allow its reboot, then enable Key Server.'
  Write-Host 'Enter the Developer Mode passphrase when prompted. The remaining compatible steps run automatically.'
@@ -72,3 +83,5 @@ foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@
 foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
 & $node @arguments
 if($LASTEXITCODE -ne 0){throw "Stopped with exit code $LASTEXITCODE. Logs and keys: $env:GATHIN_STATE_DIRECTORY"}
+
+if(-not $NoPause -and $Mode -in @('Setup','Restore')){[void](Read-Host 'Completed. Press Enter to close')}
