@@ -8,7 +8,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 trap { Write-Host ('Stopped: '+$_.Exception.Message) -ForegroundColor Red; if(-not $NoPause){[void](Read-Host 'Press Enter to close')}; exit 1 }
-Write-Host 'GathinTV 3.1.1: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
+Write-Host 'GathinTV 3.2.0: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -19,7 +19,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.1.1-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.2.0-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'GathinTV-source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)
@@ -69,7 +69,7 @@ if(Test-Path -LiteralPath $taskKnownHosts){try{$taskEntries=Get-Content -Literal
 if(-not $TrustNewHost -and -not $taskKnown){
  Write-Host ('First connection to '+$HostName+'. Check this IP on YOUR TV before accepting its new SSH host key.')
  $taskAnswer=Read-Host 'Type YES only if this is your TV on your trusted home network'
- if($taskAnswer -cne 'YES'){throw 'Connection cancelled before trusting the TV. Check the IP and try again.'}
+ if($taskAnswer.Trim() -ine 'YES'){throw 'Connection cancelled before trusting the TV. Check the IP and try again.'}
  $TrustNewHost=$true
 }
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){

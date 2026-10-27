@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9490830,
-    "sha256": "2d1e600a1bfe633e9d503c623d04a6dc6d36bee2a251ed0f0056a8ba4041184d"
+    "size": 9490822,
+    "sha256": "2959e15ddcf64802d8c79eff350f4adf7e9446a6e22a92154b9cb87360fb62d3"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -678,6 +678,11 @@
     "path": "payload/home/boot.sh",
     "size": 1434,
     "sha256": "a429c7cb2ec00789d256f67f9b9f1d1026b3a0541d39e91f42d604b8143cfc80"
+  },
+  {
+    "path": "payload/home/compatible-boot.sh",
+    "size": 457,
+    "sha256": "2eb43f1ec9691e92cd8135145e566b46953779ad952ebe8590f455b9b154c3b7"
   },
   {
     "path": "payload/home/disable-home.sh",

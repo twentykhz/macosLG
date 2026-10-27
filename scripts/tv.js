@@ -30,7 +30,8 @@ function parse(argv){
 async function inspect(client,options){
   if((await exec(client,'id -u')).trim()!=='0')throw new Error('Root SSH required; finish rooting first.');
   const info=await luna(client,'com.webos.service.tv.systemproperty/getSystemInfo',{keys:['modelName','firmwareVersion','sdkVersion','boardType']});
-  assertProfile(info,options);
+  const reference=info.modelName===profile.modelName&&info.boardType===profile.boardType&&info.firmwareVersion===profile.firmwareVersion;
+  if(!reference){const {apps=[]}=await luna(client,'com.webos.applicationManager/listApps');console.log('Rooted compatibility mode: '+info.modelName+'/'+info.boardType);return {info,apps,compatibility:true};}
   const python=(await exec(client,"python -c 'import sys,fcntl,select,struct,hashlib,json; print(sys.version_info[0]); print(struct.calcsize(\"llHHi\"))'" )).trim().split(/\r?\n/);
   if(python[0]!=='2'||python[1]!=='16')throw new Error('This relay requires the verified TV Python 2 / 32-bit input ABI.');
   await exec(client,'test -x /var/lib/webosbrew/startup.sh && test -d /var/lib/webosbrew/init.d');
@@ -105,7 +106,8 @@ async function restorePrivacy(client){
 
 async function restore(client,options){
   verify();
-  const {info,apps}=await inspect(client,options);
+  const device=await inspect(client,options);const {info,apps}=device;
+  if(device.compatibility||options.compatibilityMode)return require('../lib/rooted-compat').install(client,options,device);
   if(options.privacy&&!apps.some(app=>app.id==='ooo.lew.lifesgoodwithoutspying'))throw new Error('Install Life’s Good Without Spying from Homebrew Channel before --privacy.');
   const plan={device:info,app:`${profile.appId} ${profile.appVersion}`,steps:['back up current project files to PC','install launcher through LG appInstallService','install validated HOME relay and boot hooks','sync installed baseline app tiles',...(options.privacy?['restore privacy app configuration']:[]),'start hook and verify process'],reboot:false};
   console.log(JSON.stringify(plan,null,2));

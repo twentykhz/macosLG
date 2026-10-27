@@ -6,7 +6,7 @@ Biến màn hình chính của TV LG webOS tương thích thành giao diện l�
 
 ![Giao diện launcher](preview.png)
 
-**TV tham chiếu đã chạy thực tế:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · ARM32/Python 2. Không mặc định hỗ trợ mọi TV/firmware. Bộ cài có kiểm tra tương thích; không sửa profile chỉ để vượt lỗi. Chưa kiểm chứng cài mới sau reset trên TV thứ hai.
+**TV tham chiếu đã chạy thực tế:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · ARM32/Python 2. Từ **3.2.0**, TV đã root dùng **Restore** được dò khả năng thực tế, không bắt trùng model mẫu. Tính năng thiếu điều kiện sẽ được bỏ qua và báo rõ; các tinh chỉnh riêng của TV mẫu không áp sang TV khác. Root TV chưa root vẫn cần đúng profile/firmware. Chưa kiểm chứng cài mới sau reset trên TV thứ hai.
 
 ## Bạn muốn làm gì?
 

@@ -8,7 +8,7 @@ Nếu bạn chỉ muốn cài, làm lần lượt các bước dưới đây. Kh
 
 Chuẩn bị TV LG webOS tương thích, remote, PC Windows 64-bit và Internet. Cắm PC vào nguồn nếu có thể, tắt chế độ ngủ trong lúc cài. TV và PC phải cùng mạng nhà; tránh Wi-Fi khách có chặn các thiết bị truy cập nhau.
 
-**Profile tham chiếu:** LG 55SK8000PTA / firmware 05.50.70 / SDK 4.4.0 / M16PP_DVB_EU / ARM32. Không phải mọi TV LG đều được hỗ trợ. Trên TV, tìm Cài đặt → Tất cả cài đặt → Cài đặt chung → Giới thiệu về TV (tên mục có thể khác theo đời TV) để ghi model và phiên bản phần mềm. Khi không chắc, hỏi trong [Issues](https://github.com/twentykhz/macosLG/issues) trước; không thay profile để ép chạy.
+**Profile tham chiếu:** LG 55SK8000PTA / firmware 05.50.70 / SDK 4.4.0 / M16PP_DVB_EU / ARM32. TV đã root dùng Restore 3.2.0 trở lên được kiểm tra theo tính năng, không chặn chỉ vì khác model. Mọi tính năng vẫn phụ thuộc API/phần cứng. TV chưa root không phải model nào cũng root được. Trên TV, tìm Cài đặt → Tất cả cài đặt → Cài đặt chung → Giới thiệu về TV (tên mục có thể khác theo đời TV) để ghi model và phiên bản phần mềm. Khi không chắc, hỏi trong [Issues](https://github.com/twentykhz/macosLG/issues) trước; không thay profile để ép chạy.
 
 Root là cấp quyền quản trị cho phần mềm tùy chỉnh. Bộ cài có các bước root cho profile phù hợp; nó không phải ứng dụng chính thức của LG. Không tắt nguồn hoặc rút dây khi bộ cài đang làm việc. Nếu báo lỗi thì ghi lại lỗi và dừng, không tự chạy lại exploit nhiều lần.
 
@@ -61,10 +61,10 @@ Quy trình và tên nút được đối chiếu với [hướng dẫn chính th
 ### A4. Chạy AutoSetup
 
 1. Trên PC, mở thư mục có hai file đã tải.
-2. Nhấp đúp **`Start-Setup.cmd`**. Cửa sổ sẽ chạy `GathinTV-AutoSetup.ps1` trong cùng thư mục.
+2. Nhấp đúp **`Start-Setup.cmd`**, chọn **1** cho TV chưa root. Cửa sổ sẽ chạy `GathinTV-AutoSetup.ps1` trong cùng thư mục.
 3. Khi hỏi **TV IP address**, nhập IP của TV vừa ghi, rồi Enter. Không nhập IP của PC/router.
 4. Khi hỏi passphrase, nhập đúng **6 ký tự Developer Mode của TV này**, rồi Enter. Bạn không thấy ký tự/dấu sao khi gõ là bình thường.
-5. Lần đầu kết nối, script yêu cầu kiểm tra IP TV và gõ **YES** (viết hoa) để chấp nhận host key mới. Chỉ gõ YES sau khi đối chiếu đúng IP trên TV của bạn. Khóa thay đổi sau reset phải được xác minh lại.
+5. Lần đầu kết nối, script yêu cầu kiểm tra IP TV và gõ **YES** hoặc **yes** để chấp nhận host key mới. Chỉ xác nhận sau khi đối chiếu đúng IP trên TV của bạn. Khóa thay đổi sau reset phải được xác minh lại.
 6. Để script chạy. Lần đầu PC có thể cần Internet để tải Node portable; bộ cài kiểm tra hash trước khi dùng.
 7. TV có thể reboot theo từng giai đoạn; chờ bộ cài kết nối lại, không mở đồng thời bộ cài thứ hai.
 8. Bộ cài xử lý gỡ Developer Mode ở giai đoạn cần thiết của luồng root. Không tự cài lại Developer Mode sau khi đã root thành công.
@@ -138,6 +138,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mo
 ```
 
 Muốn bật lại sau Disable, chạy Restore. Backup không phải bộ cài để chia sẻ: nó có thể chứa ảnh/cấu hình cá nhân. Không xóa khóa riêng nếu vẫn muốn kết nối lại bằng khóa đó.
+
+## Restore trên model khác từ 3.2.0
+
+TV đã root không còn bị chặn chỉ vì tên model/board khác 55SK8000PTA. Bộ cài in COMPATIBILITY REPORT cho Node.js, Python, HOME relay, Voice Agent và YouTube. Thiếu kênh Magic Remote hoặc probe không đạt thì giữ HOME gốc; thiếu Node.js thì bỏ dịch vụ web; voice cần Python 2, Voice Agent phù hợp và YouTube AdFree 0.5.3. Các tinh chỉnh debloat/privacy riêng TV mẫu bị bỏ qua. Không tự chạy exploit hay reboot trong nhánh Restore tương thích.
+
+Nếu thấy Wrong TV ở bản 3.1.x, tải lại AutoSetup **3.2.0 trở lên** từ Releases; chỉ chạy lại đúng file mới. Không sửa config/profile.json để ép.
 
 ## Khi không chạy được
 

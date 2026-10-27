@@ -8,7 +8,7 @@ No Git, Node.js or npm knowledge is needed to use the installer. Follow branch A
 
 You need a compatible LG webOS TV, its remote, a 64-bit Windows PC and internet access. Keep the PC powered and awake during installation. The TV and PC must be on the same home network; guest Wi-Fi may block device-to-device access.
 
-**Reference profile:** LG 55SK8000PTA / firmware 05.50.70 / SDK 4.4.0 / M16PP_DVB_EU / ARM32. Not all LG TVs are supported. On the TV, look under Settings → All Settings → General → About This TV; menu names vary. Record model and software version. If unsure, ask in [Issues](https://github.com/twentykhz/macosLG/issues) first; do not edit the profile to force installation.
+**Reference profile:** LG 55SK8000PTA / firmware 05.50.70 / SDK 4.4.0 / M16PP_DVB_EU / ARM32. Already-rooted TVs using Restore 3.2.0 or later are capability-checked rather than blocked by model name. Individual features still depend on hardware/APIs. Not every unrooted TV can use the bundled root procedure. On the TV, look under Settings → All Settings → General → About This TV; menu names vary. Record model and software version. If unsure, ask in [Issues](https://github.com/twentykhz/macosLG/issues) first; do not edit the profile to force installation.
 
 Root provides administrator access for custom software. This installer includes a rooting sequence for compatible profiles and is not an official LG application. Do not unplug the TV while installation is running. Record any error and stop rather than repeatedly retrying an exploit.
 
@@ -61,10 +61,10 @@ These steps follow [LG's official documentation](https://webostv.developer.lge.c
 ### A4. Run AutoSetup
 
 1. On the PC, open the folder containing the downloaded files.
-2. Double-click **`Start-Setup.cmd`**. It launches `GathinTV-AutoSetup.ps1` from the same folder.
+2. Double-click **`Start-Setup.cmd`** and choose **1** for an unrooted TV. It launches `GathinTV-AutoSetup.ps1` from the same folder.
 3. When asked for **TV IP address**, enter the TV's recorded address and press Enter. Do not use the PC's or router's address.
 4. When asked for the passphrase, enter the exact **six Developer Mode characters for this TV**, then Enter. Characters/stars may not appear as you type; this is normal.
-5. On the first connection, the installer asks you to verify the TV IP and type **YES** (uppercase) to accept a new SSH host key. Only type YES after checking the address on your own TV. A key change after a reset must be verified again.
+5. On the first connection, the installer asks you to verify the TV IP and type **YES** or **yes** to accept a new SSH host key. Only type YES after checking the address on your own TV. A key change after a reset must be verified again.
 6. Let the script run. It may download a pinned portable Node.js runtime if necessary and verifies its checksum.
 7. The TV may restart at installation stages. Wait for the installer to reconnect; do not launch another copy of the installer.
 8. The root sequence handles removing Developer Mode at the required stage. Do not reinstall it after rooting succeeds.
@@ -138,6 +138,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mo
 ```
 
 Use Restore to enable the setup again after Disable. A backup is private data, potentially including personal images/settings, not an installer to redistribute. Keep the private key if you want to reconnect with it.
+
+## Restore on other models from 3.2.0
+
+Already-rooted TVs are no longer rejected merely for differing model/board names. COMPATIBILITY REPORT lists Node.js, Python, HOME relay, Voice Agent and YouTube capabilities. Failed/missing remote-channel probes retain native HOME; missing Node.js skips web services; voice requires Python 2, a compatible Voice Agent and YouTube AdFree 0.5.3. Reference-only debloat/privacy is skipped. This compatible Restore branch runs no exploit or forced reboot.
+
+For Wrong TV on 3.1.x, download AutoSetup **3.2.0 or later** from Releases and run the new file. Do not force-edit config/profile.json.
 
 ## Troubleshooting
 

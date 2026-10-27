@@ -6,7 +6,7 @@ A macOS-inspired home screen for compatible, rooted LG webOS TVs. A single Windo
 
 ![Launcher preview](preview.png)
 
-**Tested reference TV:** LG 55SK8000PTA, firmware 05.50.70, webOS SDK 4.4.0, M16PP_DVB_EU, ARM32/Python 2. Other TVs/firmware are not automatically supported. The installer checks compatibility; do not change the profile just to bypass a failure. A clean installation on a second TV has not yet been validated.
+**Tested reference TV:** LG 55SK8000PTA, firmware 05.50.70, webOS SDK 4.4.0, M16PP_DVB_EU, ARM32/Python 2. From **3.2.0**, **Restore** on already-rooted TVs detects available capabilities instead of requiring the reference model. Unsupported features are skipped and reported; reference-only tuning is not transplanted. Rooting an unrooted TV remains profile/firmware gated. A clean installation on a second TV has not yet been validated.
 
 ## Start here
 
