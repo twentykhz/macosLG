@@ -76,8 +76,17 @@ if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
  elseif($taskRootChoice.Trim() -eq '3'){$Mode='Doctor';$AlreadyRooted=$true}
  elseif($taskRootChoice.Trim() -ne '1'){throw 'Choose 1, 2 or 3. No TV changes made.'}
 }
-if(-not $HostName){$HostName=Read-Host 'TV IP address'}
-if($HostName -notmatch '^[a-zA-Z0-9.-]+$'){throw 'Invalid TV address.'}
+function Read-MacTvAddress([string]$InitialAddress){
+ $taskAddress=$InitialAddress.Trim()
+ while($taskAddress -notmatch '^(?=.{1,253}$)[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?$'){
+  if($taskAddress){Write-Host 'Enter only the TV IP or hostname, without http://, port or spaces.' -ForegroundColor Yellow}
+  $taskInput=Read-Host 'TV IP address (example: 192.168.3.27)'
+  if($null -eq $taskInput){throw 'Console input is unavailable. Open Start-Setup.cmd in a new window.'}
+  $taskAddress=$taskInput.Trim()
+ }
+ return $taskAddress
+}
+$HostName=Read-MacTvAddress ([string]$HostName)
 $taskKnownHosts=Join-Path $DataDirectory 'state/known-hosts.json'
 $taskKnown=$false
 if(Test-Path -LiteralPath $taskKnownHosts){try{$taskEntries=Get-Content -LiteralPath $taskKnownHosts -Raw|ConvertFrom-Json;$taskPort=if($Mode -eq 'Setup' -and -not $AlreadyRooted){9922}else{22};$taskKnown=$null -ne $taskEntries.PSObject.Properties[($HostName+':'+$taskPort)]}catch{}}

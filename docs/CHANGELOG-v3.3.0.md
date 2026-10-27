@@ -53,6 +53,8 @@ This release is validated through offline checks and simulated installation flow
 
 ## Cập nhật tại chỗ 3.3.0 / In-place 3.3.0 update
 
+- Sửa lỗi lựa chọn 3 có thể báo `Invalid TV address` trước khi nhập IP do Enter còn dư sau menu `choice`. Menu mới nhận số rồi Enter; ô IP trống/sai sẽ hỏi lại. / Fixed a leftover Enter being consumed as an empty TV address; the menu now accepts a line and invalid/empty addresses are re-prompted.
+
 - Đổi tên sản phẩm thành **MAC-WebOSTV by 20khzpc**, gồm tên hiển thị trên TV, bộ cài, source ZIP và tài liệu. Mã app/đường dẫn kỹ thuật cũ được giữ để nâng cấp tại chỗ mà không mất cấu hình hoặc tạo app trùng.
 - Menu setup có **1: TV chưa root**, **2: TV đã root**, **3: kiểm tra chức năng** trước khi nhập IP. Kết quả chi tiết có màu hiện trong chính cửa sổ setup sau cài hoặc khi chọn 3; không phải tự đi tìm file báo cáo.
 - Viết lại hướng dẫn Việt/Anh, liên kết rõ từng nhánh. TV đã root dùng CMD chọn 2; lệnh chỉ định khóa riêng nằm trong mục nâng cao tùy chọn.

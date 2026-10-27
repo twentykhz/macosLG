@@ -16,10 +16,17 @@ echo.
 echo [1] TV not rooted - initial Setup
 echo [2] TV already rooted - Restore launcher
 echo [3] Check TV features and show report
-choice /c 123 /n /m "Select 1, 2 or 3: "
-set "taskMode=Setup"
-if errorlevel 2 set "taskMode=Restore"
-if errorlevel 3 set "taskMode=Doctor"
+:selectMode
+set "taskChoice="
+set /p "taskChoice=Select 1, 2 or 3, then press Enter: "
+set "taskMode="
+if "%taskChoice%"=="1" set "taskMode=Setup"
+if "%taskChoice%"=="2" set "taskMode=Restore"
+if "%taskChoice%"=="3" set "taskMode=Doctor"
+if not defined taskMode (
+  echo Please enter 1, 2 or 3.
+  goto selectMode
+)
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0MAC-WebOSTV-AutoSetup.ps1" -Mode %taskMode% -NoPause
 set "taskExit=%errorlevel%"
 echo.
