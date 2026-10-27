@@ -26,7 +26,7 @@ for(const [relative,meta] of Object.entries(lock.packages||{})){
 for(const name of ['README.md','README.en.md','Start-Setup.cmd','preview.png','LICENSE','THIRD-PARTY.md','Setup-TV.ps1','Restore-TV.ps1','Wake-TV.ps1','package.json','package-lock.json','checksums.json','.gitignore'])if(fs.existsSync(path.join(root,name)))fs.copyFileSync(path.join(root,name),path.join(stage,name));
 const files=walk(stage);const privateNames=files.filter(f=>path.relative(stage,f).split(path.sep).includes('.local')||f.endsWith('control-token.js')||/\.(pem|key|sqlite|db)$/.test(f));
 if(privateNames.length)throw Error('Private data leaked into share staging');
-fs.writeFileSync(path.join(stage,'release-manifest.json'),JSON.stringify({version:'3.1.0',builtAt:new Date().toISOString(),files:files.map(f=>({path:path.relative(stage,f).split(path.sep).join('/'),sha256:sha256(fs.readFileSync(f))}))},null,2));
+fs.writeFileSync(path.join(stage,'release-manifest.json'),JSON.stringify({version:'3.1.1',builtAt:new Date().toISOString(),files:files.map(f=>({path:path.relative(stage,f).split(path.sep).join('/'),sha256:sha256(fs.readFileSync(f))}))},null,2));
 const zip=path.join(dist,'GathinTV-Source.zip');
 const made=cp.spawnSync('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(root,'scripts/zip.ps1'),'-Source',stage,'-Destination',zip],{stdio:'inherit'});if(made.status!==0)throw Error('ZIP packaging failed');
 const bytes=fs.readFileSync(zip),digest=sha256(bytes);const encoded=bytes.toString('base64').match(/.{1,120}/g).join('\r\n');

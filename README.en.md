@@ -44,7 +44,7 @@ The TV and PC must be on the same home network. Rooting and HOME/voice integrati
 | Screenshot download | Original 1920×1080 PNG downloaded through your browser |
 | Cleanup and loading policy | Temporary stream images removed, old browser frame URLs released, detailed forecasts loaded only when opened |
 
-The public build uses **Inter**, an openly licensed font, instead of bundling Apple's SF Pro. The layout and features follow the reference setup. App icons do not include paid subscriptions; install/sign in to FPT Play, TV360 or Netflix separately if desired.
+Starting with **3.1.1**, the launcher and AutoSetup use **SF Pro** as on the reference TV, with Inter retained as a fallback. SF Pro is an Apple third-party font and is not relicensed under this project's MIT license. App icons do not include paid subscriptions; install/sign in to FPT Play, TV360 or Netflix separately if desired.
 
 Voice depends on LG services, language/consent/network availability and a compatible Magic Remote microphone. Pointer control works in the launcher and compatible web apps, not every native screen. Protected video may appear black. Lunar-calendar advice follows traditional conventions, not a guarantee of outcomes.
 

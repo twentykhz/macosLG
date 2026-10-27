@@ -8,7 +8,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 trap { Write-Host ('Stopped: '+$_.Exception.Message) -ForegroundColor Red; if(-not $NoPause){[void](Read-Host 'Press Enter to close')}; exit 1 }
-Write-Host 'GathinTV 3.1: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
+Write-Host 'GathinTV 3.1.1: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -19,7 +19,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.1.0-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.1.1-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'GathinTV-source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)

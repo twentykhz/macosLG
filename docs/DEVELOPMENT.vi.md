@@ -39,6 +39,6 @@ npm.cmd run package
 
 File AutoSetup tạo lại ở root để tiện kiểm tra nhưng được bỏ qua bởi Git; khi phát hành tải file đó lên Releases, không thêm file lớn sinh tự động vào source commit. Source ZIP của release có dependency production để dùng bộ cài; muốn build từ ZIP vẫn chạy `npm.cmd ci` để có công cụ phát triển.
 
-Chỉ mã dự án thuộc LICENSE; font/artwork/thành phần upstream có giấy phép riêng. Public build dùng Inter, không kèm SF Pro. Kiểm tra `THIRD-PARTY.md` khi thêm tài sản mới.
+Chỉ mã dự án thuộc LICENSE; font/artwork/thành phần upstream có giấy phép riêng. Bản 3.1.1 dùng SF Pro theo TV tham chiếu, có Inter dự phòng; giấy phép MIT của mã dự án không áp dụng thay cho điều khoản font bên thứ ba. Kiểm tra `THIRD-PARTY.md` khi thêm tài sản mới.
 
 Không commit `.local`, `node_modules`, khóa SSH, access key/PIN, passphrase, log hoặc backup. Xem [VALIDATION.md](VALIDATION.md) trước khi tuyên bố hỗ trợ model mới. Giữ kiểm tra model/firmware/ABI và xác minh khóa SSH. Thay đổi profile phải có kiểm chứng thực tế, không chỉ đổi tên model trong JSON.

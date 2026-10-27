@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 5630598,
-    "sha256": "5af662f820d8d53af20618d816999dbf99faa5f74cdddf986de66d7f2ec12a9c"
+    "size": 9490830,
+    "sha256": "2d1e600a1bfe633e9d503c623d04a6dc6d36bee2a251ed0f0056a8ba4041184d"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -238,6 +238,11 @@
     "path": "payload/app/fonts/OFL.txt",
     "size": 4389,
     "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416"
+  },
+  {
+    "path": "payload/app/fonts/SF-Pro.ttf",
+    "size": 7233444,
+    "sha256": "5ef5a4e90478d0b032e4b50ceb4c15d1f45a205031f9265cc9004a93839af8a0"
   },
   {
     "path": "payload/app/fonts/outfit.ttf",
@@ -556,8 +561,8 @@
   },
   {
     "path": "payload/app/style.css",
-    "size": 11057,
-    "sha256": "df26fbc06753efa15866417a01f342e45a2ebb74a2319f31bada2a68320a79e5"
+    "size": 11189,
+    "sha256": "04b1122be48eb6d16e944983153343d360caa36cc6967098c75ec32dca574528"
   },
   {
     "path": "payload/app/tv-shortcut-order.js",

@@ -44,7 +44,7 @@ Bộ cài sẽ hỏi khi cần; không phải mở file script để sửa mật
 | Lưu Screenshot | Tải PNG gốc 1920×1080 qua trình duyệt |
 | Tải khi cần, dọn ảnh tạm | Dự báo chi tiết chỉ tải khi mở; ảnh stream tạm được xóa, khung hình cũ được giải phóng |
 
-Bản công khai dùng font **Inter có giấy phép chia sẻ**, không đóng gói SF Pro của Apple. Bố cục và các tính năng dựa trên TV tham chiếu. Icon FPT Play/TV360/Netflix không đồng nghĩa có sẵn thuê bao: người dùng tự cài và đăng nhập các app này nếu cần.
+Từ bản **3.1.1**, launcher và AutoSetup dùng **SF Pro** như TV tham chiếu; Inter được giữ làm font dự phòng. SF Pro là font bên thứ ba của Apple, không được đổi giấy phép thành MIT của dự án. Icon FPT Play/TV360/Netflix không đồng nghĩa có sẵn thuê bao: người dùng tự cài và đăng nhập các app này nếu cần.
 
 Voice phụ thuộc dịch vụ LG, Internet, ngôn ngữ/quyền voice và micro Magic Remote tương thích. Chuột trên ảnh hỗ trợ launcher/app web phù hợp, không thay thế mọi màn hình native. Video có bảo vệ có thể bị đen. Gợi ý lịch là quy ước dân gian để tham khảo.
 

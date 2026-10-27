@@ -5,11 +5,13 @@
 @font-face {font-family:'Inter';src:url('fonts/Inter-Regular.woff2') format('woff2');font-style:normal;font-weight:400;}
 @font-face {font-family:'Inter';src:url('fonts/Inter-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;}
 
+@font-face {font-family:'SF Pro';src:url('fonts/SF-Pro.ttf') format('truetype');font-style:normal;font-weight:100 1000;}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', system-ui, sans-serif !important;
+  font-family: 'SF Pro', 'Inter', system-ui, sans-serif !important;
 }
 
 html, body {
