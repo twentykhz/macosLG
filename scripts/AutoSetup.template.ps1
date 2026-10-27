@@ -4,11 +4,17 @@ param(
  [string]$HostName,
  [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,
  [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,
- [string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'GathinTV')
+ [string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'MAC-WebOSTV')
 )
 $ErrorActionPreference='Stop'
+[Console]::OutputEncoding=New-Object System.Text.UTF8Encoding($false)
+$OutputEncoding=[Console]::OutputEncoding
+if(-not $PSBoundParameters.ContainsKey('DataDirectory')){
+ $taskLegacyData=Join-Path $env:LOCALAPPDATA 'GathinTV'
+ if(Test-Path -LiteralPath (Join-Path $taskLegacyData 'state')){$DataDirectory=$taskLegacyData}
+}
 trap { Write-Host ('Stopped: '+$_.Exception.Message) -ForegroundColor Red; if(-not $NoPause){[void](Read-Host 'Press Enter to close')}; exit 1 }
-Write-Host 'GathinTV 3.3.0: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
+Write-Host 'MAC-WebOSTV by 20khzpc 3.3.0: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -21,7 +27,7 @@ Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $release=Join-Path $DataDirectory ('releases/3.3.0-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
- if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'GathinTV-source'}
+ if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)
 }
 [IO.Directory]::CreateDirectory($release)|Out-Null
@@ -64,9 +70,11 @@ if($Mode -eq 'Prepare'){& $node (Join-Path $release 'scripts/verify.js');if($LAS
 if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
  Write-Host '1 - TV not rooted (check supported model/firmware first)'
  Write-Host '2 - TV already rooted (install launcher, no rooting exploit)'
- $taskRootChoice=Read-Host 'Choose 1 or 2'
+ Write-Host '3 - Check TV features and show report (no reinstall)'
+ $taskRootChoice=Read-Host 'Choose 1, 2 or 3'
  if($taskRootChoice.Trim() -eq '2'){$Mode='Restore';$AlreadyRooted=$true}
- elseif($taskRootChoice.Trim() -ne '1'){throw 'Choose 1 or 2. No TV changes made.'}
+ elseif($taskRootChoice.Trim() -eq '3'){$Mode='Doctor';$AlreadyRooted=$true}
+ elseif($taskRootChoice.Trim() -ne '1'){throw 'Choose 1, 2 or 3. No TV changes made.'}
 }
 if(-not $HostName){$HostName=Read-Host 'TV IP address'}
 if($HostName -notmatch '^[a-zA-Z0-9.-]+$'){throw 'Invalid TV address.'}
@@ -83,12 +91,35 @@ if($Mode -eq 'Setup' -and -not $AlreadyRooted){
  Write-Host 'On the TV: install Developer Mode, enable Dev Mode Status, allow its reboot, then enable Key Server.'
  Write-Host 'Enter the Developer Mode passphrase when prompted. The remaining compatible steps run automatically.'
 }
-if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'GathinTV-Backups'}
+if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Backups'}
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 $arguments=@((Join-Path $release 'scripts/run.js'),$Mode,'--host',$HostName,'--output-dir',[IO.Path]::GetFullPath($OutputDirectory))
 foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@($TrustNewHost,'--trust-new-host'),@($NoReboot,'--no-reboot'),@($RemoveExtraApps,'--remove-extra-apps'))){if($pair[0]){$arguments+=$pair[1]}}
 foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
+$taskReportStarted=Get-Date
 & $node @arguments
 if($LASTEXITCODE -ne 0){throw "Stopped with exit code $LASTEXITCODE. Logs and keys: $env:GATHIN_STATE_DIRECTORY"}
 
-if(-not $NoPause -and $Mode -in @('Setup','Restore')){[void](Read-Host 'Completed. Press Enter to close')}
+if(-not $DryRun -and $Mode -in @('Setup','Restore','Doctor')){
+ $taskReportDirectory=Join-Path $env:GATHIN_STATE_DIRECTORY 'feature-reports'
+ $taskReportFile=Get-ChildItem -LiteralPath $taskReportDirectory -Filter 'features-*.json' -ErrorAction SilentlyContinue | Where-Object {$_.LastWriteTime -ge $taskReportStarted.AddSeconds(-2)} | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+ if($taskReportFile){
+  $taskReport=Get-Content -LiteralPath $taskReportFile.FullName -Encoding UTF8 -Raw | ConvertFrom-Json
+  Write-Host '
+========== BAO CAO CHUC NANG / FEATURE REPORT ==========' -ForegroundColor Cyan
+  Write-Host ('TV: '+$taskReport.host+' | '+$taskReport.at)
+  foreach($taskResult in $taskReport.results){
+   $taskDetail=if($taskResult.detail -is [string]){$taskResult.detail}else{$taskResult.detail | ConvertTo-Json -Compress -Depth 6}
+   switch($taskResult.status){
+    'verified' {Write-Host ('[OK] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Green}
+    'present' {Write-Host ('[DA CO / PRESENT] '+$taskResult.feature) -ForegroundColor Green}
+    'installed' {Write-Host ('[DA CAI / INSTALLED] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Green}
+    'manual-check-required' {Write-Host ('[THU TREN TV / MANUAL] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Yellow}
+    default {Write-Host ('[CAN KIEM TRA / CHECK] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Red}
+   }
+  }
+  Write-Host ('Full report: '+$taskReportFile.FullName)
+  Write-Host 'MANUAL means not verified yet; it does not mean the feature passed.'
+ }else{Write-Host 'No new feature report was generated. Previous reports were not used.' -ForegroundColor Yellow}
+}
+if(-not $NoPause -and $Mode -in @('Setup','Restore','Doctor')){[void](Read-Host 'Completed. Press Enter to close')}

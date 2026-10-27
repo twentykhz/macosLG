@@ -84,7 +84,7 @@ def watch_stock_home():
       last=time.time()
       closed=luna('com.webos.surfacemanager.systemui/closeAllSystemUI',{})
       launched=luna('com.webos.applicationManager/launch',{'id':'com.gathin.tvhome'})
-      home_log('stock home suppressed; Gathin accepted='+str(launched.get('returnValue') is True))
+      home_log('stock home suppressed; MAC-WebOSTV accepted='+str(launched.get('returnValue') is True))
   except Exception as e:home_log('subscription retry '+type(e).__name__)
   finally:
    if p.poll() is None:p.terminate()

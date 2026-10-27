@@ -1,167 +1,145 @@
-# Cài GathinTV từng bước trên Windows
+# Cài MAC-WebOSTV by 20khzpc trên Windows
 
-[Trang chính](../README.md) · [English](INSTALL.en.md) · [Cách dùng tính năng](FEATURES.vi.md)
+[Trang chính](../README.md) · [English](INSTALL.en.md) · [Các tính năng](FEATURES.vi.md)
 
-Nếu bạn chỉ muốn cài, làm lần lượt các bước dưới đây. Không cần biết Git, Node.js hay npm. Chưa root thì dùng nhánh A; đã root thì dùng nhánh B. Không phải factory reset TV trước khi cài.
+Bộ cài **3.3.0** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cần nhấp đúp `Start-Setup.cmd`, chọn đúng tình trạng TV và trả lời câu hỏi trên màn hình. **TV đã root không cần tự gõ lệnh Restore, cài lại Developer Mode hoặc factory reset.**
 
-## 1. Kiểm tra trước khi tải
+## 1. Tải và mở bộ cài
 
-Chuẩn bị TV LG webOS tương thích, remote, PC Windows 64-bit và Internet. Cắm PC vào nguồn nếu có thể, tắt chế độ ngủ trong lúc cài. TV và PC phải cùng mạng nhà; tránh Wi-Fi khách có chặn các thiết bị truy cập nhau.
+1. Mở [release 3.3.0](https://github.com/twentykhz/macosLG/releases/tag/v3.3.0), mở **Assets**.
+2. Tải **`MAC-WebOSTV-AutoSetup.ps1`** và **`Start-Setup.cmd`** vào cùng thư mục, ví dụ `Desktop\MAC-WebOSTV`. Nếu đã tải 3.3.0 trước đây, **tải lại cả hai file** vì release này được cập nhật tại chỗ.
+3. Không đổi tên hoặc giải nén file `.ps1`. Không cần tải `Source code (zip)`, cài Node.js, npm hay webOS CLI.
+4. Bật TV. Cho TV và PC Windows 64-bit cùng mạng LAN, tránh Wi-Fi khách có chặn thiết bị. Giữ PC hoạt động, không ngủ trong lúc cài.
+5. Nếu Windows chặn file tải về: kiểm tra đúng nguồn repo này, mở **Properties → Unblock → Apply** nếu có. Không cần tắt bảo vệ toàn máy.
+6. Nhấp đúp **`Start-Setup.cmd`**. Giữ cửa sổ mở để đọc câu hỏi và kết quả.
 
-**Profile tham chiếu:** LG 55SK8000PTA / firmware 05.50.70 / SDK 4.4.0 / M16PP_DVB_EU / ARM32. TV đã root dùng Restore 3.2.0 trở lên được kiểm tra theo tính năng, không chặn chỉ vì khác model. Mọi tính năng vẫn phụ thuộc API/phần cứng. TV chưa root không phải model nào cũng root được. Trên TV, tìm Cài đặt → Tất cả cài đặt → Cài đặt chung → Giới thiệu về TV (tên mục có thể khác theo đời TV) để ghi model và phiên bản phần mềm. Khi không chắc, hỏi trong [Issues](https://github.com/twentykhz/macosLG/issues) trước; không thay profile để ép chạy.
+## 2. Chọn đúng nhánh
 
-Root là cấp quyền quản trị cho phần mềm tùy chỉnh. Bộ cài có các bước root cho profile phù hợp; nó không phải ứng dụng chính thức của LG. Không tắt nguồn hoặc rút dây khi bộ cài đang làm việc. Nếu báo lỗi thì ghi lại lỗi và dừng, không tự chạy lại exploit nhiều lần.
+| Chọn trong bộ cài | Tình trạng TV | Hướng dẫn |
+|---|---|---|
+| **1 — TV not rooted** | TV chưa root hoặc đã mất root | [Nhánh A](#branch-a) |
+| **2 — TV already rooted** | TV đã root, có SSH root | [Nhánh B](#branch-b) |
+| **3 — Check TV features and show report** | Muốn kiểm tra lại chức năng, không cài lại | [Nhánh C](#branch-c) |
 
-## 2. Tải đúng file từ GitHub
+Chọn nhánh **trước khi nhập IP**. Bộ cài vẫn kiểm tra quyền root qua kết nối thật. Nếu chưa biết TV đã root chưa, kiểm tra trong Homebrew hoặc hỏi người đã root TV; đừng đoán mật khẩu hay cài Developer Mode lên TV đã root.
 
-1. Mở [Releases mới nhất](https://github.com/twentykhz/macosLG/releases/latest).
-2. Mở phần **Assets** nếu đang bị thu gọn.
-3. Tải **`GathinTV-AutoSetup.ps1`**. Đây là bộ cài, không phải `Source code (zip)` do GitHub tự tạo.
-4. Nên tải thêm **`Start-Setup.cmd`** để mở bộ cài bằng cách nhấp đúp.
-5. Tạo thư mục dễ tìm, ví dụ `Desktop\GathinTV`, rồi chuyển hai file vào đó. Không đổi tên chúng.
-6. Không cần giải nén file `.ps1`. Source ZIP dành cho người xem/chỉnh mã nguồn, không bắt buộc cho việc cài.
+<a id="branch-a"></a>
+## Nhánh A — TV chưa root
 
-Windows có thể hiện phần mở rộng tên file hoặc ẩn nó. Trong File Explorer, bật View → Show → File name extensions nếu cần kiểm tra file không bị đổi thành `.ps1.txt`.
+### A1. Kiểm tra tương thích
 
-Nếu Windows chặn file vừa tải: chỉ sau khi kiểm tra file lấy từ đúng repo/release này, mở Properties của file → chọn Unblock nếu có → Apply. Nếu có thông báo bảo mật khác, kiểm tra nguồn và nguyên văn thông báo; không tắt bảo vệ toàn máy chỉ để chạy script.
+Nhánh root hiện có dành cho profile đã hỗ trợ: **LG 55SK8000PTA / firmware 05.50.70 / M16PP_DVB_EU / SDK 4.4.0 / ARM32**. Đây không phải phương pháp root mọi TV LG. Nếu bị từ chối model/firmware, không sửa `config/profile.json` để ép chạy. Ghi model, firmware và lỗi để hỏi tại [Issues](https://github.com/twentykhz/macosLG/issues).
 
-## 3. Chọn tình trạng TV
+Xem thông tin TV trong **Cài đặt → Tất cả cài đặt → Cài đặt chung → Giới thiệu về TV**; tên mục có thể khác theo đời TV.
 
-| TV của bạn | Làm tiếp |
+### A2. Chuẩn bị Developer Mode — chỉ cho TV chưa root
+
+1. Tạo tài khoản tại [webOS TV Developer của LG](https://webostv.developer.lge.com/), xác minh email nếu được yêu cầu.
+2. Trên TV mở **LG Content Store / Apps**, tìm và cài **Developer Mode** của LG.
+3. Mở Developer Mode, đăng nhập bằng tài khoản vừa chuẩn bị.
+4. Bật **Dev Mode Status**, đồng ý khởi động lại và chờ TV lên lại.
+5. Mở lại Developer Mode, bật **Key Server**.
+6. **Ghi IP TV và passphrase 6 ký tự** trong ứng dụng. Passphrase phân biệt hoa/thường, khác mật khẩu tài khoản LG. Không đăng ảnh có passphrase lên mạng.
+
+[Hướng dẫn Developer Mode chính thức](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app). Không cần tự chạy các lệnh CLI trên trang LG.
+
+### A3. Chạy nhánh 1
+
+1. Mở `Start-Setup.cmd`, chọn **1**.
+2. Tại **TV IP address**, nhập IP **TV**, không phải IP PC/router.
+3. Khi xác nhận kết nối đầu tiên, đối chiếu IP trên TV rồi gõ **YES** hoặc **yes**.
+4. Khi được hỏi passphrase, nhập đúng 6 ký tự của TV này. Không thấy ký tự khi nhập mật khẩu là bình thường.
+5. Chờ bộ cài xử lý và kết nối lại khi TV reboot. Không mở bộ cài thứ hai hoặc rút điện TV.
+6. Bộ cài xử lý Developer Mode ở giai đoạn cần thiết; không tự cài lại Developer Mode sau khi root thành công.
+7. Đọc **báo cáo chức năng ngay trong cửa sổ setup** khi hoàn tất.
+
+<a id="branch-b"></a>
+## Nhánh B — TV đã root
+
+**Bỏ qua toàn bộ nhánh A. Không cài lại Developer Mode, không dùng passphrase Developer Mode.** Cần mật khẩu SSH root hoặc khóa SSH riêng của chính TV. [Lưu ý của webOS Homebrew](https://www.webosbrew.org/pages/sdk-configuration).
+
+1. Bật TV, kiểm tra IP hiện tại trong cài đặt mạng. TV và PC phải cùng LAN.
+2. Tải đủ hai file ở mục 1 vào cùng thư mục.
+3. Nhấp đúp **`Start-Setup.cmd`**, chọn **2 — TV already rooted**.
+4. Nhập **IP TV** khi được hỏi.
+5. Nếu là kết nối đầu tiên, kiểm tra IP rồi xác nhận **YES/yes**.
+6. Bộ cài dùng khóa đã lưu nếu có. Nếu hỏi **SSH password (hidden)**, nhập **mật khẩu root của TV này**; không dùng mật khẩu LG, passphrase Developer Mode hoặc mật khẩu TV khác. Không thấy ký tự khi gõ là bình thường.
+7. Chờ bộ cài kiểm tra root, sao lưu và cài/cập nhật các phần tương thích. **Không cần chạy lệnh Restore thủ công.**
+8. Đọc **báo cáo chức năng ngay trong cửa sổ setup**. Cửa sổ chờ bạn nhấn phím trước khi đóng.
+
+Nhánh TV đã root không bắt model phải trùng TV tham chiếu. Các phần phụ thuộc Node.js, Python, API/input được kiểm tra riêng. HOME relay hoặc voice không đủ điều kiện sẽ được ghi rõ; không báo tất cả hoạt động chỉ vì launcher cài xong. Nhánh Restore tương thích không chạy lại exploit hoặc ép reboot.
+
+Nếu chỉ có **file khóa SSH riêng** chưa được lưu trong bộ cài, xem [tùy chọn nâng cao](#advanced). Đây không phải bước bắt buộc của nhánh B.
+
+<a id="branch-c"></a>
+## Nhánh C — Kiểm tra và xem báo cáo trong setup
+
+1. Mở **`Start-Setup.cmd`**, chọn **3 — Check TV features and show report**.
+2. Nhập IP, xác nhận host key nếu cần và đăng nhập SSH root như nhánh B.
+3. Bộ cài kiểm tra root, app đã đăng ký, máy chủ remote/thiết lập, một lần capture, audio, độ sáng/chế độ hình ảnh, mạng và Bluetooth.
+4. Kết quả có màu và nội dung chi tiết hiện trực tiếp trong cửa sổ. Đường dẫn JSON/TXT cũng được in ra.
+
+| Trạng thái | Ý nghĩa |
 |---|---|
-| Chưa từng root, hoặc vừa factory reset và mất root | [Nhánh A](#nhánh-a-tv-chưa-root) |
-| Đã root, SSH root vẫn dùng được/Homebrew đã hoạt động | [Nhánh B](#tv-đã-root) |
-| Không biết | Dừng lại, kiểm tra hoặc hỏi trước; đừng cài Developer Mode lên TV đã root |
+| **OK / ĐÃ CÓ / ĐÃ CÀI** — xanh | Kiểm tra cụ thể đó đạt hoặc app đã đăng ký |
+| **CẦN KIỂM TRA / CHECK** — đỏ | Đọc chi tiết lỗi cùng dòng; chưa coi là đạt |
+| **THỬ TRÊN TV / MANUAL** — vàng | Chưa kiểm chứng thao tác thực tế; cần bạn thử |
 
-## Nhánh A: TV chưa root
+Nhánh 3 không cài lại launcher, tự bấm phím hay tắt/reboot TV. Nó chụp một ảnh kiểm tra rồi xóa file tạm, tạo script Wake-TV trên PC nếu đọc được thông tin mạng. Home/Back, điều hướng/OK, chuột, voice, nguồn và WoL vẫn cần thử thực tế. Một lần capture đạt không chứng minh FPS stream ổn định.
 
-### A1. Tạo tài khoản LG Developer trên PC/điện thoại
+Báo cáo mặc định nằm trong `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-reports`. Khi nâng cấp từ tên cũ, bộ cài có thể tiếp tục dùng thư mục dữ liệu cũ để giữ khóa SSH; **xem đường dẫn thực tế ở cuối báo cáo**. Không chia sẻ toàn bộ thư mục dữ liệu vì có khóa riêng.
 
-1. Mở [webOS TV Developer của LG](https://webostv.developer.lge.com/).
-2. Chọn **SIGN IN**. Đăng ký tài khoản nếu chưa có, xác minh email và hoàn tất các yêu cầu của trang LG.
-3. Ghi nhớ email/mật khẩu để đăng nhập ứng dụng Developer Mode trên TV. Tài khoản này không phải tài khoản GitHub.
+## 3. Dùng sau khi cài
 
-### A2. Cài Developer Mode trên TV
+1. Thử Home/Back, dock, từng widget và Trung tâm điều khiển.
+2. Mở **Trung tâm điều khiển → Điều khiển từ xa & Thiết lập**, quét QR bằng điện thoại cùng LAN.
+3. Trang điều khiển chạy trên TV; khi TV đang bật không cần PC cài đặt tiếp tục chạy. Thử điều hướng, âm lượng, stream và tải screenshot.
+4. Chọn **Hình nền & vị trí thời tiết** để đổi ảnh/crop/slideshow, hai địa điểm và thành viên gia đình. Lưu thành viên rồi đóng/mở lại lịch trên TV.
+5. LGWS có yêu cầu tương thích riêng (root/Homebrew và webOS 5+). Nếu cài lỗi, đọc báo cáo và [hướng dẫn dự phòng qua Homebrew](CHANGELOG-v3.3.0.md). Bộ cài không tự bật chặn Voice Services/ThinQ trên TV khác.
+6. FPT Play, TV360, Netflix cần tự cài và đăng nhập; không có tài khoản/thuê bao đi kèm.
+7. Muốn WoL: bật Mobile TV On / Turn on via Wi-Fi hoặc LAN nếu TV có hỗ trợ; giữ TV cắm điện. Chạy Wake-TV đã tạo từ **thiết bị khác cùng LAN**. TV tắt thì trang web trên TV cũng tắt; xem [giải thích và bước kiểm tra](CHANGELOG-v3.3.0.md).
 
-1. Kết nối TV vào mạng và kiểm tra giờ/ngày TV hợp lý.
-2. Mở **LG Content Store / Apps** trên TV.
-3. Tìm đúng ứng dụng **Developer Mode** do LG cung cấp, chọn Install/Cài đặt.
-4. Mở ứng dụng, đăng nhập bằng tài khoản LG Developer vừa chuẩn bị.
+## 4. Khi có lỗi
 
-### A3. Bật Dev Mode Status, rồi Key Server
-
-1. Trong ứng dụng Developer Mode, bật **Dev Mode Status**.
-2. TV sẽ yêu cầu khởi động lại; đồng ý và chờ TV lên lại.
-3. Mở lại Developer Mode sau reboot.
-4. Bật **Key Server**. Bước này phải làm sau khi TV đã lên lại, đừng chỉ bật Dev Mode Status rồi chạy bộ cài ngay.
-5. **Ghi lại hoặc chụp riêng IP của TV và passphrase 6 ký tự trên màn hình.** Passphrase phân biệt hoa/thường; không đăng ảnh này công khai.
-
-Quy trình và tên nút được đối chiếu với [hướng dẫn chính thức của LG](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app). Không cần tự chạy các lệnh CLI trên trang LG: AutoSetup xử lý phần kết nối của nó.
-
-### A4. Chạy AutoSetup
-
-1. Trên PC, mở thư mục có hai file đã tải.
-2. Nhấp đúp **`Start-Setup.cmd`**, chọn **1** cho TV chưa root. Cửa sổ sẽ chạy `GathinTV-AutoSetup.ps1` trong cùng thư mục.
-3. Khi hỏi **TV IP address**, nhập IP của TV vừa ghi, rồi Enter. Không nhập IP của PC/router.
-4. Khi hỏi passphrase, nhập đúng **6 ký tự Developer Mode của TV này**, rồi Enter. Bạn không thấy ký tự/dấu sao khi gõ là bình thường.
-5. Lần đầu kết nối, script yêu cầu kiểm tra IP TV và gõ **YES** hoặc **yes** để chấp nhận host key mới. Chỉ xác nhận sau khi đối chiếu đúng IP trên TV của bạn. Khóa thay đổi sau reset phải được xác minh lại.
-6. Để script chạy. Lần đầu PC có thể cần Internet để tải Node portable; bộ cài kiểm tra hash trước khi dùng.
-7. TV có thể reboot theo từng giai đoạn; chờ bộ cài kết nối lại, không mở đồng thời bộ cài thứ hai.
-8. Bộ cài xử lý gỡ Developer Mode ở giai đoạn cần thiết của luồng root. Không tự cài lại Developer Mode sau khi đã root thành công.
-
-Nếu không dùng file CMD, mở PowerShell trong thư mục đó: bấm thanh địa chỉ File Explorer, gõ `powershell`, Enter. Sao chép lệnh sau, Enter:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1
-```
-
-Bộ cài sẽ hỏi IP; bạn không phải sửa nội dung file `.ps1`. Muốn truyền IP bằng lệnh, thay giá trị ví dụ bằng IP TV thật:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -HostName 192.168.1.100
-```
-
-`192.168.1.100` chỉ là ví dụ. Không dùng `-TrustNewHost` nếu chưa xác minh thiết bị/host key. Khi gặp lỗi, giữ cửa sổ, chép lỗi hoặc chụp ảnh đã che thông tin riêng; không nhấn chạy lại liên tục.
-
-## TV đã root
-
-**Không cài lại Developer Mode trên TV đã root.** [webOS Homebrew nêu rõ](https://www.webosbrew.org/pages/sdk-configuration) việc này có thể làm hỏng cấu hình root. Dùng Restore để cài/cập nhật giao diện, không chạy lại nhánh root mới.
-
-1. Giữ TV và PC cùng LAN. Ghi IP hiện tại của TV.
-2. Chuẩn bị khóa SSH root hoặc mật khẩu root của TV. **Passphrase Developer Mode không thay thế được mật khẩu root.**
-3. Mở PowerShell trong thư mục có AutoSetup như mô tả ở A4.
-4. Chạy, thay IP ví dụ bằng IP TV:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Restore -HostName 192.168.1.100
-```
-
-Nếu dùng khóa riêng và bộ cài chưa tự tìm thấy khóa đã lưu:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Restore -HostName 192.168.1.100 -RootKeyPath "C:\DuongDan\khoa-rieng-cua-tv.pem"
-```
-
-Thay cả IP lẫn đường dẫn khóa. Nếu TV còn dùng mật khẩu, nhập mật khẩu root của chính TV khi được hỏi; không điền mật khẩu vào README hoặc command line.
-
-## 4. Cài xong thì làm gì?
-
-1. Chờ thông báo hoàn tất, TV lên lại và launcher xuất hiện.
-2. Thử HOME, dock và Action Center bằng remote. Một số app chỉ có icon khi chúng được cài trên TV.
-3. Mở **Action Center → Điều khiển từ xa & Thiết lập**, dùng camera điện thoại quét QR, mở liên kết.
-4. Điện thoại cùng Wi-Fi có thể dùng remote, đổi hình nền và hai địa điểm thời tiết. PC không cần bật để trang này hoạt động khi TV đang bật.
-5. Cài/đăng nhập FPT Play, TV360, Netflix nếu cần. Bộ cài không cung cấp tài khoản hay thuê bao.
-6. Lưu lại thư mục khóa và backup của bộ cài: mặc định dữ liệu PC ở `%LOCALAPPDATA%\GathinTV`. Không gửi thư mục này cho người khác.
-
-Giao diện launcher hiện dùng tiếng Việt; bộ cài và thông báo hệ thống có thể dùng tiếng Anh. [Hướng dẫn tính năng](FEATURES.vi.md) giải thích cách dùng từng phần.
-
-## 5. Kiểm tra, backup, Content Store và tắt tùy chỉnh
-
-Trong các lệnh sau, thay `192.168.1.100` bằng IP TV. Luôn đứng trong thư mục có AutoSetup.
-
-```powershell
-# Chỉ kiểm tra bộ cài trên PC, không kết nối TV
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Prepare
-
-# Xem tình trạng TV, không cài lại
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Doctor -HostName 192.168.1.100
-
-# Lưu backup riêng
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Backup -HostName 192.168.1.100
-
-# Mở Content Store theo luồng hỗ trợ, cài app xong chạy Sync
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Apps -HostName 192.168.1.100
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Sync -HostName 192.168.1.100
-
-# Tắt các dịch vụ/tùy chỉnh riêng, không unroot hoặc factory reset
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Disable -HostName 192.168.1.100
-```
-
-Muốn bật lại sau Disable, chạy Restore. Backup không phải bộ cài để chia sẻ: nó có thể chứa ảnh/cấu hình cá nhân. Không xóa khóa riêng nếu vẫn muốn kết nối lại bằng khóa đó.
-
-## Restore trên model khác từ 3.2.0
-
-TV đã root không còn bị chặn chỉ vì tên model/board khác 55SK8000PTA. Bộ cài in COMPATIBILITY REPORT cho Node.js, Python, HOME relay, Voice Agent và YouTube. Thiếu kênh Magic Remote hoặc probe không đạt thì giữ HOME gốc; thiếu Node.js thì bỏ dịch vụ web; voice cần Python 2, Voice Agent phù hợp và YouTube AdFree 0.5.3. Các tinh chỉnh debloat/privacy riêng TV mẫu bị bỏ qua. Không tự chạy exploit hay reboot trong nhánh Restore tương thích.
-
-Nếu thấy Wrong TV ở bản 3.1.x, tải lại AutoSetup **3.2.0 trở lên** từ Releases; chỉ chạy lại đúng file mới. Không sửa config/profile.json để ép.
-
-## Khi không chạy được
-
-| Hiện tượng | Kiểm tra |
+| Hiện tượng | Cách kiểm tra |
 |---|---|
-| Nhấp file PS1 lại mở Notepad | Dùng `Start-Setup.cmd` hoặc lệnh PowerShell A4; không đổi đuôi file |
-| Không thấy Assets/bộ cài | Vào trang Releases, không dùng nút Code → Download ZIP cho việc cài thông thường |
-| Connection timed out | TV đang bật? IP đúng? Chung LAN? Wi-Fi khách có chặn thiết bị? |
-| Passphrase sai | Mở Developer Mode trên TV chưa root, bật Key Server; kiểm tra hoa/thường và đúng 6 ký tự |
-| Authentication failed trên TV đã root | Dùng khóa/mật khẩu SSH root, không dùng mật khẩu LG hay passphrase Developer Mode |
-| Wrong TV / Wrong hardware / ABI / firmware chưa kiểm chứng | Dừng; ghi model/firmware và lỗi để hỏi, không ép đổi profile |
-| QR mở không được | TV phải đang bật, điện thoại cùng LAN, IP TV không đổi; thử quét lại QR sau khởi động lại |
-| Không thấy FPT/TV360/Netflix | Cài app và đăng nhập riêng, rồi dùng Sync |
-| Có script error/checksum mismatch | Tải lại hai file cùng một release; không trộn các phiên bản |
+| PS1 mở Notepad | Mở `Start-Setup.cmd` |
+| CMD báo thiếu file | Tải PS1 mới, đặt cùng CMD mới |
+| Connection timed out | TV bật, IP đúng, cùng LAN; tránh Wi-Fi khách chặn thiết bị |
+| Authentication failed ở nhánh 2/3 | Dùng mật khẩu/khóa SSH root của TV, không dùng passphrase Developer Mode |
+| Wrong TV ở bản cũ | Tải lại cả hai file 3.3.0 mới, chọn 2; không ép sửa profile |
+| ABI/Node/API không hỗ trợ | Đọc báo cáo; ghi model/firmware và lỗi để hỏi |
+| Device or resource busy | Dừng các phiên capture/stream khác, thử lại và xem dòng stream-capture |
+| QR không mở | TV bật, điện thoại cùng LAN; quét lại nếu IP TV đổi |
+| Checksum mismatch | Tải lại file cùng release, không trộn bộ cài cũ/mới |
 
-Khi gửi issue, che passphrase, QR, token, mật khẩu, tài khoản và khóa riêng. Ghi model/firmware, Windows, tên bước và nguyên văn lỗi để người khác hỗ trợ đúng chỗ.
+Gửi issue kèm model, firmware, lựa chọn 1/2/3 và lỗi liên quan. Che passphrase, QR/token, mật khẩu và khóa SSH.
 
+<a id="advanced"></a>
+## Tùy chọn nâng cao — không bắt buộc
 
-## 3.3.0
+<details>
+<summary>Chỉ mở khi cần chỉ định khóa riêng, backup hoặc thao tác quản trị</summary>
 
-[Dock, family editor, LGWS, feature checks and Wake-on-LAN / Dock, thành viên, LGWS và kiểm tra sau cài](CHANGELOG-v3.3.0.md).
+Mở PowerShell trong thư mục có bộ cài. Thay IP/đường dẫn bằng thông tin của bạn:
+
+```powershell
+# Chỉ khi cần chỉ định một khóa riêng chưa được bộ cài lưu
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Restore -HostName 192.168.1.100 -RootKeyPath "C:\KhoaCuaToi\tv.pem"
+
+# Kiểm tra gói trên PC, không kết nối TV
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Prepare
+
+# Backup riêng
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Backup -HostName 192.168.1.100
+
+# Đồng bộ icon sau khi cài thêm app
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Sync -HostName 192.168.1.100
+
+# Tắt tùy chỉnh, không unroot/factory reset
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Disable -HostName 192.168.1.100
+```
+
+Sau Disable, mở lại CMD, chọn 2 để cài/bật lại. Không chia sẻ backup cá nhân.
+
+</details>

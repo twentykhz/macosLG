@@ -9,4 +9,4 @@ if [ -f /tmp/gathin-home-keyhook.pid ]; then
         kill -TERM "$p"
     fi
 fi
-echo 'Gathin HOME interception disabled; LG receives the physical remote again.'
+echo 'MAC-WebOSTV HOME interception disabled; LG receives the physical remote again.'

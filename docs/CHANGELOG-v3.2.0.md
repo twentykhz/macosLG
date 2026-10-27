@@ -1,4 +1,4 @@
-# GathinTV 3.2.0 — Rooted TV compatibility
+# MAC-WebOSTV 3.2.0 — Rooted TV compatibility
 
 - Already-rooted TV installation no longer requires the reference model/board/firmware.
 - Detect Node.js, Python ABI, root startup hooks, Magic Remote channels and Voice Agent/YouTube version before selecting features.

@@ -6,7 +6,7 @@
 
 Large clock/date text and shadows improve wallpaper readability. The nine-position dock expands names during navigation/hover and contracts when idle. Icons, top buttons and widgets use a small focus zoom/highlight.
 
-Use left/right to select a dock app and OK to open it. Up/down moves among the dock, widgets and top buttons; mouse input also works. In detailed views, Back returns a step or closes the view. The supported profile's HOME relay returns to GathinTV; Back remains a system-level back action.
+Use left/right to select a dock app and OK to open it. Up/down moves among the dock, widgets and top buttons; mouse input also works. In detailed views, Back returns a step or closes the view. The supported profile's HOME relay returns to MAC-WebOSTV; Back remains a system-level back action.
 
 The power button opens a small shutdown/restart menu. Inputs opens the native input picker; Settings uses the native settings key. The web remote asks for confirmation before restarting.
 

@@ -1,4 +1,6 @@
-# macosLG · GathinTV
+# MAC-WebOSTV by 20khzpc
+
+**Bộ cài 3.3.0 đã đổi tên:** tải lại MAC-WebOSTV-AutoSetup.ps1 và Start-Setup.cmd. Mở CMD: chọn **1** nếu chưa root, **2** nếu đã root, **3** để xem báo cáo chức năng ngay trong setup. [Hướng dẫn đúng từng nhánh](docs/INSTALL.vi.md).
 
 **Bản 3.3.0:** dock tự co giãn, quản lý thành viên gia đình, cài LGWS và báo cáo chức năng. [Thay đổi và các bước sau cài](docs/CHANGELOG-v3.3.0.md).
 
@@ -20,7 +22,7 @@ Biến màn hình chính của TV LG webOS tương thích thành giao diện l�
 | Xem/chỉnh mã nguồn | [Hướng dẫn mã nguồn](docs/DEVELOPMENT.vi.md) · [Source launcher](payload/app) |
 | Biết bản này đã kiểm tra đến đâu | [Ghi chú kiểm chứng](docs/VALIDATION.md) |
 
-**Người chỉ muốn cài không cần tải cả repo.** Vào bản phát hành mới nhất, tải `GathinTV-AutoSetup.ps1` và nên tải thêm `Start-Setup.cmd` để mở dễ hơn. Đặt hai file cùng một thư mục. Không cần tải source ZIP, tự cài npm hoặc webOS CLI để chạy AutoSetup.
+**Người chỉ muốn cài không cần tải cả repo.** Vào bản phát hành mới nhất, tải `MAC-WebOSTV-AutoSetup.ps1` và nên tải thêm `Start-Setup.cmd` để mở dễ hơn. Đặt hai file cùng một thư mục. Không cần tải source ZIP, tự cài npm hoặc webOS CLI để chạy AutoSetup.
 
 **TV đã root:** không cài lại Developer Mode; làm theo [phần TV đã root](docs/INSTALL.vi.md#tv-đã-root). **TV chưa root:** hướng dẫn có đầy đủ bước tạo tài khoản LG Developer, cài Developer Mode, bật Dev Mode Status, reboot và bật Key Server.
 
@@ -58,8 +60,8 @@ Khi TV tắt/chờ, trang web trên TV cũng dừng. Muốn đánh thức cần 
 
 ## Nên đưa thư mục nào lên GitHub?
 
-- **Repo dùng `GathinTV-Source`:** mã nguồn, cấu hình, script build, kiểm tra và tài liệu để mọi người đọc/chỉnh được.
-- **GitHub Releases dùng file từ `GathinTV-Release`:** AutoSetup đã build, source ZIP tùy chọn và checksum để người mới tải.
+- **Repo dùng `MAC-WebOSTV-Source`:** mã nguồn, cấu hình, script build, kiểm tra và tài liệu để mọi người đọc/chỉnh được.
+- **GitHub Releases dùng file từ `MAC-WebOSTV-Release`:** AutoSetup đã build, source ZIP tùy chọn và checksum để người mới tải.
 
 Không dùng thư mục Release thay toàn bộ source repo. Không đăng `.local`, `node_modules`, khóa SSH, token, passphrase hay backup cá nhân. [Chi tiết build và cấu trúc](docs/DEVELOPMENT.vi.md).
 

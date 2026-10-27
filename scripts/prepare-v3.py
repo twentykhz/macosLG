@@ -8,7 +8,7 @@ p=root/'lib/autoroot.js';s=p.read_text(encoding='utf-8');s=s.replace('privacy:!t
 p=root/'scripts/bootstrap.js';s=p.read_text(encoding='utf-8');s=s.replace("'--root-key':'rootKey'","'--root-key':'rootKey','--backup-file':'backupFile'");s=s.replace("'--prepare-only':'prepareOnly'","'--prepare-only':'prepareOnly','--remove-extra-apps':'removeExtraApps'");p.write_text(s,encoding='utf-8')
 p=root/'lib/assets.js';s=p.read_text(encoding='utf-8');needle="  const directory=path.join(state,'assets');";s=s.replace(needle,"  const bundled=path.join(root,'upstream',asset.name);\n  if(fs.existsSync(bundled)&&sha256(fs.readFileSync(bundled))===asset.sha256)return bundled;\n"+needle);p.write_text(s,encoding='utf-8')
 # Commands printed during an install match the new release.
-p=root/'lib/autoroot.js';s=p.read_text(encoding='utf-8').replace('privacy app and App Update Blocker','privacy app').replace('restore Gathin interface and HOME relay','restore Gathin, Home/Back, Action Center, voice commands, privacy and optional-service tuning');p.write_text(s,encoding='utf-8')
+p=root/'lib/autoroot.js';s=p.read_text(encoding='utf-8').replace('privacy app and App Update Blocker','privacy app').replace('restore MAC-WebOSTV interface and HOME relay','restore MAC-WebOSTV, Home/Back, Action Center, voice commands, privacy and optional-service tuning');p.write_text(s,encoding='utf-8')
 # Capture-to-share normalization: labels are read from captured UTF-8 app source.
 p=root/'config/weather.json';import re,json
 html=(root/'payload/app/index.html').read_text(encoding='utf-8');name=re.search(r'id="weatherLocation">([^<]+)',html).group(1)

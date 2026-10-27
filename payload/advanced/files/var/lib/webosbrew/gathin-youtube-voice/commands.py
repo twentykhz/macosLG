@@ -94,7 +94,7 @@ def execute(command,call):
   if target=='com.gathin.tvhome' or (target or '').startswith('com.webos.app.hdmi'):
    return call('com.webos.applicationManager/launch',{'id':'com.gathin.tvhome'})
   if target not in allowed:return {'returnValue':False,'errorText':'App outside voice allowlist'}
-  # Put Gathin in front before closing an app, so stock Home never becomes the fallback.
+  # Put MAC-WebOSTV in front before closing an app, so stock Home never becomes the fallback.
   shown=call('com.webos.applicationManager/launch',{'id':'com.gathin.tvhome'})
   if shown.get('returnValue') is not True:return shown
   return call('com.webos.applicationManager/closeByAppId',{'id':target})

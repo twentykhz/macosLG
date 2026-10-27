@@ -2,7 +2,7 @@
 
 [Home](../README.en.md) · [Tiếng Việt](DEVELOPMENT.vi.md)
 
-The repository contains **GathinTV-Source**. Generated **GathinTV-Release** files belong in GitHub Releases; they do not replace the source tree.
+The repository contains **MAC-WebOSTV-Source**. Generated **MAC-WebOSTV-Release** files belong in GitHub Releases; they do not replace the source tree.
 
 | Path | Contents |
 |---|---|
@@ -35,7 +35,7 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` creates configuration, IPK and checksums. `package` creates the one-file installer and ZIP under the sibling `GathinTV-Release` folder. Rebuild/repackage after changing payload; an older installer does not read newer loose source files automatically.
+`build` creates configuration, IPK and checksums. `package` creates the one-file installer and ZIP under the sibling `MAC-WebOSTV-Release` folder. Rebuild/repackage after changing payload; an older installer does not read newer loose source files automatically.
 
 The generated installer is also copied to the repository root for local testing but ignored by Git. Upload it as a release asset rather than committing generated large files. The release ZIP includes production dependencies for the installer; source developers still run `npm.cmd ci` for build tools.
 

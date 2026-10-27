@@ -1,4 +1,6 @@
-# macosLG · GathinTV
+# MAC-WebOSTV by 20khzpc
+
+**Updated 3.3.0 installer:** redownload MAC-WebOSTV-AutoSetup.ps1 and Start-Setup.cmd. Run CMD: choose **1** for unrooted setup, **2** for rooted installation, or **3** for an inline feature report. [Branch-by-branch guide](docs/INSTALL.en.md).
 
 **Version 3.3.0:** adaptive dock, editable family members, LGWS installation and feature reports. [Changes and post-install steps](docs/CHANGELOG-v3.3.0.md).
 
@@ -20,7 +22,7 @@ A macOS-inspired home screen for compatible, rooted LG webOS TVs. A single Windo
 | Read or change the source | [Developer/source guide](docs/DEVELOPMENT.en.md) · [Launcher files](payload/app) |
 | Find out what was checked | [Validation notes](docs/VALIDATION.md) |
 
-**Regular users do not need to download this whole repository.** From the latest release, download `GathinTV-AutoSetup.ps1` and, for easier launching, `Start-Setup.cmd`. Put both in the same folder. You do not need the source ZIP, npm or a separately installed webOS CLI to run the installer.
+**Regular users do not need to download this whole repository.** From the latest release, download `MAC-WebOSTV-AutoSetup.ps1` and, for easier launching, `Start-Setup.cmd`. Put both in the same folder. You do not need the source ZIP, npm or a separately installed webOS CLI to run the installer.
 
 Already rooted? Do not reinstall Developer Mode; follow the [already-rooted instructions](docs/INSTALL.en.md#already-rooted-tv). For an unrooted TV, the guide walks through the LG Developer account, installing Developer Mode, enabling Dev Mode Status, rebooting, and enabling Key Server.
 
@@ -58,8 +60,8 @@ When the TV is in standby its web page is offline. Another powered-on device in 
 
 ## Repository versus release downloads
 
-- **Repository:** readable source, configuration, build scripts, tests and documentation. Use `GathinTV-Source` when maintaining this repository.
-- **GitHub Releases:** generated one-file installer and optional source ZIP/checksums. Use `GathinTV-Release` for release assets, not as a replacement for the repository source tree.
+- **Repository:** readable source, configuration, build scripts, tests and documentation. Use `MAC-WebOSTV-Source` when maintaining this repository.
+- **GitHub Releases:** generated one-file installer and optional source ZIP/checksums. Use `MAC-WebOSTV-Release` for release assets, not as a replacement for the repository source tree.
 
 Do not upload `.local`, `node_modules`, SSH private keys, access keys, passphrases or personal backups. See [source/build instructions](docs/DEVELOPMENT.en.md).
 

@@ -2,7 +2,7 @@
 
 [Trang chính](../README.md) · [English](DEVELOPMENT.en.md)
 
-Repo là nội dung của **GathinTV-Source**. File sinh ra trong **GathinTV-Release** là tài sản phát hành, tải ở GitHub Releases. Không thay source tree bằng thư mục Release.
+Repo là nội dung của **MAC-WebOSTV-Source**. File sinh ra trong **MAC-WebOSTV-Release** là tài sản phát hành, tải ở GitHub Releases. Không thay source tree bằng thư mục Release.
 
 | Đường dẫn | Nội dung |
 |---|---|
@@ -35,7 +35,7 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` sinh cấu hình, IPK và checksum. `package` tạo AutoSetup tự chứa và ZIP ở thư mục `GathinTV-Release` cạnh repo. Sau sửa payload phải build và package lại; không dùng AutoSetup cũ rồi kỳ vọng nó đọc source mới.
+`build` sinh cấu hình, IPK và checksum. `package` tạo AutoSetup tự chứa và ZIP ở thư mục `MAC-WebOSTV-Release` cạnh repo. Sau sửa payload phải build và package lại; không dùng AutoSetup cũ rồi kỳ vọng nó đọc source mới.
 
 File AutoSetup tạo lại ở root để tiện kiểm tra nhưng được bỏ qua bởi Git; khi phát hành tải file đó lên Releases, không thêm file lớn sinh tự động vào source commit. Source ZIP của release có dependency production để dùng bộ cài; muốn build từ ZIP vẫn chạy `npm.cmd ci` để có công cụ phát triển.
 

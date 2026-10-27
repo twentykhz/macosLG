@@ -1,13 +1,13 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9491002,
-    "sha256": "b81183a09cf488f2dbd4c4c38f16662c35fe4bcbc6823bbf08b4c3730fc0d7c4"
+    "size": 9490964,
+    "sha256": "f2d80e794a9ead75e6fbdc2eba6b628faffaf40c36486f6e3787f90f29a2444c"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
-    "size": 9480,
-    "sha256": "7161e9a940416a159a6d6ffff40d0cdcc9c38ef4723a0157cffc3bae52f7cbe8"
+    "size": 9490,
+    "sha256": "aea14f75c046e58abdbb4692b470a60f3825775b8713d3dc24942ef9f3f9016f"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-launch.sh",
@@ -51,8 +51,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py",
-    "size": 7240,
-    "sha256": "fd4806f7eff594a39e65b8e545f2caebd78254a04de1f1ada258a8f0be03a04d"
+    "size": 7245,
+    "sha256": "b5df8386b5065553ac9f8c2db7fb81d149e90596fd6eeb2d1c6b986abecffdd3"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py",
@@ -91,8 +91,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
-    "size": 7164,
-    "sha256": "0abfd5fcacd9ce56d8099cc30707f0eca8f5f1be1a46c2633f73015a8facc19e"
+    "size": 7169,
+    "sha256": "4159a8a9f5dc1e6def0c407a6ae4bfe52206ac5eba6ef31e84c6ece6c1aaa5a8"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/disable-results.py",
@@ -171,8 +171,8 @@
   },
   {
     "path": "payload/app/appinfo.json",
-    "size": 418,
-    "sha256": "2d8dc090a748db8072f774a717177067133723bc912281374c79a6016a0e070b"
+    "size": 428,
+    "sha256": "056e69c0ea0b4f633b07b421b43e56c3f7220527fbadc7742cde3586d2489502"
   },
   {
     "path": "payload/app/apps.js",
@@ -686,13 +686,13 @@
   },
   {
     "path": "payload/home/disable-home.sh",
-    "size": 540,
-    "sha256": "59f331af827d5bd215592a029d9e6c8a8c0416d2e90dd08f9eae27d70e958d73"
+    "size": 545,
+    "sha256": "4d93215e34816327c438fab100301b843f88b6cefee7e29dd0456d3d789d3a1c"
   },
   {
     "path": "payload/home/home-keyhook.py",
-    "size": 9480,
-    "sha256": "7161e9a940416a159a6d6ffff40d0cdcc9c38ef4723a0157cffc3bae52f7cbe8"
+    "size": 9490,
+    "sha256": "aea14f75c046e58abdbb4692b470a60f3825775b8713d3dc24942ef9f3f9016f"
   },
   {
     "path": "payload/home/launch.sh",

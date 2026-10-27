@@ -35,13 +35,13 @@ async function main(args=process.argv.slice(2)){
  }
  const key=o.rootKey||rootKeyFile(o.host);const client=await connect({...o,...(fs.existsSync(key)?{key}:{})});
  try{
+  if(mode==='Doctor')return require('../lib/post-install').checkFeatures(client,o);
   await tv.inspect(client,o);
-  if(mode==='Doctor')return tv.doctor(client,o);
   if(o.dryRun){console.log('Read-only check succeeded; no '+mode+' mutation performed.');return;}
   if(mode==='Backup'){
    const result=await tv.backup(client,o);
    const destination=path.resolve(o.outputDir||path.join(state,'exports'));fs.mkdirSync(destination,{recursive:true});
-   const file=path.join(destination,'Gathin-Backup-'+new Date().toISOString().replace(/[:.]/g,'-')+'.tar.gz');
+   const file=path.join(destination,'MAC-WebOSTV-Backup-'+new Date().toISOString().replace(/[:.]/g,'-')+'.tar.gz');
    fs.copyFileSync(result.saved.file,file);fs.writeFileSync(file+'.sha256',result.saved.sha256+'  '+path.basename(file)+'\n');
    fs.copyFileSync(path.join(result.folder,'device.json'),file+'.device.json');
    console.log('OWNER BACKUP: '+file+'\nKeep this private. Use -Mode Setup or Restore -BackupFile with this archive.');

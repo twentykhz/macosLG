@@ -1,4 +1,4 @@
-# GathinTV 3.3.0
+# MAC-WebOSTV by 20khzpc 3.3.0
 
 ## Tiếng Việt
 
@@ -13,7 +13,7 @@
 
 ### Các bước sau cài
 
-1. Đọc đường dẫn **FEATURE REPORT** ở cuối cửa sổ. Nếu dùng AutoSetup mặc định, báo cáo nằm trong `%LOCALAPPDATA%\GathinTV\state\feature-reports`.
+1. Đọc đường dẫn **FEATURE REPORT** ở cuối cửa sổ. Nếu dùng AutoSetup mặc định, báo cáo nằm trong `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-reports`.
 2. Trên launcher mở **Trung tâm điều khiển → Điều khiển từ xa & Thiết lập**, quét QR bằng điện thoại/PC cùng LAN. Máy chủ chạy ngay trên TV, không cần PC cũ bật.
 3. Thử trái/phải/lên/xuống/OK, Back, Home, âm lượng và tắt tiếng. Mở từng widget rồi quay lại. Thử voice bằng remote có micro; thử các chế độ hình ảnh/độ sáng trên model của mình. Báo cáo API không thay thế các bước này.
 4. Trong trang điều khiển chọn **Hình nền & vị trí thời tiết**, kéo đến mục thành viên, nhập tên/ngày sinh rồi **Lưu thành viên**. Đóng và mở lại lịch trên TV để cập nhật.
@@ -42,10 +42,19 @@ Manage 1–30 family members, names and Gregorian birth dates in **Remote → Wa
 
 Streaming now tries JPEG/JPG/PNG and alternate capture service names, briefly retries busy errors, remembers working strategies and uses aligned 848×480 capture requests. Only one frame is captured at a time; temporary files are deleted after reading. Native key errors can fall back to web-app inspector input; native menus, DRM and sustained frame rates remain device dependent. Launcher power commands now have explicit confirmed handlers.
 
-After installation, read the JSON/TXT **FEATURE REPORT**, normally in `%LOCALAPPDATA%\GathinTV\state\feature-reports`. It distinguishes verified probes from manual checks. Test arrows/OK, Home/Back, audio, widgets, voice, picture/brightness and power on the target TV. No diagnostic power cycle or synthetic keypress is performed.
+After installation, read the JSON/TXT **FEATURE REPORT**, normally in `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-reports`. It distinguishes verified probes from manual checks. Test arrows/OK, Home/Back, audio, widgets, voice, picture/brightness and power on the target TV. No diagnostic power cycle or synthetic keypress is performed.
 
 Wake scripts are generated using the TV's actual LAN IP/MAC/netmask when available. Enable Mobile TV On / Wi-Fi or LAN wake in LG settings, keep mains power connected, and run the generated script from another LAN device while the TV is in standby. It waits for SSH before declaring success. The TV-hosted remote cannot serve a wake page while the TV is off; an always-on PC/NAS/Pi/router is needed for that use case.
 
 Manual LGWS fallback: Homebrew Channel → Settings → Repositories → Add → paste the repository URL above → save/refresh → install Life’s Good Without Spying. Report unsupported versions rather than bypassing installer checks. Stop competing capture clients if the TV reports `Device or resource busy`.
 
 This release is validated through offline checks and simulated installation flows. It has not been installed or functionally verified on the user's second TV from this machine. No changes were applied to the working reference TV.
+
+
+## Cập nhật tại chỗ 3.3.0 / In-place 3.3.0 update
+
+- Đổi tên sản phẩm thành **MAC-WebOSTV by 20khzpc**, gồm tên hiển thị trên TV, bộ cài, source ZIP và tài liệu. Mã app/đường dẫn kỹ thuật cũ được giữ để nâng cấp tại chỗ mà không mất cấu hình hoặc tạo app trùng.
+- Menu setup có **1: TV chưa root**, **2: TV đã root**, **3: kiểm tra chức năng** trước khi nhập IP. Kết quả chi tiết có màu hiện trong chính cửa sổ setup sau cài hoặc khi chọn 3; không phải tự đi tìm file báo cáo.
+- Viết lại hướng dẫn Việt/Anh, liên kết rõ từng nhánh. TV đã root dùng CMD chọn 2; lệnh chỉ định khóa riêng nằm trong mục nâng cao tùy chọn.
+- Giữ nguyên phiên bản **3.3.0**. Tải lại cả **MAC-WebOSTV-AutoSetup.ps1** và **Start-Setup.cmd** từ release này.
+- Rebranded display names/assets/docs, added menu choice 3 for detailed inline feature reports, and rewrote both installation guides around the actual menu. Existing on-TV IDs/paths and saved SSH credentials remain compatible. Download both updated installer files; no new version number is created.

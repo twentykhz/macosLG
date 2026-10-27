@@ -1,10 +1,10 @@
 {
   "id": "com.gathin.tvhome",
   "version": "1.4.0",
-  "vendor": "tv-vibehack",
+  "vendor": "20khzpc",
   "type": "web",
   "main": "index.html",
-  "title": "GathinTV",
+  "title": "MAC-WebOSTV by 20khzpc",
   "icon": "icon.png",
   "largeIcon": "largeIcon.png",
   "bgColor": "#000000",

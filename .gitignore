@@ -16,7 +16,12 @@ __pycache__/
 **/server.pid
 
 # Generated release assets belong in GitHub Releases, not source history.
+/MAC-WebOSTV-AutoSetup.ps1
+/MAC-WebOSTV-AutoSetup.ps1.sha256
+/release-manifest.json
+/MAC-WebOSTV-Source.zip
+
+# Legacy generated filenames; never publish as source.
 /GathinTV-AutoSetup.ps1
 /GathinTV-AutoSetup.ps1.sha256
-/release-manifest.json
 /GathinTV-Source.zip

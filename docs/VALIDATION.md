@@ -1,4 +1,4 @@
-# Validation — GathinTV 3.1 / 2026-10-27
+# Validation — MAC-WebOSTV 3.1 / 2026-10-27
 
 - Synced 125 current static runtime files from the reference TV; no live reinstall, reboot, factory reset or exploit replay performed during this source refresh.
 - Rebuilt launcher IPK and verified all 141 payload/package checksums.

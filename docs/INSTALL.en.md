@@ -1,167 +1,134 @@
-# Step-by-step Windows installation
+# Install MAC-WebOSTV by 20khzpc on Windows
 
-[Home](../README.en.md) · [Tiếng Việt](INSTALL.vi.md) · [Using the features](FEATURES.en.md)
+[Home](../README.en.md) · [Tiếng Việt](INSTALL.vi.md) · [Features](FEATURES.en.md)
 
-No Git, Node.js or npm knowledge is needed to use the installer. Follow branch A for an unrooted TV and branch B for an already-rooted TV. You do not have to factory-reset first.
+The updated **3.3.0** installer includes installation branches and feature checks. Double-click `Start-Setup.cmd`, select your TV's state, and follow the prompts. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
 
-## 1. Check before downloading
+## 1. Download and start
 
-You need a compatible LG webOS TV, its remote, a 64-bit Windows PC and internet access. Keep the PC powered and awake during installation. The TV and PC must be on the same home network; guest Wi-Fi may block device-to-device access.
+1. Open [release 3.3.0](https://github.com/twentykhz/macosLG/releases/tag/v3.3.0) and expand **Assets**.
+2. Download **`MAC-WebOSTV-AutoSetup.ps1`** and **`Start-Setup.cmd`** into the same folder, for example `Desktop\MAC-WebOSTV`. **Download both again** if you previously downloaded 3.3.0: this release has been updated in place.
+3. Do not rename or unpack the PS1 file. GitHub's automatic Source code ZIP, Node.js, npm and the webOS CLI are not required.
+4. Turn on the TV. Connect it and a 64-bit Windows PC to the same LAN; avoid isolated guest Wi-Fi. Keep the PC awake during installation.
+5. If Windows blocks a downloaded file, verify that it came from this repository, then use **Properties → Unblock → Apply**, if available. Do not disable protection for the entire PC.
+6. Double-click **`Start-Setup.cmd`** and keep its window open.
 
-**Reference profile:** LG 55SK8000PTA / firmware 05.50.70 / SDK 4.4.0 / M16PP_DVB_EU / ARM32. Already-rooted TVs using Restore 3.2.0 or later are capability-checked rather than blocked by model name. Individual features still depend on hardware/APIs. Not every unrooted TV can use the bundled root procedure. On the TV, look under Settings → All Settings → General → About This TV; menu names vary. Record model and software version. If unsure, ask in [Issues](https://github.com/twentykhz/macosLG/issues) first; do not edit the profile to force installation.
+## 2. Choose the right branch
 
-Root provides administrator access for custom software. This installer includes a rooting sequence for compatible profiles and is not an official LG application. Do not unplug the TV while installation is running. Record any error and stop rather than repeatedly retrying an exploit.
+| Menu choice | Use when | Instructions |
+|---|---|---|
+| **1 — TV not rooted** | TV is unrooted or has lost root | [Branch A](#branch-a) |
+| **2 — TV already rooted** | Root SSH is available | [Branch B](#branch-b) |
+| **3 — Check TV features and show report** | Check an installed TV without reinstalling | [Branch C](#branch-c) |
 
-## 2. Download the correct files
+Choose before entering an IP. Setup still verifies actual root access after authentication. If unsure, check Homebrew or ask whoever rooted the TV; do not install Developer Mode on an already-rooted TV.
 
-1. Open the [latest release](https://github.com/twentykhz/macosLG/releases/latest).
-2. Expand **Assets** if necessary.
-3. Download **`GathinTV-AutoSetup.ps1`**. This is the installer; GitHub's automatic `Source code (zip)` is not the installer.
-4. Also download **`Start-Setup.cmd`** for double-click launching.
-5. Make a folder such as `Desktop\GathinTV` and put both files there, without renaming them.
-6. Do not unzip the PS1 file. The source ZIP is optional and intended for reading/development.
+<a id="branch-a"></a>
+## Branch A — Unrooted TV
 
-In File Explorer, View → Show → File name extensions helps you check that the file has not become `.ps1.txt`.
+The current rooting path is restricted to the supported profile: **LG 55SK8000PTA / firmware 05.50.70 / M16PP_DVB_EU / SDK 4.4.0 / ARM32**. This is not a universal LG rooting method. Do not edit the profile to bypass a refusal. Record the model, firmware and error for [Issues](https://github.com/twentykhz/macosLG/issues).
 
-If Windows blocks a downloaded file, first verify it came from this repository's release. Open its Properties, select Unblock if present, then Apply. For other security notices, check the source and message instead of disabling protection across the computer.
+On an unrooted TV only:
 
-## 3. Choose your TV's starting state
+1. Register at [LG webOS TV Developer](https://webostv.developer.lge.com/) and complete email verification if required.
+2. Open **LG Content Store / Apps** on the TV and install LG's **Developer Mode** app.
+3. Sign in, enable **Dev Mode Status**, approve the restart and wait for the TV to return.
+4. Reopen Developer Mode and enable **Key Server**.
+5. Record **this TV's IP and six-character passphrase**. The passphrase is case-sensitive and differs from your LG account password. Do not publish it.
+6. On the PC run `Start-Setup.cmd`, choose **1**, and enter the **TV's** IP.
+7. Verify the target address before accepting its first SSH host key with **YES/yes**. Enter the Developer Mode passphrase when prompted; hidden password input is normal.
+8. Wait through the supported installation/reconnection steps. Do not run a second installer or disconnect power. Setup handles Developer Mode removal where required; do not reinstall it after rooting.
+9. Read the feature report in the setup window.
 
-| Your TV | Next step |
+[Official Developer Mode instructions](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app). You do not need to run the CLI commands on LG's page yourself.
+
+<a id="branch-b"></a>
+## Branch B — Already-rooted TV
+
+**Skip branch A. Do not reinstall Developer Mode or use its passphrase.** Use this TV's root SSH password or private key. See the [webOS Homebrew guidance](https://www.webosbrew.org/pages/sdk-configuration).
+
+1. Turn on the TV and record its current IP from network settings. Keep the TV and PC on the same LAN.
+2. Put the two downloaded files in one folder.
+3. Double-click **`Start-Setup.cmd`**, select **2 — TV already rooted**.
+4. Enter the **TV IP** when prompted.
+5. Verify the address and confirm **YES/yes** if this is the first connection.
+6. Setup uses a saved key if available. If asked for **SSH password (hidden)**, enter this TV's **root password**, not an LG account password or Developer Mode passphrase. Characters will not be shown.
+7. Wait while setup verifies root, backs up existing files and installs/updates compatible components. **No manual Restore command is needed.**
+8. Read the feature report in the same window; it stays open until you dismiss it.
+
+Rooted installation detects capabilities instead of requiring the reference model name. Node.js, Python, input and API requirements are checked separately. Unavailable HOME/voice capabilities are reported; launcher installation does not prove every feature works. The compatibility Restore branch does not replay an exploit or force a reboot.
+
+Only if you need to supply an external SSH key that setup has not saved, see [advanced options](#advanced).
+
+<a id="branch-c"></a>
+## Branch C — Feature report inside setup
+
+1. Run **`Start-Setup.cmd`**, select **3 — Check TV features and show report**.
+2. Enter the IP, verify a new host key if required, and authenticate with root SSH as in branch B.
+3. Setup checks root, registered apps, remote/settings HTTP servers, one screen capture, audio, brightness/picture, network and Bluetooth APIs.
+4. Detailed results appear directly in the window. JSON/TXT report paths are also printed.
+
+| Status | Meaning |
 |---|---|
-| Never rooted, or factory reset removed root | [Branch A](#branch-a-unrooted-tv) |
-| Already rooted, working root SSH/Homebrew | [Branch B](#already-rooted-tv) |
-| Unsure | Check/ask first; do not reinstall Developer Mode on a rooted TV |
+| **OK / PRESENT / INSTALLED** — green | That specific probe passed or the app is registered |
+| **CHECK** — red | Read the error on that line; do not treat it as passed |
+| **MANUAL** — yellow | Physical operation has not been verified; test it on the TV |
 
-## Branch A: unrooted TV
+Branch 3 does not reinstall the launcher, inject keys or power-cycle the TV. It captures one test frame and deletes the temporary file, and may generate PC wake scripts from the TV's network details. Home/Back, navigation, mouse, voice, power and Wake-on-LAN still require physical checks. A successful single capture does not prove sustained stream FPS.
 
-### A1. Prepare an LG Developer account
+Reports normally live under `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-reports`. Upgrades may retain the older data folder to preserve SSH keys; **use the actual path printed in the report**. Do not share the entire private state folder.
 
-1. On your PC or phone, open [LG's webOS TV Developer website](https://webostv.developer.lge.com/).
-2. Select **SIGN IN**. Register if necessary, verify your email and complete LG's required steps.
-3. Keep the account email/password available for the Developer Mode app on the TV. This is not your GitHub account.
+## 3. After installation
 
-### A2. Install Developer Mode on the TV
-
-1. Connect the TV to your network and check that its date/time are reasonable.
-2. Open **LG Content Store / Apps**.
-3. Search for LG's **Developer Mode** application and install it.
-4. Open it and sign in with your LG Developer account.
-
-### A3. Enable Dev Mode Status, then Key Server
-
-1. Turn **Dev Mode Status** on in the application.
-2. Accept the TV's restart request and wait for it to finish.
-3. Open Developer Mode again after the restart.
-4. Turn **Key Server** on. Enabling Dev Mode Status alone is not sufficient for the PC connection.
-5. **Privately record the TV's IP address and six-character passphrase shown on the screen.** The passphrase is case-sensitive; do not post this screen publicly.
-
-These steps follow [LG's official documentation](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app). You do not need to run the separate LG CLI commands from that page; AutoSetup handles its connection steps.
-
-### A4. Run AutoSetup
-
-1. On the PC, open the folder containing the downloaded files.
-2. Double-click **`Start-Setup.cmd`** and choose **1** for an unrooted TV. It launches `GathinTV-AutoSetup.ps1` from the same folder.
-3. When asked for **TV IP address**, enter the TV's recorded address and press Enter. Do not use the PC's or router's address.
-4. When asked for the passphrase, enter the exact **six Developer Mode characters for this TV**, then Enter. Characters/stars may not appear as you type; this is normal.
-5. On the first connection, the installer asks you to verify the TV IP and type **YES** or **yes** to accept a new SSH host key. Only type YES after checking the address on your own TV. A key change after a reset must be verified again.
-6. Let the script run. It may download a pinned portable Node.js runtime if necessary and verifies its checksum.
-7. The TV may restart at installation stages. Wait for the installer to reconnect; do not launch another copy of the installer.
-8. The root sequence handles removing Developer Mode at the required stage. Do not reinstall it after rooting succeeds.
-
-Without the CMD file: in File Explorer's address bar type `powershell`, press Enter, then run:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1
-```
-
-The installer asks for the address; you do not edit passwords into the PS1. To supply an address explicitly, replace this example with your TV's real address:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -HostName 192.168.1.100
-```
-
-`192.168.1.100` is only an example. Do not use `-TrustNewHost` without verifying the device/host key. If an error occurs, keep the window open and record the message with private details hidden; do not repeatedly rerun it.
-
-## Already-rooted TV
-
-**Do not reinstall Developer Mode on an already-rooted TV.** [webOS Homebrew explains](https://www.webosbrew.org/pages/sdk-configuration) that this can break the root setup. Use Restore to install/update the interface rather than replaying the initial rooting sequence.
-
-1. Keep the TV and PC on the same LAN and record the TV's current IP.
-2. Prepare this TV's root SSH private key or root password. **The Developer Mode passphrase is not the root SSH password.**
-3. Open PowerShell in the installer folder, as described in A4.
-4. Replace the example address and run:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Restore -HostName 192.168.1.100
-```
-
-To select a private key if it is not found automatically:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Restore -HostName 192.168.1.100 -RootKeyPath "C:\YourFolder\this-tv-private-key.pem"
-```
-
-Replace both the address and path. If password authentication is used, enter the TV's root password when asked. Do not put it in the command line or public documentation.
-
-## 4. After installation
-
-1. Wait for the completion message, the TV's restart and the launcher to appear.
-2. Try HOME, the dock and Action Center with the remote. Some app tiles only appear when their apps are installed.
-3. Open **Action Center → Điều khiển từ xa & Thiết lập** (Remote Control & Settings), scan the QR with your phone camera and open the link.
-4. On the same LAN, use the web remote, wallpapers and weather settings. The PC does not need to stay on while the TV-hosted page is running.
-5. Install/sign in to FPT Play, TV360 or Netflix if wanted. The installer supplies neither accounts nor subscriptions.
-6. Keep the installer's keys/backups private. PC state is stored under `%LOCALAPPDATA%\GathinTV` by default; do not share this folder.
-
-The launcher interface currently uses Vietnamese. Installer/system messages may be in English. See the [feature guide](FEATURES.en.md) for translated labels and daily use.
-
-## 5. Prepare, inspect, back up, open the store and disable customizations
-
-Replace the example IP in each command. Run from the installer folder.
-
-```powershell
-# Check the PC package only; no TV connection
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Prepare
-
-# Read TV status without reinstalling
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Doctor -HostName 192.168.1.100
-
-# Make a private backup
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Backup -HostName 192.168.1.100
-
-# Open the store through the supported flow; Sync after installing apps
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Apps -HostName 192.168.1.100
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Sync -HostName 192.168.1.100
-
-# Disable custom services/hooks without unrooting or resetting
-powershell -NoProfile -ExecutionPolicy Bypass -File .\GathinTV-AutoSetup.ps1 -Mode Disable -HostName 192.168.1.100
-```
-
-Use Restore to enable the setup again after Disable. A backup is private data, potentially including personal images/settings, not an installer to redistribute. Keep the private key if you want to reconnect with it.
-
-## Restore on other models from 3.2.0
-
-Already-rooted TVs are no longer rejected merely for differing model/board names. COMPATIBILITY REPORT lists Node.js, Python, HOME relay, Voice Agent and YouTube capabilities. Failed/missing remote-channel probes retain native HOME; missing Node.js skips web services; voice requires Python 2, a compatible Voice Agent and YouTube AdFree 0.5.3. Reference-only debloat/privacy is skipped. This compatible Restore branch runs no exploit or forced reboot.
-
-For Wrong TV on 3.1.x, download AutoSetup **3.2.0 or later** from Releases and run the new file. Do not force-edit config/profile.json.
+1. Test Home/Back, dock apps, widgets and Control Center.
+2. Open **Trung tâm điều khiển → Điều khiển từ xa & Thiết lập**, scan the QR from another LAN device.
+3. The TV hosts the remote page; the setup PC does not need to remain on while the TV is awake. Try navigation, audio, streaming and screenshot download.
+4. Open **Hình nền & vị trí thời tiết** to configure wallpapers/crop/slideshow, two weather locations and family members. Save family changes, then reopen the TV calendar.
+5. LGWS declares root/Homebrew and webOS 5+ requirements. If installation fails, read the report and [Homebrew fallback instructions](CHANGELOG-v3.3.0.md). Setup does not enable voice/ThinQ blocking on another TV.
+6. Install/sign in to FPT Play, TV360 and Netflix separately if wanted. No subscriptions/accounts are supplied.
+7. For WoL, enable Mobile TV On / Wi-Fi or LAN wake if supported, keep mains power connected and run the generated Wake-TV script from **another LAN device**. A sleeping TV cannot host its wake page. See [post-install checks](CHANGELOG-v3.3.0.md).
 
 ## Troubleshooting
 
-| Symptom | What to check |
+| Symptom | Check |
 |---|---|
-| PS1 opens Notepad | Use `Start-Setup.cmd` or the PowerShell command; do not change the extension |
-| Cannot find the installer | Open Releases → Assets, not Code → Download ZIP |
-| Connection timed out | TV on? Correct IP? Same LAN? Guest network isolation? |
-| Incorrect passphrase | On the unrooted TV, enable Key Server and recheck all six case-sensitive characters |
-| Root authentication failed | Use the root key/password, not LG account credentials or Developer Mode passphrase |
-| Wrong TV/hardware/ABI/untested firmware | Stop and report model, firmware and error; do not force the profile |
-| QR page unavailable | TV must be on, phone on the LAN, IP unchanged; rescan after restarting if needed |
-| Missing FPT/TV360/Netflix | Install/sign in separately, then Sync |
-| Script/checksum error | Download the files from the same release again; do not mix versions |
+| PS1 opens in Notepad | Double-click `Start-Setup.cmd` |
+| CMD says a file is missing | Download the new PS1 and CMD into the same folder |
+| Connection timed out | TV awake, correct IP, same LAN, no guest isolation |
+| Authentication failed in 2/3 | Use this TV's root SSH credentials, not Developer Mode credentials |
+| Wrong TV in an older installer | Download both updated 3.3.0 files and choose 2; do not bypass profiles |
+| Unsupported ABI/Node/API | Read the report and include model/firmware when asking for help |
+| Device or resource busy | Stop other capture/stream sessions and check the capture report |
+| QR cannot open | TV awake, same LAN; rescan if its IP changed |
+| Checksum mismatch | Redownload matching assets from this release |
 
-For issues, include model/firmware, Windows version, step and exact error. Hide passphrases, QR codes, tokens, passwords, accounts and private keys.
+For issues, include model, firmware, menu choice 1/2/3 and the relevant error. Hide passphrases, QR/tokens, passwords and private keys.
 
+<a id="advanced"></a>
+## Advanced options — optional
 
-## 3.3.0
+<details>
+<summary>Only for an external SSH key, backups or administration</summary>
 
-[Dock, family editor, LGWS, feature checks and Wake-on-LAN / Dock, thành viên, LGWS và kiểm tra sau cài](CHANGELOG-v3.3.0.md).
+Open PowerShell in the installer folder and replace the sample IP/path:
+
+```powershell
+# Only when an unsaved external key must be selected
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Restore -HostName 192.168.1.100 -RootKeyPath "C:\MyKeys\tv.pem"
+
+# Verify PC package without connecting to the TV
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Prepare
+
+# Private backup
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Backup -HostName 192.168.1.100
+
+# Resync installed tiles
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Sync -HostName 192.168.1.100
+
+# Disable custom services without unrooting or resetting
+powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 -Mode Disable -HostName 192.168.1.100
+```
+
+After Disable, run CMD and choose 2 to restore. Keep backups private.
+
+</details>

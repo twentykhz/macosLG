@@ -178,7 +178,7 @@ def main():
                             with open('/dev/null', 'r') as null, open(LOG, 'a') as output:
                                 child = subprocess.Popen(['/usr/bin/luna-send', '-n', '1', 'luna://com.webos.applicationManager/launch', '{"id":"com.gathin.tvhome"}'], stdin=null, stdout=output, stderr=output, close_fds=True)
                             children.append(child)
-                            log('BACK consumed before LG; Gathin launch pid=%d' % child.pid)
+                            log('BACK consumed before LG; MAC-WebOSTV launch pid=%d' % child.pid)
                     if back_consumed:
                         if value == 0:
                             back_consumed = False
@@ -189,7 +189,7 @@ def main():
                         with open('/dev/null', 'r') as null, open(LOG, 'a') as output:
                             child = subprocess.Popen(['/usr/bin/luna-send', '-n', '1', 'luna://com.webos.applicationManager/launch', '{"id":"com.gathin.tvhome"}'], stdin=null, stdout=output, stderr=output, close_fds=True)
                         children.append(child)
-                        log('HOME consumed; Gathin launch pid=%d' % child.pid)
+                        log('HOME consumed; MAC-WebOSTV launch pid=%d' % child.pid)
                     elif value == 0:
                         home_down = False
                     continue

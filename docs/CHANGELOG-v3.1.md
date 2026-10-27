@@ -1,4 +1,4 @@
-# GathinTV 3.1 — 27/10/2026
+# MAC-WebOSTV 3.1 — 27/10/2026
 
 - Đồng bộ launcher trực tiếp từ TV tham chiếu: dock 9 icon, màu kính trung tính, chữ rõ từ xa.
 - Widget thời tiết hai địa điểm, hai tab dự báo; lịch âm chi tiết; widget Voice Agent và YouTube AdFree router.
