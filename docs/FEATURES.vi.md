@@ -91,3 +91,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Wake-TV.ps1 -TvAddress 192
 IP/MAC trên là ví dụ. Script chờ lời chào SSH, báo dịch vụ đã sẵn sàng và chờ Enter; Ctrl+C để hủy. SSH lên không phải phép đo màn hình đã sáng.
 
 Ngoài nhà: cần VPN/subnet router hoặc thiết bị trung gian luôn bật ở nhà. Ví dụ Tailscale trên router/NAS/PC có định tuyến được vào LAN; chỉ cài Tailscale trên điện thoại không đủ. WoL broadcast cần được gửi từ thiết bị trong LAN, không tự đi xuyên VPN. Bản cài không cấu hình tài khoản Tailscale, router hay mở port Internet.
+
+
+## 3.3.0
+
+[Dock, family editor, LGWS, feature checks and Wake-on-LAN / Dock, thành viên, LGWS và kiểm tra sau cài](CHANGELOG-v3.3.0.md).

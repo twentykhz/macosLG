@@ -91,3 +91,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\Wake-TV.ps1 -TvAddress 192
 The values are examples. The script waits for an SSH greeting, reports service readiness and waits for Enter; Ctrl+C cancels. An SSH response does not prove the display is lit.
 
 Away from home, configure a VPN/subnet router or always-on relay at home, for example a Tailscale router/NAS/PC that can reach the LAN. Tailscale on the phone alone is insufficient. Wake broadcasts must be sent from a LAN device rather than assumed to cross the VPN. The installer does not configure Tailscale accounts, router settings or public internet ports.
+
+
+## 3.3.0
+
+[Dock, family editor, LGWS, feature checks and Wake-on-LAN / Dock, thành viên, LGWS và kiểm tra sau cài](CHANGELOG-v3.3.0.md).

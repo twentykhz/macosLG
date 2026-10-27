@@ -116,3 +116,5 @@ body #widgetDetail .wd-date-cell.selected{background:rgba(255,255,255,.17)!impor
 #widgetDetail .wd-family-advice ul{margin:0;padding-left:24px;}
 #widgetDetail .wd-family-advice li{margin-bottom:9px;overflow-wrap:break-word;}
 .wd-lunar-info .wd-calendar-method{display:block;margin-top:9px;font-size:14px;}
+
+.wd-family-tabs{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;max-width:100%;padding:3px 2px 6px}.wd-family-tabs .wd-member{flex:0 0 auto;min-width:90px;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

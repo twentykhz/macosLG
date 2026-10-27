@@ -160,3 +160,8 @@ Nếu thấy Wrong TV ở bản 3.1.x, tải lại AutoSetup **3.2.0 trở lên*
 | Có script error/checksum mismatch | Tải lại hai file cùng một release; không trộn các phiên bản |
 
 Khi gửi issue, che passphrase, QR, token, mật khẩu, tài khoản và khóa riêng. Ghi model/firmware, Windows, tên bước và nguyên văn lỗi để người khác hỗ trợ đúng chỗ.
+
+
+## 3.3.0
+
+[Dock, family editor, LGWS, feature checks and Wake-on-LAN / Dock, thành viên, LGWS và kiểm tra sau cài](CHANGELOG-v3.3.0.md).

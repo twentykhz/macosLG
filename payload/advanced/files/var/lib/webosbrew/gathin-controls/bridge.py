@@ -12,6 +12,14 @@ def luna(endpoint,data):
   if p.poll() is None:p.terminate()
   p.stdin.close()
 def run(action,data):
+ if action in ('power_off','power_reboot'):
+  if data.get('confirmed') is not True:return {'returnValue':False,'errorText':'Explicit power confirmation required'}
+  if action=='power_off':return luna('com.webos.service.tvpower/power/powerOff',{'reason':'remoteKey'})
+  def reboot_later():
+   time.sleep(1)
+   subprocess.Popen(['/sbin/reboot'],stdin=open('/dev/null','r'),stdout=open('/dev/null','w'),stderr=subprocess.STDOUT)
+  thread.start_new_thread(reboot_later,())
+  return {'returnValue':True}
  if action=='voice_search':
   luna('com.webos.applicationManager/closeByAppId',{'id':'com.webos.app.voice'})
   return luna('com.webos.service.sysuicompmgr/launch',{'appId':'com.webos.app.voiceagent','main':'file://usr/palm/applications/com.webos.app.voiceagent/Main.qml','params':{'activateType':'mrcu','launchMode':'voice','pressed':True,'walkietalkie':False}})

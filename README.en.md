@@ -1,5 +1,7 @@
 # macosLG · GathinTV
 
+**Version 3.3.0:** adaptive dock, editable family members, LGWS installation and feature reports. [Changes and post-install steps](docs/CHANGELOG-v3.3.0.md).
+
 [Tiếng Việt](README.md) | **English**
 
 A macOS-inspired home screen for compatible, rooted LG webOS TVs. A single Windows installer sets up the launcher and its supporting services. The complete launcher source is available in this repository.
@@ -33,7 +35,7 @@ The TV and PC must be on the same home network. Rooting and HOME/voice integrati
 | Feature | What it does |
 |---|---|
 | Glass-style home screen | Large clock/date, translucent neutral panels, readable text and focus highlights |
-| Nine-icon dock | Compact when idle; names appear while navigating; slight zoom instead of an extra selection box |
+| Adaptive centered dock | Compact when idle; names appear while navigating; slight zoom instead of an extra selection box |
 | System controls | Inputs, Action Center, Settings and a small power/restart menu |
 | Combined weather widget | Two locations together; click for hourly and roughly ten-day forecasts with two location tabs |
 | Vietnamese lunar calendar | Lunar date, can chi, traditional day/hour indicators and family-specific suggestions in the detailed calendar |

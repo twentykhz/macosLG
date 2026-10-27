@@ -8,7 +8,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 trap { Write-Host ('Stopped: '+$_.Exception.Message) -ForegroundColor Red; if(-not $NoPause){[void](Read-Host 'Press Enter to close')}; exit 1 }
-Write-Host 'GathinTV 3.2.0: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
+Write-Host 'GathinTV 3.3.0: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -19,7 +19,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.2.0-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.3.0-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'GathinTV-source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)
@@ -61,6 +61,13 @@ if(-not $node){
  }
 }
 if($Mode -eq 'Prepare'){& $node (Join-Path $release 'scripts/verify.js');if($LASTEXITCODE -ne 0){throw 'Payload verification failed.'};Write-Host 'PC is ready; no TV connection was made.';return}
+if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
+ Write-Host '1 - TV not rooted (check supported model/firmware first)'
+ Write-Host '2 - TV already rooted (install launcher, no rooting exploit)'
+ $taskRootChoice=Read-Host 'Choose 1 or 2'
+ if($taskRootChoice.Trim() -eq '2'){$Mode='Restore';$AlreadyRooted=$true}
+ elseif($taskRootChoice.Trim() -ne '1'){throw 'Choose 1 or 2. No TV changes made.'}
+}
 if(-not $HostName){$HostName=Read-Host 'TV IP address'}
 if($HostName -notmatch '^[a-zA-Z0-9.-]+$'){throw 'Invalid TV address.'}
 $taskKnownHosts=Join-Path $DataDirectory 'state/known-hosts.json'

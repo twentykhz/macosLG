@@ -1,5 +1,7 @@
 # macosLG · GathinTV
 
+**Bản 3.3.0:** dock tự co giãn, quản lý thành viên gia đình, cài LGWS và báo cáo chức năng. [Thay đổi và các bước sau cài](docs/CHANGELOG-v3.3.0.md).
+
 **Tiếng Việt** | [English](README.en.md)
 
 Biến màn hình chính của TV LG webOS tương thích thành giao diện lấy cảm hứng từ macOS. Người dùng Windows cài bằng **một file AutoSetup**; người muốn tìm hiểu có thể xem toàn bộ mã nguồn launcher ngay trong repo.
@@ -33,7 +35,7 @@ Bộ cài sẽ hỏi khi cần; không phải mở file script để sửa mật
 | Tính năng | Cách hoạt động |
 |---|---|
 | Giao diện kính | Đồng hồ/ngày lớn, nền trung tính trong suốt, chữ rõ khi nhìn xa, highlight khi chọn |
-| Dock 9 icon | Thu gọn khi không dùng, hiện tên khi điều hướng, zoom nhẹ thay khung chọn thừa |
+| Dock tự co giãn | Thu gọn khi không dùng, hiện tên khi điều hướng, zoom nhẹ thay khung chọn thừa |
 | Điều khiển hệ thống | Nguồn vào, Action Center, Settings và menu tắt/khởi động lại TV gọn |
 | Thời tiết gộp | Hai địa điểm trên một widget; mở ra có hai tab, dự báo theo giờ và khoảng 10 ngày |
 | Âm lịch Việt Nam | Ngày âm, can chi, đánh giá ngày/giờ dân gian; lịch chi tiết và gợi ý theo thành viên |

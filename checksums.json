@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9490822,
-    "sha256": "2959e15ddcf64802d8c79eff350f4adf7e9446a6e22a92154b9cb87360fb62d3"
+    "size": 9491002,
+    "sha256": "b81183a09cf488f2dbd4c4c38f16662c35fe4bcbc6823bbf08b4c3730fc0d7c4"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -51,8 +51,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py",
-    "size": 6741,
-    "sha256": "5d13f956c879f2618c3f130a58cea98bf779115b291654adf0555301b6e1d158"
+    "size": 7240,
+    "sha256": "fd4806f7eff594a39e65b8e545f2caebd78254a04de1f1ada258a8f0be03a04d"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py",
@@ -66,8 +66,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/server.js",
-    "size": 8634,
-    "sha256": "d075f9b13c5a8d40c155edbe6839f7c0d08f7a6fa697075883f9d9f70e40ad50"
+    "size": 10953,
+    "sha256": "7338b4213c3f547f05930b015c70c475da76bf37692e8dedd6a580383c72506d"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/defaults.json",
@@ -81,13 +81,13 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js",
-    "size": 9554,
-    "sha256": "6fe9931476ce0bd5fd1c34348d2224f95c1e8e76946898391f8e69fc659c532a"
+    "size": 10605,
+    "sha256": "5d9b5d861acf7c0509e558f20a599253e572b94bbc79703b15bf5e08d522b0ab"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-upload.html",
-    "size": 15004,
-    "sha256": "ee3ccfeab85723e13502b60088af1ad31aa952f9009c152f9c93df741cb22f21"
+    "size": 17602,
+    "sha256": "7539290a995d98b6bc83791ad6c90365b3306e542939f296df959272c5763d8a"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
@@ -166,8 +166,8 @@
   },
   {
     "path": "payload/app/app.js",
-    "size": 13140,
-    "sha256": "c923e9778856ecfc52b5bb7c49e0d5a72a10ecbfa1e8bf818b566f56a0aeff8f"
+    "size": 13329,
+    "sha256": "f866427ec185a076eb64336c250f1dee1d82a0c21e4f632657ac2d6dbfa55361"
   },
   {
     "path": "payload/app/appinfo.json",
@@ -651,13 +651,13 @@
   },
   {
     "path": "payload/app/widget-details.css",
-    "size": 9737,
-    "sha256": "878ec4ad3beae351d14a0b27c8644930155d9339cba4b352fb2c53f083bd569a"
+    "size": 10004,
+    "sha256": "c90dfad88e2ef994d16d8f1e3ca772a031a16a2c39dffde705db7307430a83ce"
   },
   {
     "path": "payload/app/widget-details.js",
-    "size": 16347,
-    "sha256": "9f2cce26f5b004fd2bb46a6aea6a63ee982093a314f6894a95a002d7ff7b3091"
+    "size": 16952,
+    "sha256": "95a132dab86a37f2ff68a73354eae244edbb7c4ac7190b3a763f88de1979351e"
   },
   {
     "path": "payload/app/widget-open.js",

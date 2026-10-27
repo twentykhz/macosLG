@@ -160,3 +160,8 @@ For Wrong TV on 3.1.x, download AutoSetup **3.2.0 or later** from Releases and r
 | Script/checksum error | Download the files from the same release again; do not mix versions |
 
 For issues, include model/firmware, Windows version, step and exact error. Hide passphrases, QR codes, tokens, passwords, accounts and private keys.
+
+
+## 3.3.0
+
+[Dock, family editor, LGWS, feature checks and Wake-on-LAN / Dock, thành viên, LGWS và kiểm tra sau cài](CHANGELOG-v3.3.0.md).

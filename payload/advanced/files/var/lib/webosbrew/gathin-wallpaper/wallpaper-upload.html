@@ -44,4 +44,15 @@ refresh().catch(function(e){say(e.message);});
   document.getElementById('saveWeather').onclick=async function(){if(places.length!==2||!places[0]||!places[1]){message.textContent='Hãy chọn đủ hai địa điểm.';return;}this.disabled=true;try{await api('/api/weather',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({locations:places})});message.textContent='Đã lưu. Hai khu vực sẽ cập nhật trên TV trong vài giây.';}catch(e){message.textContent=e.message;}finally{this.disabled=false;}};
 }());
 
-</script></html>
+</script><style>#familyEditor{margin:24px 0;padding:20px;border:1px solid #647080;border-radius:18px}.family-row{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}.family-row input{min-width:0;max-width:100%;flex:1}.family-row button{margin:0}</style>
+<section id="familyEditor"><h2>Thành viên gia đình · Lịch vạn niên</h2><p>Thêm tên và ngày sinh dương lịch để xem việc nên / không nên làm. Tối đa 30 người. Thông tin được lưu trên TV.</p><div id="familyRows"></div><button id="addFamily" type="button">Thêm người</button> <button id="saveFamily" type="button">Lưu thành viên</button><p id="familyMessage" role="status"></p></section>
+<script>
+(function(){var rows=document.getElementById('familyRows'),message=document.getElementById('familyMessage');
+function row(p){var el=document.createElement('div');el.className='family-row';var name=document.createElement('input');name.placeholder='Tên';name.maxLength=30;name.value=p.name||'';name.setAttribute('aria-label','Tên thành viên');var date=document.createElement('input');date.type='date';date.min='1900-01-01';date.max='2100-12-31';date.setAttribute('aria-label','Ngày sinh dương lịch');if(p.year)date.value=p.year+'-'+('0'+p.month).slice(-2)+'-'+('0'+p.day).slice(-2);var remove=document.createElement('button');remove.type='button';remove.textContent='Xóa';remove.onclick=function(){el.remove();};el.appendChild(name);el.appendChild(date);el.appendChild(remove);rows.appendChild(el);}
+document.getElementById('addFamily').onclick=function(){if(rows.children.length<30)row({});};
+fetch('/api/state'+location.search,{cache:'no-store'}).then(function(r){return r.json();}).then(function(s){(s.family||[]).forEach(row);if(!rows.children.length)row({});}).catch(function(e){message.textContent=e.message;});
+document.getElementById('saveFamily').onclick=function(){var people=[];Array.prototype.forEach.call(rows.children,function(el){var inputs=el.querySelectorAll('input'),d=inputs[1].value.split('-');people.push({name:inputs[0].value.trim(),year:Number(d[0]),month:Number(d[1]),day:Number(d[2])});});var button=this;button.disabled=true;fetch('/api/family'+location.search,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({family:people})}).then(function(r){return r.json().then(function(s){if(!r.ok)throw Error(s.error);return s;});}).then(function(){message.textContent='Đã lưu. Đóng và mở lại lịch để cập nhật thành viên.';}).catch(function(e){message.textContent=e.message;}).then(function(){button.disabled=false;});};
+}());
+</script>
+
+</html>

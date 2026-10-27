@@ -11,3 +11,8 @@
 Public repository preparation: bilingual landing pages and installation/feature/source guides checked for local links; generated AutoSetup kept in Releases; Start-Setup.cmd and first-connection confirmation added. Release 3.1.1 restores the owner-provided SF Pro font in the payload and generated installer, with Inter fallback. Font terms remain separate from the project code license.
 
 3.2.0: 54 automated checks pass, including simulated UK6340/LM18A capability selection, degraded feature paths and no-exploit/no-reboot rooted compatibility sequencing. This is not a claim of live validation on the owner’s 55UK6340PTF.
+
+
+## 3.3.0 validation
+
+Offline regression checks cover cross-model rooted installation flow, JPEG-to-JPG capture fallback and temporary-file cleanup, family date validation and persistence. The installer writes separate verified / needs-attention / manual-check-required results on the target TV. Hardware input, sustained streaming FPS and Wake-on-LAN from standby have not been tested on the second TV from this workstation. See [3.3.0 notes](CHANGELOG-v3.3.0.md).
