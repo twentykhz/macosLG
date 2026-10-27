@@ -87,6 +87,22 @@ function Read-MacTvAddress([string]$InitialAddress){
  return $taskAddress
 }
 $HostName=Read-MacTvAddress ([string]$HostName)
+if($Mode -ne 'Setup' -or $AlreadyRooted){
+ if(-not $RootKeyPath){
+  $taskHostHash=[Security.Cryptography.SHA256]::Create()
+  try{$taskKeyId=([BitConverter]::ToString($taskHostHash.ComputeHash([Text.Encoding]::UTF8.GetBytes($HostName)))).Replace('-','').ToLowerInvariant().Substring(0,16)}finally{$taskHostHash.Dispose()}
+  $taskSavedRootKey=Join-Path $DataDirectory ('state/keys/root-'+$taskKeyId+'.pem')
+  if(Test-Path -LiteralPath $taskSavedRootKey){Write-Host 'Using the root SSH key saved for this TV.' -ForegroundColor Cyan}
+  else{
+   Write-Host 'Root SSH login: 1 = TV root password, 2 = existing private key file.'
+   $taskLoginChoice=Read-Host 'Choose 1 or 2 (Enter = 1)'
+   while($taskLoginChoice.Trim() -notin @('','1','2')){$taskLoginChoice=Read-Host 'Enter 1 for root password or 2 for private key'}
+   if($taskLoginChoice.Trim() -eq '2'){
+    do{$RootKeyPath=(Read-Host 'Private SSH key file path (never share this file)').Trim().Trim('"');$taskKeyExists=$RootKeyPath -and (Test-Path -LiteralPath $RootKeyPath -PathType Leaf);if(-not $taskKeyExists){Write-Host 'Private key file not found. Enter its full path.' -ForegroundColor Yellow}}while(-not $taskKeyExists)
+   }else{Write-Host 'Use the TV root SSH password, not the LG account password or Developer Mode passphrase.'}
+  }
+ }
+}
 $taskKnownHosts=Join-Path $DataDirectory 'state/known-hosts.json'
 $taskKnown=$false
 if(Test-Path -LiteralPath $taskKnownHosts){try{$taskEntries=Get-Content -LiteralPath $taskKnownHosts -Raw|ConvertFrom-Json;$taskPort=if($Mode -eq 'Setup' -and -not $AlreadyRooted){9922}else{22};$taskKnown=$null -ne $taskEntries.PSObject.Properties[($HostName+':'+$taskPort)]}catch{}}

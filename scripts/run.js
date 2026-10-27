@@ -35,7 +35,7 @@ async function main(args=process.argv.slice(2)){
  }
  const key=o.rootKey||rootKeyFile(o.host);const client=await connect({...o,...(fs.existsSync(key)?{key}:{})});
  try{
-  if(mode==='Doctor')return require('../lib/post-install').checkFeatures(client,o);
+  if(mode==='Doctor')return await require('../lib/post-install').checkFeatures(client,o);
   await tv.inspect(client,o);
   if(o.dryRun){console.log('Read-only check succeeded; no '+mode+' mutation performed.');return;}
   if(mode==='Backup'){

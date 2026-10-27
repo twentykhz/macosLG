@@ -53,6 +53,10 @@ This release is validated through offline checks and simulated installation flow
 
 ## Cập nhật tại chỗ 3.3.0 / In-place 3.3.0 update
 
+- Sửa nhánh kiểm tra đóng SSH trước khi các tác vụ bất đồng bộ hoàn tất, gây báo cáo `Not connected`. / Doctor now waits for all asynchronous probes before closing SSH.
+
+- Khi chưa có khóa SSH đã lưu, nhánh root/kiểm tra cho chọn mật khẩu hoặc file khóa ngay trong setup. Khóa chỉ được lưu riêng trên PC sau khi TV xác thực thành công; lỗi xác thực giải thích đúng loại thông tin đăng nhập. / Root SSH now offers password or private-key login when no cached key exists, with private caching only after successful authentication.
+
 - Sửa lỗi lựa chọn 3 có thể báo `Invalid TV address` trước khi nhập IP do Enter còn dư sau menu `choice`. Menu mới nhận số rồi Enter; ô IP trống/sai sẽ hỏi lại. / Fixed a leftover Enter being consumed as an empty TV address; the menu now accepts a line and invalid/empty addresses are re-prompted.
 
 - Đổi tên sản phẩm thành **MAC-WebOSTV by 20khzpc**, gồm tên hiển thị trên TV, bộ cài, source ZIP và tài liệu. Mã app/đường dẫn kỹ thuật cũ được giữ để nâng cấp tại chỗ mà không mất cấu hình hoặc tạo app trùng.

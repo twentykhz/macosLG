@@ -63,7 +63,7 @@ Xem thông tin TV trong **Cài đặt → Tất cả cài đặt → Cài đặt
 3. Nhấp đúp **`Start-Setup.cmd`**, chọn **2 — TV already rooted**.
 4. Nhập **IP TV** khi được hỏi.
 5. Nếu là kết nối đầu tiên, kiểm tra IP rồi xác nhận **YES/yes**.
-6. Bộ cài dùng khóa đã lưu nếu có. Nếu hỏi **SSH password (hidden)**, nhập **mật khẩu root của TV này**; không dùng mật khẩu LG, passphrase Developer Mode hoặc mật khẩu TV khác. Không thấy ký tự khi gõ là bình thường.
+6. Bộ cài dùng khóa đã lưu nếu có. Nếu chưa có, chọn **1** để dùng mật khẩu SSH root hoặc **2** để chọn file khóa SSH riêng. File khóa được lưu riêng trên PC sau khi TV xác thực thành công, không nằm trong bộ cài chia sẻ. Khi hỏi **SSH password (hidden)**, nhập **mật khẩu root của TV này**; không dùng mật khẩu LG, passphrase Developer Mode hoặc mật khẩu TV khác. Không thấy ký tự khi gõ là bình thường.
 7. Chờ bộ cài kiểm tra root, sao lưu và cài/cập nhật các phần tương thích. **Không cần chạy lệnh Restore thủ công.**
 8. Đọc **báo cáo chức năng ngay trong cửa sổ setup**. Cửa sổ chờ bạn nhấn phím trước khi đóng.
 
