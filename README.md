@@ -12,7 +12,7 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 
 **Chỉ muốn cài? Không cần bấm Code → Download ZIP hay mở các thư mục mã nguồn.** Dùng đúng hướng dẫn theo thiết bị ở bảng trên.
 
-![Giao diện GathinTV](docs/screenshots/launcher-preview.jpg)
+![Giao diện GathinTV](docs/screenshots/01-home.jpg)
 
 [Xem thay đổi 3.5.0: boot, HOME, voice, debloat và privacy](docs/CHANGELOG-v3.5.0.md).
 
