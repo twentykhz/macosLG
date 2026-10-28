@@ -4,11 +4,11 @@
 
 [Trang chính](../README.md) · [English](INSTALL.en.md) · [Các tính năng](FEATURES.vi.md)
 
-Bộ cài **3.4.1** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cần nhấp đúp `Start-Setup.cmd`, chọn đúng tình trạng TV và trả lời câu hỏi trên màn hình. **TV đã root không cần tự gõ lệnh Restore, cài lại Developer Mode hoặc factory reset.**
+Bộ cài **3.4.2** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cần nhấp đúp `Start-Setup.cmd`, chọn đúng tình trạng TV và trả lời câu hỏi trên màn hình. **TV đã root không cần tự gõ lệnh Restore, cài lại Developer Mode hoặc factory reset.**
 
 ## 1. Tải và mở bộ cài
 
-1. Mở [release 3.4.1](https://github.com/twentykhz/macosLG/releases/tag/v3.4.1), mở **Assets**.
+1. Mở [release 3.4.2](https://github.com/twentykhz/macosLG/releases/tag/v3.4.2), mở **Assets**.
 2. Tải **`MAC-WebOSTV-AutoSetup.ps1`** và **`Start-Setup.cmd`** vào cùng thư mục, ví dụ `Desktop\MAC-WebOSTV`. Nếu đang dùng bản cũ, tải lại cả hai file từ release mới.
 3. Không đổi tên hoặc giải nén file `.ps1`. Không cần tải `Source code (zip)`, cài Node.js, npm hay webOS CLI.
 4. Bật TV. Cho TV và PC Windows 64-bit cùng mạng LAN, tránh Wi-Fi khách có chặn thiết bị. Giữ PC hoạt động, không ngủ trong lúc cài.
@@ -109,7 +109,7 @@ Báo cáo mặc định nằm trong `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-re
 | CMD báo thiếu file | Tải PS1 mới, đặt cùng CMD mới |
 | Connection timed out | TV bật, IP đúng, cùng LAN; tránh Wi-Fi khách chặn thiết bị |
 | Authentication failed ở nhánh 2/3 | Dùng mật khẩu/khóa SSH root của TV, không dùng passphrase Developer Mode |
-| Wrong TV ở bản cũ | Tải lại cả hai file 3.4.1 mới, chọn 2; không ép sửa profile |
+| Wrong TV ở bản cũ | Tải lại cả hai file 3.4.2 mới, chọn 2; không ép sửa profile |
 | ABI/Node/API không hỗ trợ | Đọc báo cáo; ghi model/firmware và lỗi để hỏi |
 | Device or resource busy | Dừng các phiên capture/stream khác, thử lại và xem dòng stream-capture |
 | QR không mở | TV bật, điện thoại cùng LAN; quét lại nếu IP TV đổi |
@@ -145,3 +145,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\MAC-WebOSTV-AutoSetup.ps1 
 Sau Disable, mở lại CMD, chọn 2 để cài/bật lại. Không chia sẻ backup cá nhân.
 
 </details>
+
+
+## Khôi phục trạng thái trước khi chạy tool
+
+Chọn **4 — Rollback** trong setup, chọn backup của đúng TV và xác nhận CO/YES. Có thể khôi phục cả sau khi cài thành công. [Phạm vi, DryRun và lệnh](ROLLBACK.vi.md).

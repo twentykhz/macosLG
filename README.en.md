@@ -1,6 +1,10 @@
 # MAC-WebOSTV by 20khzpc
 
-**3.4.1:** rooted compatibility installation, snapshot/rollback, upload verification and portable Luna controls/HDMI no longer require Python. Windows and Android/Termux share the same Node core. [Audit and requirements](docs/PYTHON-COMPATIBILITY.md).
+**3.4.2:** add **Rollback — restore the state from before running the tool**, including after successful installation. Select **4** in Windows setup or **8** on Android, choose the correct snapshot and confirm `YES/CO`. [English instructions](docs/ROLLBACK.en.md) | [Tiếng Việt](docs/ROLLBACK.vi.md). [3.4.2 changes](docs/CHANGELOG-v3.4.2.en.md).
+
+3.4.1 documentation is paired: [Vietnamese changes](docs/CHANGELOG-v3.4.1.md) / [English](docs/CHANGELOG-v3.4.1.en.md), [Vietnamese audit](docs/PYTHON-COMPATIBILITY.md) / [English](docs/PYTHON-COMPATIBILITY.en.md), [Vietnamese validation](docs/VALIDATION.md) / [English](docs/VALIDATION.en.md).
+
+**3.4.1:** rooted compatibility installation, snapshot/rollback, upload verification and portable Luna controls/HDMI no longer require Python. Windows and Android/Termux share the same Node core. [Audit and requirements](docs/PYTHON-COMPATIBILITY.en.md).
 
 ## Compatibility with newer rooted LG TVs
 
@@ -10,7 +14,7 @@ An early, cached, read-only capability probe selects working tools before backup
 
 **OLED65C2PSA / O22_DVB_AJ / 33.31.68 / SDK 10.3.1** has regression fixtures covering no-Python Setup, injected failure and rollback. It is **not yet hardware-validated after this patch**. Luna API availability determines controls support. Native HOME interception, Python2 voice routing, reference QML/input changes and SK8000 tuning are skipped; native LG HOME/microphone behavior is retained. The pinned ARM32 Homebrew IPK is never auto-deployed on aarch64; an existing installation is preserved.
 
-Start with `./GathinTV-AutoSetup.sh --mode Doctor --host TV_IP --trust-new-host`, then `--mode Restore` for a rooted TV. Windows equivalents use `.\MAC-WebOSTV-AutoSetup.ps1 -Mode Doctor -HostName TV_IP -TrustNewHost` and `-Mode Restore`. Confirm your TV IP/fingerprint before trusting a new host. Doctor remains read-only. Failed Setup/Restore offers `YES/CO` recovery using that run's original snapshot, with model/firmware/host identity checks. [3.4.1 changes](docs/CHANGELOG-v3.4.1.md).
+Start with `./GathinTV-AutoSetup.sh --mode Doctor --host TV_IP --trust-new-host`, then `--mode Restore` for a rooted TV. Windows equivalents use `.\MAC-WebOSTV-AutoSetup.ps1 -Mode Doctor -HostName TV_IP -TrustNewHost` and `-Mode Restore`. Confirm your TV IP/fingerprint before trusting a new host. Doctor remains read-only. Failed Setup/Restore offers `YES/CO` recovery using that run's original snapshot, with model/firmware/host identity checks. [3.4.1 changes](docs/CHANGELOG-v3.4.1.en.md).
 
 Install and manage from **Windows or Android/Termux, Linux and macOS**, using the same Node core. Windows keeps `MAC-WebOSTV-AutoSetup.ps1`; POSIX hosts use `GathinTV-AutoSetup.sh` and system Node >=20. [Android/Linux instructions](docs/ANDROID.en.md).
 

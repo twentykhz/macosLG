@@ -41,4 +41,4 @@ The generated installer is also copied to the repository root for local testing 
 
 Project code uses LICENSE; fonts, artwork and upstream components have their own terms. Release 3.1.1 uses the reference TV’s SF Pro with Inter fallback; the code’s MIT license does not relicense third-party fonts. Check `THIRD-PARTY.md` before adding assets.
 
-Never commit `.local`, `node_modules`, SSH keys, access keys/PINs, passphrases, logs or personal backups. Read [VALIDATION.md](VALIDATION.md) before claiming support for new TVs. Keep hardware/firmware/ABI and SSH host-key checks. Editing a model name in JSON is not evidence of compatibility.
+Never commit `.local`, `node_modules`, SSH keys, access keys/PINs, passphrases, logs or personal backups. Read [validation](VALIDATION.en.md) before claiming support for new TVs. Keep hardware/firmware/ABI and SSH host-key checks. Editing a model name in JSON is not evidence of compatibility.

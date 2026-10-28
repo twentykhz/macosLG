@@ -1,12 +1,16 @@
-# 3.4.1
+# Thay đổi phiên bản 3.4.1
 
-- Make rooted compatibility Setup Python-optional, including the initial snapshot and rollback.
-- Detect and log architecture, interpreters, checksum providers and recovery capabilities before platform-dependent work.
-- Verify uploads with SHA256/Busybox/Node/detected Python before activation; refuse unchecked payloads.
-- Add portable Node Luna controls and HDMI viewing tracker alongside the existing reference services.
-- Preserve native HOME/voice behavior and skip reference tuning/input/QML helpers on other profiles.
-- Block automatic deployment of the pinned ARM32 Homebrew binaries on unverified architectures; preserve installed Homebrew.
-- Extend read-only Doctor, conservative Apps/Sync handling, regression fixtures and bilingual documentation.
-- Keep Windows PowerShell and Android/Termux Bash on the same installer core; host Node >=20 remains required.
+**Tiếng Việt** | [English](CHANGELOG-v3.4.1.en.md)
 
-OLED65C2PSA/O22 is covered by no-Python regression fixtures; physical installation after this patch remains unconfirmed. See [audit, recovery scope and limitations](PYTHON-COMPATIBILITY.md).
+- Bỏ yêu cầu bắt buộc có Python khi cài ở chế độ tương thích trên TV đã root, bao gồm sao lưu trạng thái đầu phiên và rollback.
+- Phát hiện, ghi nhận kiến trúc, trình thông dịch, công cụ kiểm tra checksum và khả năng khôi phục trước những bước phụ thuộc nền tảng.
+- Kiểm tra SHA-256 của file upload bằng SHA256/Busybox/Node/Python đã phát hiện trước khi kích hoạt; từ chối payload không kiểm tra được.
+- Bổ sung Action Center qua Luna và bộ theo dõi thời gian xem HDMI bằng Node, song song với dịch vụ TV mẫu.
+- Giữ hành vi HOME/giọng nói gốc; bỏ qua tuning, input và thay đổi QML của mẫu trên profile khác.
+- Chặn tự động triển khai binary Homebrew ARM32 lên kiến trúc chưa xác minh; giữ nguyên Homebrew đã có.
+- Mở rộng Doctor chỉ đọc, xử lý Apps/Sync thận trọng, test hồi quy và tài liệu hai ngôn ngữ.
+- Windows PowerShell và Android/Termux Bash tiếp tục dùng chung Node core; Node trên máy/điện thoại vẫn cần >=20.
+
+OLED65C2PSA/O22 có test mô phỏng không Python; chưa xác nhận cài bản vá trên TV thật. Xem [audit, phạm vi khôi phục và giới hạn](PYTHON-COMPATIBILITY.md).
+
+Từ **3.4.2**, setup có thêm mục rollback chủ động để chọn snapshot trước khi chạy tool, kể cả sau khi cài thành công. [Hướng dẫn rollback](ROLLBACK.vi.md).

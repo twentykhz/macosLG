@@ -15,10 +15,11 @@ test('Bash wrapper maps every mode and option to the existing core, including pa
  function run(args,env={}){fs.rmSync(capture,{force:true});const result=spawnSync(bash,['-c','export PATH="$1:$PATH"; shift; exec bash "$@"','--',posix(bin),posix(path.join(fixture,'GathinTV-AutoSetup.sh')),...args],{encoding:'utf8',env:{...process.env,HOME:home.replace(/\\/g,'/'),GATHIN_STATE_DIRECTORY:path.join(home,'state'),TEST_REAL_NODE:posix(process.execPath),CAPTURE:capture,...env}});return {...result,record:fs.existsSync(capture)?JSON.parse(fs.readFileSync(capture)):null};}
  try{
   const flags=['--already-rooted','--dry-run','--trust-new-host','--no-reboot','--remove-extra-apps','--key',path.join(home,'root key.pem'),'--developer-key',path.join(home,'developer key.pem'),'--backup-file',path.join(home,'owner backup.tar.gz'),'--output-dir',path.join(home,'backups with spaces')];
-  for(const mode of ['Setup','Restore','Doctor','Backup','Apps','Sync','Disable']){
+  for(const mode of ['Setup','Restore','Doctor','Backup','Apps','Sync','Disable','Rollback']){
    const r=run(['--mode',mode,'--host','192.0.2.44',...flags]);assert.equal(r.status,0,r.stderr+r.stdout);assert.equal(r.record.args[0],mode);assert.deepEqual(r.record.args.slice(1).map(s=>s.replace(/\\/g,'/')),['--host','192.0.2.44',...flags].map(s=>s.replace(/\\/g,'/')));assert(!r.record.session.includes(fixture));assert.notEqual(r.record.session,r.record.log);
   }
   assert.equal(run(['Doctor','192.0.2.44']).status,0);
+  const rollback=run(['Rollback','192.0.2.44','--session',path.join(home,'snapshot with spaces.json'),'--yes','--dry-run']);assert.equal(rollback.status,0,rollback.stderr);assert(rollback.record.args.includes('--session'));assert(rollback.record.args.includes('--yes'));
   assert.equal(run(['Setup','192.0.2.44','--expected-model','55SK8000PTA','--expected-firmware','05.50.70']).status,0);
   for(const args of [['--mode','Doctor'],['Doctor','http://tv'],['Doctor','tv','--unknown'],['Doctor','tv','--key']]){const r=run(args);assert.equal(r.status,2,r.stderr);assert.equal(r.record,null);}
   const older=run(['Doctor','tv'],{TEST_NODE_VERSION:'v19.9.0'});assert.equal(older.status,2);assert.match(older.stderr,/>=20/);

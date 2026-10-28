@@ -26,8 +26,8 @@ const files=walk(stage);const privateNames=files.filter(f=>path.relative(stage,f
 if(privateNames.length)throw Error('Private data leaked into share staging');
 const version=require('../package.json').version;
 const readFiles=list=>list.map(file=>({name:path.relative(stage,file).split(path.sep).join('/'),data:fs.readFileSync(file)})).sort((a,b)=>a.name.localeCompare(b.name,'en'));
-// One source tree; the phone runtime omits developer tests and screenshot-heavy docs.
-const runtimeFiles=readFiles(files).filter(f=>!f.name.startsWith('test/')&&!f.name.startsWith('docs/'));
+// Keep text guides on phones; omit developer tests and screenshot media.
+const runtimeFiles=readFiles(files).filter(f=>!f.name.startsWith('test/')&&(!f.name.startsWith('docs/')||f.name.endsWith('.md')));
 const runtimeManifest=Buffer.from(JSON.stringify({version,files:runtimeFiles.map(f=>({path:f.name,sha256:sha256(f.data)}))},null,2));
 fs.writeFileSync(path.join(stage,'runtime-manifest.json'),runtimeManifest);
 const runtime=archive.tarGzip([...runtimeFiles,{name:'runtime-manifest.json',data:runtimeManifest}]);
@@ -46,6 +46,12 @@ const text=template.replace('__PAYLOAD_BASE64__',()=>encoded).replace('__PAYLOAD
 const ps=path.join(dist,'MAC-WebOSTV-AutoSetup.ps1');fs.writeFileSync(ps,'\uFEFF'+text.replace(/\r?\n/g,'\r\n'));
 for(const name of ['Start-Setup.cmd','Wake-TV.ps1'])fs.copyFileSync(path.join(root,name),path.join(dist,name));
 fs.copyFileSync(path.join(root,'README.md'),path.join(dist,'HUONG-DAN.md'));
+fs.copyFileSync(path.join(root,'README.en.md'),path.join(dist,'HUONG-DAN.en.md'));
+// Share the Vietnamese documentation with a separate English companion archive.
+for(const [language,names] of Object.entries({vi:['README.md','docs/CHANGELOG-v3.4.1.md','docs/PYTHON-COMPATIBILITY.md','docs/VALIDATION.md','docs/ROLLBACK.vi.md','docs/CHANGELOG-v3.4.2.md','docs/INSTALL.vi.md','docs/ANDROID.vi.md'],en:['README.en.md','docs/CHANGELOG-v3.4.1.en.md','docs/PYTHON-COMPATIBILITY.en.md','docs/VALIDATION.en.md','docs/ROLLBACK.en.md','docs/CHANGELOG-v3.4.2.en.md','docs/INSTALL.en.md','docs/ANDROID.en.md']})){
+ const name='GathinTV-Docs-3.4.1-'+language+'.zip',bytes=archive.zip(names.map(name=>({name,data:fs.readFileSync(path.join(root,name))})));
+ fs.writeFileSync(path.join(dist,name),bytes);fs.writeFileSync(path.join(dist,name+'.sha256'),sha256(bytes)+'  '+name+'\n');
+}
 for(const f of [ps,zip])fs.writeFileSync(f+'.sha256',sha256(fs.readFileSync(f))+'  '+path.basename(f)+'\n');
 fs.copyFileSync(ps,path.join(root,'MAC-WebOSTV-AutoSetup.ps1'));
 fs.copyFileSync(ps+'.sha256',path.join(root,'MAC-WebOSTV-AutoSetup.ps1.sha256'));

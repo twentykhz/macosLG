@@ -4,13 +4,14 @@ umask 077
 
 usage() {
   cat <<'HELP'
-GathinTV AutoSetup 3.4.1 - Android / Termux / Linux / macOS (Node >=20)
+GathinTV AutoSetup 3.4.2 - Android / Termux / Linux / macOS (Node >=20)
 Usage: ./GathinTV-AutoSetup.sh --mode MODE --host TV_IP [options]
        ./GathinTV-AutoSetup.sh Doctor TV_IP [options]
-Modes: Setup Restore Doctor Backup Apps Sync Disable
+Modes: Setup Restore Doctor Backup Apps Sync Disable Rollback
 Options:
   --already-rooted --dry-run --trust-new-host --no-reboot --remove-extra-apps
   --key PATH --developer-key PATH --backup-file PATH --output-dir PATH
+  --session PATH --yes  (Rollback: snapshot file/folder; --yes confirms without prompt)
   --expected-model MODEL --expected-firmware 00.00.00 --language en|vi
 State: GATHIN_STATE_DIRECTORY, default ~/.gathintv/state (private).
 Unknown hosts are rejected unless --trust-new-host is explicitly supplied.
@@ -32,7 +33,7 @@ pass=()
 while (($#)); do
   case "$1" in
     -h|--help) usage; exit 0 ;;
-    --mode|--host|--key|--developer-key|--backup-file|--output-dir|--expected-model|--expected-firmware|--language)
+    --mode|--host|--key|--developer-key|--backup-file|--session|--output-dir|--expected-model|--expected-firmware|--language)
       (($# >= 2)) && [[ -n $2 && $2 != --* ]] || die "Missing value: $1"
       case "$1" in
         --mode) [[ -z $mode ]] || die 'Mode specified twice'; mode=$2 ;;
@@ -47,7 +48,7 @@ while (($#)); do
       shift 2 ;;
     --already-rooted) already=true; pass+=("$1"); shift ;;
     --dry-run) dry=true; pass+=("$1"); shift ;;
-    --trust-new-host|--no-reboot|--remove-extra-apps) pass+=("$1"); shift ;;
+    --trust-new-host|--no-reboot|--remove-extra-apps|--yes) pass+=("$1"); shift ;;
     --*) die "Unknown argument: $1" ;;
     *) if [[ -z $mode ]]; then mode=$1; elif [[ -z $host ]]; then host=$1; else die "Unexpected argument: $1"; fi; shift ;;
   esac
@@ -55,16 +56,16 @@ done
 if [[ -z $mode ]]; then
   [[ -t 0 ]] || { usage >&2; die 'Non-interactive use requires --mode and --host'; }
   interactive_menu=true
-  printf '%s\n' '==================================' '        GathinTV AutoSetup' '          Android / Linux' '==================================' '[1] Setup' '[2] Restore' '[3] Doctor' '[4] Backup' '[5] Apps' '[6] Sync' '[7] Disable' '[0] Exit'
+  printf '%s\n' '==================================' '        GathinTV AutoSetup' '          Android / Linux' '==================================' '[1] Setup' '[2] Restore' '[3] Doctor' '[4] Backup' '[5] Apps' '[6] Sync' '[7] Disable' '[8] Rollback / Khoi phuc trang thai truoc khi chay tool' '[0] Exit'
   read -r -p 'Choice: ' choice
-  case "$choice" in 1) mode=Setup;;2) mode=Restore;;3) mode=Doctor;;4) mode=Backup;;5) mode=Apps;;6) mode=Sync;;7) mode=Disable;;0) exit 0;;*) die 'Invalid choice';;esac
+  case "$choice" in 1) mode=Setup;;2) mode=Restore;;3) mode=Doctor;;4) mode=Backup;;5) mode=Apps;;6) mode=Sync;;7) mode=Disable;;8) mode=Rollback;;0) exit 0;;*) die 'Invalid choice';;esac
   if [[ $mode == Setup ]]; then
     read -r -p 'TV already rooted? (YES/CO, otherwise no): ' answer
     case "$answer" in [Yy][Ee][Ss]|[Cc][Oo]) already=true;pass+=(--already-rooted);;esac
   fi
 fi
 case "$mode" in
-  Setup|setup) mode=Setup;;Restore|restore) mode=Restore;;Doctor|doctor) mode=Doctor;;Backup|backup) mode=Backup;;Apps|apps) mode=Apps;;Sync|sync) mode=Sync;;Disable|disable) mode=Disable;;*) die "Unknown mode: $mode";;
+  Setup|setup) mode=Setup;;Restore|restore) mode=Restore;;Doctor|doctor) mode=Doctor;;Backup|backup) mode=Backup;;Apps|apps) mode=Apps;;Sync|sync) mode=Sync;;Disable|disable) mode=Disable;;Rollback|rollback) mode=Rollback;;*) die "Unknown mode: $mode";;
 esac
 if [[ -z $host && -t 0 ]]; then read -r -p 'TV IP: ' host; fi
 [[ ${#host} -le 253 && $host =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ ]] || die 'Missing/invalid --host: enter only TV IP or hostname, without scheme, port or spaces'
@@ -83,7 +84,7 @@ session_id=$(node -p 'require("node:crypto").randomUUID()')
 export GATHIN_SESSION_LOG="$GATHIN_STATE_DIRECTORY/logs/setup-$session_id.runtime.log"
 export GATHIN_RECOVERY_SESSION="$GATHIN_STATE_DIRECTORY/sessions/$session_id.json"
 printf 'State: %s\nLog: %s\n' "$GATHIN_STATE_DIRECTORY" "$GATHIN_SESSION_LOG"
-if $interactive_menu; then
+if $interactive_menu && [[ $mode != Rollback ]]; then
   read -r -p "Check TV IP $host. Trust this TV's new SSH host key? (YES/CO, otherwise keep existing pins): " answer
   case "$answer" in [Yy][Ee][Ss]|[Cc][Oo]) pass+=(--trust-new-host);;esac
 fi

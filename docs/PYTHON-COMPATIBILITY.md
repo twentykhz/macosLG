@@ -1,78 +1,81 @@
-# Python-optional compatibility — 3.4.1
+# Tương thích không bắt buộc Python — 3.4.1
 
-## Investigation and call chain
+**Tiếng Việt** | [English](PYTHON-COMPATIBILITY.en.md)
 
-The supplied console excerpt establishes UID 0 on OLED65C2PSA/O22_DVB_AJ, firmware 33.31.68, SDK 10.3.1, followed by exit 127, `sh: python: not found`. The two named `/mnt/data` logs were unavailable in the Windows workspace; the user explicitly requested continuing without them. No claim is made to have read those files or reproduced on physical C2 hardware.
+## Điều tra và chuỗi gọi gây lỗi
 
-Source before this patch called:
+Đoạn console được cung cấp xác nhận UID 0 trên OLED65C2PSA/O22_DVB_AJ, firmware 33.31.68, SDK 10.3.1, sau đó dừng với mã 127 và `sh: python: not found`. Hai file log trong `/mnt/data` không có trong workspace Windows; người dùng đã yêu cầu tiếp tục mà không cần chúng. Không khẳng định đã đọc hai file đó hoặc tái hiện lỗi trên C2 thật.
+
+Source trước bản vá gọi:
 
 ```text
 AutoSetup.template.ps1 → node scripts/run.js Setup
 → scripts/bootstrap.js main → lib/provision.js provision
 → AutorootSteps.captureInitialState → lib/recovery.js capture
-→ ssh.exec("python -c " + quoted metadata-generation code)
+→ ssh.exec("python -c " + đoạn mã tạo metadata đã quote)
 ```
 
-`capture` used Python `os/json` unconditionally, before `rooted-compat.detect`. That is the earliest unconditional Python command on the reported already-rooted compatibility Setup path. Exit 127 aborts before the compatibility feature selection can help. Other unconditional Python utilities in launcher preservation/promotion/pause/cleanup, SSH checksum verification and rollback would have caused subsequent failures too.
+`capture` gọi `os/json` bằng Python vô điều kiện, trước `rooted-compat.detect`. Đây là lệnh Python vô điều kiện đầu tiên trên nhánh Setup tương thích của TV đã root được báo lỗi. Mã 127 làm dừng cài đặt trước khi chọn tính năng theo khả năng thực tế. Những tiện ích Python vô điều kiện khác trong bảo toàn/cập nhật/dừng/dọn launcher, xác minh upload và rollback cũng có thể gây lỗi ở các bước sau.
 
-## Shared architecture
+## Kiến trúc dùng chung
 
-Windows PowerShell and Android/Termux/Linux/macOS Bash remain wrappers around `scripts/run.js`. Host Node >=20 uses `ssh2`; no external SSH/SCP dependency is introduced. The TV uses its own existing Node >=0.12, independently of host Node. TV code uses ES5 and built-ins, with no native Node addon.
+PowerShell trên Windows và Bash trên Android/Termux/Linux/macOS vẫn gọi `scripts/run.js`. Node >=20 trên thiết bị chạy tool dùng `ssh2`; không bổ sung phụ thuộc SSH/SCP bên ngoài. TV dùng Node >=0.12 có sẵn của chính nó, độc lập với Node trên máy/điện thoại. Mã trên TV dùng ES5 và module tích hợp, không cần native Node addon.
 
-`lib/tv-capabilities.js` performs one memoized read-only probe per SSH connection. It verifies UID, architecture, tool paths, working Node filesystem/crypto support, Python major/input ABI, checksum results, tar, stat/readlink and startup layout. It never installs interpreters or runs an exploit. A fresh connection is checked again.
+`lib/tv-capabilities.js` thực hiện một lần kiểm tra chỉ đọc và lưu kết quả cho mỗi kết nối SSH. Nó kiểm tra UID, kiến trúc, đường dẫn công cụ, khả năng filesystem/crypto của Node, phiên bản Python/ABI input, kết quả hash, tar, stat/readlink và cấu trúc startup. Không cài trình thông dịch hoặc chạy exploit. Kết nối mới được kiểm tra lại. Python trong bước chỉ đọc dùng `-B` để không tạo file bytecode.
 
-Backup metadata uses shell/stat/readlink first, then Node, with detected Python2 only as a legacy fallback. Host Node serializes JSON. A minimal backup-only path needs shell/tar and collects existing scoped paths; it does **not** authorize mutations or claim rollback support. Installation requires root, tar, a tested SHA provider and a verified Node filesystem or legacy Python2 recovery engine. The Node helper is uploaded with checksum verification and syntax-checked before persistent project mutation.
+Metadata backup ưu tiên shell/stat/readlink, sau đó Node; Python2 được phát hiện chỉ là phương án dự phòng cũ. JSON được tạo trên host Node. Nhánh chỉ sao lưu tối giản cần shell/tar và thu thập đường dẫn trong phạm vi dự án; nhánh này **không cho phép thay đổi TV hoặc khẳng định có rollback**. Cài đặt cần root, tar, công cụ SHA hoạt động và engine khôi phục Node filesystem hoặc Python2 đã kiểm tra. Helper Node được upload có xác minh checksum và kiểm tra cú pháp trước thay đổi lâu dài của dự án.
 
-Uploads establish a provider before sending bytes: `sha256sum → busybox sha256sum → Node crypto → detected Python hashlib → refuse`. Providers must hash an empty input correctly. The host compares the actual uploaded temporary file with its local SHA-256 before chmod/rename. Archive data travels over verified SSH and is integrity-checked and SHA-hashed on the host.
+Upload chọn công cụ trước khi gửi dữ liệu: `sha256sum → busybox sha256sum → Node crypto → Python hashlib đã phát hiện → từ chối`. Công cụ phải trả đúng hash đầu vào rỗng. Host so sánh SHA-256 của file tạm trên TV với file local trước chmod/rename. Archive đi qua SSH đã xác minh; host kiểm tra toàn vẹn gzip và tính SHA-256.
 
-Node recovery validates host fingerprint, root UID, model/board/firmware, archive hash, allowed roots, tar types/paths, parent identities, filesystem staging and per-file hashes. It stages outside application and boot directories, stops only exact project script identities, preserves ownership/mode and symlinks, compensates interrupted renames and restarts only project runtimes active in the original snapshot. Newly installed known project apps are removed through the existing Luna subscription API; unrelated apps are untouched. These are project-scoped snapshots, not a full firmware/factory-state image.
+Khôi phục bằng Node kiểm tra fingerprint SSH, UID root, model/board/firmware, hash archive, các đường dẫn cho phép, loại/path trong tar, danh tính thư mục cha, filesystem staging và hash từng file. Dữ liệu tạm nằm ngoài thư mục ứng dụng và boot. Tool chỉ dừng tiến trình có đúng danh tính script của dự án, giữ quyền/owner/symlink, hoàn tác khi rename bị gián đoạn và chỉ khởi động lại runtime từng hoạt động trong snapshot. App dự án mới được cài được gỡ qua API Luna dạng subscription; không gỡ app không liên quan. Snapshot chỉ bao gồm phạm vi dự án, **không phải ảnh firmware hoặc toàn bộ trạng thái xuất xưởng**.
 
-## Python audit inventory
+## Danh mục audit Python
 
-The audit covers source, shell boot scripts, payload maps, all `.py` files, upstream scripts, tests and documentation. Remaining path strings ending in `.py` in recovery/config are identities to back up, stop or restore existing reference processes; they do not execute an interpreter on C2.
+Audit bao gồm source, script boot, map payload, toàn bộ file `.py`, script upstream, test và tài liệu. Chuỗi đường dẫn `.py` còn trong cấu hình/recovery dùng nhận diện file hoặc tiến trình TV mẫu cần sao lưu/dừng/khôi phục; chúng không gọi trình thông dịch trên C2.
 
-| Class | Files / family | Resolution |
+| Nhóm | File / thành phần | Cách xử lý |
 | --- | --- | --- |
-| B: metadata / filesystem utility | `lib/recovery.js` | Shell/host JSON or Node descriptor; Python2 is detected fallback only. |
-| B: hashing | `lib/ssh.js` | Verified SHA provider chain; no unconditional Python. |
-| B: preservation, promotion, cleanup, pause | `lib/launcher-install.js`; `scripts/{preserve-app,promote-app,pause-runtimes}.py` | `lib/portable-tv.js` + `scripts/tv-files.js` preferred; old scripts retained only for detected Python2 without usable Node. |
-| B: snapshot restoration | `scripts/rollback-snapshot.py` | Portable Node rollback preferred; old fallback retained for Python2 TVs and separately regression-tested. |
-| B: app removal | `scripts/remove-devmode.py`, removal portion of old rollback | `lib/app-removal.js` + subscribed `ssh.removePackage`; Python script retained for legacy tools/tests, not used by normal Developer Mode removal. |
-| B: final verification / source capture | `lib/autoroot.js`, `scripts/capture-baseline.js` | Node filesystem/process identity checks. Capture-baseline remains explicitly reference-profile scoped. |
-| C: reference installation / tuning | `lib/advanced.js`, `scripts/install-advanced.py` | Explicit exact-profile/ARM32/Python2 gate before uploads. This installs reference Python helpers, QML/service ACL and tuning; it is skipped on C2. |
-| C: reference HOME input ABI | `payload/home/home-keyhook.py`; duplicate in `payload/advanced/files/home/root`; HOME boot/disable scripts; `scripts/tv.js` probe/compile | Exact model, board, firmware, ARMv7, Python2 as `python`, 16-byte input ABI and live input probe required. Native HOME retained otherwise. |
-| C: legacy control bridge / permissions | `payload/advanced/files/var/lib/webosbrew/gathin-controls/{bridge,permissions}.py`; init.d/38 | Reference bridge retained; compatibility uses `payload/portable/controls.js` with authenticated loopback HTTP and whitelisted Luna APIs, no reference ACL patches. |
-| B/C: HDMI viewing tracker | `payload/advanced/files/var/lib/webosbrew/gathin-hdmi/track.py`; init.d/37 | Compatibility uses `payload/portable/hdmi.js`; continuous active viewing only, bounded sampling gaps, stable ties. |
-| C: reference voice/QML integration | `home/root/gathin-youtube-voice-router.py`; `gathin-youtube-voice/{commands,disable-results}.py`; init.d/42,43; `home/root/gathin-lgws/{notify.py,boot.sh}` | Not deployed in compatibility mode. Python2 modules, pinned YouTube behavior and reference QML paths/permissions are not assumed on newer firmware. Native voice app launch is used only when exposed; otherwise use physical microphone. |
-| C: reference debloat/jobs | `var/lib/webos-debloat/{gathin-final/debloat.py,kept-apps/optional-jobs.py}`; init.d/35,36 | Never deployed or started by compatibility setup; no reference sysctl/job/input assumptions on O22. |
-| C: unrelated app removal | `scripts/remove-extra-apps.py` | Existing snapshot safety prohibition retained; outside recovery scope. No newly enabled destructive cleanup. |
-| Development only | `scripts/prepare-v3.py`, `test/rollback-sandbox.py`, `test/helpers/host-tools.js`, Python-based reference/HDMI/rollback tests | Not Android installer requirements. Host Python, when used for these legacy tests/tools, is separate from TV Python. |
-| Development diagnostics | `scripts/check-live.js` | Compiles legacy scripts only if Python2 is detected; backup-only checks otherwise. Does not install code or reboot. |
-| Upstream / descriptive references | `upstream/faultmanager-autoroot.sh`; payload maps, recovery roots, checksums, prior changelogs and guides | Pinned upstream unchanged; references do not add a Python requirement to the portable installer. Root compatibility/prerequisite checks remain enabled. |
+| B: metadata / filesystem | `lib/recovery.js` | Shell/JSON trên host hoặc Node; Python2 chỉ là dự phòng đã phát hiện. |
+| B: tính hash | `lib/ssh.js` | Chuỗi công cụ SHA đã kiểm tra; không gọi Python vô điều kiện. |
+| B: bảo toàn, cập nhật, dọn và dừng | `lib/launcher-install.js`; `scripts/{preserve-app,promote-app,pause-runtimes}.py` | Ưu tiên `lib/portable-tv.js` và `scripts/tv-files.js`; script cũ chỉ dành cho TV có Python2 nhưng thiếu Node phù hợp. |
+| B: khôi phục snapshot | `scripts/rollback-snapshot.py` | Ưu tiên Node; giữ phương án Python2 cũ và test hồi quy riêng. |
+| B: gỡ app | `scripts/remove-devmode.py`, phần gỡ app trong rollback cũ | Dùng `lib/app-removal.js` và `ssh.removePackage`; script Python giữ cho công cụ/test cũ, không còn dùng trong bước gỡ Developer Mode thông thường. |
+| B: xác minh cuối / thu source | `lib/autoroot.js`, `scripts/capture-baseline.js` | Node kiểm tra filesystem/danh tính tiến trình. Capture-baseline vẫn giới hạn vào profile TV mẫu. |
+| C: cài đặt / tuning TV mẫu | `lib/advanced.js`, `scripts/install-advanced.py` | Kiểm tra đúng profile/ARM32/Python2 trước upload. Thành phần này cài helper Python, QML/ACL và tuning của mẫu; bị bỏ qua trên C2. |
+| C: ABI input HOME | `payload/home/home-keyhook.py`; bản tương ứng trong `payload/advanced/files/home/root`; script boot/tắt HOME; probe/compile trong `scripts/tv.js` | Cần đúng model, board, firmware, ARMv7, Python2 mang tên `python`, ABI input 16 byte và probe input thực tế. Ngoài điều kiện đó giữ HOME gốc. |
+| C: bridge điều khiển / quyền cũ | `payload/advanced/files/var/lib/webosbrew/gathin-controls/{bridge,permissions}.py`; init.d/38 | Giữ bridge mẫu; nhánh tương thích dùng `payload/portable/controls.js`, HTTP loopback có xác thực và API Luna cho phép, không vá ACL theo mẫu. |
+| B/C: thời gian xem HDMI | `payload/advanced/files/var/lib/webosbrew/gathin-hdmi/track.py`; init.d/37 | Nhánh tương thích dùng `payload/portable/hdmi.js`; chỉ tính xem liên tục khi TV hoạt động, loại khoảng lấy mẫu quá dài, giữ lựa chọn ổn định khi bằng thời gian. |
+| C: voice/QML TV mẫu | `home/root/gathin-youtube-voice-router.py`; `gathin-youtube-voice/{commands,disable-results}.py`; init.d/42,43; `home/root/gathin-lgws/{notify.py,boot.sh}` | Không triển khai trong chế độ tương thích. Không giả định module Python2, hành vi YouTube đã pin, đường dẫn/quyền QML giống mẫu. Chỉ mở voice app gốc nếu API có; nếu không dùng microphone trên remote. |
+| C: debloat/job TV mẫu | `var/lib/webos-debloat/{gathin-final/debloat.py,kept-apps/optional-jobs.py}`; init.d/35,36 | Không triển khai hoặc khởi động trong nhánh tương thích; không áp giả định sysctl/job/input của mẫu lên O22. |
+| C: gỡ app không liên quan | `scripts/remove-extra-apps.py` | Giữ chặn an toàn vì ngoài phạm vi khôi phục; không bật dọn app mang tính phá hủy. |
+| Chỉ dành phát triển | `scripts/prepare-v3.py`, `test/rollback-sandbox.py`, `test/helpers/host-tools.js`, test Python của relay/HDMI/rollback | Không phải phụ thuộc installer Android. Python trên máy phát triển là môi trường riêng với Python trên TV. |
+| Chẩn đoán phát triển | `scripts/check-live.js` | Chỉ compile script cũ khi phát hiện Python2; phần còn lại kiểm tra sao lưu. Không cài mã hoặc reboot. |
+| Upstream / tham chiếu | `upstream/faultmanager-autoroot.sh`; map payload, recovery roots, checksum, changelog/hướng dẫn cũ | Upstream được pin giữ nguyên; các tham chiếu không tạo yêu cầu Python cho installer portable. Giữ kiểm tra khả năng root và điều kiện tiên quyết. |
 
-No portable core feature intrinsically requires Python (class A). Reference input interception and voice integration remain class C because their exact ABI and firmware behavior have not been validated on newer boards, not merely because an interpreter is missing.
+Không có tính năng core portable nào bắt buộc Python về bản chất (nhóm A). HOME interception và voice của mẫu vẫn thuộc nhóm C vì ABI/hành vi firmware chưa được xác minh trên board mới, không chỉ vì thiếu trình thông dịch.
 
-## Native payload audit
+## Audit binary native
 
-`config/component-support.json` records component requirements. The pinned Homebrew 0.7.3 IPK contains five ELF32 ARM (`e_machine=40`) executables: `dropbear`, `rsync`, `scp`, `sftp-server`, `telnetd`. Both optional app installation and faultmanager automatic deployment reject this package for an unverified architecture such as aarch64. Existing Homebrew is preserved. The launcher, portable JS services, pinned YouTube web payload and privacy package contain no ELF executable. No ARM32 compatibility ABI is assumed on aarch64; no sample-TV binary is copied.
+`config/component-support.json` ghi điều kiện từng thành phần. Gói Homebrew 0.7.3 được pin có năm binary ELF32 ARM (`e_machine=40`): `dropbear`, `rsync`, `scp`, `sftp-server`, `telnetd`. Cả bước cài app tùy chọn và tự triển khai faultmanager đều từ chối gói này trên kiến trúc chưa xác minh như aarch64. Homebrew đã có được giữ nguyên. Launcher, dịch vụ JS portable, payload YouTube web và gói privacy được pin không có ELF executable. Không giả định aarch64 hỗ trợ ABI ARM32 và không chép binary TV mẫu sang TV khác.
 
-## Profiles and practical limits
+## Profile và giới hạn thực tế
 
-| Profile | Available | Expected |
+| Profile | Khả năng có sẵn | Kết quả dự kiến |
 | --- | --- | --- |
-| A — reference ARMv7 / Python2 | Node, SHA, tar, exact profile/input ABI | Existing reference flow, hooks and tuning retained. |
-| B — C2/O22 aarch64 | root, Node, SHA, tar; no Python | Core install, capture, checked uploads, rollback; reference HOME/voice/tuning skipped. |
-| C — minimal | root, shell, SHA, tar; no Node/Python | Backup export and read-only reports; no managed mutation without verified rollback. |
-| D — no usable hash provider | none of SHA/Busybox/Node crypto/Python hashlib | No unchecked upload; installation stops safely. |
+| A — mẫu ARMv7 / Python2 | Node, SHA, tar, đúng profile/ABI input | Giữ flow, hook và tuning của mẫu. |
+| B — C2/O22 aarch64 | Root, Node, SHA, tar; không Python | Cài core, capture, upload đã kiểm tra, rollback; bỏ HOME/voice/tuning riêng. |
+| C — tối giản | Root, shell, SHA, tar; không Node/Python | Xuất backup và báo cáo chỉ đọc; không thay đổi có quản lý khi chưa có rollback đã kiểm tra. |
+| D — thiếu công cụ hash | Không có SHA/Busybox/Node crypto/Python hashlib sử dụng được | Không upload thiếu kiểm tra; dừng cài an toàn. |
 
-On C2 the expected portable features are launcher/dock, app/HDMI launch and learning, weather/calendar, wallpaper/remote pages and QR configuration. Volume, mute, brightness, picture modes, Wi-Fi/Bluetooth and voice launch remain dependent on firmware-exposed Luna APIs. The installer verifies authenticated runtime readiness; an available HTTP port alone is not treated as success. Physical controls, sustained capture performance and native voice behavior require manual checks on each TV.
+Trên C2 dự kiến có launcher/dock, mở app/HDMI và học cổng, thời tiết/lịch, wallpaper/remote và cấu hình QR. Volume, mute, brightness, picture mode, Wi-Fi/Bluetooth và voice launch phụ thuộc API Luna mà firmware cung cấp. Installer xác minh runtime có xác thực; cổng HTTP mở đơn thuần chưa được tính là thành công. Điều khiển vật lý, tốc độ capture liên tục và voice gốc cần thử trên từng TV.
 
-Tests exercise actual portable helper operations in a mapped TV filesystem, real archives/checksums, full mocked-transport Setup, failure after mutation and rollback. This is regression coverage, not a C2 hardware certification. A read-only connection attempt to the reference TV during this patch timed out at SSH handshake; no installation or TV mutation was performed.
+Test chạy helper thật trong filesystem TV mô phỏng, archive/checksum thật, Setup qua SSH giả lập, lỗi sau thay đổi và rollback. Đây là test hồi quy, không phải chứng nhận phần cứng C2. Kết nối chỉ đọc tới TV mẫu trong lần vá này timeout ở handshake SSH; không cài hoặc thay đổi TV.
+
+Từ 3.4.2, có thể chọn rollback ngay từ menu setup hoặc `--mode Rollback`. [Hướng dẫn tiếng Việt](ROLLBACK.vi.md) | [English](ROLLBACK.en.md).
 
 
-## Patch file inventory
-
-Created:
+## Danh sách file của bản vá 3.4.1
+Đã tạo:
 
 - `config/component-support.json`
 - `docs/CHANGELOG-v3.4.1.md`
@@ -94,7 +97,7 @@ Created:
 - `test/ssh-upload-checksum.test.js`
 - `test/tv-capabilities.test.js`
 
-Modified (including the generated checksum-pinned bootstrap):
+Đã sửa (bao gồm bootstrap được tạo và ghim checksum):
 
 - `GathinTV-AutoSetup.sh`
 - `README.en.md`

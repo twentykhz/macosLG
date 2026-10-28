@@ -1,9 +1,9 @@
 [CmdletBinding()]
 param(
- [ValidateSet('Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Prepare','Extract')][string]$Mode='Setup',
+ [ValidateSet('Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Rollback','Prepare','Extract')][string]$Mode='Setup',
  [string]$HostName,
- [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,
- [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,
+ [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,[switch]$ConfirmRollback,
+ [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,[string]$RecoverySession,
  [ValidateSet('en','vi')][string]$Language,[string]$TVModel,[string]$FirmwareVersion,
  [string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'MAC-WebOSTV')
 )
@@ -55,7 +55,7 @@ if($Mode -notin @('Prepare','Extract')){
  Write-Host ((L 'Setup log: ' 'Log setup: ')+$taskSetupLog)
  Write-Host ((L 'Runtime log: ' 'Log tien trinh: ')+$taskRuntimeLog)
 }
-Write-Host (L 'MAC-WebOSTV by 20khzpc 3.4.1: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.4.1: dung IP va thong tin dang nhap cua chinh TV nay.')
+Write-Host (L 'MAC-WebOSTV by 20khzpc 3.4.2: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.4.2: dung IP va thong tin dang nhap cua chinh TV nay.')
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -66,7 +66,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.4.1-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.4.2-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)
@@ -112,10 +112,12 @@ if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
  Write-Host (L '1 - TV not rooted (check model/firmware before rooting)' '1 - TV chua root (kiem tra model/firmware truoc khi root)')
  Write-Host (L '2 - TV already rooted (install launcher, no rooting exploit)' '2 - TV da root (cai launcher, khong chay lai exploit)')
  Write-Host (L '3 - Check TV features and show report (no reinstall)' '3 - Kiem tra chuc nang TV va hien bao cao (khong cai lai)')
- do{$taskRootChoice=Read-Host (L 'Choose 1, 2 or 3' 'Chon 1, 2 hoac 3')}while($taskRootChoice.Trim() -notin @('1','2','3'))
+ Write-Host (L '4 - Roll back to a snapshot from before running the tool' '4 - Khoi phuc trang thai truoc khi chay tool tu backup')
+ do{$taskRootChoice=Read-Host (L 'Choose 1, 2, 3 or 4' 'Chon 1, 2, 3 hoac 4')}while($taskRootChoice.Trim() -notin @('1','2','3','4'))
  if($taskRootChoice.Trim() -eq '2'){$Mode='Restore';$AlreadyRooted=$true}
  elseif($taskRootChoice.Trim() -eq '3'){$Mode='Doctor';$AlreadyRooted=$true}
- elseif($taskRootChoice.Trim() -ne '1'){throw (L 'Choose 1, 2 or 3. No TV changes made.' 'Chon 1, 2 hoac 3. Chua thay doi TV.')}
+ elseif($taskRootChoice.Trim() -eq '4'){$Mode='Rollback';$AlreadyRooted=$true}
+ elseif($taskRootChoice.Trim() -ne '1'){throw (L 'Choose 1, 2, 3 or 4. No TV changes made.' 'Chon 1, 2, 3 hoac 4. Chua thay doi TV.')}
 }
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){
@@ -150,7 +152,7 @@ if($Mode -ne 'Setup' -or $AlreadyRooted){
 $taskKnownHosts=Join-Path $DataDirectory 'state/known-hosts.json'
 $taskKnown=$false
 if(Test-Path -LiteralPath $taskKnownHosts){try{$taskEntries=Get-Content -LiteralPath $taskKnownHosts -Raw|ConvertFrom-Json;$taskPort=if($Mode -eq 'Setup' -and -not $AlreadyRooted){9922}else{22};$taskKnown=$null -ne $taskEntries.PSObject.Properties[($HostName+':'+$taskPort)]}catch{}}
-if(-not $TrustNewHost -and -not $taskKnown){
+if($Mode -ne 'Rollback' -and -not $TrustNewHost -and -not $taskKnown){
  Write-Host ((L 'First connection. Check the IP on YOUR TV: ' 'Ket noi lan dau. Kiem tra IP tren chinh TV cua ban: ')+$HostName)
  $taskAnswer=Read-Host (L 'Type YES or CO if this is your TV (case insensitive)' 'Nhap YES hoac CO neu day la TV cua ban (khong phan biet hoa thuong)')
  if(-not (Test-MacTvConfirmation $taskAnswer)){throw (L 'Connection cancelled. Check the TV IP and try again.' 'Da huy ket noi. Kiem tra IP TV va thu lai.')}
@@ -163,8 +165,8 @@ if($Mode -eq 'Setup' -and -not $AlreadyRooted){
 if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Backups'}
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 $arguments=@((Join-Path $release 'scripts/run.js'),$Mode,'--host',$HostName,'--output-dir',[IO.Path]::GetFullPath($OutputDirectory))
-foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@($TrustNewHost,'--trust-new-host'),@($NoReboot,'--no-reboot'),@($RemoveExtraApps,'--remove-extra-apps'))){if($pair[0]){$arguments+=$pair[1]}}
-foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
+foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@($TrustNewHost,'--trust-new-host'),@($NoReboot,'--no-reboot'),@($RemoveExtraApps,'--remove-extra-apps'),@($ConfirmRollback,'--yes'))){if($pair[0]){$arguments+=$pair[1]}}
+foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'),@($RecoverySession,'--session'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){$arguments+=@('--expected-model',$TVModel,'--expected-firmware',$FirmwareVersion)}
 $env:GATHIN_RECOVERY_SESSION=Join-Path $env:GATHIN_STATE_DIRECTORY ('sessions/'+[guid]::NewGuid().ToString()+'.json')
 $taskReportStarted=Get-Date
@@ -194,4 +196,4 @@ if(-not $DryRun -and $Mode -in @('Setup','Restore','Doctor')){
  }else{Write-Host (L 'No new feature report was generated. Previous reports were not used.' 'Chua tao duoc bao cao moi. Khong dung lai bao cao cu.') -ForegroundColor Yellow}
 }
 if($taskTranscript){Write-Host ((L 'Setup log: ' 'Log setup: ')+$taskSetupLog);Stop-Transcript|Out-Null;$taskTranscript=$false}
-if(-not $NoPause -and $Mode -in @('Setup','Restore','Doctor')){[void](Read-Host (L 'Completed. Press Enter to close' 'Da hoan tat. Nhan Enter de dong'))}
+if(-not $NoPause -and $Mode -in @('Setup','Restore','Doctor','Rollback')){[void](Read-Host (L 'Completed. Press Enter to close' 'Da hoan tat. Nhan Enter de dong'))}

@@ -1,10 +1,14 @@
 # MAC-WebOSTV by 20khzpc
 
+**Bản mới 3.4.2:** thêm mục **Rollback — khôi phục trạng thái trước khi chạy tool** trong setup: chọn **4** trên Windows hoặc **8** trên Android, chọn backup của đúng TV rồi xác nhận `CO/YES`. Có thể khôi phục cả sau khi cài thành công. [Hướng dẫn tiếng Việt](docs/ROLLBACK.vi.md) | [English](docs/ROLLBACK.en.md).
+
+Tài liệu 3.4.1 đã có bản tiếng Việt và tiếng Anh riêng: [Thay đổi VI](docs/CHANGELOG-v3.4.1.md) / [EN](docs/CHANGELOG-v3.4.1.en.md), [audit VI](docs/PYTHON-COMPATIBILITY.md) / [EN](docs/PYTHON-COMPATIBILITY.en.md), [kiểm chứng VI](docs/VALIDATION.md) / [EN](docs/VALIDATION.en.md). [Thay đổi 3.4.2](docs/CHANGELOG-v3.4.2.md).
+
 **3.4.1 — Python không còn bắt buộc cho compatibility mode.** Backup, rollback, kiểm tra SHA-256, cập nhật launcher, Action Center Luna và theo dõi HDMI có đường chạy không Python. Windows và Android/Termux tiếp tục dùng chung Node core. [Phạm vi và audit](docs/PYTHON-COMPATIBILITY.md).
 
-## Compatibility with newer rooted LG TVs
+## Tương thích với TV LG đời mới đã root
 
-TV mẫu đã kiểm chứng là **55SK8000PTA / M16PP_DVB_EU / 05.50.70**. Rooted TVs outside the reference profile use conservative capability-based installation. Unsupported model-specific features are skipped rather than forced.
+TV mẫu đã kiểm chứng là **55SK8000PTA / M16PP_DVB_EU / 05.50.70**. TV đã root ngoài profile mẫu được cài thận trọng theo khả năng thực tế. Tính năng riêng của model không phù hợp sẽ được bỏ qua thay vì ép áp dụng.
 
 Installer kiểm tra kiến trúc, root, Node, Python, SHA-256, tar và startup trước backup/cài đặt. TV không Python vẫn có thể cài launcher và dịch vụ Node nếu có đủ khả năng backup/rollback đã kiểm tra. Thiếu cả Node và Python thì vẫn có thể xuất backup bằng shell/tar, nhưng cài đặt có thay đổi sẽ bị chặn vì chưa có rollback an toàn. Không cài Python, tạo alias hay đưa binary ARM32 sang aarch64.
 
@@ -17,7 +21,7 @@ Chạy Doctor trước, thay `TV_IP` bằng IP TV cùng mạng LAN:
 ./GathinTV-AutoSetup.sh --mode Restore --host TV_IP --trust-new-host
 ```
 
-Trên Windows dùng bản single-file **3.4.1** từ [Releases](https://github.com/twentykhz/macosLG/releases):
+Trên Windows dùng bản single-file **3.4.2** từ [Releases](https://github.com/twentykhz/macosLG/releases):
 
 ```powershell
 .\MAC-WebOSTV-AutoSetup.ps1 -Mode Doctor -HostName TV_IP -TrustNewHost

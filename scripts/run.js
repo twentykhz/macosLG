@@ -5,15 +5,16 @@ const {connect,exec,luna}=require('../lib/ssh');
 const tv=require('./tv');
 function parse(args){
  const mode=args.shift()||'Setup';const o={host:'',port:22,username:'root'};
- const values={'--host':'host','--key':'rootKey','--developer-key':'developerKey','--backup-file':'backupFile','--output-dir':'outputDir','--expected-model':'expectedModel','--expected-firmware':'expectedFirmware'};
- const flags={'--dry-run':'dryRun','--already-rooted':'alreadyRooted','--trust-new-host':'trustNewHost','--no-reboot':'noFinalReboot','--remove-extra-apps':'removeExtraApps'};
+ const values={'--host':'host','--key':'rootKey','--developer-key':'developerKey','--backup-file':'backupFile','--output-dir':'outputDir','--expected-model':'expectedModel','--expected-firmware':'expectedFirmware','--session':'recoverySession'};
+ const flags={'--dry-run':'dryRun','--already-rooted':'alreadyRooted','--trust-new-host':'trustNewHost','--no-reboot':'noFinalReboot','--remove-extra-apps':'removeExtraApps','--yes':'confirmRollback'};
  for(let i=0;i<args.length;i++){
   if(values[args[i]]){if(!args[i+1]||args[i+1].startsWith('--'))throw Error('Missing option value');o[values[args[i]]]=args[++i];}
   else if(flags[args[i]])o[flags[args[i]]]=true;
   else throw Error('Unknown option '+args[i]);
  }
  if(!/^[a-zA-Z0-9.-]+$/.test(o.host))throw Error('Enter a TV IPv4 address or hostname');
- if(!['Setup','Restore','Backup','Doctor','Apps','Sync','Disable'].includes(mode))throw Error('Unknown mode');
+ if(!['Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Rollback'].includes(mode))throw Error('Unknown mode');
+ if(mode!=='Rollback'&&(o.recoverySession||o.confirmRollback))throw Error('--session and --yes are only available for Rollback');
  return {mode,o};
 }
 async function main(args=process.argv.slice(2)){
@@ -21,6 +22,7 @@ async function main(args=process.argv.slice(2)){
  require('../lib/setup-output').installOutputLog();
  require('../lib/setup-language').installConsole();
  const {mode,o}=parse(args);
+ if(mode==='Rollback')return require('../lib/manual-rollback').run(o);
  if(mode==='Setup'){
   const flags=['--host',o.host];
   for(const [k,f] of [['dryRun','--dry-run'],['alreadyRooted','--already-rooted'],['trustNewHost','--trust-new-host'],['noFinalReboot','--no-final-reboot'],['removeExtraApps','--remove-extra-apps']])if(o[k])flags.push(f);
