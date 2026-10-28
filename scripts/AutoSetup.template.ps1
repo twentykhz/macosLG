@@ -94,12 +94,7 @@ if($Mode -ne 'Setup' -or $AlreadyRooted){
   $taskSavedRootKey=Join-Path $DataDirectory ('state/keys/root-'+$taskKeyId+'.pem')
   if(Test-Path -LiteralPath $taskSavedRootKey){Write-Host 'Using the root SSH key saved for this TV.' -ForegroundColor Cyan}
   else{
-   Write-Host 'Root SSH login: 1 = TV root password, 2 = existing private key file.'
-   $taskLoginChoice=Read-Host 'Choose 1 or 2 (Enter = 1)'
-   while($taskLoginChoice.Trim() -notin @('','1','2')){$taskLoginChoice=Read-Host 'Enter 1 for root password or 2 for private key'}
-   if($taskLoginChoice.Trim() -eq '2'){
-    do{$RootKeyPath=(Read-Host 'Private SSH key file path (never share this file)').Trim().Trim('"');$taskKeyExists=$RootKeyPath -and (Test-Path -LiteralPath $RootKeyPath -PathType Leaf);if(-not $taskKeyExists){Write-Host 'Private key file not found. Enter its full path.' -ForegroundColor Yellow}}while(-not $taskKeyExists)
-   }else{Write-Host 'Use the TV root SSH password, not the LG account password or Developer Mode passphrase.'}
+   Write-Host 'Setup will try the default root SSH password automatically. If the TV rejects it, enter your own root SSH password when prompted.'
   }
  }
 }

@@ -32,6 +32,8 @@ Ghi **IP của chính TV cần cài** và **passphrase 6 ký tự trong Develope
 
 Bộ cài sẽ hỏi khi cần; không phải mở file script để sửa mật khẩu. TV và PC cần chung mạng nhà. Root và việc đổi HOME/voice tác động tới hoạt động TV nên bộ cài vẫn giữ kiểm tra tương thích. TV đã root đang hoạt động không cần factory reset chỉ để cập nhật launcher.
 
+**TV đã root:** ưu tiên khóa SSH đã lưu hoặc được chỉ định. Nếu không dùng khóa, bộ cài tự thử mật khẩu mặc định `alpine`; chỉ khi TV từ chối mới hỏi mật khẩu root riêng của bạn, nhập ẩn và không lưu mật khẩu.
+
 ## Các tính năng hiện có
 
 | Tính năng | Cách hoạt động |

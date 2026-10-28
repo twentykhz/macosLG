@@ -52,7 +52,7 @@ On an unrooted TV only:
 3. Double-click **`Start-Setup.cmd`**, select **2 — TV already rooted**.
 4. Enter the **TV IP** when prompted.
 5. Verify the address and confirm **YES/yes** if this is the first connection.
-6. Setup uses a saved key if available. Otherwise choose **1** for the TV's root SSH password or **2** for an existing private-key file. A supplied key is cached privately on the PC only after successful authentication; it is never bundled in shared downloads. If asked for **SSH password (hidden)**, enter this TV's **root password**, not an LG account password or Developer Mode passphrase. Characters will not be shown.
+6. Setup uses a saved SSH key or a key supplied with `-RootKeyPath` when available. Without a key, it **automatically tries the default root password `alpine`**. If accepted, setup continues without prompting. Only an authentication rejection asks for this TV's own root SSH password, with hidden input. Passwords are not saved to configuration or logs. Do not enter an LG account password or Developer Mode passphrase. Supplied keys are cached privately only after successful authentication and are never bundled in shared downloads.
 7. Wait while setup verifies root, backs up existing files and installs/updates compatible components. **No manual Restore command is needed.**
 8. Read the feature report in the same window; it stays open until you dismiss it.
 
