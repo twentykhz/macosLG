@@ -1,4 +1,4 @@
-# GathinTV · MAC-WebOSTV
+# MAC-WebOSTV
 
 Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Chọn thiết bị bạn dùng để cài bên dưới.** TV và thiết bị cài cần cùng Wi-Fi/LAN.
 
