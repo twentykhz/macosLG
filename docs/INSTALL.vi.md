@@ -30,9 +30,11 @@ Trước menu này, chọn **1 — English** hoặc **2 — Tieng Viet khong dau
 
 ### A1. Kiểm tra tương thích
 
-Nhập đúng model và firmware đang cài. Setup kiểm tra online tại [cani.rootmy.tv](https://cani.rootmy.tv/) và hiện kết quả trước khi kết nối/chạy exploit; sau đăng nhập sẽ đối chiếu lại TV thực tế. Kết quả chưa xác định hoặc không có cách root phần mềm phù hợp sẽ dừng, không ép chạy theo model gần giống. [Các phương pháp và giới hạn tự động hóa](ROOTING-METHODS.md).
+Ở ô model hoặc firmware, **nhấn Enter để tự nhận diện**, hoặc gõ **`SKIP`** để bỏ qua tra cứu ban đầu. Sau khi kết nối Developer Mode đã xác thực (bật Dev Mode Status và Key Server), setup đọc model/firmware thực tế rồi kiểm tra online tại [cani.rootmy.tv](https://cani.rootmy.tv/). Nếu nhập thủ công đủ hai thông tin, setup tra cứu ngay trước kết nối và đối chiếu lại sau đăng nhập. Kết quả chưa xác định hoặc không phù hợp vẫn chặn chạy exploit; `SKIP` không bỏ qua kiểm tra tương thích sau kết nối. [Các phương pháp và giới hạn tự động hóa](ROOTING-METHODS.md).
 
-Xem thông tin TV trong **Cài đặt → Tất cả cài đặt → Cài đặt chung → Giới thiệu về TV**; tên mục có thể khác theo đời TV.
+**webOS 22 trở lên:** model ở **Hỗ trợ → Thông tin TV**; firmware đang cài ở **Cài đặt → Tất cả cài đặt → Hỗ trợ → Cập nhật phần mềm**. Chỉ xem phiên bản, không cần cập nhật. `webOS22 / 7.6.0-1901` là phiên bản hệ điều hành, không nhập vào ô firmware. Ví dụ model trong ảnh hỗ trợ là `55QNED80SQA`; không thể suy ra firmware chính xác chỉ từ nhãn webOS22. TV cũ có thể hiển thị firmware tại **Cài đặt chung → Giới thiệu về TV**. [Hướng dẫn LG](https://www.lg.com/us/support/help-library/lg-tv-how-can-i-update-the-tv-software--20154858251400).
+
+Chạy tự nhận diện từ dòng lệnh: `.\MAC-WebOSTV-AutoSetup.ps1 -Mode Setup -SkipPreflight`. Nếu không thể kết nối Developer Mode/root SSH, bộ cài giải thích cách bật kết nối hoặc yêu cầu thử lại với firmware thủ công; không đoán phiên bản.
 
 ### A2. Chuẩn bị Developer Mode — chỉ cho TV chưa root
 

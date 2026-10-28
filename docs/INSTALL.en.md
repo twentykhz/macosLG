@@ -28,7 +28,11 @@ First select **1 — English** or **2 — Tieng Viet khong dau**. Then choose th
 <a id="branch-a"></a>
 ## Branch A — Unrooted TV
 
-Enter the exact model and installed firmware. Setup checks the live [CanI.RootMy.TV](https://cani.rootmy.tv/) data before connecting or running an exploit and compares it with the authenticated TV. Unknown or incompatible results stop automatic rooting; similar models/regions are not treated as proof. Compatible non-reference models use capability-based installation. [Methods, manual steps and logs](ROOTING-METHODS.md).
+At either the model or firmware prompt, **press Enter for automatic identification** or type **`SKIP`** to skip the initial lookup. Enable Developer Mode's Dev Mode Status and Key Server; setup reads model/firmware after authentication and checks live [CanI.RootMy.TV](https://cani.rootmy.tv/) data before rooting. With both manual values, it also checks before connection and compares them with the actual TV. Unknown/incompatible results still stop exploits; `SKIP` does not disable authenticated compatibility checks. Compatible non-reference models use capability-based installation. [Methods, manual steps and logs](ROOTING-METHODS.md).
+
+For **webOS 22 and later**, model is under **Support → TV Information**; installed firmware is under **Settings → All Settings → Support → Software Update**. Read the installed version without starting an update. `webOS22 / 7.6.0-1901` is an OS label, not firmware; the exact firmware cannot be inferred from it. Older TVs may show Software Version in **General → About This TV**. [LG instructions](https://www.lg.com/us/support/help-library/lg-tv-how-can-i-update-the-tv-software--20154858251400).
+
+CLI auto identification: `.\MAC-WebOSTV-AutoSetup.ps1 -Mode Setup -SkipPreflight`. If authenticated Developer Mode/root SSH is unavailable, setup explains how to enable it or rerun with manually confirmed firmware; it never guesses a version.
 
 On an unrooted TV only:
 

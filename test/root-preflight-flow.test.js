@@ -22,3 +22,20 @@ test('missing Developer Mode can enter guided alternatives only after confirmed 
 test('dry run and changed host key never enter guided rooting',async()=>{
  for(const options of [{dryRun:true},{}]){const s=steps(options);s.connectDeveloper=async()=>{throw Error(options.dryRun?'Key Server unavailable':'Unknown/changed TV host key');};let attempted=false;s.runAutoroot=async()=>{attempted=true;};await assert.rejects(s.connectAndCheck());assert.equal(attempted,false);s.close();}
 });
+test('auto detection without manual model/firmware pins authenticated TV identity',async()=>{
+ const previous=model;model='55QNED80SQA';checks=0;
+ const s=steps({expectedModel:undefined,expectedFirmware:undefined});
+ try{await s.connectAndCheck();assert.equal(checks,1);assert.equal(s.info.modelName,'55QNED80SQA');assert.equal(s.options.expectedModel,'55QNED80SQA');assert.equal(s.options.expectedFirmware,'05.50.70');}
+ finally{model=previous;s.close();}
+});
+test('skipping manual lookup never bypasses authenticated patched/unknown root checks',async()=>{
+ for(const status of ['unknown','not-rootable']){
+  reportStatus=status;checks=0;const s=steps({expectedModel:undefined,expectedFirmware:undefined});
+  try{await assert.rejects(s.connectAndCheck(),/stopped before any exploit/);assert.equal(checks,1);}finally{s.close();}
+ }reportStatus='rootable';
+});
+test('automatic detection failure explains Developer Mode and never enters a fallback exploit',async()=>{
+ const s=steps({expectedModel:undefined,expectedFirmware:undefined});let attempted=false;
+ s.connectDeveloper=async()=>{throw Error('Key Server unavailable');};s.runAutoroot=async()=>{attempted=true;};
+ try{await assert.rejects(s.connectAndCheck(),/Automatic TV detection needs authenticated Developer Mode/);assert.equal(attempted,false);}finally{s.close();}
+});

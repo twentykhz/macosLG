@@ -23,6 +23,8 @@ test('Bash wrapper maps every mode and option to the existing core, including pa
   assert.equal(run(['Setup','192.0.2.44','--expected-model','55SK8000PTA','--expected-firmware','05.50.70']).status,0);
   const passphrase=run(['Setup','192.0.2.44','--expected-model','F02CFB','--expected-firmware','05.50.70']);assert.equal(passphrase.status,2);assert.equal(passphrase.record,null);assert.match(passphrase.stderr,/not the Developer Mode passphrase/);
   const webos=run(['Setup','192.0.2.44','--expected-model','55SK8000PTA','--expected-firmware','4.4.0']);assert.equal(webos.status,2);assert.equal(webos.record,null);
+  const auto=run(['Setup','192.0.2.44']);assert.equal(auto.status,0,auto.stderr);assert(!auto.record.args.includes('--expected-firmware'));assert.match(auto.stdout,/AUTO/);
+  const skipped=run(['Setup','192.0.2.44','--skip-preflight','--expected-model','55QNED80SQA']);assert.equal(skipped.status,0,skipped.stderr);assert(skipped.record.args.includes('55QNED80SQA'));assert(!skipped.record.args.includes('--skip-preflight'));assert(!skipped.record.args.includes('--expected-firmware'));
   for(const args of [['--mode','Doctor'],['Doctor','http://tv'],['Doctor','tv','--unknown'],['Doctor','tv','--key']]){const r=run(args);assert.equal(r.status,2,r.stderr);assert.equal(r.record,null);}
   const older=run(['Doctor','tv'],{TEST_NODE_VERSION:'v19.9.0'});assert.equal(older.status,2);assert.match(older.stderr,/>=20/);
   const backup=run(['Backup','tv'],{PREFIX:'/data/data/com.termux/files/usr'});assert.equal(backup.status,0,backup.stderr);assert.match(backup.stdout,/Backup destination:/);assert(backup.record.args.at(-1).endsWith('GathinTV-Backups'));
@@ -50,4 +52,8 @@ test('Termux model prompt rejects Developer Mode passphrase and firmware prompt 
 });
 test('Termux language prompt retries and exports Vietnamese selection',{skip:!available},()=>{
  const r=prompt('unset GATHIN_LANGUAGE; shell_language; printf "LANG=%s\\n" "$GATHIN_LANGUAGE"','invalid\n2\n');assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/LANG=vi/);assert.match(r.stderr,/Nhap so 1 hoac 2/);
+});
+test('Termux Enter or SKIP uses authenticated detection instead of inventing webOS22 firmware',{skip:!available},()=>{
+ for(const input of ['\n','SKIP\n','AUTO\n']){const r=prompt('model=""; firmware=""; skip_preflight=false; shell_model; printf "SKIP=%s/MODEL=%s\\n" "$skip_preflight" "$model"',input);assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/SKIP=true\/MODEL=\n/);}
+ const r=prompt('model=55QNED80SQA; firmware=""; skip_preflight=false; shell_firmware; printf "SKIP=%s/MODEL=%s/FW=%s\\n" "$skip_preflight" "$model" "$firmware"','webOS22 / 7.6.0-1901\nSKIP\n');assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/Cap nhat phan mem/);assert.match(r.stdout,/SKIP=true\/MODEL=55QNED80SQA\/FW=\n/);
 });

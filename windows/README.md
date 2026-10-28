@@ -12,6 +12,8 @@
 
 Không cần tự cài Node.js, npm hoặc webOS CLI. Giữ `Start-Setup.cmd` và `MAC-WebOSTV-AutoSetup.ps1` cùng thư mục; không chạy trực tiếp trong ZIP.
 
+**Không biết firmware / dùng webOS22 trở lên?** Nhấn **Enter** ở ô model/firmware để tự nhận diện, hoặc nhập **`SKIP`** để bỏ qua tra cứu ban đầu. Cần bật Developer Mode + Key Server nếu TV chưa root. Firmware nằm tại **Hỗ trợ → Cập nhật phần mềm**; `webOS22 / 7.6.0-1901` không phải firmware. Sau kết nối, setup vẫn kiểm tra tương thích trước khi chạy root.
+
 Setup cài YouTube AdFree 0.5.3; nếu đang có YouTube gốc/bản không khớp, setup gỡ trước rồi cài AdFree. AdFree đúng bản được giữ nguyên. Khi gỡ YouTube, có thể cần đăng nhập lại; snapshot không phục hồi gói/dữ liệu đăng nhập của YouTube gốc.
 
 [Hướng dẫn từng bước và điều kiện root](../docs/INSTALL.vi.md) · [Khôi phục backup](../docs/ROLLBACK.vi.md) · [Tải riêng file PS1](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/MAC-WebOSTV-AutoSetup.ps1)

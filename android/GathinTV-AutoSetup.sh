@@ -13,6 +13,7 @@ Options:
   --key PATH --developer-key PATH --backup-file PATH --output-dir PATH
   --session PATH --yes  (Rollback: snapshot file/folder; --yes confirms without prompt)
   --expected-model MODEL --expected-firmware 00.00.00 --language en|vi
+  --skip-preflight  Skip manual lookup; detect authenticated TV details before root checks.
 State: GATHIN_STATE_DIRECTORY, default ~/.gathintv/state (private).
 Unknown hosts are rejected unless --trust-new-host is explicitly supplied.
 --remove-extra-apps retains the core's existing snapshot safety restriction.
@@ -28,7 +29,7 @@ prerequisites() {
     printf '%s\n' 'Install Bash and Node.js >=20 using your system package manager or nodejs.org. Git is only needed to clone source; curl is only needed for the one-line bootstrap.' >&2
   fi
 }
-mode='' host='' output='' model='' firmware='' root_key='' already=false dry=false interactive_menu=false
+mode='' host='' output='' model='' firmware='' root_key='' already=false dry=false interactive_menu=false skip_preflight=false
 pass=()
 while (($#)); do
   case "$1" in
@@ -48,6 +49,7 @@ while (($#)); do
       shift 2 ;;
     --already-rooted) already=true; pass+=("$1"); shift ;;
     --dry-run) dry=true; pass+=("$1"); shift ;;
+    --skip-preflight) skip_preflight=true; shift ;;
     --trust-new-host|--no-reboot|--remove-extra-apps|--yes) pass+=("$1"); shift ;;
     --*) die "Unknown argument: $1" ;;
     *) if [[ -z $mode ]]; then mode=$1; elif [[ -z $host ]]; then host=$1; else die "Unexpected argument: $1"; fi; shift ;;
@@ -91,11 +93,21 @@ if $interactive_menu && [[ $mode != Rollback ]]; then
 fi
 node "$script_dir/scripts/verify.js"
 if [[ $mode == Setup ]] && ! $already; then
-  if ! shell_valid_model "$model" && [[ -t 0 ]]; then shell_model; fi
-  if ! shell_valid_firmware "$firmware" && [[ -t 0 ]]; then shell_firmware; fi
-  shell_valid_model "$model" && shell_valid_firmware "$firmware" || die 'Fresh Setup requires the full LG TV model (e.g. OLED65C2PSA, not the Developer Mode passphrase) and firmware 00.00.00 (--expected-model / --expected-firmware)'
-  node "$script_dir/scripts/check-root.js" --model "$model" --firmware "$firmware" --language "${GATHIN_LANGUAGE:-en}"
-  pass+=(--expected-model "$model" --expected-firmware "$firmware")
+  if ! $skip_preflight; then
+    if ! shell_valid_model "$model" && [[ -t 0 ]]; then shell_model; fi
+    if ! $skip_preflight && ! shell_valid_firmware "$firmware" && [[ -t 0 ]]; then shell_firmware; fi
+  fi
+  if $skip_preflight; then
+    [[ -z $model ]] || shell_valid_model "$model" || die 'Invalid LG TV model; not the Developer Mode passphrase'
+    printf '%s\n' "$(shell_text 'Initial lookup skipped. Detecting model/firmware through authenticated Developer Mode or saved root SSH; compatibility is still checked before rooting.' 'Bo qua tra cuu ban dau. Se doc model/firmware qua Developer Mode hoac SSH root da luu; van kiem tra tuong thich truoc khi root.')"
+  elif [[ -z $model && -z $firmware && ! -t 0 ]]; then
+    printf '%s\n' 'AUTO: detect authenticated TV model/firmware before checking rootability.'
+  else
+    shell_valid_model "$model" && shell_valid_firmware "$firmware" || die 'Fresh Setup requires the full LG TV model (e.g. OLED65C2PSA, not the Developer Mode passphrase) and firmware 00.00.00 (--expected-model / --expected-firmware); use --skip-preflight for automatic detection'
+    node "$script_dir/scripts/check-root.js" --model "$model" --firmware "$firmware" --language "${GATHIN_LANGUAGE:-en}"
+  fi
+  if [[ -n $model ]]; then pass+=(--expected-model "$model"); fi
+  if [[ -n $firmware ]]; then pass+=(--expected-firmware "$firmware"); fi
 fi
 if [[ $mode == Backup ]] && ! $dry; then
   output=$(node "$script_dir/scripts/host-paths.js" backup "$output")

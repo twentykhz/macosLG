@@ -1,5 +1,7 @@
 # 3.4.2 changes
 
+- Windows/Termux: Enter auto-detects model/firmware; `SKIP`, `-SkipPreflight` and `--skip-preflight` bypass only the initial manual lookup. Authenticated TV identification, identity pinning and root compatibility gates remain enforced. Explain webOS22/7.6.0-1901 versus firmware and the Support → Software Update location.
+
 - Fix Termux prompts: select English/Vietnamese, describe rooted/unrooted branches, retry invalid menu/model/firmware input, and distinguish the TV model/software version from the Developer Mode passphrase. CLI validation rejects passphrases as model names before connecting to the TV.
 
 - Fix YouTube provisioning: replace an existing official/non-pinned YouTube before installing pinned YouTube AdFree 0.5.3, verify its version after installation, and retain a matching AdFree installation. `--no-extra-apps` skips this step. Official YouTube and its sign-in data are not restored by snapshot rollback; reinstall the official app from LG Content Store if needed.

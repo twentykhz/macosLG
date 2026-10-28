@@ -2,7 +2,7 @@
 param(
  [ValidateSet('Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Rollback','Prepare','Extract')][string]$Mode='Setup',
  [string]$HostName,
- [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,[switch]$ConfirmRollback,
+ [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,[switch]$ConfirmRollback,[switch]$SkipPreflight,
  [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,[string]$RecoverySession,
  [ValidateSet('en','vi')][string]$Language,[string]$TVModel,[string]$FirmwareVersion,
  [string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'MAC-WebOSTV')
@@ -19,6 +19,33 @@ if(-not $Language){
  }
 }
 function L([string]$English,[string]$Vietnamese){if($Language -eq 'vi'){return $Vietnamese}else{return $English}}
+function Read-MacTvPreflight([string]$Model,[string]$Firmware,[bool]$Skip){
+ $taskModelPattern='^(?:OLED)?\d{2,3}[A-Z][A-Z0-9]{3,}(?:[.-][A-Z0-9]+)*$'
+ $taskFirmwarePattern='^\d{1,2}\.\d{2}\.\d{2}$'
+ if($Skip){
+  if($Model -and $Model -notmatch $taskModelPattern){throw 'Invalid full LG TV model; do not enter the Developer Mode passphrase.'}
+  if($Firmware -and $Firmware -notmatch $taskFirmwarePattern){throw 'Invalid firmware; webOS22 / 7.6.0-1901 is not Software Version. Omit -FirmwareVersion for automatic detection.'}
+  return [pscustomobject]@{Model=$Model;Firmware=$Firmware;Skip=$true}
+ }
+ Write-Host (L 'You may press Enter for automatic TV identification, or type SKIP to skip the initial lookup. Authenticated compatibility checks still run before rooting.' 'Co the nhan Enter de tu nhan dien TV, hoac nhap SKIP de bo qua tra cuu ban dau. Van kiem tra tuong thich sau ket noi truoc khi root.')
+ while($Model -notmatch $taskModelPattern){
+  if($Model){Write-Host (L 'Enter the FULL LG model, not the six-character Developer Mode passphrase.' 'Nhap model LG DAY DU, khong phai passphrase Developer Mode 6 ky tu.') -ForegroundColor Yellow}
+  $taskInput=Read-Host (L 'Full TV model, e.g. 55QNED80SQA (Enter=AUTO, SKIP=skip initial check)' 'Model TV, vi du 55QNED80SQA (Enter=tu nhan dien, SKIP=bo qua check ban dau)')
+  if($null -eq $taskInput){throw 'Console input is unavailable; use -SkipPreflight for automatic identification.'}
+  $Model=$taskInput.Trim()
+  if(-not $Model -or $Model -match '^(AUTO|SKIP|0)$'){return [pscustomobject]@{Model='';Firmware='';Skip=$true}}
+ }
+ Write-Host (L 'webOS 22/23/24/25+: Settings > All Settings > Support > Software Update. Read the INSTALLED Software Version; no update is needed.' 'webOS 22/23/24/25+: Cai dat > Tat ca cai dat > Ho tro > Cap nhat phan mem. Chi xem Phien ban phan mem DANG CAI; khong can cap nhat.')
+ Write-Host (L 'webOS22 / 7.6.0-1901 is the OS version, NOT firmware. Use 00.00.00, or Enter / SKIP to detect from the TV.' 'webOS22 / 7.6.0-1901 la he dieu hanh, KHONG phai firmware. Nhap 00.00.00, hoac Enter / SKIP de doc tu TV.')
+ while($Firmware -notmatch $taskFirmwarePattern){
+  $taskInput=Read-Host (L 'Installed firmware (00.00.00; Enter=AUTO, SKIP=skip initial check)' 'Firmware hien tai (00.00.00; Enter=tu nhan dien, SKIP=bo qua check)')
+  if($null -eq $taskInput){throw 'Console input is unavailable; use -SkipPreflight for automatic identification.'}
+  $Firmware=$taskInput.Trim()
+  if(-not $Firmware -or $Firmware -match '^(AUTO|SKIP|0)$'){return [pscustomobject]@{Model=$Model;Firmware='';Skip=$true}}
+  if($Firmware -notmatch $taskFirmwarePattern){Write-Host (L 'That is not the installed Software Version. Try again or type SKIP.' 'Day khong phai Phien ban phan mem dang cai. Nhap lai hoac nhap SKIP.') -ForegroundColor Yellow}
+ }
+ return [pscustomobject]@{Model=$Model;Firmware=$Firmware;Skip=$false}
+}
 function Test-MacTvConfirmation([string]$Value){return $Value.Trim().ToUpperInvariant() -in @('YES','CO')}
 $env:GATHIN_LANGUAGE=$Language
 $env:GATHIN_RECOVERY_SESSION=$null
@@ -121,11 +148,14 @@ if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
 }
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){
- if(-not $TVModel){$TVModel=(Read-Host (L 'TV model shown in Settings (example: 55SK8000PTA)' 'Nhap ma model TV trong Cai dat (vi du: 55SK8000PTA)')).Trim()}
- while($FirmwareVersion -notmatch '^\d{1,2}\.\d{2}\.\d{2}$'){$FirmwareVersion=(Read-Host (L 'Installed firmware version (00.00.00)' 'Nhap ban firmware dang cai (00.00.00)')).Trim()}
+ $taskPreflight=Read-MacTvPreflight $TVModel $FirmwareVersion ([bool]$SkipPreflight)
+ $TVModel=$taskPreflight.Model;$FirmwareVersion=$taskPreflight.Firmware;$SkipPreflight=$taskPreflight.Skip
+ if($SkipPreflight){Write-Host (L 'Initial lookup skipped. Model/firmware will be read from authenticated Developer Mode or saved root SSH. Root compatibility checks remain required.' 'Bo qua tra cuu ban dau. Se doc model/firmware qua Developer Mode hoac SSH root da luu. Van kiem tra tuong thich truoc khi root.') -ForegroundColor Cyan}
+ else{
  & $node (Join-Path $release 'scripts/check-root.js') --model $TVModel --firmware $FirmwareVersion --language $Language
  if($LASTEXITCODE -eq 2){throw (L 'No known compatible software root method. Stopped before connecting or running an exploit.' 'Khong co cach root phan mem tuong thich da biet. Da dung truoc khi ket noi hay chay exploit.')}
  if($LASTEXITCODE -ne 0){throw (L 'Rootability is unknown. Check the model, firmware and Internet connection; no exploit was run.' 'Chua xac dinh kha nang root. Kiem tra model, firmware va Internet; chua chay exploit.')}
+ }
 }
 function Read-MacTvAddress([string]$InitialAddress){
  $taskAddress=$InitialAddress.Trim()
@@ -167,7 +197,10 @@ $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 $arguments=@((Join-Path $release 'scripts/run.js'),$Mode,'--host',$HostName,'--output-dir',[IO.Path]::GetFullPath($OutputDirectory))
 foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@($TrustNewHost,'--trust-new-host'),@($NoReboot,'--no-reboot'),@($RemoveExtraApps,'--remove-extra-apps'),@($ConfirmRollback,'--yes'))){if($pair[0]){$arguments+=$pair[1]}}
 foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'),@($RecoverySession,'--session'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
-if($Mode -eq 'Setup' -and -not $AlreadyRooted){$arguments+=@('--expected-model',$TVModel,'--expected-firmware',$FirmwareVersion)}
+if($Mode -eq 'Setup' -and -not $AlreadyRooted){
+ if($TVModel){$arguments+=@('--expected-model',$TVModel)}
+ if($FirmwareVersion){$arguments+=@('--expected-firmware',$FirmwareVersion)}
+}
 $env:GATHIN_RECOVERY_SESSION=Join-Path $env:GATHIN_STATE_DIRECTORY ('sessions/'+[guid]::NewGuid().ToString()+'.json')
 $taskReportStarted=Get-Date
 & $node @arguments

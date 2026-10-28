@@ -12,6 +12,8 @@
 
 No separate Node.js, npm or webOS CLI installation is required. Keep `Start-Setup.cmd` and `MAC-WebOSTV-AutoSetup.ps1` together; do not run inside the ZIP.
 
+**Unknown firmware / webOS22 or newer?** Press **Enter** at model/firmware for auto identification, or type **`SKIP`** to skip the initial lookup. Unrooted TVs need Developer Mode + Key Server enabled. Installed firmware is under **Support → Software Update**; `webOS22 / 7.6.0-1901` is not firmware. Compatibility is still checked after authentication before rooting.
+
 Setup installs YouTube AdFree 0.5.3, removing official/non-matching YouTube first and preserving a matching AdFree installation. Removal may require signing in again. Snapshot rollback does not restore the official YouTube package or sign-in data.
 
 [Detailed prerequisites and steps](../docs/INSTALL.en.md) · [Rollback](../docs/ROLLBACK.en.md) · [Standalone PS1](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/MAC-WebOSTV-AutoSetup.ps1)

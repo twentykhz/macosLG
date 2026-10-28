@@ -19,6 +19,8 @@ bash "$HOME/install-gathintv.sh"
 
 For unrooted TVs, read the full model and Software Version from **Settings → Support → TV Information** (or **About This TV**). Examples: model `OLED65C2PSA` / `55SK8000PTA`, firmware `05.50.70`. A six-character Developer Mode passphrase such as `F02CFB` is not a TV model; webOS `4.4.0` is not the firmware. The passphrase is requested separately when connecting Developer Mode. Invalid input is retried instead of closing setup.
 
+For **webOS22 and newer**, installed firmware is usually in **Settings → All Settings → Support → Software Update**, not the `webOS22 / 7.6.0-1901` OS label. **Press Enter or type `SKIP`** at model/firmware to identify the TV after authenticated Developer Mode connection (Dev Mode Status + Key Server must be enabled). This only skips the initial lookup; actual root compatibility remains checked. CLI: `bash "$HOME/.gathintv/GathinTV-AutoSetup.sh" --mode Setup --host TV_IP --skip-preflight`.
+
 Reopen the menu with:
 
 ```bash

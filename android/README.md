@@ -19,6 +19,8 @@ bash "$HOME/install-gathintv.sh"
 
 **Nếu chọn TV chưa root:** mở **Cài đặt → Hỗ trợ → Thông tin TV** (hoặc **Giới thiệu về TV**), lấy model đầy đủ như `OLED65C2PSA` / `55SK8000PTA` và phiên bản phần mềm như `05.50.70`. Không dùng passphrase Developer Mode 6 ký tự (ví dụ `F02CFB`) làm model; không dùng phiên bản webOS như `4.4.0` làm firmware. Passphrase sẽ được hỏi riêng khi kết nối Developer Mode. Nhập sai thì setup cho nhập lại, không tự thoát.
 
+**webOS22 trở lên:** firmware thường nằm tại **Cài đặt → Tất cả cài đặt → Hỗ trợ → Cập nhật phần mềm**, không phải dòng `webOS22 / 7.6.0-1901`. Không biết firmware thì **nhấn Enter hoặc gõ `SKIP`** ở ô model/firmware; setup sẽ đọc thông tin sau khi kết nối Developer Mode đã xác thực (cần bật Dev Mode Status + Key Server). Chỉ bỏ tra cứu ban đầu, vẫn kiểm tra khả năng root thực tế. CLI có thể dùng `bash "$HOME/.gathintv/GathinTV-AutoSetup.sh" --mode Setup --host TV_IP --skip-preflight`.
+
 Mở lại menu sau này:
 
 ```bash

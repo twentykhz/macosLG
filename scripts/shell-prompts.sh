@@ -40,15 +40,18 @@ shell_model() {
   printf '%s\n' "$(shell_text 'On the TV open Settings > Support > TV Information (or About This TV).' 'Tren TV: Cai dat > Ho tro > Thong tin TV (hoac Gioi thieu ve TV).')"
   printf '%s\n' "$(shell_text 'Enter the full LG model, e.g. OLED65C2PSA or 55SK8000PTA. Do NOT enter the 6-character Developer Mode passphrase or serial number.' 'Nhap model LG day du, vi du OLED65C2PSA hoac 55SK8000PTA. KHONG nhap passphrase Developer Mode 6 ky tu hay so serial.')"
   while true; do
-    shell_read model "$(shell_text 'Full TV model: ' 'Model TV day du: ')" || return
+    shell_read model "$(shell_text 'Full TV model (Enter=AUTO, SKIP=skip initial check): ' 'Model TV day du (Enter=tu nhan dien, SKIP=bo qua check ban dau): ')" || return
+    case "$model" in ''|auto|AUTO|skip|SKIP|0) model='';firmware='';skip_preflight=true;return;;esac
     shell_valid_model "$model" && return
     printf '%s\n' "$(shell_text 'That is not a full LG TV model. Check TV Information and try again.' 'Day khong phai model TV LG day du. Kiem tra Thong tin TV va nhap lai.')" >&2
   done
 }
 shell_firmware() {
-  printf '%s\n' "$(shell_text 'Enter Software Version from TV Information, e.g. 05.50.70. This is NOT the webOS version (4.4.0) or the Developer Mode passphrase.' 'Nhap Phien ban phan mem trong Thong tin TV, vi du 05.50.70. KHONG nhap phien ban webOS (4.4.0) hay passphrase Developer Mode.')"
+  printf '%s\n' "$(shell_text 'On webOS 22/23/24/25+: Settings > All Settings > Support > Software Update. Read the installed Software Version; do not start an update.' 'webOS 22/23/24/25+: Cai dat > Tat ca cai dat > Ho tro > Cap nhat phan mem. Chi xem Phien ban phan mem dang cai; khong can cap nhat.')"
+  printf '%s\n' "$(shell_text 'Example firmware: 05.50.70. webOS22 / 7.6.0-1901 is the OS version, NOT firmware. Enter=AUTO, SKIP=skip the initial lookup.' 'Firmware vi du: 05.50.70. webOS22 / 7.6.0-1901 la phien ban he dieu hanh, KHONG phai firmware. Enter=tu nhan dien, SKIP=bo qua tra cuu ban dau.')"
   while true; do
     shell_read firmware "$(shell_text 'Installed firmware (00.00.00): ' 'Firmware hien tai (00.00.00): ')" || return
+    case "$firmware" in ''|auto|AUTO|skip|SKIP|0) firmware='';skip_preflight=true;return;;esac
     shell_valid_firmware "$firmware" && return
     printf '%s\n' "$(shell_text 'Use the software version format 00.00.00; check the TV and try again.' 'Nhap dung phien ban phan mem dang 00.00.00; xem tren TV va nhap lai.')" >&2
   done
