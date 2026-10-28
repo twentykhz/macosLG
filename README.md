@@ -12,32 +12,48 @@ Biến màn hình chính của TV LG webOS tương thích thành giao diện l�
 
 ![Giao diện launcher](preview.jpg)
 
-## Cài từ Android / Termux
+## Cài trên Windows
 
-Android và TV phải cùng mạng LAN. Trong Termux:
+1. Tải 2 file từ [bản phát hành mới nhất](https://github.com/twentykhz/macosLG/releases/latest):
+   - `MAC-WebOSTV-AutoSetup.ps1`
+   - `Start-Setup.cmd`
+2. Đặt **2 file cùng một thư mục**.
+3. Bật TV và đảm bảo **TV + máy tính cùng Wi-Fi/LAN**.
+4. Nhấp đúp `Start-Setup.cmd`.
+5. Chọn:
+   - `1` — TV chưa root
+   - `2` — TV đã root
+   - `3` — Kiểm tra TV
+6. Nhập **IP của TV** và làm theo hướng dẫn trên màn hình.
+
+> Không cần cài Node.js, npm hay webOS CLI.
+
+📖 [Hướng dẫn Windows chi tiết](docs/INSTALL.vi.md)
+
+---
+
+## Cài trên Android
+
+1. Cài **Termux**.
+2. Bật TV và đảm bảo **điện thoại + TV cùng Wi-Fi/LAN**.
+3. Mở Termux và chạy:
 
 ```bash
-pkg update
-pkg install nodejs git curl
-termux-setup-storage  # tùy chọn: backup vào Downloads
+pkg update -y
+pkg install nodejs git curl -y
 curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
 ```
 
-Bootstrap tải release được ghim version/SHA-256 và kiểm tra trước khi chạy. Không cần clone, PowerShell, OpenSSH hoặc compiler. Node hệ thống phải >=20. Mở lại và **chạy Doctor trước**:
+4. Sau khi cài xong, mở menu:
 
 ```bash
 cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh --mode Doctor --host 192.168.1.11
-# TV đã root:
-./GathinTV-AutoSetup.sh --mode Restore --host 192.168.1.11 --trust-new-host
-# TV chưa root: hỏi model/firmware và passphrase trong terminal:
-./GathinTV-AutoSetup.sh --mode Setup --host 192.168.1.11 --trust-new-host
-./GathinTV-AutoSetup.sh --mode Backup --host 192.168.1.11
+./GathinTV-AutoSetup.sh
 ```
 
-Thay IP bằng IP TV của bạn. Host mới mặc định bị từ chối; chỉ thêm `--trust-new-host` sau khi kiểm tra đúng TV. Doctor cần root SSH và không thay đổi TV. Termux không thay đổi điều kiện hỗ trợ model/firmware. Backup ưu tiên Downloads nếu có quyền, nếu không tự dùng `~/GathinTV-Backups`. State/key lưu riêng tại `~/.gathintv/state`. [Hướng dẫn Android, Linux/macOS, các option và recovery](docs/ANDROID.vi.md).
+5. Nhập **IP TV**, chọn TV **đã root / chưa root** rồi làm theo hướng dẫn.
 
-**TV tham chiếu đã chạy thực tế:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · ARM32/Python 2. TV đã root được dò khả năng thực tế, không bắt trùng model mẫu. TV chưa root được kiểm tra online theo đúng model/firmware trên cani.rootmy.tv trước khi làm; chỉ thử các cách được xác định phù hợp và giữ kiểm tra của công cụ gốc. Tính năng thiếu điều kiện được báo rõ; tinh chỉnh riêng của TV mẫu không áp sang TV khác. Chưa kiểm chứng cài mới sau reset trên TV thứ hai.
+📖 [Hướng dẫn Android / Termux chi tiết](docs/ANDROID.vi.md)
 
 ## Bạn muốn làm gì?
 
