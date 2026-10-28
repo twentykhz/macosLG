@@ -1,39 +1,5 @@
 # MAC-WebOSTV by 20khzpc
 
-**3.4.1 — Python không còn bắt buộc cho compatibility mode.** Backup, rollback, kiểm tra SHA-256, cập nhật launcher, Action Center Luna và theo dõi HDMI có đường chạy không Python. Windows và Android/Termux tiếp tục dùng chung Node core. [Phạm vi và audit](docs/PYTHON-COMPATIBILITY.md).
-
-## Compatibility with newer rooted LG TVs
-
-TV mẫu đã kiểm chứng là **55SK8000PTA / M16PP_DVB_EU / 05.50.70**. Rooted TVs outside the reference profile use conservative capability-based installation. Unsupported model-specific features are skipped rather than forced.
-
-Installer kiểm tra kiến trúc, root, Node, Python, SHA-256, tar và startup trước backup/cài đặt. TV không Python vẫn có thể cài launcher và dịch vụ Node nếu có đủ khả năng backup/rollback đã kiểm tra. Thiếu cả Node và Python thì vẫn có thể xuất backup bằng shell/tar, nhưng cài đặt có thay đổi sẽ bị chặn vì chưa có rollback an toàn. Không cài Python, tạo alias hay đưa binary ARM32 sang aarch64.
-
-**OLED65C2PSA / O22_DVB_AJ / 33.31.68 / SDK 10.3.1:** đã thêm regression mô phỏng Setup, lỗi giữa chừng và rollback không Python. Chưa xác nhận cài bản 3.4.1 trên C2 thật, nên chưa xếp model này vào danh sách hardware-tested. Action Center phụ thuộc API Luna thực tế; HOME interception, Python2 voice router, QML/input patch và tuning TV mẫu được bỏ qua trên C2. Nút HOME/microphone gốc vẫn dùng theo firmware LG.
-
-Chạy Doctor trước, thay `TV_IP` bằng IP TV cùng mạng LAN:
-
-```bash
-./GathinTV-AutoSetup.sh --mode Doctor --host TV_IP --trust-new-host
-./GathinTV-AutoSetup.sh --mode Restore --host TV_IP --trust-new-host
-```
-
-Trên Windows dùng bản single-file **3.4.1** từ [Releases](https://github.com/twentykhz/macosLG/releases):
-
-```powershell
-.\MAC-WebOSTV-AutoSetup.ps1 -Mode Doctor -HostName TV_IP -TrustNewHost
-.\MAC-WebOSTV-AutoSetup.ps1 -Mode Restore -HostName TV_IP -TrustNewHost
-```
-
-Chỉ chấp nhận host mới sau khi kiểm tra IP/fingerprint. Doctor không ghi file lên TV, không cài app, gửi input hoặc reboot. Khi Setup/Restore lỗi sau thay đổi, trả lời `CO`/`YES` để khôi phục snapshot đầu phiên của chính TV đó. [Thay đổi 3.4.1](docs/CHANGELOG-v3.4.1.md).
-
-**Cài đặt và cứu hộ 3.4.0:** kiểm tra dịch vụ trước khi bật HOME; khi lỗi có lựa chọn `CO/YES` để khôi phục bằng backup đầu phiên. [Ảnh lỗi thực tế, chẩn đoán và phạm vi khôi phục](docs/diagnostics/RECOVERY.md).
-
-**Bản 3.4.0:** Icon TV tự chọn cổng HDMI có tổng thời gian xem cao nhất; chưa có lịch sử sẽ mở bảng đầu vào. [Chi tiết](docs/CHANGELOG-v3.4.0.md).
-
-**Bản 3.3.0:** dock tự co giãn, quản lý thành viên gia đình, cài LGWS và báo cáo chức năng. Tối ưu lại MAC-WebOSTV-AutoSetup.ps1 và Start-Setup.cmd. Mở CMD: chọn **1** nếu chưa root, **2** nếu đã root, **3** để xem báo cáo chức năng ngay trong setup. [Hướng dẫn đúng từng nhánh](docs/INSTALL.vi.md). [Thay đổi và các bước sau cài](docs/CHANGELOG-v3.3.0.md).
-
-**Tiếng Việt** | [English](README.en.md)
-
 Biến màn hình chính của TV LG webOS tương thích thành giao diện lấy cảm hứng từ macOS. Hỗ trợ cài và quản lý từ **Windows hoặc Android/Termux, Linux, macOS** qua cùng Node core. Windows giữ file AutoSetup PowerShell; điện thoại dùng shell và Node hệ thống, không cần máy tính Windows.
 
 ![Giao diện launcher](preview.jpg)
