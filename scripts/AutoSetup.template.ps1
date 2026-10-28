@@ -4,17 +4,40 @@ param(
  [string]$HostName,
  [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,
  [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,
+ [ValidateSet('en','vi')][string]$Language,[string]$TVModel,[string]$FirmwareVersion,
  [string]$DataDirectory=(Join-Path $env:LOCALAPPDATA 'MAC-WebOSTV')
 )
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding=New-Object System.Text.UTF8Encoding($false)
 $OutputEncoding=[Console]::OutputEncoding
+if(-not $Language){
+ if($Mode -in @('Prepare','Extract')){$Language='en'}else{
+  Write-Host '1 - English'
+  Write-Host '2 - Tieng Viet khong dau'
+  do{$taskLanguage=Read-Host 'Language / Ngon ngu (1/2)'}while($taskLanguage.Trim() -notin @('1','2'))
+  $Language=if($taskLanguage.Trim() -eq '2'){'vi'}else{'en'}
+ }
+}
+function L([string]$English,[string]$Vietnamese){if($Language -eq 'vi'){return $Vietnamese}else{return $English}}
+function Test-MacTvConfirmation([string]$Value){return $Value.Trim().ToUpperInvariant() -in @('YES','CO')}
+$env:GATHIN_LANGUAGE=$Language
 if(-not $PSBoundParameters.ContainsKey('DataDirectory')){
  $taskLegacyData=Join-Path $env:LOCALAPPDATA 'GathinTV'
  if(Test-Path -LiteralPath (Join-Path $taskLegacyData 'state')){$DataDirectory=$taskLegacyData}
 }
-trap { Write-Host ('Stopped: '+$_.Exception.Message) -ForegroundColor Red; if(-not $NoPause){[void](Read-Host 'Press Enter to close')}; exit 1 }
-Write-Host 'MAC-WebOSTV by 20khzpc 3.4.0: record the target TV IP and Developer Mode passphrase. Use the credentials of THIS TV, not another TV.'
+trap { Write-Host ((L 'Stopped: ' 'Da dung: ')+$_.Exception.Message) -ForegroundColor Red; if($taskTranscript){Stop-Transcript|Out-Null}; if(-not $NoPause){[void](Read-Host (L 'Press Enter to close' 'Nhan Enter de dong'))}; exit 1 }
+if($Mode -notin @('Prepare','Extract')){
+ $taskLogDirectory=Join-Path $DataDirectory 'state/logs'
+ [IO.Directory]::CreateDirectory($taskLogDirectory)|Out-Null
+ $taskSetupLog=Join-Path $taskLogDirectory ('setup-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'.log')
+ $taskRuntimeLog=[IO.Path]::ChangeExtension($taskSetupLog,'runtime.log')
+ $env:GATHIN_SESSION_LOG=[IO.Path]::GetFullPath($taskRuntimeLog)
+ Start-Transcript -LiteralPath $taskSetupLog -Append|Out-Null
+ $taskTranscript=$true
+ Write-Host ((L 'Setup log: ' 'Log setup: ')+$taskSetupLog)
+ Write-Host ((L 'Runtime log: ' 'Log tien trinh: ')+$taskRuntimeLog)
+}
+Write-Host (L 'MAC-WebOSTV by 20khzpc 3.4.0: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.4.0: dung IP va thong tin dang nhap cua chinh TV nay.')
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -43,7 +66,7 @@ try {
   [IO.Compression.ZipFileExtensions]::ExtractToFile($entry,$target,$true)
  }
 } finally {$zip.Dispose();$stream.Dispose()}
-if($Mode -eq 'Extract'){Write-Host "Source extracted: $release";return}
+if($Mode -eq 'Extract'){Write-Host ((L 'Source extracted: ' 'Da giai nen ma nguon: ')+$release);return}
 $node=$null
 $found=Get-Command node -ErrorAction SilentlyContinue
 if($found -and -not $PortableNode){
@@ -59,28 +82,36 @@ if(-not $node){
  if(-not (Test-Path -LiteralPath $node)){
   [IO.Directory]::CreateDirectory($runtimeDir)|Out-Null
   $download=Join-Path $runtimeDir 'node.zip'
-  Write-Host 'Preparing portable Node.js from nodejs.org...'
+  Write-Host (L 'Preparing portable Node.js from nodejs.org...' 'Dang chuan bi Node.js portable tu nodejs.org...')
   Invoke-WebRequest -UseBasicParsing -Uri $asset.url -OutFile $download
   if((Get-FileHash -LiteralPath $download -Algorithm SHA256).Hash.ToLowerInvariant() -ne $asset.sha256){throw 'Node.js download checksum mismatch.'}
   Expand-Archive -LiteralPath $download -DestinationPath $runtimeDir -Force
   Remove-Item -LiteralPath $download
  }
 }
-if($Mode -eq 'Prepare'){& $node (Join-Path $release 'scripts/verify.js');if($LASTEXITCODE -ne 0){throw 'Payload verification failed.'};Write-Host 'PC is ready; no TV connection was made.';return}
+if($Mode -eq 'Prepare'){& $node (Join-Path $release 'scripts/verify.js');if($LASTEXITCODE -ne 0){throw (L 'Payload verification failed.' 'Kiem tra bo cai that bai.')};Write-Host (L 'PC is ready; no TV connection was made.' 'PC da san sang; chua ket noi hay thay doi TV.');return}
 if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
- Write-Host '1 - TV not rooted (check supported model/firmware first)'
- Write-Host '2 - TV already rooted (install launcher, no rooting exploit)'
- Write-Host '3 - Check TV features and show report (no reinstall)'
- $taskRootChoice=Read-Host 'Choose 1, 2 or 3'
+ Write-Host (L '1 - TV not rooted (check model/firmware before rooting)' '1 - TV chua root (kiem tra model/firmware truoc khi root)')
+ Write-Host (L '2 - TV already rooted (install launcher, no rooting exploit)' '2 - TV da root (cai launcher, khong chay lai exploit)')
+ Write-Host (L '3 - Check TV features and show report (no reinstall)' '3 - Kiem tra chuc nang TV va hien bao cao (khong cai lai)')
+ do{$taskRootChoice=Read-Host (L 'Choose 1, 2 or 3' 'Chon 1, 2 hoac 3')}while($taskRootChoice.Trim() -notin @('1','2','3'))
  if($taskRootChoice.Trim() -eq '2'){$Mode='Restore';$AlreadyRooted=$true}
  elseif($taskRootChoice.Trim() -eq '3'){$Mode='Doctor';$AlreadyRooted=$true}
- elseif($taskRootChoice.Trim() -ne '1'){throw 'Choose 1, 2 or 3. No TV changes made.'}
+ elseif($taskRootChoice.Trim() -ne '1'){throw (L 'Choose 1, 2 or 3. No TV changes made.' 'Chon 1, 2 hoac 3. Chua thay doi TV.')}
+}
+$env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
+if($Mode -eq 'Setup' -and -not $AlreadyRooted){
+ if(-not $TVModel){$TVModel=(Read-Host (L 'TV model shown in Settings (example: 55SK8000PTA)' 'Nhap ma model TV trong Cai dat (vi du: 55SK8000PTA)')).Trim()}
+ while($FirmwareVersion -notmatch '^\d{1,2}\.\d{2}\.\d{2}$'){$FirmwareVersion=(Read-Host (L 'Installed firmware version (00.00.00)' 'Nhap ban firmware dang cai (00.00.00)')).Trim()}
+ & $node (Join-Path $release 'scripts/check-root.js') --model $TVModel --firmware $FirmwareVersion --language $Language
+ if($LASTEXITCODE -eq 2){throw (L 'No known compatible software root method. Stopped before connecting or running an exploit.' 'Khong co cach root phan mem tuong thich da biet. Da dung truoc khi ket noi hay chay exploit.')}
+ if($LASTEXITCODE -ne 0){throw (L 'Rootability is unknown. Check the model, firmware and Internet connection; no exploit was run.' 'Chua xac dinh kha nang root. Kiem tra model, firmware va Internet; chua chay exploit.')}
 }
 function Read-MacTvAddress([string]$InitialAddress){
  $taskAddress=$InitialAddress.Trim()
  while($taskAddress -notmatch '^(?=.{1,253}$)[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?$'){
-  if($taskAddress){Write-Host 'Enter only the TV IP or hostname, without http://, port or spaces.' -ForegroundColor Yellow}
-  $taskInput=Read-Host 'TV IP address (example: 192.168.3.27)'
+  if($taskAddress){Write-Host (L 'Enter only the TV IP or hostname, without http://, port or spaces.' 'Chi nhap IP hoac hostname cua TV, khong co http://, cong hay dau cach.') -ForegroundColor Yellow}
+  $taskInput=Read-Host (L 'TV IP address (example: 192.168.3.27)' 'Nhap IP TV (vi du: 192.168.3.27)')
   if($null -eq $taskInput){throw 'Console input is unavailable. Open Start-Setup.cmd in a new window.'}
   $taskAddress=$taskInput.Trim()
  }
@@ -92,9 +123,9 @@ if($Mode -ne 'Setup' -or $AlreadyRooted){
   $taskHostHash=[Security.Cryptography.SHA256]::Create()
   try{$taskKeyId=([BitConverter]::ToString($taskHostHash.ComputeHash([Text.Encoding]::UTF8.GetBytes($HostName)))).Replace('-','').ToLowerInvariant().Substring(0,16)}finally{$taskHostHash.Dispose()}
   $taskSavedRootKey=Join-Path $DataDirectory ('state/keys/root-'+$taskKeyId+'.pem')
-  if(Test-Path -LiteralPath $taskSavedRootKey){Write-Host 'Using the root SSH key saved for this TV.' -ForegroundColor Cyan}
+  if(Test-Path -LiteralPath $taskSavedRootKey){Write-Host (L 'Using the root SSH key saved for this TV.' 'Dang dung khoa SSH root da luu cho TV nay.') -ForegroundColor Cyan}
   else{
-   Write-Host 'Setup will try the default root SSH password automatically. If the TV rejects it, enter your own root SSH password when prompted.'
+   Write-Host (L 'Setup will try the default root SSH password automatically. Only a rejection asks for your own root password.' 'Setup tu thu mat khau root mac dinh. Chi khi TV tu choi moi hoi mat khau root rieng cua ban.')
   }
  }
 }
@@ -102,44 +133,46 @@ $taskKnownHosts=Join-Path $DataDirectory 'state/known-hosts.json'
 $taskKnown=$false
 if(Test-Path -LiteralPath $taskKnownHosts){try{$taskEntries=Get-Content -LiteralPath $taskKnownHosts -Raw|ConvertFrom-Json;$taskPort=if($Mode -eq 'Setup' -and -not $AlreadyRooted){9922}else{22};$taskKnown=$null -ne $taskEntries.PSObject.Properties[($HostName+':'+$taskPort)]}catch{}}
 if(-not $TrustNewHost -and -not $taskKnown){
- Write-Host ('First connection to '+$HostName+'. Check this IP on YOUR TV before accepting its new SSH host key.')
- $taskAnswer=Read-Host 'Type YES only if this is your TV on your trusted home network'
- if($taskAnswer.Trim() -ine 'YES'){throw 'Connection cancelled before trusting the TV. Check the IP and try again.'}
+ Write-Host ((L 'First connection. Check the IP on YOUR TV: ' 'Ket noi lan dau. Kiem tra IP tren chinh TV cua ban: ')+$HostName)
+ $taskAnswer=Read-Host (L 'Type YES or CO if this is your TV (case insensitive)' 'Nhap YES hoac CO neu day la TV cua ban (khong phan biet hoa thuong)')
+ if(-not (Test-MacTvConfirmation $taskAnswer)){throw (L 'Connection cancelled. Check the TV IP and try again.' 'Da huy ket noi. Kiem tra IP TV va thu lai.')}
  $TrustNewHost=$true
 }
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){
- Write-Host 'On the TV: install Developer Mode, enable Dev Mode Status, allow its reboot, then enable Key Server.'
- Write-Host 'Enter the Developer Mode passphrase when prompted. The remaining compatible steps run automatically.'
+ Write-Host (L 'For faultmanager: install Developer Mode, enable Dev Mode Status, allow its reboot, then enable Key Server.' 'De dung faultmanager: cai Developer Mode, bat Dev Mode Status, cho reboot, sau do bat Key Server.')
+ Write-Host (L 'Enter the Developer Mode passphrase when prompted. Compatible fallback methods will be listed if faultmanager fails.' 'Nhap passphrase Developer Mode khi duoc hoi. Neu faultmanager that bai, setup se thu cac cach du phong con tuong thich.')
 }
 if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Backups'}
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 $arguments=@((Join-Path $release 'scripts/run.js'),$Mode,'--host',$HostName,'--output-dir',[IO.Path]::GetFullPath($OutputDirectory))
 foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@($TrustNewHost,'--trust-new-host'),@($NoReboot,'--no-reboot'),@($RemoveExtraApps,'--remove-extra-apps'))){if($pair[0]){$arguments+=$pair[1]}}
 foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
+if($Mode -eq 'Setup' -and -not $AlreadyRooted){$arguments+=@('--expected-model',$TVModel,'--expected-firmware',$FirmwareVersion)}
 $taskReportStarted=Get-Date
 & $node @arguments
-if($LASTEXITCODE -ne 0){throw "Stopped with exit code $LASTEXITCODE. Logs and keys: $env:GATHIN_STATE_DIRECTORY"}
+if($LASTEXITCODE -ne 0){throw ((L 'Stopped with exit code ' 'Da dung voi ma loi ')+$LASTEXITCODE+'. '+(L 'Logs: ' 'Log: ')+$env:GATHIN_STATE_DIRECTORY)}
 
 if(-not $DryRun -and $Mode -in @('Setup','Restore','Doctor')){
  $taskReportDirectory=Join-Path $env:GATHIN_STATE_DIRECTORY 'feature-reports'
  $taskReportFile=Get-ChildItem -LiteralPath $taskReportDirectory -Filter 'features-*.json' -ErrorAction SilentlyContinue | Where-Object {$_.LastWriteTime -ge $taskReportStarted.AddSeconds(-2)} | Sort-Object LastWriteTime -Descending | Select-Object -First 1
  if($taskReportFile){
   $taskReport=Get-Content -LiteralPath $taskReportFile.FullName -Encoding UTF8 -Raw | ConvertFrom-Json
-  Write-Host '
-========== BAO CAO CHUC NANG / FEATURE REPORT ==========' -ForegroundColor Cyan
+  Write-Host (L '========== FEATURE REPORT ==========' '========== BAO CAO CHUC NANG ==========') -ForegroundColor Cyan
   Write-Host ('TV: '+$taskReport.host+' | '+$taskReport.at)
   foreach($taskResult in $taskReport.results){
    $taskDetail=if($taskResult.detail -is [string]){$taskResult.detail}else{$taskResult.detail | ConvertTo-Json -Compress -Depth 6}
+   if($Language -eq 'vi' -and $taskDetail){$taskDetail=($taskDetail.Normalize([Text.NormalizationForm]::FormD) -replace '\p{M}','').Replace([char]0x0111,[char]0x0064).Replace([char]0x0110,[char]0x0044)}
    switch($taskResult.status){
     'verified' {Write-Host ('[OK] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Green}
-    'present' {Write-Host ('[DA CO / PRESENT] '+$taskResult.feature) -ForegroundColor Green}
-    'installed' {Write-Host ('[DA CAI / INSTALLED] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Green}
-    'manual-check-required' {Write-Host ('[THU TREN TV / MANUAL] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Yellow}
-    default {Write-Host ('[CAN KIEM TRA / CHECK] '+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Red}
+    'present' {Write-Host ((L '[PRESENT] ' '[DA CO] ')+$taskResult.feature) -ForegroundColor Green}
+    'installed' {Write-Host ((L '[INSTALLED] ' '[DA CAI] ')+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Green}
+    'manual-check-required' {Write-Host ((L '[MANUAL] ' '[THU TREN TV] ')+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Yellow}
+    default {Write-Host ((L '[CHECK] ' '[CAN KIEM TRA] ')+$taskResult.feature+' - '+$taskDetail) -ForegroundColor Red}
    }
   }
-  Write-Host ('Full report: '+$taskReportFile.FullName)
-  Write-Host 'MANUAL means not verified yet; it does not mean the feature passed.'
- }else{Write-Host 'No new feature report was generated. Previous reports were not used.' -ForegroundColor Yellow}
+  Write-Host ((L 'Full report: ' 'Bao cao day du: ')+$taskReportFile.FullName)
+  Write-Host (L 'MANUAL means not verified yet; it does not mean the feature passed.' 'THU TREN TV nghia la chua duoc xac minh; khong co nghia tinh nang da dat.')
+ }else{Write-Host (L 'No new feature report was generated. Previous reports were not used.' 'Chua tao duoc bao cao moi. Khong dung lai bao cao cu.') -ForegroundColor Yellow}
 }
-if(-not $NoPause -and $Mode -in @('Setup','Restore','Doctor')){[void](Read-Host 'Completed. Press Enter to close')}
+if($taskTranscript){Write-Host ((L 'Setup log: ' 'Log setup: ')+$taskSetupLog);Stop-Transcript|Out-Null;$taskTranscript=$false}
+if(-not $NoPause -and $Mode -in @('Setup','Restore','Doctor')){[void](Read-Host (L 'Completed. Press Enter to close' 'Da hoan tat. Nhan Enter de dong'))}

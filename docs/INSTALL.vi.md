@@ -21,14 +21,14 @@ Bộ cài **3.4.0** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cầ
 | **2 — TV already rooted** | TV đã root, có SSH root | [Nhánh B](#branch-b) |
 | **3 — Check TV features and show report** | Muốn kiểm tra lại chức năng, không cài lại | [Nhánh C](#branch-c) |
 
-Chọn nhánh **trước khi nhập IP**. Bộ cài vẫn kiểm tra quyền root qua kết nối thật. Nếu chưa biết TV đã root chưa, kiểm tra trong Homebrew hoặc hỏi người đã root TV; đừng đoán mật khẩu hay cài Developer Mode lên TV đã root.
+Trước menu này, chọn **1 — English** hoặc **2 — Tieng Viet khong dau**. Sau đó chọn nhánh **trước khi nhập IP**. Bộ cài vẫn kiểm tra quyền root qua kết nối thật. Nếu chưa biết TV đã root chưa, kiểm tra trong Homebrew hoặc hỏi người đã root TV; đừng cài Developer Mode lên TV đã root.
 
 <a id="branch-a"></a>
 ## Nhánh A — TV chưa root
 
 ### A1. Kiểm tra tương thích
 
-Nhánh root hiện có dành cho profile đã hỗ trợ: **LG 55SK8000PTA / firmware 05.50.70 / M16PP_DVB_EU / SDK 4.4.0 / ARM32**. Đây không phải phương pháp root mọi TV LG. Nếu bị từ chối model/firmware, không sửa `config/profile.json` để ép chạy. Ghi model, firmware và lỗi để hỏi tại [Issues](https://github.com/twentykhz/macosLG/issues).
+Nhập đúng model và firmware đang cài. Setup kiểm tra online tại [cani.rootmy.tv](https://cani.rootmy.tv/) và hiện kết quả trước khi kết nối/chạy exploit; sau đăng nhập sẽ đối chiếu lại TV thực tế. Kết quả chưa xác định hoặc không có cách root phần mềm phù hợp sẽ dừng, không ép chạy theo model gần giống. [Các phương pháp và giới hạn tự động hóa](ROOTING-METHODS.md).
 
 Xem thông tin TV trong **Cài đặt → Tất cả cài đặt → Cài đặt chung → Giới thiệu về TV**; tên mục có thể khác theo đời TV.
 
@@ -45,11 +45,11 @@ Xem thông tin TV trong **Cài đặt → Tất cả cài đặt → Cài đặt
 
 ### A3. Chạy nhánh 1
 
-1. Mở `Start-Setup.cmd`, chọn **1**.
-2. Tại **TV IP address**, nhập IP **TV**, không phải IP PC/router.
-3. Khi xác nhận kết nối đầu tiên, đối chiếu IP trên TV rồi gõ **YES** hoặc **yes**.
+1. Mở `Start-Setup.cmd`, chọn ngôn ngữ, rồi chọn nhánh **1 — TV chưa root**.
+2. Nhập model/firmware, đọc kết quả kiểm tra root. Nếu phù hợp, nhập IP **TV**, không phải IP PC/router.
+3. Khi xác nhận kết nối đầu tiên, đối chiếu IP trên TV rồi gõ **YES** hoặc **CO**, không phân biệt hoa/thường.
 4. Khi được hỏi passphrase, nhập đúng 6 ký tự của TV này. Không thấy ký tự khi nhập mật khẩu là bình thường.
-5. Chờ bộ cài xử lý và kết nối lại khi TV reboot. Không mở bộ cài thứ hai hoặc rút điện TV.
+5. Setup ưu tiên faultmanager. Nếu thất bại đã hoàn tất, lỗi hiện ngay và được ghi log, rồi chuyển cách còn phù hợp. Với USB/trình duyệt, làm theo hướng dẫn trong cửa sổ và nhập `XONG` để kiểm tra root, `TIEP` để bỏ qua hoặc `DUNG` để dừng. Không mở bộ cài thứ hai hoặc rút điện TV.
 6. Bộ cài xử lý Developer Mode ở giai đoạn cần thiết; không tự cài lại Developer Mode sau khi root thành công.
 7. Đọc **báo cáo chức năng ngay trong cửa sổ setup** khi hoàn tất.
 
@@ -60,9 +60,9 @@ Xem thông tin TV trong **Cài đặt → Tất cả cài đặt → Cài đặt
 
 1. Bật TV, kiểm tra IP hiện tại trong cài đặt mạng. TV và PC phải cùng LAN.
 2. Tải đủ hai file ở mục 1 vào cùng thư mục.
-3. Nhấp đúp **`Start-Setup.cmd`**, chọn **2 — TV already rooted**.
+3. Nhấp đúp **`Start-Setup.cmd`**, chọn ngôn ngữ, rồi chọn **2 — TV already rooted**.
 4. Nhập **IP TV** khi được hỏi.
-5. Nếu là kết nối đầu tiên, kiểm tra IP rồi xác nhận **YES/yes**.
+5. Nếu là kết nối đầu tiên, kiểm tra IP rồi xác nhận **YES** hoặc **CO**, không phân biệt hoa/thường.
 6. Bộ cài dùng khóa SSH đã lưu hoặc khóa chỉ định bằng `-RootKeyPath` nếu có. Khi không dùng khóa, bộ cài **tự thử mật khẩu root mặc định `alpine`**. Nếu TV chấp nhận, tiếp tục mà không hỏi mật khẩu; chỉ khi TV từ chối mới yêu cầu nhập **mật khẩu SSH root riêng của TV này**. Mật khẩu nhập được ẩn, không lưu vào cấu hình hay log. Không dùng mật khẩu LG hoặc passphrase Developer Mode. Khóa chỉ được lưu riêng trên PC sau khi TV xác thực thành công, không nằm trong bộ cài chia sẻ.
 7. Chờ bộ cài kiểm tra root, sao lưu và cài/cập nhật các phần tương thích. **Không cần chạy lệnh Restore thủ công.**
 8. Đọc **báo cáo chức năng ngay trong cửa sổ setup**. Cửa sổ chờ bạn nhấn phím trước khi đóng.

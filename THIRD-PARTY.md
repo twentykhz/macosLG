@@ -10,3 +10,9 @@
 - Store apps FPT Play, TV360 and Netflix are not redistributed. Their app icons are labels of their respective services, not a claim of paid subscriptions.
 
 No LG firmware binaries, account databases, cookies or private SSH keys are redistributed in the share installer.
+
+## Optional rooting references and data
+
+Rootability checks read the live dataset deployed at [CanI.RootMy.TV](https://cani.rootmy.tv/), maintained by [webosbrew/caniroot](https://github.com/webosbrew/caniroot). Downloaded JavaScript is not executed. The website's generated model/exploit JSON data is parsed for each check and is not bundled as a stale offline rootability guarantee.
+
+The optional DejaVuln fallback downloads the unchanged [dejavuln-autoroot v0.0.10 release archive](https://github.com/throwaway96/dejavuln-autoroot/releases/tag/v0.0.10), with pinned size/SHA-256. Its upstream code is AGPL-3.0; the archive and upstream notices remain intact. USB, browser and hardware methods retain their official procedures and are linked from [rooting instructions](docs/ROOTING-METHODS.md).

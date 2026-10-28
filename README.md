@@ -10,7 +10,7 @@ Biến màn hình chính của TV LG webOS tương thích thành giao diện l�
 
 ![Giao diện launcher](preview.png)
 
-**TV tham chiếu đã chạy thực tế:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · ARM32/Python 2. Từ **3.2.0**, TV đã root dùng **Restore** được dò khả năng thực tế, không bắt trùng model mẫu. Tính năng thiếu điều kiện sẽ được bỏ qua và báo rõ; các tinh chỉnh riêng của TV mẫu không áp sang TV khác. Root TV chưa root vẫn cần đúng profile/firmware. Chưa kiểm chứng cài mới sau reset trên TV thứ hai.
+**TV tham chiếu đã chạy thực tế:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · ARM32/Python 2. TV đã root được dò khả năng thực tế, không bắt trùng model mẫu. TV chưa root được kiểm tra online theo đúng model/firmware trên cani.rootmy.tv trước khi làm; chỉ thử các cách được xác định phù hợp và giữ kiểm tra của công cụ gốc. Tính năng thiếu điều kiện được báo rõ; tinh chỉnh riêng của TV mẫu không áp sang TV khác. Chưa kiểm chứng cài mới sau reset trên TV thứ hai.
 
 ## Bạn muốn làm gì?
 
@@ -33,6 +33,10 @@ Ghi **IP của chính TV cần cài** và **passphrase 6 ký tự trong Develope
 Bộ cài sẽ hỏi khi cần; không phải mở file script để sửa mật khẩu. TV và PC cần chung mạng nhà. Root và việc đổi HOME/voice tác động tới hoạt động TV nên bộ cài vẫn giữ kiểm tra tương thích. TV đã root đang hoạt động không cần factory reset chỉ để cập nhật launcher.
 
 **TV đã root:** ưu tiên khóa SSH đã lưu hoặc được chỉ định. Nếu không dùng khóa, bộ cài tự thử mật khẩu mặc định `alpine`; chỉ khi TV từ chối mới hỏi mật khẩu root riêng của bạn, nhập ẩn và không lưu mật khẩu.
+
+**Ngôn ngữ setup:** chọn **1 — English** hoặc **2 — Tieng Viet khong dau**, sau đó chọn nhánh cài. Xác nhận kết nối chấp nhận `YES` hoặc `CO`, không phân biệt hoa/thường và bỏ khoảng trắng ở hai đầu.
+
+**TV chưa root:** nhập model và firmware để nhận kết quả **có thể root / không có cách root phần mềm đã biết / chưa xác định**. Sau kết nối, setup đối chiếu lại thông tin thực tế. Ưu tiên faultmanager; khi thất bại, lỗi hiện ngay và được lưu trước khi chuyển sang cách còn phù hợp. Các cách cần USB/trình duyệt có hướng dẫn trong setup và phải xác minh UID 0 sau khi làm; NVM là thao tác phần cứng, không thể tự chạy từ PC. [Chi tiết kiểm tra và phương pháp dự phòng](docs/ROOTING-METHODS.md).
 
 ## Các tính năng hiện có
 

@@ -2,12 +2,12 @@
 
 [Home](../README.en.md) · [Tiếng Việt](INSTALL.vi.md) · [Features](FEATURES.en.md)
 
-The updated **3.3.0** installer includes installation branches and feature checks. Double-click `Start-Setup.cmd`, select your TV's state, and follow the prompts. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
+The updated **3.4.0** installer includes language choices, rootability checks, installation branches and feature checks. Double-click `Start-Setup.cmd`, select a language, then your TV's state. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
 
 ## 1. Download and start
 
-1. Open [release 3.3.0](https://github.com/twentykhz/macosLG/releases/tag/v3.3.0) and expand **Assets**.
-2. Download **`MAC-WebOSTV-AutoSetup.ps1`** and **`Start-Setup.cmd`** into the same folder, for example `Desktop\MAC-WebOSTV`. **Download both again** if you previously downloaded 3.3.0: this release has been updated in place.
+1. Open [release 3.4.0](https://github.com/twentykhz/macosLG/releases/tag/v3.4.0) and expand **Assets**.
+2. Download **`MAC-WebOSTV-AutoSetup.ps1`** and **`Start-Setup.cmd`** into the same folder, for example `Desktop\MAC-WebOSTV`. Download both again to use the current in-place update.
 3. Do not rename or unpack the PS1 file. GitHub's automatic Source code ZIP, Node.js, npm and the webOS CLI are not required.
 4. Turn on the TV. Connect it and a 64-bit Windows PC to the same LAN; avoid isolated guest Wi-Fi. Keep the PC awake during installation.
 5. If Windows blocks a downloaded file, verify that it came from this repository, then use **Properties → Unblock → Apply**, if available. Do not disable protection for the entire PC.
@@ -21,12 +21,12 @@ The updated **3.3.0** installer includes installation branches and feature check
 | **2 — TV already rooted** | Root SSH is available | [Branch B](#branch-b) |
 | **3 — Check TV features and show report** | Check an installed TV without reinstalling | [Branch C](#branch-c) |
 
-Choose before entering an IP. Setup still verifies actual root access after authentication. If unsure, check Homebrew or ask whoever rooted the TV; do not install Developer Mode on an already-rooted TV.
+First select **1 — English** or **2 — Tieng Viet khong dau**. Then choose the installation branch before entering an IP. Setup still verifies actual root access after authentication. If unsure, check Homebrew or ask whoever rooted the TV; do not install Developer Mode on an already-rooted TV.
 
 <a id="branch-a"></a>
 ## Branch A — Unrooted TV
 
-The current rooting path is restricted to the supported profile: **LG 55SK8000PTA / firmware 05.50.70 / M16PP_DVB_EU / SDK 4.4.0 / ARM32**. This is not a universal LG rooting method. Do not edit the profile to bypass a refusal. Record the model, firmware and error for [Issues](https://github.com/twentykhz/macosLG/issues).
+Enter the exact model and installed firmware. Setup checks the live [CanI.RootMy.TV](https://cani.rootmy.tv/) data before connecting or running an exploit and compares it with the authenticated TV. Unknown or incompatible results stop automatic rooting; similar models/regions are not treated as proof. Compatible non-reference models use capability-based installation. [Methods, manual steps and logs](ROOTING-METHODS.md).
 
 On an unrooted TV only:
 
@@ -35,9 +35,9 @@ On an unrooted TV only:
 3. Sign in, enable **Dev Mode Status**, approve the restart and wait for the TV to return.
 4. Reopen Developer Mode and enable **Key Server**.
 5. Record **this TV's IP and six-character passphrase**. The passphrase is case-sensitive and differs from your LG account password. Do not publish it.
-6. On the PC run `Start-Setup.cmd`, choose **1**, and enter the **TV's** IP.
-7. Verify the target address before accepting its first SSH host key with **YES/yes**. Enter the Developer Mode passphrase when prompted; hidden password input is normal.
-8. Wait through the supported installation/reconnection steps. Do not run a second installer or disconnect power. Setup handles Developer Mode removal where required; do not reinstall it after rooting.
+6. On the PC run `Start-Setup.cmd`, choose a language, then branch **1**. Enter the model/firmware, read the rootability result, then enter the **TV's** IP.
+7. Verify the target address before accepting its first SSH host key with **YES** or **CO**, in any letter case. Enter the Developer Mode passphrase when prompted; hidden password input is normal.
+8. faultmanager is preferred. Completed failures are shown and logged before the next eligible method. USB/browser methods have manual instructions: enter `DONE` to verify root, `NEXT` to skip or `STOP` to stop. No method proceeds without verified root. Do not run a second installer or disconnect power; do not reinstall Developer Mode after rooting.
 9. Read the feature report in the setup window.
 
 [Official Developer Mode instructions](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app). You do not need to run the CLI commands on LG's page yourself.
@@ -49,9 +49,9 @@ On an unrooted TV only:
 
 1. Turn on the TV and record its current IP from network settings. Keep the TV and PC on the same LAN.
 2. Put the two downloaded files in one folder.
-3. Double-click **`Start-Setup.cmd`**, select **2 — TV already rooted**.
+3. Double-click **`Start-Setup.cmd`**, select a language, then **2 — TV already rooted**.
 4. Enter the **TV IP** when prompted.
-5. Verify the address and confirm **YES/yes** if this is the first connection.
+5. Verify the address and confirm **YES** or **CO**, case-insensitively, if this is the first connection.
 6. Setup uses a saved SSH key or a key supplied with `-RootKeyPath` when available. Without a key, it **automatically tries the default root password `alpine`**. If accepted, setup continues without prompting. Only an authentication rejection asks for this TV's own root SSH password, with hidden input. Passwords are not saved to configuration or logs. Do not enter an LG account password or Developer Mode passphrase. Supplied keys are cached privately only after successful authentication and are never bundled in shared downloads.
 7. Wait while setup verifies root, backs up existing files and installs/updates compatible components. **No manual Restore command is needed.**
 8. Read the feature report in the same window; it stays open until you dismiss it.

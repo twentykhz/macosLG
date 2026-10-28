@@ -9,6 +9,14 @@ function connection(){
   stream.end=function(){this.stdinEnded=true;};
   return {stream,client:{exec(command,next){this.command=command;queueMicrotask(()=>next(null,stream));}}};
 }
+
+test('SSH channel closing without an exit status reports uncertain remote execution',async()=>{
+ const {client,stream}=connection();const result=exec(client,'sh /tmp/fixture.sh');const checked=assert.rejects(result,error=>error.remoteStateUnknown===true);await new Promise(resolve=>setImmediate(resolve));stream.emit('close');await checked;
+});
+
+test('failed SSH commands expose stdout and stderr to the live log before rejecting',async()=>{
+ const {client,stream}=connection(),chunks=[];const result=exec(client,'sh /tmp/fixture.sh',{onOutput:s=>chunks.push(s),onErrorOutput:s=>chunks.push(s)});const checked=assert.rejects(result,/fixture failure/);await new Promise(resolve=>setImmediate(resolve));stream.write('started\n');stream.stderr.write('fixture failure\n');stream.emit('close',1);await checked;assert.deepEqual(chunks,['started\n','fixture failure\n']);
+});
 test('installer waits for installed state and terminates subscription with EOF',async()=>{
   const {client,stream}=connection();
   const result=installPackage(client,'/media/developer/temp/recovery.ipk');

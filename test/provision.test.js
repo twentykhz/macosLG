@@ -28,6 +28,12 @@ test('already rooted resume never runs exploit and still checks reconnect/remova
  assert(calls.some(([name])=>name==='prepareRootReconnect'));
  assert(calls.some(([name])=>name==='assertDeveloperModeAbsent'));
 });
+
+test('root obtained through a guided connection fallback is provisioned without rerunning the exploit',async()=>{
+ const {steps,calls}=fake({rooted:true});steps.rootAcquiredDuringConnect=true;steps.options={compatibilityMode:true};
+ const result=await provision(steps);assert(result.complete&&result.compatibilityMode);
+ const names=calls.map(([name])=>name);assert(!names.includes('runAutoroot'));assert(names.includes('verifyRootBridge'));assert(names.includes('provisionRootSSH'));assert(names.indexOf('removeDeveloperMode')<names.indexOf('rebootAndReconnect'));assert(names.includes('restoreInterface'));assert(!names.includes('installApps'));
+});
 for(const failed of ['connectAndCheck','runAutoroot','verifyRootBridge','provisionRootSSH','connectRoot','prepareRootReconnect','removeDeveloperMode','assertDeveloperModeAbsent']){
  test(failed+' failure prevents reboot and interface installation',async()=>{
   const {steps,calls}=fake({fail:failed});await assert.rejects(provision(steps),new RegExp('failed '+failed));

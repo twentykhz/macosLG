@@ -5,7 +5,7 @@ const {connect,exec,luna}=require('../lib/ssh');
 const tv=require('./tv');
 function parse(args){
  const mode=args.shift()||'Setup';const o={host:'',port:22,username:'root'};
- const values={'--host':'host','--key':'rootKey','--developer-key':'developerKey','--backup-file':'backupFile','--output-dir':'outputDir'};
+ const values={'--host':'host','--key':'rootKey','--developer-key':'developerKey','--backup-file':'backupFile','--output-dir':'outputDir','--expected-model':'expectedModel','--expected-firmware':'expectedFirmware'};
  const flags={'--dry-run':'dryRun','--already-rooted':'alreadyRooted','--trust-new-host':'trustNewHost','--no-reboot':'noFinalReboot','--remove-extra-apps':'removeExtraApps'};
  for(let i=0;i<args.length;i++){
   if(values[args[i]]){if(!args[i+1]||args[i+1].startsWith('--'))throw Error('Missing option value');o[values[args[i]]]=args[++i];}
@@ -17,11 +17,14 @@ function parse(args){
  return {mode,o};
 }
 async function main(args=process.argv.slice(2)){
+ require('../lib/setup-output').installOutputLog();
+ require('../lib/setup-language').installConsole();
  const {mode,o}=parse(args);
  if(mode==='Setup'){
   const flags=['--host',o.host];
   for(const [k,f] of [['dryRun','--dry-run'],['alreadyRooted','--already-rooted'],['trustNewHost','--trust-new-host'],['noFinalReboot','--no-final-reboot'],['removeExtraApps','--remove-extra-apps']])if(o[k])flags.push(f);
   for(const [k,f] of [['rootKey','--root-key'],['developerKey','--developer-key'],['backupFile','--backup-file']])if(o[k])flags.push(f,path.resolve(o[k]));
+  for(const [k,f] of [['expectedModel','--expected-model'],['expectedFirmware','--expected-firmware']])if(o[k])flags.push(f,o[k]);
   return require('./bootstrap').main(flags);
  }
  if(mode==='Restore'){
