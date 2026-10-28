@@ -1,4 +1,4 @@
-# Cài GathinTV bằng điện thoại Android
+# Cài MAC-WebOSTV bằng điện thoại Android
 
 Bạn **không cần máy tính Windows**.
 
