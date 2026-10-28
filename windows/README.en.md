@@ -16,6 +16,8 @@ No separate Node.js, npm or webOS CLI installation is required. Keep `Start-Setu
 
 Setup installs YouTube AdFree 0.5.3, removing official/non-matching YouTube first and preserving a matching AdFree installation. Removal may require signing in again. Snapshot rollback does not restore the official YouTube package or sign-in data.
 
+**Reported root but SSH unavailable / HOME skipped?** Enable SSH Server in Homebrew and uninstall Developer Mode before rebooting. Resume **already rooted** rather than running another exploit. HOME uses independent input checks instead of an SK8000 model restriction. [Recovery guide](../docs/HOME-ROOT-RECOVERY.md).
+
 [Detailed prerequisites and steps](../docs/INSTALL.en.md) · [Rollback](../docs/ROLLBACK.en.md) · [Standalone PS1](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/MAC-WebOSTV-AutoSetup.ps1)
 
 Source scripts `Setup-TV.ps1` and `Restore-TV.ps1` require Node.js/dependencies and are intended for developers. Regular installation uses the ZIP above. `Wake-TV.ps1` is an optional LAN wake helper.

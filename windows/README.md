@@ -16,6 +16,8 @@ Không cần tự cài Node.js, npm hoặc webOS CLI. Giữ `Start-Setup.cmd` v�
 
 Setup cài YouTube AdFree 0.5.3; nếu đang có YouTube gốc/bản không khớp, setup gỡ trước rồi cài AdFree. AdFree đúng bản được giữ nguyên. Khi gỡ YouTube, có thể cần đăng nhập lại; snapshot không phục hồi gói/dữ liệu đăng nhập của YouTube gốc.
 
+**Root xong nhưng chưa có SSH / HOME bị bỏ qua?** Bật SSH Server trong Homebrew, gỡ Developer Mode trước reboot. Chọn lại **TV đã root**, không chạy exploit khác. HOME được kiểm tra input riêng, không còn khóa theo model SK8000. [Hướng dẫn xử lý](../docs/HOME-ROOT-RECOVERY.md).
+
 [Hướng dẫn từng bước và điều kiện root](../docs/INSTALL.vi.md) · [Khôi phục backup](../docs/ROLLBACK.vi.md) · [Tải riêng file PS1](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/MAC-WebOSTV-AutoSetup.ps1)
 
 Các file `Setup-TV.ps1` và `Restore-TV.ps1` trong source dành cho người phát triển đã cài Node.js/dependencies; người cài thông thường dùng ZIP ở trên. `Wake-TV.ps1` là tiện ích bật TV qua LAN.

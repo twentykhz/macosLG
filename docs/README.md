@@ -10,6 +10,7 @@
 | Cách dùng tính năng | [Hướng dẫn sử dụng](FEATURES.vi.md) |
 | Kiểm tra root / firmware | [Phương pháp root](ROOTING-METHODS.md) |
 | Root bằng trình duyệt | [Hỗ trợ DangBro](DANGBRO.md) |
+| HOME bị bỏ qua / root xong nhưng chưa có SSH | [HOME và xác minh root](HOME-ROOT-RECOVERY.md) |
 | Khôi phục trạng thái trước cài | [Rollback](ROLLBACK.vi.md) |
 | Xử lý lỗi cài đặt | [Chẩn đoán và cứu hộ](diagnostics/RECOVERY.md) |
 | Phạm vi đã kiểm chứng | [Kiểm chứng](VALIDATION.md) · [Tương thích không Python](PYTHON-COMPATIBILITY.md) |

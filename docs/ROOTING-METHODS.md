@@ -28,7 +28,7 @@ Nguồn danh sách: [webOSBrew Rooting](https://www.webosbrew.org/rooting/); cá
 | [DangBro](https://github.com/azoffshowy/dangbro) | Nếu dữ liệu xác nhận phù hợp với TV DVB, hiện bước hướng dẫn trình duyệt/ghép nối riêng. Kiểm tra Root OK, SSH UID 0 và đúng TV trước khi tiếp tục. [Chi tiết](DANGBRO.md). |
 | [SlopBro](https://github.com/throwaway96/slopbro), [ASM](https://github.com/illixion/root-my-webos-tv), [MVPD](https://github.com/throwaway96/mvpd-autoroot/) | Nếu cani xác nhận phù hợp, đưa vào lượt hướng dẫn dự phòng. |
 
-Sau bước thủ công, nhập `XONG` / `DONE` để kiểm tra root, `TIEP` / `NEXT` để bỏ qua, `DUNG` / `STOP` để dừng. Không phân biệt hoa/thường. Setup kiểm tra quyền root qua Homebrew hoặc SSH root trước khi cài tiếp; dòng “rooting complete” hay câu trả lời của người dùng không thay thế phép kiểm tra này. Khi đã xác minh root, các cách tiếp theo không được chạy.
+Sau bước thủ công, nhập `XONG` / `DONE` để kiểm tra root, `TIEP` / `NEXT` để bỏ qua, `DUNG` / `STOP` để dừng. Không phân biệt hoa/thường. Dòng “rooting complete” / “Payload complete” hoặc xác nhận đã làm xong không thay thế kiểm tra UID 0, nhưng sẽ chuyển setup sang **chờ xác minh root**, không thử exploit khác khi SSH chưa sẵn sàng. Bật **SSH Server** trong Homebrew, gỡ app Developer Mode trước khi reboot rồi kiểm tra lại. [Xử lý HOME / root đang chờ](HOME-ROOT-RECOVERY.md).
 
 Nếu faultmanager mất kết nối hoặc hết thời gian khi chưa biết tiến trình trên TV đã dừng hay chưa, setup ghi trạng thái chưa rõ và dừng để tránh chạy hai exploit chồng nhau. Đây không được tính là một thất bại đã hoàn tất để chuyển cách ngay.
 

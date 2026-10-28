@@ -33,4 +33,6 @@ For **Linux/macOS**, install Bash, curl and Node.js 20+, then run the same `curl
 
 [Full shell guide](../docs/ANDROID.en.md) · [Rollback](../docs/ROLLBACK.en.md)
 
+After reported root, enable **SSH Server** in Homebrew and uninstall the **Developer Mode app** before rebooting. Unavailable SSH does not trigger another exploit. HOME is model-independent but still requires actual input checks. [HOME / root recovery](../docs/HOME-ROOT-RECOVERY.md).
+
 `install-android.sh` is the checksum-pinned bootstrap. `GathinTV-AutoSetup.sh` is the shared-core shell menu. Source users need the dependencies in the [development guide](../docs/DEVELOPMENT.en.md).

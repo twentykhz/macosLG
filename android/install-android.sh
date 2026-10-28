@@ -11,7 +11,7 @@ install_dir=$(node <<'GATHIN_BOOTSTRAP_NODE'
 'use strict';
 // Inlined into the published shell bootstrap, together with the archive reader.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
-const pin={"version":"3.4.2","url":"https://github.com/twentykhz/macosLG/releases/download/v3.4.2/GathinTV-Termux-3.4.2-f168f8ac563a.tar.gz","sha256":"f168f8ac563a3917ffc79956b820da06287c0d1e620a1eb91bef732f5634a1f9","size":21901099,"manifestSha256":"c44bf345c03daad1b963fbe87f3c8cad076a92260a75775a76691af25ff699bf"};
+const pin={"version":"3.4.2","url":"https://github.com/twentykhz/macosLG/releases/download/v3.4.2/GathinTV-Termux-3.4.2-03d5801a3509.tar.gz","sha256":"03d5801a35093bd0254eee09cb08b7d30d03ee7ea55bbb60f1e6a23a31aea8a0","size":21908337,"manifestSha256":"7845edd4f260cdf27162aa07cfca90b994d98808c9b838aefcbead51825c2373"};
 const archive=(()=>{const module={exports:{}};'use strict';
 // Built-in modules only: portable packages never require a native ZIP/tar tool.
 const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib');

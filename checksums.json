@@ -711,8 +711,8 @@
   },
   {
     "path": "payload/home/home-keyhook.py",
-    "size": 9490,
-    "sha256": "aea14f75c046e58abdbb4692b470a60f3825775b8713d3dc24942ef9f3f9016f"
+    "size": 9835,
+    "sha256": "416cd2835ca1c0047fac5ec851d5e7d955dfea4aa0012bda998b21ba0b52e844"
   },
   {
     "path": "payload/home/launch.sh",

@@ -1,5 +1,9 @@
 # Thay đổi phiên bản 3.4.2
 
+- HOME relay tách khỏi whitelist SK8000: xét runtime/ABI/kênh input và probe compositor sau backup. Xác minh PID sẵn sàng sau grab; lỗi giữ input LG và báo lý do. Voice/tuning riêng của model vẫn được bảo vệ.
+- Faultmanager báo hoàn tất sẽ lưu `root-pending`, chờ xác minh Homebrew/SSH thay vì chạy exploit khác. Lần chạy sau tiếp tục xác minh đúng TV; nhắc bật SSH Server và gỡ Developer Mode trước reboot.
+- `networkinput/getServiceInfo` không có trên firmware được ghi là chẩn đoán chưa hỗ trợ, không mặc định kết luận điều khiển phím hỏng.
+
 - Mặc định tự lấy model/firmware, không hỏi nhập. Thêm yêu cầu bật Dev Mode Status và Key Server, kiểm tra SSH/key server độc lập, báo trạng thái, cho kiểm tra lại; chỉ xác nhận Dev Mode hoạt động sau xác thực thành công. Log trạng thái không chứa khóa/passphrase.
 - Hướng dẫn DangBro riêng cho TV DVB thuộc phạm vi upstream; giữ ghép nối trên TV, kiểm tra tương thích và xác minh root/đúng TV. Bổ sung `docs/DANGBRO.md`; không nhúng mã exploit upstream vào máy cài.
 

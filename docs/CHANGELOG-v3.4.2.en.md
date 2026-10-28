@@ -1,5 +1,9 @@
 # 3.4.2 changes
 
+- Decouple HOME from the SK8000 allowlist: require runtime/ABI/input/compositor preflight after backup and a matching ready PID after grabbing. Failure retains LG input; reference voice/tuning guards remain.
+- Persist reported root as `root-pending`, retry Homebrew/root SSH and stop later exploits. Resume verification for the same authenticated TV. Remind users to enable Homebrew SSH Server and uninstall Developer Mode before reboot.
+- An absent `networkinput/getServiceInfo` method means this diagnostic is unsupported, not proof that key injection is broken.
+
 - Auto-detect model/firmware by default, with no manual identity prompts. Require Dev Mode Status/Key Server for unrooted SSH setup, probe both services independently, report/retry readiness and confirm working Developer Mode only after authentication. Status logs exclude keys/passphrases.
 - Add dedicated DangBro instructions with upstream DVB/support constraints, TV pairing and independent root/identity verification. See `docs/DANGBRO.md`; no upstream exploit code is embedded on the installer host.
 

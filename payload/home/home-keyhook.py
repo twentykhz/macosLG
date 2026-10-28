@@ -22,6 +22,7 @@ HOME = 773
 BACK = 412
 MARKER = '/home/root/DISABLE-GATHIN-HOME'
 LOG = '/tmp/gathin-home-input-relay.log'
+READY = '/tmp/gathin-home-keyhook.ready'
 FMT = 'llHHi'
 SIZE = struct.calcsize(FMT)
 running = True
@@ -110,7 +111,7 @@ def main():
     probe = '--probe' in sys.argv
     seconds = float(sys.argv[sys.argv.index('--seconds') + 1]) if '--seconds' in sys.argv else None
     try:
-        if os.path.exists(MARKER):
+        if os.path.exists(MARKER) and not probe:
             raise RuntimeError('failsafe marker present')
         source_path = device('LGE M-RCU - Builtin [0]')
         target_path = device('LGE M-RCU - Builtin [1]')
@@ -129,7 +130,7 @@ def main():
                 raise RuntimeError('absolute axis range mismatch')
         wait_until = time.time() + 10
         while any(bytearray(read_ioctl(source, 0x18, 256))) or any(bytearray(read_ioctl(target, 0x18, 256))):
-            if not running or os.path.exists(MARKER) or time.time() >= wait_until:
+            if not running or (os.path.exists(MARKER) and not probe) or time.time() >= wait_until:
                 raise RuntimeError('physical key still held; refusing takeover')
             time.sleep(0.1)
         # Ignore input accumulated during preflight; it already reached LG.
@@ -148,6 +149,8 @@ def main():
             return
         fcntl.ioctl(source, 0x40044590, 1)
         grabbed = True
+        with open(READY, 'w') as stream:
+            stream.write(str(os.getpid()))
         log('ACTIVE HOME blocked before LG; seconds=%s' % seconds)
         deadline = time.time() + seconds if seconds else None
         home_down = False
@@ -223,6 +226,12 @@ def main():
                 except OSError:
                     pass
             os.close(source)
+        if grabbed:
+            try:
+                if open(READY).read().strip() == str(os.getpid()):
+                    os.unlink(READY)
+            except IOError:
+                pass
         log('STOPPED physical remote released')
 
 

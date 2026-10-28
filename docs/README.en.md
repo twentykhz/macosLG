@@ -9,6 +9,7 @@
 | Features and screenshots | [Feature guide](FEATURES.en.md) · [Gallery](OVERVIEW.vi.md) |
 | Root / firmware eligibility | [Rooting methods](ROOTING-METHODS.md) |
 | Browser-assisted root | [DangBro support](DANGBRO.md) |
+| HOME skipped / reported root but SSH unavailable | [HOME and root recovery](HOME-ROOT-RECOVERY.md) |
 | Restore the pre-install snapshot | [Rollback](ROLLBACK.en.md) |
 | Installation troubleshooting | [Diagnostics / recovery](diagnostics/RECOVERY.md) |
 | Validation and compatibility | [Validation](VALIDATION.en.md) · [Python-free compatibility](PYTHON-COMPATIBILITY.en.md) |
