@@ -7,6 +7,7 @@
   function holdSettings(kind){held=true;rootCall(kind==='wifi'?'wifi_settings':'bt_settings',{},function(r){if(!failed(r))close();});}
   function startHold(kind){stopHold();held=false;holdTimer=setTimeout(function(){holdSettings(kind);},650);}
   var wifiName = '', bluetoothName = '';
+  var unsupported={wifi:false,bluetooth:false,volume:false,brightness:false,mode:false};
   var names = {normal:'Tiêu chuẩn',vivid:'Sống động',eco:'Tiết kiệm điện',cinema:'Điện ảnh',sports:'Thể thao',game:'Trò chơi',hdrEffect:'Hiệu ứng HDR',technicolor:'Technicolor',expert1:'Chuyên gia · sáng',expert2:'Chuyên gia · tối'};
   function $(id) { return document.getElementById(id); }
   function rootCall(action, data, done) {
@@ -15,14 +16,16 @@
     xhr.setRequestHeader('Content-Type','application/json');
     xhr.setRequestHeader('X-Gathin-Token',window.GATHIN_CONTROL_TOKEN);
     xhr.timeout=9000;
-    xhr.onload=function(){var r;try{r=JSON.parse(xhr.responseText);}catch(e){r={returnValue:false};}if(done)done(r);};
-    xhr.onerror=xhr.ontimeout=function(){if(done)done({returnValue:false,errorText:'Local controls unavailable'});};
+    xhr.onload=function(){var r;try{r=JSON.parse(xhr.responseText);}catch(e){r={returnValue:false};}if(xhr.status!==200){r.returnValue=false;r.serviceUnavailable=true;}if(done)done(r);};
+    xhr.onerror=xhr.ontimeout=function(){if(done)done({returnValue:false,serviceUnavailable:true,errorText:'Local controls unavailable'});};
     xhr.send(JSON.stringify(data));
   }
-  window.GathinOpenSettings=function(){rootCall('settings_key',{},function(r){if(r.returnValue===false)message('Không mở được cài đặt TV');});};
+  window.GathinOpenSettings=function(){rootCall('settings_key',{},function(r){if(r.returnValue===false){var bridge=new PalmServiceBridge();bridges.push(bridge);bridge.onservicecallback=function(){};bridge.call('luna://com.webos.applicationManager/launch',JSON.stringify({id:'com.palm.app.settings'}));}});};
   window.GathinVoiceSearch=function(done){rootCall('voice_search',{},function(r){if(r.returnValue===false)message('Không mở được tìm kiếm giọng nói');if(done)done(r);});};
   window.GathinNativeInput=function(){rootCall('input',{},function(r){if(r.returnValue===false)message('Input menu unavailable');});};
   function call(endpoint, data, done, subscription) {
+    var rootActions={'com.webos.service.wifi/getstatus':'wifi_status','com.webos.service.wifi/setstate':'set_wifi','com.webos.service.bluetooth2/adapter/getStatus':'bluetooth_status','com.webos.service.bluetooth2/adapter/setState':'set_bluetooth','com.webos.audio/getVolume':'volume','com.webos.audio/setVolume':'set_volume','com.webos.audio/setMuted':'set_muted'};
+    if(rootActions[endpoint]){rootCall(rootActions[endpoint],data||{},done);return;}
     var actions={'com.webos.service.settings/getSystemSettings':'picture','com.webos.service.settings/getSystemSettingValues':'modes','com.webos.service.settings/setSystemSettings':'set_picture'};
     if(actions[endpoint]){rootCall(actions[endpoint],data&&data.settings?{mode:data.settings.pictureMode}:{},done);return;}
     var bridge = new PalmServiceBridge(); bridges.push(bridge);
@@ -35,25 +38,31 @@
     catch(e) { if(done)done({returnValue:false}); }
   }
   function message(text) { $('ccMessage').textContent = text; }
-  function failed(r) { if(r.returnValue===false) {message('TV không thực hiện được thao tác.');return true;}return false; }
+  function failed(r) { if(r.returnValue===false) {message(r.serviceUnavailable?'Dịch vụ điều khiển chưa sẵn sàng. Bạn có thể mở Cài đặt TV.':r.supported===false?'Tính năng này chưa được hỗ trợ trên TV này.':'TV chưa thực hiện được thao tác này.');return true;}return false; }
   function paint() {
     $('ccWifi').classList.toggle('enabled',state.wifi===true);
     $('ccBluetooth').classList.toggle('enabled',state.bluetooth===true);
     $('ccWifi').classList.toggle('connected',state.wifi===true&&state.wifiConnected);
     $('ccBluetooth').classList.toggle('connected',state.bluetooth===true&&!!bluetoothName);
     if(state.brightness!==null){$('ccBrightness').value=state.brightness;$('ccBrightnessValue').textContent=state.brightness+'%';}
-    $('ccWifiState').textContent=state.wifi===null?'Đang đọc…':state.wifi?(wifiName||'Đang bật'):'Đã tắt';
-    $('ccBluetoothState').textContent=state.bluetooth===null?'Đang đọc…':state.bluetooth?(bluetoothName||'Đang bật'):'Đã tắt';
+    $('ccWifiState').textContent=unsupported.wifi?'Không hỗ trợ':state.wifi===null?'Đang đọc…':state.wifi?(wifiName||'Đang bật'):'Đã tắt';
+    $('ccBluetoothState').textContent=unsupported.bluetooth?'Không hỗ trợ':state.bluetooth===null?'Đang đọc…':state.bluetooth?(bluetoothName||'Đang bật'):'Đã tắt';
     $('ccWifi').setAttribute('aria-pressed',state.wifi===true?'true':'false');
     $('ccBluetooth').setAttribute('aria-pressed',state.bluetooth===true?'true':'false');
-    $('ccMode').textContent=state.mode?(names[state.mode]||state.mode):'Đang đọc…';
+    $('ccMode').textContent=unsupported.mode?'Không hỗ trợ':state.mode?(names[state.mode]||state.mode):'Đang đọc…';
     if(state.volume!==null) { $('ccVolume').value=state.volume; $('ccVolumeValue').textContent=state.muted?'Đã tắt tiếng':state.volume+'%'; }
+    ['ccBrightness','ccDim','ccBright'].forEach(function(id){$(id).disabled=unsupported.brightness;});
+    ['ccVolume','ccMinus','ccPlus','ccMute'].forEach(function(id){$(id).disabled=unsupported.volume;});
+    ['ccPrev','ccNext'].forEach(function(id){$(id).disabled=unsupported.mode;});
+    if(unsupported.brightness)$('ccBrightnessValue').textContent='Không hỗ trợ';
+    if(unsupported.volume)$('ccVolumeValue').textContent='Không hỗ trợ';
     $('ccMute').textContent=state.muted?'Bật tiếng':'Tắt tiếng';
   }
-  function readWifi(r) {if(failed(r))return;state.wifiConnected=!!r.networkInfo&&['ipConfigured','connected','online'].indexOf(r.networkInfo.connectState)>=0;wifiName=r.networkInfo&&(r.networkInfo.ssid||r.networkInfo.displayName)||'';state.wifi=r.status==='serviceEnabled'||r.status==='connectionStateChanged';paint();}
-  function readBluetooth(r) {if(failed(r))return;var a=r.adapters&&r.adapters[0];if(a){state.bluetooth=a.powered===true;state.adapter=a.adapterAddress;paint();}}
-  function readVolume(r) {if(failed(r))return;var v=r.volumeStatus||r;if(typeof v.volume==='number')state.volume=v.volume;if(typeof v.muted==='boolean')state.muted=v.muted;paint();}
+  function readWifi(r) {unsupported.wifi=r.returnValue===false;if(unsupported.wifi){paint();return;}state.wifiConnected=!!r.networkInfo&&['ipConfigured','connected','online'].indexOf(r.networkInfo.connectState)>=0;wifiName=r.networkInfo&&(r.networkInfo.ssid||r.networkInfo.displayName)||'';state.wifi=r.status==='serviceEnabled'||r.status==='connectionStateChanged';paint();}
+  function readBluetooth(r) {var a=r.adapters&&r.adapters[0];unsupported.bluetooth=r.returnValue===false||!a;if(a){state.bluetooth=a.powered===true;state.adapter=a.adapterAddress;}paint();}
+  function readVolume(r) {unsupported.volume=r.returnValue===false;if(unsupported.volume){state.volume=null;paint();return;}var v=r.volumeStatus||r;if(typeof v.volume==='number')state.volume=v.volume;if(typeof v.muted==='boolean')state.muted=v.muted;paint();}
   function toggle(kind) {
+    if(unsupported[kind]){window.GathinOpenSettings();return;}
     if(busy[kind]||state[kind]===null)return;
     busy[kind]=true;message('');var next=!state[kind];
     var endpoint=kind==='wifi'?'com.webos.service.wifi/setstate':'com.webos.service.bluetooth2/adapter/setState';
@@ -66,7 +75,7 @@
     busy.mode=true;
     call('com.webos.service.settings/setSystemSettings',{category:'picture',settings:{pictureMode:next}},function(r){busy.mode=false;if(!failed(r)){state.mode=next;paint();readBrightness();}});
   }
-  function readBrightness(){rootCall('backlight',{},function(r){if(failed(r))return;var value=Number((r.settings||{}).backlight);if(isFinite(value)){state.brightness=value;paint();}});}
+  function readBrightness(){rootCall('backlight',{},function(r){unsupported.brightness=r.returnValue===false||!r.settings||r.settings.backlight===undefined;if(unsupported.brightness){state.brightness=null;paint();return;}var value=Number((r.settings||{}).backlight);if(isFinite(value)){state.brightness=value;paint();}});}
   function brightness(value){
     if(state.brightness===null)return;
     value=Math.max(0,Math.min(100,Math.round(value)));state.brightness=value;paint();
@@ -90,7 +99,7 @@
     call('com.webos.service.wifi/getstatus',{subscribe:true},readWifi,true);
     call('com.webos.service.bluetooth2/adapter/getStatus',{subscribe:true},readBluetooth,true);
     call('com.webos.audio/getVolume',{subscribe:true},readVolume,true);
-    call('com.webos.service.settings/getSystemSettings',{category:'picture',keys:['pictureMode'],subscribe:true},function(r){if(!failed(r)&&r.settings){state.mode=r.settings.pictureMode;paint();}},true);
+    call('com.webos.service.settings/getSystemSettings',{category:'picture',keys:['pictureMode'],subscribe:true},function(r){unsupported.mode=r.returnValue===false||!r.settings;if(!unsupported.mode)state.mode=r.settings.pictureMode;paint();},true);
     call('com.webos.service.settings/getSystemSettingValues',{category:'picture',key:'pictureMode'},function(r){if(!failed(r)){var values=r.values||{};state.modes=(values.arrayExt||[]).filter(function(x){return x.active!==false&&x.visible!==false;}).map(function(x){return x.value;});if(!state.modes.length)message('Chưa đọc được danh sách chế độ hình ảnh.');}});
   }
   function readDevices(done) {

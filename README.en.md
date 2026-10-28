@@ -1,5 +1,7 @@
 # MAC-WebOSTV by 20khzpc
 
+**3.4.0 installation recovery:** authenticated service checks precede HOME activation. On failure, answer `YES/CO` to restore the first snapshot from that run. [Reported screenshot, diagnosis and recovery scope](docs/diagnostics/RECOVERY.md).
+
 [View all 19 feature screenshots](README.md#ảnh-preview-từng-tính-năng): launcher, adaptive HDMI, controls, weather, calendar, desktop/mobile remote, wallpaper cropping and family settings. The previews use sample data; [capture details](docs/screenshots/README.md).
 
 **3.4.0:** The TV shortcut learns the HDMI port with the most viewing time. Before history exists, it opens the input picker. Explicit HDMI selections stay unchanged.

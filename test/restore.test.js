@@ -20,12 +20,15 @@ require.cache[require.resolve('../lib/ssh')].exports={
     calls.push(['luna',url]);
     if(url.endsWith('getSystemInfo'))return {...profile,returnValue:true};
     if(url.endsWith('listApps'))return {returnValue:true,apps:[{id:'org.webosbrew.hbchannel'},{id:profile.appId,version:profile.appVersion}]};
+    if(url.endsWith('closeByAppId')||url.endsWith('/launch'))return {returnValue:true};
     throw new Error('Unexpected Luna call '+url);
   },
   async archive(){calls.push(['archive']);if(failBackup)throw new Error('Backup transfer failed');return {sha256:'fake-test-archive'};},
   async upload(client,file,remote){calls.push(['upload',remote]);if(failHookUpload&&remote==='/home/root/gathin-home-keyhook.py')throw new Error('Hook upload interrupted');},
   async installPackage(){calls.push(['install']);},
 };
+require('../lib/recovery');require.cache[require.resolve('../lib/recovery')].exports={async capture(){calls.push(['archive']);if(failBackup)throw Error('Backup transfer failed');},markMutation(){calls.push(['journal']);}};
+require('../lib/launcher-install');require.cache[require.resolve('../lib/launcher-install')].exports={async install(){calls.push(['install']);},async finish(){}};
 const {restore}=require('../scripts/tv');
 test('dry run only reads the TV, creates no backup and does not upload/install',async()=>{
   calls.length=0;
@@ -48,7 +51,7 @@ test('restore backs up before install, then deploys one permanent hook and start
   const backupIndex=calls.findIndex(([kind])=>kind==='archive');
   const installIndex=calls.findIndex(([kind])=>kind==='install');
   const pauseIndex=calls.findIndex(([kind,command])=>kind==='exec'&&command.startsWith('touch /home/root/DISABLE-GATHIN-HOME'));
-  assert(backupIndex>=0&&backupIndex<installIndex&&installIndex<pauseIndex);
+  assert(backupIndex>=0&&backupIndex<pauseIndex&&pauseIndex<installIndex);
   assert.equal(calls.filter(([kind,remote])=>kind==='upload'&&remote==='/home/root/gathin-home-keyhook.py').length,1);
   assert(calls.some(([kind,command])=>kind==='exec'&&command==='/var/lib/webosbrew/init.d/41-gathin-home-keyhook'));
   assert(!calls.some(([kind,command])=>kind==='exec'&&/\breboot\b/.test(command)));

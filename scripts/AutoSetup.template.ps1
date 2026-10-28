@@ -21,11 +21,29 @@ if(-not $Language){
 function L([string]$English,[string]$Vietnamese){if($Language -eq 'vi'){return $Vietnamese}else{return $English}}
 function Test-MacTvConfirmation([string]$Value){return $Value.Trim().ToUpperInvariant() -in @('YES','CO')}
 $env:GATHIN_LANGUAGE=$Language
+$env:GATHIN_RECOVERY_SESSION=$null
 if(-not $PSBoundParameters.ContainsKey('DataDirectory')){
  $taskLegacyData=Join-Path $env:LOCALAPPDATA 'GathinTV'
  if(Test-Path -LiteralPath (Join-Path $taskLegacyData 'state')){$DataDirectory=$taskLegacyData}
 }
-trap { Write-Host ((L 'Stopped: ' 'Da dung: ')+$_.Exception.Message) -ForegroundColor Red; if($taskTranscript){Stop-Transcript|Out-Null}; if(-not $NoPause){[void](Read-Host (L 'Press Enter to close' 'Nhan Enter de dong'))}; exit 1 }
+trap {
+ $taskFailure=$_.Exception.Message
+ if($Mode -in @('Setup','Restore') -and -not $DryRun -and $env:GATHIN_RECOVERY_SESSION -and (Test-Path -LiteralPath $env:GATHIN_RECOVERY_SESSION)){
+  try{
+   $taskSnapshot=Get-Content -LiteralPath $env:GATHIN_RECOVERY_SESSION -Raw -Encoding UTF8 | ConvertFrom-Json
+   if($taskSnapshot.mutationsStarted -and $taskSnapshot.host -eq $HostName){
+    Write-Host ('Backup: '+$taskSnapshot.folder+' | TV: '+$taskSnapshot.host+' | '+$taskSnapshot.createdAt) -ForegroundColor Yellow
+    $taskRestoreAnswer=Read-Host (L 'Return to the initial TV snapshot from the start of this run? (YES/CO)' 'Ban co muon quay ve trang thai ban dau cua TV theo backup dau phien nay khong? (CO/YES)')
+    if(Test-MacTvConfirmation $taskRestoreAnswer){
+     $taskRecoveryArgs=@((Join-Path $release 'scripts/recover-session.js'),'--session',$env:GATHIN_RECOVERY_SESSION,'--host',$HostName)
+     if($RootKeyPath){$taskRecoveryArgs+=@('--key',[IO.Path]::GetFullPath($RootKeyPath))}
+     & $node @taskRecoveryArgs
+     if($LASTEXITCODE -ne 0){Write-Host (L 'Recovery failed. Keep the backup and recovery log; do not reset the TV.' 'Khoi phuc that bai. Giu backup va log; khong reset TV.') -ForegroundColor Red}
+    }
+   }
+  }catch{Write-Host ((L 'Recovery error: ' 'Loi khoi phuc: ')+$_.Exception.Message) -ForegroundColor Red}
+ }
+ Write-Host ((L 'Stopped: ' 'Da dung: ')+$taskFailure) -ForegroundColor Red; if($taskTranscript){Stop-Transcript|Out-Null}; if(-not $NoPause){[void](Read-Host (L 'Press Enter to close' 'Nhan Enter de dong'))}; exit 1 }
 if($Mode -notin @('Prepare','Extract')){
  $taskLogDirectory=Join-Path $DataDirectory 'state/logs'
  [IO.Directory]::CreateDirectory($taskLogDirectory)|Out-Null
@@ -148,6 +166,7 @@ $arguments=@((Join-Path $release 'scripts/run.js'),$Mode,'--host',$HostName,'--o
 foreach($pair in @(@($AlreadyRooted,'--already-rooted'),@($DryRun,'--dry-run'),@($TrustNewHost,'--trust-new-host'),@($NoReboot,'--no-reboot'),@($RemoveExtraApps,'--remove-extra-apps'))){if($pair[0]){$arguments+=$pair[1]}}
 foreach($pair in @(@($RootKeyPath,'--key'),@($DeveloperKeyPath,'--developer-key'),@($BackupFile,'--backup-file'))){if($pair[0]){$arguments+=@($pair[1],[IO.Path]::GetFullPath($pair[0]))}}
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){$arguments+=@('--expected-model',$TVModel,'--expected-firmware',$FirmwareVersion)}
+$env:GATHIN_RECOVERY_SESSION=Join-Path $env:GATHIN_STATE_DIRECTORY ('sessions/'+[guid]::NewGuid().ToString()+'.json')
 $taskReportStarted=Get-Date
 & $node @arguments
 if($LASTEXITCODE -ne 0){throw ((L 'Stopped with exit code ' 'Da dung voi ma loi ')+$LASTEXITCODE+'. '+(L 'Logs: ' 'Log: ')+$env:GATHIN_STATE_DIRECTORY)}

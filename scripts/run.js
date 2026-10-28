@@ -31,8 +31,10 @@ async function main(args=process.argv.slice(2)){
   const {AutorootSteps}=require('../lib/autoroot');const steps=new AutorootSteps({...o,alreadyRooted:true});
   try{
    await steps.prepare();await steps.connectAndCheck();if(o.dryRun){await steps.plan();return;}
+   await steps.captureInitialState();
+   await steps.prepareRootReconnect();
    if(steps.options.compatibilityMode){await tv.restore(steps.client,{...o,advanced:true,compatibilityMode:true});return;}
-   await steps.prepareRootReconnect();await steps.assertDeveloperModeAbsent();await steps.installApps();await steps.restoreInterface();
+   await steps.assertDeveloperModeAbsent();await steps.installApps();await steps.restoreInterface();
    if(!o.noFinalReboot)await steps.rebootAndReconnect('restore');await steps.verifyInstallation();
   }finally{steps.close();}return;
  }

@@ -75,5 +75,5 @@ token=os.urandom(32).encode('hex')
 atomic(root+'/bridge.token',token,0o600)
 atomic(APP+'/control-token.js','window.GATHIN_CONTROL_TOKEN='+json.dumps(token)+';\n')
 for path in markers:
- if os.path.isfile(path):os.unlink(path)
+ if path!='/home/root/DISABLE-GATHIN-HOME' and os.path.isfile(path):os.unlink(path)
 print('Static features installed; per-TV control token generated; no raw partitions modified')

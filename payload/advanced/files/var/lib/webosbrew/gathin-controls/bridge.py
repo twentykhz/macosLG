@@ -2,7 +2,7 @@
 from __future__ import print_function
 import json,os,subprocess,re
 import socket,thread,select,signal,time,sys
-ROOT='/var/lib/webosbrew/gathin-controls'
+ROOT=os.environ.get('GATHIN_CONTROL_DATA','/var/lib/webosbrew/gathin-controls')
 TOKEN=open(ROOT+'/bridge.token').read().strip()
 def luna(endpoint,data):
  p=subprocess.Popen(['/usr/bin/luna-send','-w','6000','-n','1','luna://'+endpoint,json.dumps(data)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
@@ -11,7 +11,39 @@ def luna(endpoint,data):
  finally:
   if p.poll() is None:p.terminate()
   p.stdin.close()
+def optional_api(endpoint,data):
+ try:
+  result=luna(endpoint,data)
+  if result.get('returnValue') is not False:return result
+ except Exception:pass
+ return {'returnValue':False,'supported':False,'errorText':'Feature unavailable on this TV'}
+
 def run(action,data):
+ if action=='health':return {'returnValue':True,'protocol':2}
+ if action=='wifi_status':
+  result=optional_api('com.webos.service.wifi/getstatus',{})
+  if result.get('returnValue') is not False:return result
+  result=optional_api('com.palm.connectionmanager/getStatus',{})
+  wifi=result.get('wifi') or {}
+  if result.get('returnValue') is not False and wifi:
+   active=wifi.get('state') not in ('disabled','off')
+   return {'returnValue':True,'status':'serviceEnabled' if active else 'serviceDisabled','networkInfo':{'ssid':wifi.get('ssid',''),'connectState':'connected' if wifi.get('state')=='connected' else 'disconnected'}}
+  return {'returnValue':False,'supported':False,'errorText':'Wi-Fi status unavailable'}
+ if action=='set_wifi':
+  if data.get('state') not in ('enabled','disabled'):return {'returnValue':False}
+  return optional_api('com.webos.service.wifi/setstate',{'state':data['state']})
+ if action=='bluetooth_status':return optional_api('com.webos.service.bluetooth2/adapter/getStatus',{})
+ if action=='set_bluetooth':
+  if not isinstance(data.get('powered'),bool):return {'returnValue':False}
+  return optional_api('com.webos.service.bluetooth2/adapter/setState',{'powered':data['powered'],'adapterAddress':data.get('adapterAddress')})
+ if action=='volume':return optional_api('com.webos.audio/getVolume',{})
+ if action=='set_volume':
+  value=data.get('volume')
+  if isinstance(value,bool) or not isinstance(value,int) or not 0<=value<=100:return {'returnValue':False}
+  return optional_api('com.webos.audio/setVolume',{'volume':value})
+ if action=='set_muted':
+  if not isinstance(data.get('muted'),bool):return {'returnValue':False}
+  return optional_api('com.webos.audio/setMuted',{'muted':data['muted']})
  if action in ('power_off','power_reboot'):
   if data.get('confirmed') is not True:return {'returnValue':False,'errorText':'Explicit power confirmation required'}
   if action=='power_off':return luna('com.webos.service.tvpower/power/powerOff',{'reason':'remoteKey'})
@@ -25,18 +57,18 @@ def run(action,data):
   return luna('com.webos.service.sysuicompmgr/launch',{'appId':'com.webos.app.voiceagent','main':'file://usr/palm/applications/com.webos.app.voiceagent/Main.qml','params':{'activateType':'mrcu','launchMode':'voice','pressed':True,'walkietalkie':False}})
  if action=='settings_key':return luna('com.webos.service.networkinput/test/sendKeyCode',{'keyCode':139})
  if action=='input':return luna('com.webos.surfacemanager/showInputPicker',{})
- if action=='backlight':return luna('com.webos.service.settings/getSystemSettings',{'category':'picture','keys':['backlight']})
+ if action=='backlight':return optional_api('com.webos.service.settings/getSystemSettings',{'category':'picture','keys':['backlight']})
  if action=='set_backlight':
   value=data.get('value')
   if isinstance(value,bool) or not isinstance(value,int) or value<0 or value>100:return {'returnValue':False,'errorText':'Backlight must be an integer from 0 to 100'}
   return luna('com.webos.service.settings/setSystemSettings',{'category':'picture','settings':{'backlight':str(value)}})
- if action=='picture':return luna('com.webos.service.settings/getSystemSettings',{'category':'picture','keys':['pictureMode']})
- if action=='modes':return luna('com.webos.service.settings/getSystemSettingValues',{'category':'picture','key':'pictureMode'})
+ if action=='picture':return optional_api('com.webos.service.settings/getSystemSettings',{'category':'picture','keys':['pictureMode']})
+ if action=='modes':return optional_api('com.webos.service.settings/getSystemSettingValues',{'category':'picture','key':'pictureMode'})
  if action=='set_picture':
   mode=data.get('mode');r=run('modes',{});rows=(r.get('values') or {}).get('arrayExt',[])
   if not any(x.get('value')==mode and x.get('active',True) and x.get('visible',True) for x in rows):return {'returnValue':False,'errorText':'Unavailable picture mode'}
   return luna('com.webos.service.settings/setSystemSettings',{'category':'picture','settings':{'pictureMode':mode}})
- if action=='bt_devices':return luna('com.webos.service.bluetooth2/device/getStatus',{})
+ if action=='bt_devices':return optional_api('com.webos.service.bluetooth2/device/getStatus',{})
  if action=='bt_connect':
   address=data.get('address','');devices=run('bt_devices',{}).get('devices',[])
   match=[d for d in devices if d.get('address')==address and d.get('paired') and 'hid' not in d.get('connectedProfiles',[]) and d.get('classOfDevice')!=7936]
@@ -63,7 +95,9 @@ def shutdown(sig,frame):
  sys.exit(0)
 
 def watch_stock_home():
- while not STOPPING and not os.path.exists('/home/root/DISABLE-GATHIN-HOME'):
+ while not STOPPING:
+  if os.path.exists('/home/root/DISABLE-GATHIN-HOME'):
+   time.sleep(.5);continue
   master,slave=os.openpty()
   p=subprocess.Popen(['/usr/bin/luna-send','-i','luna://com.webos.surfacemanager/getCurrentState','{"subscribe":true}'],stdin=subprocess.PIPE,stdout=slave,stderr=slave,close_fds=True)
   os.close(slave);WATCH_PROCS.append(p);buffer='';last=0
@@ -80,7 +114,7 @@ def watch_stock_home():
      match=re.search(r'"currentState"\s*:\s*"([^" ]+)"',line)
      if not match:continue
      state=match.group(1)
-     if state=='home' and time.time()-last>.35:
+     if state=='home' and time.time()-last>.35 and not os.path.exists('/home/root/DISABLE-GATHIN-HOME'):
       last=time.time()
       closed=luna('com.webos.surfacemanager.systemui/closeAllSystemUI',{})
       launched=luna('com.webos.applicationManager/launch',{'id':'com.gathin.tvhome'})
@@ -98,7 +132,7 @@ def serve():
  home_log('native home subscription started; normal in-app Back preserved')
  server=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
  server.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
- server.bind(('127.0.0.1',18764));server.listen(4)
+ server.bind(('127.0.0.1',int(os.environ.get('GATHIN_CONTROL_PORT','18764'))));server.listen(4)
  while True:
   connection,address=server.accept();connection.settimeout(3)
   status=200;result={'returnValue':False}
@@ -134,4 +168,6 @@ def serve():
    connection.sendall(response+body)
   except socket.error:pass
   finally:connection.close()
-serve()
+if __name__=='__main__':
+ if '--probe' in sys.argv:print(json.dumps(dict((action,run(action,{})) for action in ['health','wifi_status','bluetooth_status','volume','backlight','picture'])))
+ else:serve()

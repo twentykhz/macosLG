@@ -8,11 +8,15 @@ try{key=fs.readFileSync(keyFile,'utf8').trim();}catch(e){key=crypto.randomBytes(
 var pinFile=path.join(data,'desktop-pin'),pin;
 try{pin=fs.readFileSync(pinFile,'utf8').trim();}catch(e){pin=String(100000+crypto.randomBytes(4).readUInt32BE(0)%900000);fs.writeFileSync(pinFile,pin,{mode:384});}
 var attempts={};
-function atomic(file,bytes){fs.writeFileSync(file+'.new',bytes);fs.renameSync(file+'.new',file);}
+function atomic(file,bytes){try{if(fs.readFileSync(file,'utf8')===bytes)return;}catch(e){}fs.writeFileSync(file+'.new',bytes);fs.renameSync(file+'.new',file);}
 var defaults=require('./defaults.json');
 var stateFile=path.join(data,'slideshow.json'),state;
 try{state=JSON.parse(fs.readFileSync(stateFile,'utf8'));}catch(e){state={gallery:fs.readdirSync(app).filter(function(n){return n==='wallpaper.jpg'||/^wall-[a-f0-9]+\.(jpg|png|webp)$/.test(n);}),selected:[],enabled:defaults.slideshow.enabled,interval:defaults.slideshow.interval,revision:0};state.selected=state.gallery.slice();}
 state.crops=state.crops||{};
+state.gallery=(Array.isArray(state.gallery)?state.gallery:[]).filter(function(n){return /^(wallpaper|wall-[a-f0-9]+)\.(jpg|png|webp)$/.test(n)&&fs.existsSync(path.join(app,n));});
+if(!state.gallery.length)state.gallery=fs.readdirSync(app).filter(function(n){return /^(wallpaper|wall-[a-f0-9]+)\.(jpg|png|webp)$/.test(n);});
+state.selected=(Array.isArray(state.selected)?state.selected:[]).filter(function(n){return state.gallery.indexOf(n)>=0;});
+if(!state.selected.length)state.selected=state.gallery.slice(0,1);
 state.family=state.family||defaults.family;
 state.weatherLocations=state.weatherLocations||defaults.weatherLocations;
 state.weatherLocations.forEach(function(p){p.name=placeName(p);});
@@ -47,4 +51,5 @@ if(req.method==='POST'&&u.pathname==='/api/settings')return body(req,res,16384,f
 if(!Array.isArray(next.selected)||!next.selected.length||next.selected.some(function(id){return state.gallery.indexOf(id)<0;})||typeof next.enabled!=='boolean'||typeof next.interval!=='number'||next.interval<5||next.interval>60||next.interval%1)return reply(res,400,{error:'Chọn ảnh và thời gian nguyên từ 5 đến 60 giây.'});
 state.selected=next.selected.filter(function(id,i,a){return a.indexOf(id)===i;});state.enabled=next.enabled;state.interval=next.interval;state.revision++;atomic(path.join(app,'wallpaper.jpg'),fs.readFileSync(path.join(app,state.selected[0])));persist();reply(res,200,{ok:true});});
 reply(res,404,{});
-}).listen(port,'0.0.0.0',publish);
+}).listen(port,process.env.WALL_BIND||'0.0.0.0',publish);
+setInterval(function(){try{last='';publish();}catch(e){console.error('Wallpaper configuration refresh failed: '+e.message);}},3000);

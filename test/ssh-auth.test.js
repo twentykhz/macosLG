@@ -44,3 +44,15 @@ test('Developer Mode and explicit authentication never try the root default',asy
  assert.equal(attempts[0].privateKey,'developer-fixture');assert.equal(attempts[0].password,undefined);
  assert.equal(attempts[1].password,'explicit-fixture');
 });
+
+test('rejected exec channel reconnects once with no replay after a started command loses its status',async()=>{
+ const {exec}=require('../lib/ssh'),{PassThrough}=require('node:stream');let reconnects=0,started=0;
+ function success(command,cb){started++;const stream=new PassThrough();stream.stderr=new PassThrough();cb(null,stream);setImmediate(()=>{stream.emit('data',Buffer.from('ok'));stream.emit('close',0);});}
+ const client={exec(command,cb){cb(Error('Unable to exec'));},end(){},async __macTvReconnect(){reconnects++;return {exec:success,end(){}};}};
+ assert.equal(await exec(client,'harmless probe'),'ok');assert.equal(reconnects,1);assert.equal(started,1);
+ await exec(client,'next probe');assert.equal(reconnects,1);assert.equal(started,2);
+ const lost={exec(command,cb){const s=new PassThrough();s.stderr=new PassThrough();cb(null,s);setImmediate(()=>s.emit('close',undefined));},async __macTvReconnect(){throw Error('Must not replay');}};
+ await assert.rejects(exec(lost,'already started operation'),e=>e.remoteStateUnknown===true);
+ const rejected={exec(c,cb){cb(Error('Unable to exec'));},end(){},async __macTvReconnect(){return {exec(c,cb){cb(Error('Unable to exec'));},end(){}};}};
+ await assert.rejects(exec(rejected,'still rejected'),/Unable to exec/);
+});

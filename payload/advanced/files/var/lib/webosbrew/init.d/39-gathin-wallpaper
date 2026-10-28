@@ -1,6 +1,10 @@
 #!/bin/sh
 [ -f /home/root/DISABLE-GATHIN-WALLPAPER ] && exit 0
 ROOT=/var/lib/webosbrew/gathin-wallpaper
-if [ -f "$ROOT/server.pid" ] && kill -0 "$(cat "$ROOT/server.pid")" 2>/dev/null; then exit 0; fi
+if [ -f "$ROOT/server.pid" ]; then
+ pid=$(cat "$ROOT/server.pid")
+ case "$pid" in ''|*[!0-9]*) pid=invalid;; esac
+ if [ -r "/proc/$pid/cmdline" ] && tr '\000' ' ' < "/proc/$pid/cmdline" | grep -F "$ROOT/wallpaper-service.js" >/dev/null; then exit 0; fi
+fi
 nohup /usr/bin/node "$ROOT/wallpaper-service.js" >> "$ROOT/server.log" 2>&1 < /dev/null &
 echo $! > "$ROOT/server.pid"

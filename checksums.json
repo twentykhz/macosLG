@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9491268,
-    "sha256": "386ab68b181417dc3f9ea4c81d64aab8983a2dcfa269983cef42ef84f38bf6b0"
+    "size": 9492240,
+    "sha256": "d5c0e2ecad3542ca93d3737175d0fcd11cee42e57e1cab960db96565993196d2"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -51,8 +51,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/bridge.py",
-    "size": 7245,
-    "sha256": "b5df8386b5065553ac9f8c2db7fb81d149e90596fd6eeb2d1c6b986abecffdd3"
+    "size": 9606,
+    "sha256": "2ec762219d68d83f6ceabac377e2276bb9aa19fdb32f8e0474ac5f901a65e60b"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-controls/permissions.py",
@@ -71,8 +71,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/server.js",
-    "size": 10953,
-    "sha256": "7338b4213c3f547f05930b015c70c475da76bf37692e8dedd6a580383c72506d"
+    "size": 11315,
+    "sha256": "470638384a95892156f9a85a0cf8e7a6351f33beedb8030c030ff612aae02b55"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/defaults.json",
@@ -86,8 +86,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js",
-    "size": 10605,
-    "sha256": "5d9b5d861acf7c0509e558f20a599253e572b94bbc79703b15bf5e08d522b0ab"
+    "size": 11337,
+    "sha256": "6b5b3e1f1138d8992970790c91edf9ae0290c0614f5bf917ac168ecd10f4b45d"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-upload.html",
@@ -126,8 +126,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/39-gathin-wallpaper",
-    "size": 320,
-    "sha256": "63ae656e7f6529f8edfc6ff178f9db6730ddcc070619e929155370bba9f2bdda"
+    "size": 479,
+    "sha256": "5180bd3368bd16b188c377331bfc401f7b5c5a99a459c10a1a1f0a10af2cc2ec"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/41-gathin-home-keyhook",
@@ -146,8 +146,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/45-gathin-remote",
-    "size": 302,
-    "sha256": "2ede775ffdfb6e8871caf6d9bdbddcad06bc7ea93d6f78386c1477a8739ff63e"
+    "size": 450,
+    "sha256": "4b074e4264068fa865d8859a39b140444a42549328030a83db34637d8aab0c70"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/50-lifesgoodwithoutspying",
@@ -201,8 +201,8 @@
   },
   {
     "path": "payload/app/controls.js",
-    "size": 15680,
-    "sha256": "6c2cc1306d3775581b886f7967704d5e32d62531950e5a80940f0c03902f0825"
+    "size": 17630,
+    "sha256": "289b07656e557ddfa4b4b83cce6649a18a278c8777162bf2dba418e66a321fc1"
   },
   {
     "path": "payload/app/dock-compact.js",
@@ -641,8 +641,8 @@
   },
   {
     "path": "payload/app/wallpaper-motion.js",
-    "size": 3909,
-    "sha256": "94fd967681e6e5c0f3f84996761ffde9741cb352056eb7a9b3fedb6fe366ced7"
+    "size": 4061,
+    "sha256": "fbb1ceebd505ab9738dc6efa30ff38575713b84dcb02c38b7ed43d75db584e61"
   },
   {
     "path": "payload/app/wallpaper-panel.css",
@@ -651,8 +651,8 @@
   },
   {
     "path": "payload/app/wallpaper-panel.js",
-    "size": 2239,
-    "sha256": "22b0b2f519c47e75965212f303fa50c054680975994881773d7156a7eff330ed"
+    "size": 2878,
+    "sha256": "feaa0a834014323e105a5b6b42af7f1acaf1c9a44f680122d7166ab7dd66981f"
   },
   {
     "path": "payload/app/wallpaper.jpg",

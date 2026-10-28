@@ -53,16 +53,7 @@ async function doctor(client,options){
 
 async function backup(client,options){
   const device=await inspect(client,options);
-  const candidates=['/media/developer/apps/usr/palm/applications/'+profile.appId,'/home/root/gathin-home-keyhook.py','/home/root/gathin-home-launch.sh','/home/root/gathin-home-replacement','/home/root/restore-stock-lg-home.sh','/home/root/DISABLE-GATHIN-HOME','/var/lib/webosbrew/init.d/40-gathin-home','/var/lib/webosbrew/init.d/41-gathin-home-keyhook','/var/lib/webosbrew/lifesgoodwithoutspying.conf'];
-  candidates.push(...require('../lib/advanced').entries().map(entry=>entry.remote));
-  const code='import os,json; print(json.dumps([p for p in '+JSON.stringify(candidates)+' if os.path.lexists(p)]))';
-  const files=JSON.parse(await exec(client,'python -c '+quote(code)));
-  const folder=path.join(state,'backups',stamp());fs.mkdirSync(folder,{recursive:true});
-  fs.writeFileSync(path.join(folder,'device.json'),JSON.stringify({info:device.info,apps:device.apps.map(({id,title,version})=>({id,title,version})),files},null,2));
-  let saved;
-  if(files.length){saved=await archive(client,files,path.join(folder,'before-restore.tar.gz'));fs.writeFileSync(path.join(folder,'archive.json'),JSON.stringify(saved,null,2));}
-  console.log('Local backup: '+folder);
-  return {folder,files,saved};
+  return require('../lib/recovery').capture(client,options,device);
 }
 
 const stopHook="if [ -f /tmp/gathin-home-keyhook.pid ]; then p=$(cat /tmp/gathin-home-keyhook.pid); case \"$p\" in ''|*[!0-9]*) exit 1;; esac; if [ -r /proc/$p/cmdline ] && tr '\\000' ' ' < /proc/$p/cmdline | grep -F '/home/root/gathin-home-keyhook.py' >/dev/null; then kill -TERM \"$p\"; n=0; while kill -0 \"$p\" 2>/dev/null; do n=$((n+1)); [ \"$n\" -lt 30 ] || exit 1; /bin/usleep 100000; done; fi; fi";
@@ -105,6 +96,7 @@ async function restorePrivacy(client){
 }
 
 async function restore(client,options){
+  if(options.removeExtraApps&&!options.dryRun)throw Error('Uninstalling unrelated apps is blocked in snapshot-protected setup. Their app data is outside the recovery scope.');
   verify();
   const device=await inspect(client,options);const {info,apps}=device;
   if(device.compatibility||options.compatibilityMode)return require('../lib/rooted-compat').install(client,options,device);
@@ -123,11 +115,13 @@ async function restore(client,options){
     await upload(client,path.join(root,'payload/home/home-keyhook.py'),stage+'/home-keyhook.py');
     await exec(client,'python '+quote(stage+'/home-keyhook.py')+' --probe',{timeout:20000});
     await upload(client,packageFile,remotePackage);
-    await installPackage(client,remotePackage);
-    const result=await luna(client,'com.webos.applicationManager/listApps');
-    if(!result.apps.some(app=>app.id===profile.appId&&app.version===profile.appVersion))throw new Error('Launcher installation could not be verified');
+    require('../lib/recovery').markMutation(options,'launcher installation');
     paused=true;
     await exec(client,'touch /home/root/DISABLE-GATHIN-HOME && '+stopHook);
+    if(options.advanced)await require('../lib/launcher-install').pause(client);
+    await require('../lib/launcher-install').install(client,options,apps,remotePackage);
+    const result=await luna(client,'com.webos.applicationManager/listApps');
+    if(!result.apps.some(app=>app.id===profile.appId&&app.version===profile.appVersion))throw new Error('Launcher installation could not be verified');
     await upload(client,path.join(root,'payload/home/boot.sh'),'/home/root/gathin-home-replacement/boot.sh','755');
     await upload(client,path.join(root,'payload/home/launch.sh'),'/home/root/gathin-home-launch.sh','755');
     await upload(client,path.join(root,'payload/home/home-keyhook.py'),'/home/root/gathin-home-keyhook.py','755');
@@ -137,9 +131,13 @@ async function restore(client,options){
     await exec(client,'cp '+quote(stage+'/41-gathin-home-keyhook')+' /var/lib/webosbrew/init.d/41-gathin-home-keyhook && chmod 755 /var/lib/webosbrew/init.d/41-gathin-home-keyhook && ln -sfn /home/root/gathin-home-replacement/boot.sh /var/lib/webosbrew/init.d/40-gathin-home');
     await syncApps(client,options);
     if(options.privacy)await restorePrivacy(client);
+    if(options.advanced)await require('../lib/advanced').installAdvanced(client,options);
+    if(options.advanced)await require('../lib/runtime-health').verify(client);
     await exec(client,'rm -f /home/root/DISABLE-GATHIN-HOME');
     await startHook(client);
-    if(options.advanced)await require('../lib/advanced').installAdvanced(client,options);
+    await luna(client,'com.webos.applicationManager/closeByAppId',{id:profile.appId}).catch(()=>{});
+    await luna(client,'com.webos.applicationManager/launch',{id:profile.appId});
+    await require('../lib/launcher-install').finish(client);
     complete=true;
     console.log('Restore complete. Hooks will run on boot; no reboot or forced HDMI transition performed.');
   }finally{
