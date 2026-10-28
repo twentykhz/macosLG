@@ -144,4 +144,4 @@ After Disable, run CMD and choose 2 to restore. Keep backups private.
 
 ## Restore the initial snapshot
 
-Choose menu item **4 — Rollback** in setup, select a snapshot for your TV and confirm YES/CO. This also works after successful installation. [Scope, DryRun and commands](ROLLBACK.en.md).
+Choose menu item **5 — Rollback** in setup, select a snapshot for your TV and confirm YES/CO. This also works after successful installation. [Scope, DryRun and commands](ROLLBACK.en.md).

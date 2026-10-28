@@ -36,3 +36,5 @@ For **Linux/macOS**, install Bash, curl and Node.js 20+, then run the same `curl
 After reported root, enable **SSH Server** in Homebrew and uninstall the **Developer Mode app** before rebooting. Unavailable SSH does not trigger another exploit. HOME is model-independent but still requires actual input checks. [HOME / root recovery](../docs/HOME-ROOT-RECOVERY.md).
 
 `install-android.sh` is the checksum-pinned bootstrap. `GathinTV-AutoSetup.sh` is the shared-core shell menu. Source users need the dependencies in the [development guide](../docs/DEVELOPMENT.en.md).
+
+Menu **4** installs YouTube AdFree + LGWS and optimizes optional apps on a rooted TV, without reinstalling the launcher. Menu **5** opens Rollback.

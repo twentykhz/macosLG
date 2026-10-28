@@ -153,4 +153,4 @@ Sau Disable, mở lại CMD, chọn 2 để cài/bật lại. Không chia sẻ b
 
 ## Khôi phục trạng thái trước khi chạy tool
 
-Chọn **4 — Rollback** trong setup, chọn backup của đúng TV và xác nhận CO/YES. Có thể khôi phục cả sau khi cài thành công. [Phạm vi, DryRun và lệnh](ROLLBACK.vi.md).
+Chọn **5 — Rollback** trong setup, chọn backup của đúng TV và xác nhận CO/YES. Có thể khôi phục cả sau khi cài thành công. [Phạm vi, DryRun và lệnh](ROLLBACK.vi.md).

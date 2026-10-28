@@ -8,6 +8,7 @@ test('dependency preflight detects absent core tools and ABI rejects before prom
  try{
   const client={__gathinCapabilities:Promise.resolve(caps)},r=await require('../lib/dependencies').inspect(client);assert(r.unresolved.some(x=>x.includes('ls-monitor')));
   await assert.rejects(require('../lib/dependencies').prepare(client,{},r),/ls-monitor/);assert(!calls.includes('upload'));
+  const maintenance=await require('../lib/dependencies').inspect(client,{maintenanceOnly:true});assert.deepEqual(maintenance.unresolved,[]);await require('../lib/dependencies').prepare(client,{},maintenance);assert(!calls.includes('upload'),'App optimization must not deploy the HOME/voice adapter');
   await assert.rejects(require('../lib/native-runtime').install(client,{},caps),/ABI/);assert(calls.includes('upload'));assert(!calls.some(c=>c.includes(' && mv ')));
  }finally{ssh.exec=saved.exec;ssh.upload=saved.upload;recovery.markMutation=saved.mark;}
 });

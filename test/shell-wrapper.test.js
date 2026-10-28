@@ -43,7 +43,7 @@ function prompt(command,input,language='vi'){
 }
 test('Termux menu explains rooted/unrooted branches and retries invalid choices',{skip:!available},()=>{
  const r=prompt('shell_menu; printf "MODE=%s\\n" "$mode"','wrong\n1\n');assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/TV CHUA ROOT/);assert.match(r.stdout,/TV DA ROOT/);assert.match(r.stderr,/Nhap so tu 0 den 9/);assert.match(r.stdout,/MODE=Setup/);
- for(const [input,mode]of [['TV chua root','Setup'],['TV chưa root','Setup'],['2','Restore'],['3','Doctor'],['4','Backup'],['5','Apps'],['6','Sync'],['7','Disable'],['8','Rollback'],['0','Exit']]){const r=prompt('shell_menu; printf "MODE=%s\\n" "$mode"',input+'\n');assert.equal(r.status,0,r.stderr);assert(r.stdout.includes('MODE='+mode));}
+ for(const [input,mode]of [['TV chua root','Setup'],['TV chưa root','Setup'],['2','Restore'],['3','Doctor'],['4','Debloat'],['5','Rollback'],['6','Backup'],['7','Apps'],['8','Sync'],['9','Disable'],['0','Exit']]){const r=prompt('shell_menu; printf "MODE=%s\\n" "$mode"',input+'\n');assert.equal(r.status,0,r.stderr);assert(r.stdout.includes('MODE='+mode));}
  assert.equal(prompt('shell_menu','').status,2);
 });
 test('Termux model prompt rejects Developer Mode passphrase and firmware prompt retries webOS version',{skip:!available},()=>{

@@ -10,7 +10,7 @@ Dependency preflight checks Node, startup, hashing, tar and Luna tools. Source-b
 
 The common installer now installs asynchronous boot hook 40, waits for boot/app readiness and launches once. HOME validates actual remote channels/compositor before interception; input failure does not disable startup. Native NLP feeds a portable Node voice router covering the sample commands and accented YouTube searches. The YouTube adapter is limited to pinned AdFree 0.5.3.
 
-Setup includes reversible debloat, also available through Windows menu 5 and Android menu 9. Only optional apps are processed. Known original lock states are journaled; unavailable lock state means close-only, reported explicitly. LGWS is installed alongside AdFree. Its audited 0.7.0 profile blocks ACR, ads and telemetry while preserving voice, ThinQ, QuickSet, casting, LAN, IPv6, SDP, updates and Content Store. Filtered project blocklist overlays address upstream SDP semantics and are removed during rollback.
+Setup includes reversible debloat, also available through menu 4 on Windows and Android; Rollback is menu 5. Only optional apps are processed. Known original lock states are journaled; unavailable lock state means close-only, reported explicitly. LGWS is installed alongside AdFree. Its audited 0.7.0 profile blocks ACR, ads and telemetry while preserving voice, ThinQ, QuickSet, casting, LAN, IPv6, SDP, updates and Content Store. Filtered project blocklist overlays address upstream SDP semantics and are removed during rollback.
 
 Dock pointer layout reads are cached/coalesced per frame. Blur/shadow costs are reduced while retaining widgets and wallpapers.
 

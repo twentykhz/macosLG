@@ -15,7 +15,7 @@ curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-a
 bash "$HOME/install-gathintv.sh"
 ```
 
-4. Chọn **2 — Tiếng Việt**, rồi nhập **số 1** cho TV chưa root hoặc **số 2** cho TV đã root. Nhập IP TV khi được hỏi. Menu cũng có kiểm tra TV, backup và rollback.
+4. Chọn **2 — Tiếng Việt**, rồi nhập **số 1** cho TV chưa root hoặc **số 2** cho TV đã root. Nhập IP TV khi được hỏi. Chọn **4** để chỉ cài YouTube AdFree, LGWS và tối ưu app phụ trên TV đã root; chọn **5** để rollback. Menu cũng có kiểm tra TV và backup.
 
 **Nếu chọn TV chưa root:** bật **Dev Mode Status**, cho TV reboot, mở lại ứng dụng Developer Mode và bật **Key Server**. Setup kiểm tra độc lập SSH Developer Mode và Key Server, báo trạng thái và cho kiểm tra lại. Sau xác thực bằng passphrase 6 ký tự, **setup tự đọc model/firmware, không bắt nhập thủ công**, rồi hiện kết quả tương thích. TV đã root dùng SSH, không phải cài lại Developer Mode.
 

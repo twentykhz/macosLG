@@ -50,8 +50,8 @@ async function main(args=process.argv.slice(2)){
   if(mode==='Debloat'){
    if(!o.recoverySession)o.recoverySession=path.join(state,'debloat-'+Date.now()+'.json');
    await require('../lib/recovery').capture(client,o,device);
+   const dependencies=require('../lib/dependencies');await dependencies.prepare(client,o,await dependencies.inspect(client,{maintenanceOnly:true}));
    const ensured=await require('../lib/post-install').ensureApps(client,{...o,compatibilityMode:true});device.apps=ensured.apps;
-   await require('../lib/dependencies').prepare(client,o);
    const result=await require('../lib/maintenance').install(client,o,device);console.log(JSON.stringify(result,null,2));return result;
   }
   if(mode==='Backup'){

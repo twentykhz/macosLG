@@ -7,7 +7,7 @@
 1. Tải ZIP ở trên và **giải nén toàn bộ** vào một thư mục.
 2. Bật TV; máy tính và TV cần cùng Wi-Fi/LAN.
 3. Nhấp đúp **`Start-Setup.cmd`** trong thư mục vừa giải nén.
-4. Chọn ngôn ngữ, rồi chọn **1 — TV chưa root**, **2 — TV đã root**, **3 — Kiểm tra TV** hoặc **4 — Rollback** hoặc **5 — Debloat**.
+4. Chọn ngôn ngữ, rồi chọn **1 — TV chưa root**, **2 — TV đã root**, **3 — Kiểm tra TV** hoặc **4 — YouTube AdFree + LGWS + tối ưu TV đã root** hoặc **5 — Rollback**.
 5. Nhập IP của chính TV và làm theo hướng dẫn. TV chưa root cần bật **Dev Mode Status**, cho reboot, mở lại Developer Mode và bật **Key Server**. Setup kiểm tra hai dịch vụ, báo trạng thái và cho kiểm tra lại. TV đã root dùng SSH, không cần cài lại Developer Mode.
 
 Không cần tự cài Node.js, npm hoặc webOS CLI. Giữ `Start-Setup.cmd` và `MAC-WebOSTV-AutoSetup.ps1` cùng thư mục; không chạy trực tiếp trong ZIP.

@@ -15,6 +15,10 @@ test('snapshot discovery filters TV, ignores malformed files and prefers session
 test('interactive rollback selects the listed snapshot and accepts mixed-case CO',async()=>{
  const answers=['1','cO'];await manual.run({host:record.host},{interactive:true,ask:async()=>answers.shift(),print(){}});assert.equal(calls.length,1);assert.equal(calls[0].recoverySession,session);assert(calls[0].manualRollback);
 });
+test('backup menu shows local dates, timezone and newest/oldest ordering',async()=>{
+ const older=path.join(sessions,'older.json');fs.writeFileSync(older,JSON.stringify({...record,folder:folder+'-older',createdAt:'2025-01-02T03:04:05Z'}));
+ try{const lines=[];await manual.run({host:record.host},{interactive:true,ask:async()=> '0',print:s=>lines.push(s)});assert(lines[1].includes(manual.backupDate(record.createdAt)));assert.match(lines[1],/NEWEST|MOI NHAT/);assert.match(lines[2],/OLDEST|CU NHAT/);assert.match(lines[1],/\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2} \(UTC[+-]\d{2}:\d{2}\)/);assert.equal(manual.backupDate('invalid'),'invalid');assert.equal(calls.length,0);}finally{fs.unlinkSync(older);}
+});
 test('negative confirmation and zero selection perform no rollback',async()=>{
  for(const answer of ['no','','0']){await manual.run({host:record.host,recoverySession:snapshot},{interactive:true,ask:async()=>answer,print(){}});assert.equal(calls.length,0);}
  assert((await manual.run({host:record.host},{interactive:true,ask:async()=> '0',print(){}})).cancelled);

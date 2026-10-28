@@ -16,7 +16,7 @@ Giữ nguyên thư mục state trên thiết bị đã chạy tool: Windows thư
 
 ## Windows
 
-Tải bộ cài mới từ [Releases](https://github.com/twentykhz/macosLG/releases/latest). Mở `Start-Setup.cmd`, chọn ngôn ngữ, chọn **4 — Khôi phục trạng thái trước khi chạy tool**, nhập IP TV. Chọn backup bằng số; kiểm tra model, địa chỉ TV, thời điểm và thư mục rồi nhập `CO` hoặc `YES`, không phân biệt hoa thường. Nhập `0` ở danh sách hoặc câu trả lời khác ở xác nhận để hủy.
+Tải bộ cài mới từ [Releases](https://github.com/twentykhz/macosLG/releases/latest). Mở `Start-Setup.cmd`, chọn ngôn ngữ, chọn **5 — Rollback: chọn backup theo ngày giờ**, nhập IP TV. Chọn backup bằng số; kiểm tra model, địa chỉ TV, thời điểm và thư mục rồi nhập `CO` hoặc `YES`, không phân biệt hoa thường. Nhập `0` ở danh sách hoặc câu trả lời khác ở xác nhận để hủy.
 
 Có thể mở trực tiếp:
 
@@ -39,7 +39,7 @@ cd "$HOME/.gathintv"
 ./GathinTV-AutoSetup.sh --language vi
 ```
 
-Chọn **8 — Rollback**, nhập IP TV, chọn backup và xác nhận `CO/YES`. Hoặc:
+Chọn **5 — Rollback**, nhập IP TV, chọn backup và xác nhận `CO/YES`. Hoặc:
 
 ```bash
 ./GathinTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --language vi
@@ -56,3 +56,5 @@ Chạy không tương tác cần cả `--session PATH` và `--yes`; `--dry-run` 
 - Khi lỗi, giữ backup và log. Tool không tự chạy exploit, flash firmware hoặc reboot để “cứu” rollback.
 
 Các test gồm chọn backup, hủy, `CO/YES`, đường dẫn có dấu cách, yêu cầu xác nhận khi không tương tác, DryRun và rollback C2 không Python trong filesystem mô phỏng. Chưa xác nhận rollback bản này trên C2 thật.
+
+Backup dates are shown as `dd/MM/yyyy HH:mm:ss (UTC±HH:mm)` in the installing device’s local timezone. Newest backups appear first and are labeled NEWEST/MOI NHAT; the oldest is labeled OLDEST/CU NHAT.

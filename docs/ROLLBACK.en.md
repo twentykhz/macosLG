@@ -16,7 +16,7 @@ Keep the original state directory: normally `%LOCALAPPDATA%\GathinTV\state` or `
 
 ## Windows
 
-Download the current installer from [Releases](https://github.com/twentykhz/macosLG/releases/latest). Open `Start-Setup.cmd`, choose the language, then **4 — Roll back to a snapshot from before running the tool**. Enter the TV IP, select a numbered snapshot, check its model/host/date/folder and confirm with case-insensitive `YES` or `CO`. Enter `0` at selection, or anything else at confirmation, to cancel.
+Download the current installer from [Releases](https://github.com/twentykhz/macosLG/releases/latest). Open `Start-Setup.cmd`, choose the language, then **5 — Rollback: choose a dated backup**. Enter the TV IP, select a numbered snapshot, check its model/host/date/folder and confirm with case-insensitive `YES` or `CO`. Enter `0` at selection, or anything else at confirmation, to cancel.
 
 ```powershell
 .\MAC-WebOSTV-AutoSetup.ps1 -Mode Rollback -HostName 192.168.1.11 -Language en
@@ -32,7 +32,7 @@ cd "$HOME/.gathintv"
 ./GathinTV-AutoSetup.sh --language en
 ```
 
-Choose **8 — Rollback**, enter the TV IP, select a backup and confirm `YES/CO`. Alternatively:
+Choose **5 — Rollback**, enter the TV IP, select a backup and confirm `YES/CO`. Alternatively:
 
 ```bash
 ./GathinTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --language en
@@ -49,3 +49,5 @@ Non-interactive restoration requires both `--session PATH` and `--yes`; DryRun d
 - Keep backups/logs if recovery fails. No exploit, firmware flashing or reboot is automatically attempted to repair rollback.
 
 Tests cover selection, cancellation, mixed-case confirmation, paths with spaces, non-interactive confirmation, DryRun and actual portable recovery in the no-Python C2 filesystem fixture. Physical C2 rollback remains unconfirmed.
+
+Backup dates are shown as `dd/MM/yyyy HH:mm:ss (UTC±HH:mm)` in the installing device’s local timezone. Newest backups appear first and are labeled NEWEST/MOI NHAT; the oldest is labeled OLDEST/CU NHAT.

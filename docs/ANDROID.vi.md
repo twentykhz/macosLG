@@ -2,7 +2,7 @@
 
 Không có máy tính Windows cũng cài được.
 
-**Bản mới 3.5.0:** menu có thêm **8 — Rollback**, khôi phục snapshot trước khi chạy tool sau khi chọn backup và xác nhận `CO/YES`. [Hướng dẫn khôi phục](ROLLBACK.vi.md) | [English](ROLLBACK.en.md).
+**Bản mới 3.5.0:** menu có thêm **5 — Rollback**, khôi phục snapshot trước khi chạy tool sau khi chọn backup và xác nhận `CO/YES`. [Hướng dẫn khôi phục](ROLLBACK.vi.md) | [English](ROLLBACK.en.md).
 
 > **Bản 3.4.1:** TV đã root ngoài profile mẫu được kiểm tra capability trước khi backup/cài đặt. Python không bắt buộc nếu TV có Node và rollback đã kiểm chứng; HOME/voice/tuning riêng của TV mẫu được bỏ qua khi không phù hợp. C2/O22 hiện có regression mô phỏng, chưa xác nhận cài bản vá trên TV thật. [Phạm vi hỗ trợ và audit](PYTHON-COMPATIBILITY.md). Chạy Doctor trước khi Restore.
 
