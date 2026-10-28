@@ -16,3 +16,7 @@ Public repository preparation: bilingual landing pages and installation/feature/
 ## 3.3.0 validation
 
 Offline regression checks cover cross-model rooted installation flow, JPEG-to-JPG capture fallback and temporary-file cleanup, family date validation and persistence. The installer writes separate verified / needs-attention / manual-check-required results on the target TV. Hardware input, sustained streaming FPS and Wake-on-LAN from standby have not been tested on the second TV from this workstation. See [3.3.0 notes](CHANGELOG-v3.3.0.md).
+
+## 3.4.0 validation
+
+61 automated checks pass, including duration-based HDMI selection, standby/read-error/suspend exclusion, stable ties, dynamic tile labels and preservation of explicit HDMI selections. The tracker and voice code compile on the reference TV's Python 2; the duration-selection function runs there without writing TV files. The TV returns `Active` from the power API and has the native input picker. IPK/checksum verification and single-file packaging pass. End-to-end viewing across standby/reboot and clean installation after factory reset remain untested.

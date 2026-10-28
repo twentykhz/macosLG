@@ -1,0 +1,12 @@
+#!/bin/sh
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+[ -f /home/root/DISABLE-GATHIN-HDMI ] && exit 0
+root=/var/lib/webosbrew/gathin-hdmi
+if [ -f "$root/track.pid" ]; then
+ pid=$(cat "$root/track.pid")
+ case "$pid" in ''|*[!0-9]*) exit 1;; esac
+ if [ -r "/proc/$pid/cmdline" ] && tr '\000' ' ' < "/proc/$pid/cmdline" | grep -q '/gathin-hdmi/track.py'; then exit 0; fi
+fi
+/usr/bin/python "$root/track.py" > "$root/track.log" 2>&1 < /dev/null &
+echo $! > "$root/track.pid"

@@ -49,7 +49,7 @@ def parse(value):
  s=re.sub(r'^(?:(?:hay|vui long|lam on)\s+)+','',s)
  s=re.sub(r'\s+(?:giup toi|giup minh|nhe|di)$','',s)
  tv=r'(?:tv|tivi|ti vi|tieu vi|television)'
- if re.match(r'^(?:mo|bat|vao|open)\s+(?:tv|tivi|ti vi)$',s):return route({'action':'open','app':'com.webos.app.hdmi3'})
+ if re.match(r'^(?:mo|bat|vao|open)\s+(?:tv|tivi|ti vi)$',s):return route({'action':'open_tv'})
  if re.match(r'^(?:tat|turn off|power off)\s+'+tv+'$',s):return route({'action':'power_off'})
  if re.match(r'^(?:khoi dong lai|reboot|restart)\s+'+tv+'$',s):return route({'action':'reboot'})
  hdmi=re.match(r'^(?:(?:mo|bat|chuyen|chon|vao|open|switch to)\s+)?(?:sang\s+)?(?:cong\s+|nguon\s+)?hdmi\s*([1-4]|mot|hai|ba|bon)$',s)
@@ -83,6 +83,12 @@ def parse(value):
 
 def execute(command,call):
  action=command['action']
+ if action=='open_tv':
+  try:
+   target=json.load(open('/var/lib/webosbrew/gathin-hdmi/usage.json')).get('appId')
+  except (IOError,ValueError,TypeError):target=None
+  if target not in ['com.webos.app.hdmi'+str(n) for n in range(1,5)]:target='com.webos.app.inputmgr'
+  return call('com.webos.applicationManager/launch',{'id':target})
  if action=='open':return call('com.webos.applicationManager/launch',{'id':command['app']})
  if action in ('close','close_current'):
   target=command.get('app')

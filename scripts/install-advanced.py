@@ -15,7 +15,7 @@ def atomic(path,data,mode=0o644):
  with open(tmp,'wb') as stream:stream.write(data)
  os.chmod(tmp,mode);os.rename(tmp,path)
 def stop_runtimes():
- targets=set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
+ targets=set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
  found=[]
  for name in os.listdir('/proc'):
   if not name.isdigit():continue
@@ -63,7 +63,7 @@ if os.path.isfile(snapshot):
    if path.endswith('.sh') or '/init.d/' in path:
     check=STAGE+'/owner-check-'+str(len(owner_updates));open(check,'wb').write(data);subprocess.check_call(['/bin/sh','-n',check])
    owner_updates.append((path,data,mode))
-markers=['/home/root/DISABLE-GATHIN-HOME','/home/root/DISABLE-GATHIN-YOUTUBE-VOICE','/home/root/DISABLE-GATHIN-CONTROLS','/home/root/DISABLE-GATHIN-TRIM','/home/root/DISABLE-GATHIN-LGWS','/home/root/DISABLE-GATHIN-REMOTE','/home/root/DISABLE-GATHIN-WALLPAPER']
+markers=['/home/root/DISABLE-GATHIN-HDMI','/home/root/DISABLE-GATHIN-HOME','/home/root/DISABLE-GATHIN-YOUTUBE-VOICE','/home/root/DISABLE-GATHIN-CONTROLS','/home/root/DISABLE-GATHIN-TRIM','/home/root/DISABLE-GATHIN-LGWS','/home/root/DISABLE-GATHIN-REMOTE','/home/root/DISABLE-GATHIN-WALLPAPER']
 for path in markers:open(path,'a').close()
 stop_runtimes()
 for entry in entries:atomic(entry['remote'],open(STAGE+'/'+entry['stage'],'rb').read(),int(entry['mode'],8))

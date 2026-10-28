@@ -102,5 +102,13 @@
   {
     "remote": "/var/lib/webosbrew/gathin-wallpaper/defaults.json",
     "local": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/defaults.json"
+  },
+  {
+    "remote": "/var/lib/webosbrew/gathin-hdmi/track.py",
+    "local": "payload/advanced/files/var/lib/webosbrew/gathin-hdmi/track.py"
+  },
+  {
+    "remote": "/var/lib/webosbrew/init.d/37-gathin-hdmi",
+    "local": "payload/advanced/files/var/lib/webosbrew/init.d/37-gathin-hdmi"
   }
 ]

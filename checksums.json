@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9490964,
-    "sha256": "f2d80e794a9ead75e6fbdc2eba6b628faffaf40c36486f6e3787f90f29a2444c"
+    "size": 9491268,
+    "sha256": "386ab68b181417dc3f9ea4c81d64aab8983a2dcfa269983cef42ef84f38bf6b0"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -60,6 +60,11 @@
     "sha256": "9791360ff7d88e9804cfb005925aadcb905902eb3be4c3f2253076eb9e4bd2e5"
   },
   {
+    "path": "payload/advanced/files/var/lib/webosbrew/gathin-hdmi/track.py",
+    "size": 3497,
+    "sha256": "e6681aaff27583ac3755c511c32aa1bdf2ea2224fd419b25be3c9188ef204777"
+  },
+  {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/remote.html",
     "size": 8925,
     "sha256": "ca8c8fbbd407b3b150205e587981e3f2d21506a2386299a42d96baa220be3108"
@@ -91,8 +96,8 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
-    "size": 7169,
-    "sha256": "4159a8a9f5dc1e6def0c407a6ae4bfe52206ac5eba6ef31e84c6ece6c1aaa5a8"
+    "size": 7478,
+    "sha256": "5879f9165fefa2ac67a30e2ea3f761a592b4b93d16784ecdafaf58a966650cbf"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/disable-results.py",
@@ -108,6 +113,11 @@
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/36-gathin-trim",
     "size": 220,
     "sha256": "74f577728c962a67085f337311bf6d6c8cde57c4203c52b2babc7a1193238fa2"
+  },
+  {
+    "path": "payload/advanced/files/var/lib/webosbrew/init.d/37-gathin-hdmi",
+    "size": 474,
+    "sha256": "2dede56dfb1701e4732b8c08c083b98a38181c44e5d250327fa0279ca2f0795e"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/init.d/38-gathin-controls",
@@ -151,8 +161,8 @@
   },
   {
     "path": "payload/advanced/map.json",
-    "size": 4079,
-    "sha256": "e5b1b5dccb9b1bff07a28770818f331a72164e6680cd9584c930af9239fa7e48"
+    "size": 4367,
+    "sha256": "4f993c86e72a44b40caa73246e2c08b07bb6a79c9d41b3e14ae8da4f22c38d1c"
   },
   {
     "path": "payload/advanced/youtube-userScript.js",
@@ -166,8 +176,8 @@
   },
   {
     "path": "payload/app/app.js",
-    "size": 13329,
-    "sha256": "f866427ec185a076eb64336c250f1dee1d82a0c21e4f632657ac2d6dbfa55361"
+    "size": 13428,
+    "sha256": "cc929bfac461835c2fcde392a97b95ccf393c4997e96ded8b7ac2411da501348"
   },
   {
     "path": "payload/app/appinfo.json",
@@ -253,6 +263,16 @@
     "path": "payload/app/glass-dock.css",
     "size": 944,
     "sha256": "58f0eb036fd089120ff07264092f9c1b31e86d297cae8f9a39c18b040b11e09b"
+  },
+  {
+    "path": "payload/app/hdmi-choice.json",
+    "size": 15,
+    "sha256": "6dbfdaab8379bf988c1a41ed0eeae2d4a5f95ce06bf6d41a9a54701abc5eb09a"
+  },
+  {
+    "path": "payload/app/hdmi-shortcut.js",
+    "size": 1395,
+    "sha256": "50e4c89e8c637f6b9885a63d525e0f75b14d5e8f5e1ec1f6b777928fcf425f62"
   },
   {
     "path": "payload/app/icon.png",
@@ -491,8 +511,8 @@
   },
   {
     "path": "payload/app/index.html",
-    "size": 5785,
-    "sha256": "97bdb6f036fd954f8b24f51ae05845c7eb60486c7820ff4ff7cf5f5179951924"
+    "size": 5828,
+    "sha256": "da3cff60819701f589d9c4e31a5e956e654a95fbd83e30ee7fa328788dbb0654"
   },
   {
     "path": "payload/app/largeIcon.png",

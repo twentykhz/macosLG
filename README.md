@@ -1,5 +1,7 @@
 # MAC-WebOSTV by 20khzpc
 
+**3.4.0:** Icon TV tự chọn cổng HDMI có tổng thời gian xem cao nhất; chưa có lịch sử sẽ mở bảng đầu vào. [Chi tiết](docs/CHANGELOG-v3.4.0.md).
+
 **Bản 3.3.0:** dock tự co giãn, quản lý thành viên gia đình, cài LGWS và báo cáo chức năng. Tối ưu lại MAC-WebOSTV-AutoSetup.ps1 và Start-Setup.cmd. Mở CMD: chọn **1** nếu chưa root, **2** nếu đã root, **3** để xem báo cáo chức năng ngay trong setup. [Hướng dẫn đúng từng nhánh](docs/INSTALL.vi.md). [Thay đổi và các bước sau cài](docs/CHANGELOG-v3.3.0.md).
 
 **Tiếng Việt** | [English](README.en.md)
