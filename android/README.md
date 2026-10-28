@@ -15,7 +15,9 @@ curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-a
 bash "$HOME/install-gathintv.sh"
 ```
 
-4. Chọn ngôn ngữ, nhập IP TV, rồi chọn cài cho **TV đã root / chưa root**. Menu cũng có kiểm tra TV, backup và rollback.
+4. Chọn **2 — Tiếng Việt**, rồi nhập **số 1** cho TV chưa root hoặc **số 2** cho TV đã root. Nhập IP TV khi được hỏi. Menu cũng có kiểm tra TV, backup và rollback.
+
+**Nếu chọn TV chưa root:** mở **Cài đặt → Hỗ trợ → Thông tin TV** (hoặc **Giới thiệu về TV**), lấy model đầy đủ như `OLED65C2PSA` / `55SK8000PTA` và phiên bản phần mềm như `05.50.70`. Không dùng passphrase Developer Mode 6 ký tự (ví dụ `F02CFB`) làm model; không dùng phiên bản webOS như `4.4.0` làm firmware. Passphrase sẽ được hỏi riêng khi kết nối Developer Mode. Nhập sai thì setup cho nhập lại, không tự thoát.
 
 Mở lại menu sau này:
 

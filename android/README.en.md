@@ -15,7 +15,9 @@ curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-a
 bash "$HOME/install-gathintv.sh"
 ```
 
-4. Choose a language, enter your TV's IP, then select the rooted/unrooted branch. The menu also provides Doctor, backup and rollback.
+4. Choose a language, then enter **1** for an unrooted TV or **2** for an already-rooted TV. Enter your TV's IP when prompted. The menu also provides Doctor, backup and rollback.
+
+For unrooted TVs, read the full model and Software Version from **Settings → Support → TV Information** (or **About This TV**). Examples: model `OLED65C2PSA` / `55SK8000PTA`, firmware `05.50.70`. A six-character Developer Mode passphrase such as `F02CFB` is not a TV model; webOS `4.4.0` is not the firmware. The passphrase is requested separately when connecting Developer Mode. Invalid input is retried instead of closing setup.
 
 Reopen the menu with:
 

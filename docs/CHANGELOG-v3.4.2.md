@@ -1,5 +1,7 @@
 # Thay đổi phiên bản 3.4.2
 
+- Sửa nhập liệu Termux: chọn tiếng Việt/Anh, mô tả rõ TV đã root/chưa root; nhập sai menu/model/firmware được hỏi lại. Hướng dẫn phân biệt model, phiên bản phần mềm và passphrase Developer Mode; chặn dùng passphrase làm model trước khi kết nối TV.
+
 **Tiếng Việt** | [English](CHANGELOG-v3.4.2.en.md)
 
 - Thêm mục Rollback trong menu setup Windows và Android, dùng chung recovery core. Chọn snapshot trước khi chạy tool, kể cả sau khi đã cài thành công.

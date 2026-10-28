@@ -53,30 +53,28 @@ while (($#)); do
     *) if [[ -z $mode ]]; then mode=$1; elif [[ -z $host ]]; then host=$1; else die "Unexpected argument: $1"; fi; shift ;;
   esac
 done
+if ! command -v node >/dev/null 2>&1; then prerequisites; die 'Missing Node.js. Termux: pkg install nodejs'; fi
+script_dir=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+if [[ ! -f "$script_dir/scripts/run.js" ]]; then
+  script_dir=$(cd -P -- "$script_dir/.." && pwd)
+fi
+source "$script_dir/scripts/shell-prompts.sh"
 if [[ -z $mode ]]; then
   [[ -t 0 ]] || { usage >&2; die 'Non-interactive use requires --mode and --host'; }
   interactive_menu=true
-  printf '%s\n' '==================================' '        GathinTV AutoSetup' '          Android / Linux' '==================================' '[1] Setup' '[2] Restore' '[3] Doctor' '[4] Backup' '[5] Apps' '[6] Sync' '[7] Disable' '[8] Rollback / Khoi phuc trang thai truoc khi chay tool' '[0] Exit'
-  read -r -p 'Choice: ' choice
-  case "$choice" in 1) mode=Setup;;2) mode=Restore;;3) mode=Doctor;;4) mode=Backup;;5) mode=Apps;;6) mode=Sync;;7) mode=Disable;;8) mode=Rollback;;0) exit 0;;*) die 'Invalid choice';;esac
-  if [[ $mode == Setup ]]; then
-    read -r -p 'TV already rooted? (YES/CO, otherwise no): ' answer
-    case "$answer" in [Yy][Ee][Ss]|[Cc][Oo]) already=true;pass+=(--already-rooted);;esac
-  fi
+  shell_language
+  shell_menu
+  [[ $mode != Exit ]] || exit 0
 fi
 case "$mode" in
   Setup|setup) mode=Setup;;Restore|restore) mode=Restore;;Doctor|doctor) mode=Doctor;;Backup|backup) mode=Backup;;Apps|apps) mode=Apps;;Sync|sync) mode=Sync;;Disable|disable) mode=Disable;;Rollback|rollback) mode=Rollback;;*) die "Unknown mode: $mode";;
 esac
-if [[ -z $host && -t 0 ]]; then read -r -p 'TV IP: ' host; fi
+if [[ -z $host && -t 0 ]]; then shell_read host "$(shell_text 'TV IP: ' 'Dia chi IP cua TV: ')"; fi
 [[ ${#host} -le 253 && $host =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ ]] || die 'Missing/invalid --host: enter only TV IP or hostname, without scheme, port or spaces'
 if ! command -v node >/dev/null 2>&1; then prerequisites; die 'Missing Node.js. Termux: pkg install nodejs'; fi
 version=$(node --version) || die 'Cannot run node --version'
 [[ $version =~ ^v([0-9]+)\. ]] || die "Invalid Node version: $version"
 ((10#${BASH_REMATCH[1]} >= 20)) || { prerequisites; die 'Node.js >=20 is required'; }
-script_dir=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-if [[ ! -f "$script_dir/scripts/run.js" ]]; then
-  script_dir=$(cd -P -- "$script_dir/.." && pwd)
-fi
 if ! node -e 'require(process.argv[1]+"/node_modules/ssh2");require(process.argv[1]+"/node_modules/ws")' "$script_dir" >/dev/null 2>&1; then
   die "Missing JS dependencies. In $script_dir run: npm ci --omit=dev --omit=optional --ignore-scripts"
 fi
@@ -88,14 +86,14 @@ export GATHIN_SESSION_LOG="$GATHIN_STATE_DIRECTORY/logs/setup-$session_id.runtim
 export GATHIN_RECOVERY_SESSION="$GATHIN_STATE_DIRECTORY/sessions/$session_id.json"
 printf 'State: %s\nLog: %s\n' "$GATHIN_STATE_DIRECTORY" "$GATHIN_SESSION_LOG"
 if $interactive_menu && [[ $mode != Rollback ]]; then
-  read -r -p "Check TV IP $host. Trust this TV's new SSH host key? (YES/CO, otherwise keep existing pins): " answer
+  shell_read answer "$(shell_text "Check TV IP $host. Trust this TV's new SSH host key? (YES/CO, otherwise keep existing pins): " "Kiem tra IP TV $host. Tin khoa SSH moi cua TV nay? (YES/CO; khac de giu khoa cu): ")"
   case "$answer" in [Yy][Ee][Ss]|[Cc][Oo]) pass+=(--trust-new-host);;esac
 fi
 node "$script_dir/scripts/verify.js"
 if [[ $mode == Setup ]] && ! $already; then
-  if [[ -z $model && -t 0 ]]; then read -r -p 'TV model (from Settings): ' model; fi
-  if [[ -z $firmware && -t 0 ]]; then read -r -p 'Installed firmware (00.00.00): ' firmware; fi
-  [[ -n $model && $firmware =~ ^[0-9]{1,2}\.[0-9]{2}\.[0-9]{2}$ ]] || die 'Fresh Setup requires --expected-model and --expected-firmware (or an interactive terminal)'
+  if ! shell_valid_model "$model" && [[ -t 0 ]]; then shell_model; fi
+  if ! shell_valid_firmware "$firmware" && [[ -t 0 ]]; then shell_firmware; fi
+  shell_valid_model "$model" && shell_valid_firmware "$firmware" || die 'Fresh Setup requires the full LG TV model (e.g. OLED65C2PSA, not the Developer Mode passphrase) and firmware 00.00.00 (--expected-model / --expected-firmware)'
   node "$script_dir/scripts/check-root.js" --model "$model" --firmware "$firmware" --language "${GATHIN_LANGUAGE:-en}"
   pass+=(--expected-model "$model" --expected-firmware "$firmware")
 fi
