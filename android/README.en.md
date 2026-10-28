@@ -1,4 +1,4 @@
-# Install GathinTV on Android / Termux
+# Install MAC-WebOSTV on Android / Termux
 
 [Home](../README.en.md) · [Tiếng Việt](README.md) · [Windows installation](../windows/README.en.md)
 
@@ -11,8 +11,8 @@
 ```bash
 pkg update -y
 pkg install nodejs curl -y
-curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh -o "$HOME/install-gathintv.sh"
-bash "$HOME/install-gathintv.sh"
+curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh -o "$HOME/install-mac-webostv.sh"
+bash "$HOME/install-mac-webostv.sh"
 ```
 
 4. Choose a language, then enter **1** for an unrooted TV or **2** for an already-rooted TV. Enter your TV's IP when prompted. The menu also provides Doctor, backup and rollback.
@@ -24,7 +24,7 @@ For **webOS22 and newer**, `webOS22 / 7.6.0-1901` is not firmware; setup reads t
 Reopen the menu with:
 
 ```bash
-bash "$HOME/.gathintv/GathinTV-AutoSetup.sh"
+bash "$HOME/.mac-webostv/MAC-WebOSTV-AutoSetup.sh"
 ```
 
 The bootstrap verifies the runtime SHA-256 before execution. Setup replaces official/non-matching YouTube with AdFree 0.5.3 and retains a matching installation. Signing in again may be necessary; rollback does not restore the official YouTube package or account data.
@@ -35,7 +35,7 @@ For **Linux/macOS**, install Bash, curl and Node.js 20+, then run the same `curl
 
 After reported root, enable **SSH Server** in Homebrew and uninstall the **Developer Mode app** before rebooting. Unavailable SSH does not trigger another exploit. HOME is model-independent but still requires actual input checks. [HOME / root recovery](../docs/HOME-ROOT-RECOVERY.md).
 
-`install-android.sh` is the checksum-pinned bootstrap. `GathinTV-AutoSetup.sh` is the shared-core shell menu. Source users need the dependencies in the [development guide](../docs/DEVELOPMENT.en.md).
+`install-android.sh` is the checksum-pinned bootstrap. `MAC-WebOSTV-AutoSetup.sh` is the shared-core shell menu. Source users need the dependencies in the [development guide](../docs/DEVELOPMENT.en.md).
 
 Menu **4** installs YouTube AdFree + LGWS and optimizes optional apps on a rooted TV, without reinstalling the launcher. Menu **5** opens Rollback.
 

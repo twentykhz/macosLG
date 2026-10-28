@@ -1,4 +1,4 @@
-# Tài liệu GathinTV
+# Tài liệu MAC-WebOSTV
 
 [Trang chính](../README.md) · [English](README.en.md)
 

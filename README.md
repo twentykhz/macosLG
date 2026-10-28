@@ -1,4 +1,4 @@
-# GathinTV · MAC-WebOSTV
+# MAC-WebOSTV
 
 Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Chọn thiết bị bạn dùng để cài bên dưới.** TV và thiết bị cài cần cùng Wi-Fi/LAN.
 
@@ -12,7 +12,7 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 
 **Chỉ muốn cài? Không cần bấm Code → Download ZIP hay mở các thư mục mã nguồn.** Dùng đúng hướng dẫn theo thiết bị ở bảng trên.
 
-![Giao diện GathinTV](docs/screenshots/launcher-preview.jpg)
+![Giao diện MAC-WebOSTV](docs/screenshots/launcher-preview.jpg)
 
 [Xem thay đổi 3.5.0: boot, HOME, voice, debloat và privacy](docs/CHANGELOG-v3.5.0.md).
 
@@ -35,3 +35,5 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 ## Mã nguồn nằm ở đâu?
 
 `windows/` và `android/` là hai lối cài đặt. `payload/` chứa launcher/dịch vụ TV; `lib/`, `scripts/`, `config/`, `packages/`, `upstream/` là thành phần dùng chung để build và chạy bộ cài; `test/` là kiểm thử. File bộ cài đóng gói nằm trong [Releases](https://github.com/twentykhz/macosLG/releases/latest).
+
+Tên chính thức / Official name: **MAC-WebOSTV**. Download the current installer again when updating older saved launch commands. Existing private backup/key state is discovered automatically.

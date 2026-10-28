@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),zlib=require('node:zlib');
 const archive=require('../lib/release-archive');
-const files=[{name:'scripts/run.js',data:Buffer.from('core fixture')},{name:'path with spaces/GathinTV-AutoSetup.sh',data:Buffer.from('#!/usr/bin/env bash\n')}];
+const files=[{name:'scripts/run.js',data:Buffer.from('core fixture')},{name:'path with spaces/MAC-WebOSTV-AutoSetup.sh',data:Buffer.from('#!/usr/bin/env bash\n')}];
 test('ZIP and tar contain only POSIX names and preserve file bytes',()=>{
  const zip=archive.zip(files);let p=0;const names=[];
  while(zip.readUInt32LE(p)===0x04034b50){const size=zip.readUInt32LE(p+18),nameLength=zip.readUInt16LE(p+26),extra=zip.readUInt16LE(p+28),name=zip.subarray(p+30,p+30+nameLength).toString();names.push(name);assert.equal(name.includes('\\'),false);const data=zlib.inflateRawSync(zip.subarray(p+30+nameLength+extra,p+30+nameLength+extra+size));assert.deepEqual(data,files.find(f=>f.name===name).data);p+=30+nameLength+extra+size;}

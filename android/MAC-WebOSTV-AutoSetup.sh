@@ -4,9 +4,9 @@ umask 077
 
 usage() {
   cat <<'HELP'
-GathinTV AutoSetup 3.5.0 - Android / Termux / Linux / macOS (Node >=20)
-Usage: ./GathinTV-AutoSetup.sh --mode MODE --host TV_IP [options]
-       ./GathinTV-AutoSetup.sh Doctor TV_IP [options]
+MAC-WebOSTV AutoSetup 3.5.0 - Android / Termux / Linux / macOS (Node >=20)
+Usage: ./MAC-WebOSTV-AutoSetup.sh --mode MODE --host TV_IP [options]
+       ./MAC-WebOSTV-AutoSetup.sh Doctor TV_IP [options]
 Modes: Setup Restore Doctor Backup Apps Sync Disable Debloat Rollback
 Options:
   --already-rooted --dry-run --trust-new-host --no-reboot --remove-extra-apps
@@ -14,7 +14,7 @@ Options:
   --session PATH --yes  (Rollback: snapshot file/folder; --yes confirms without prompt)
   --expected-model MODEL --expected-firmware 00.00.00 --language en|vi
   --skip-preflight  Skip manual lookup; detect authenticated TV details before root checks.
-State: GATHIN_STATE_DIRECTORY, default ~/.gathintv/state (private).
+State: GATHIN_STATE_DIRECTORY, default ~/.mac-webostv/state (private).
 Unknown hosts are rejected unless --trust-new-host is explicitly supplied.
 --remove-extra-apps retains the core's existing snapshot safety restriction.
 HELP

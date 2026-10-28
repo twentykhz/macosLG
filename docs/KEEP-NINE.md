@@ -6,7 +6,7 @@ Mục **4** cài YouTube AdFree và LGWS, rồi áp dụng danh sách giữ củ
 
 | App giữ hoạt động | App ID |
 |---|---|
-| GathinTV | `com.gathin.tvhome` |
+| MAC-WebOSTV | `com.gathin.tvhome` |
 | YouTube AdFree | `youtube.leanback.v4` |
 | Trình duyệt | `com.webos.app.browser` |
 | FPT Play | `com.fpt.fptplay` |

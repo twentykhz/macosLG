@@ -99,7 +99,7 @@ Từ 3.4.2, có thể chọn rollback ngay từ menu setup hoặc `--mode Rollba
 
 Đã sửa (bao gồm bootstrap được tạo và ghim checksum):
 
-- `GathinTV-AutoSetup.sh`
+- `MAC-WebOSTV-AutoSetup.sh`
 - `README.en.md`
 - `README.md`
 - `checksums.json`

@@ -19,7 +19,7 @@ Bạn chỉ cần:
 
 # Bước 1 — Cài Termux
 
-**Termux** là ứng dụng chúng ta dùng để chạy bộ cài GathinTV trên điện thoại.
+**Termux** là ứng dụng chúng ta dùng để chạy bộ cài MAC-WebOSTV trên điện thoại.
 
 ### Cách dễ nhất 
 
@@ -113,7 +113,7 @@ là xong bước này.
 
 ---
 
-# Bước 3 — Cài những thứ GathinTV cần
+# Bước 3 — Cài những thứ MAC-WebOSTV cần
 
 Copy nguyên dòng sau:
 
@@ -182,7 +182,7 @@ v24.10.0
 
 # Bước 4 — Cho Termux quyền lưu file
 
-Bước này để GathinTV có thể lưu backup vào thư mục **Download** của điện thoại.
+Bước này để MAC-WebOSTV có thể lưu backup vào thư mục **Download** của điện thoại.
 
 Chạy:
 
@@ -200,7 +200,7 @@ Nếu điện thoại không hiện gì hoặc bạn lỡ từ chối thì cũng
 
 ---
 
-# Bước 5 — Chạy bộ cài GathinTV
+# Bước 5 — Chạy bộ cài MAC-WebOSTV
 
 Đây là bước chính.
 
@@ -214,11 +214,11 @@ Dán vào Termux → Enter.
 
 Không sửa gì trong dòng trên.
 
-Bộ cài sẽ tự tải GathinTV về điện thoại và kiểm tra file trước khi chạy.
+Bộ cài sẽ tự tải MAC-WebOSTV về điện thoại và kiểm tra file trước khi chạy.
 
 Đợi một chút.
 
-Sau đó menu GathinTV sẽ hiện ra.
+Sau đó menu MAC-WebOSTV sẽ hiện ra.
 
 ---
 
@@ -316,7 +316,7 @@ và nhập IP vừa xem trên TV.
 
 # Bước 7 — Xác nhận đúng TV
 
-Ở lần kết nối đầu tiên, GathinTV có thể hỏi bạn xác nhận IP.
+Ở lần kết nối đầu tiên, MAC-WebOSTV có thể hỏi bạn xác nhận IP.
 
 Ví dụ:
 
@@ -374,7 +374,7 @@ Cứ nhập đúng rồi bấm Enter.
 
 # Bước 9 — Để bộ cài chạy
 
-Từ đây cứ làm theo những gì GathinTV hỏi trên màn hình.
+Từ đây cứ làm theo những gì MAC-WebOSTV hỏi trên màn hình.
 
 Trong lúc cài:
 
@@ -392,14 +392,14 @@ Khi bộ cài báo hoàn tất thì mới đóng Termux.
 
 ---
 
-# Sau này muốn mở lại GathinTV
+# Sau này muốn mở lại MAC-WebOSTV
 
 Không cần chạy lại lệnh cài từ đầu.
 
 Mở Termux rồi chạy:
 
 ```bash
-cd "$HOME/.gathintv"
+cd "$HOME/.mac-webostv"
 ```
 
 Enter.
@@ -407,12 +407,12 @@ Enter.
 Sau đó:
 
 ```bash
-./GathinTV-AutoSetup.sh
+./MAC-WebOSTV-AutoSetup.sh
 ```
 
 Enter.
 
-Menu GathinTV sẽ hiện lại.
+Menu MAC-WebOSTV sẽ hiện lại.
 
 ---
 
@@ -421,8 +421,8 @@ Menu GathinTV sẽ hiện lại.
 Nếu TV đã root và bạn chỉ muốn kiểm tra xem mọi thứ có hoạt động không:
 
 ```bash
-cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh --mode Doctor --host 192.168.1.11
+cd "$HOME/.mac-webostv"
+./MAC-WebOSTV-AutoSetup.sh --mode Doctor --host 192.168.1.11
 ```
 
 Thay:
@@ -442,29 +442,29 @@ Doctor chỉ kiểm tra, không cài lại TV.
 Chạy:
 
 ```bash
-cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh --mode Backup --host 192.168.1.11
+cd "$HOME/.mac-webostv"
+./MAC-WebOSTV-AutoSetup.sh --mode Backup --host 192.168.1.11
 ```
 
 Nếu đã cấp quyền bộ nhớ ở **Bước 4**, backup thường nằm trong:
 
 ```text
-Download/GathinTV-Backups
+Download/MAC-WebOSTV-Backups
 ```
 
-Nếu chưa cấp quyền thì GathinTV sẽ lưu backup bên trong Termux và báo đường dẫn trên màn hình.
+Nếu chưa cấp quyền thì MAC-WebOSTV sẽ lưu backup bên trong Termux và báo đường dẫn trên màn hình.
 
 Không nên chia sẻ file backup của TV lên mạng.
 
 ---
 
-# TV đã root và muốn cài lại GathinTV
+# TV đã root và muốn cài lại MAC-WebOSTV
 
 Chạy:
 
 ```bash
-cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh --mode Restore --host 192.168.1.11 --trust-new-host
+cd "$HOME/.mac-webostv"
+./MAC-WebOSTV-AutoSetup.sh --mode Restore --host 192.168.1.11 --trust-new-host
 ```
 
 Nhớ thay IP bằng IP TV của bạn.
@@ -561,8 +561,8 @@ Mở lại Termux.
 Chạy:
 
 ```bash
-cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh
+cd "$HOME/.mac-webostv"
+./MAC-WebOSTV-AutoSetup.sh
 ```
 
 Không chạy root lại nếu TV đã root thành công.

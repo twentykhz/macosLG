@@ -7,7 +7,7 @@
     "sdkVersion": "4.4.0",
     "boardType": "M16PP_DVB_EU"
   },
-  "edition": "GathinTV 3.1 public static runtime; per-TV credentials and family data excluded",
+  "edition": "MAC-WebOSTV 3.1 public static runtime; per-TV credentials and family data excluded",
   "files": [
     {
       "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",

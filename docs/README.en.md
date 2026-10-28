@@ -1,4 +1,4 @@
-# GathinTV documentation
+# MAC-WebOSTV documentation
 
 [Home](../README.en.md) · [Tiếng Việt](README.md)
 

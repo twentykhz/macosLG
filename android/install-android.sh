@@ -11,7 +11,7 @@ install_dir=$(node <<'GATHIN_BOOTSTRAP_NODE'
 'use strict';
 // Inlined into the published shell bootstrap, together with the archive reader.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
-const pin={"version":"3.5.0","url":"https://github.com/twentykhz/macosLG/releases/download/v3.5.0/GathinTV-Termux-3.5.0-fb5828af29a9.tar.gz","sha256":"fb5828af29a9ea21e8d239a1004fb599fd201015f80880979d42a12222973cc6","size":22016678,"manifestSha256":"f5740ab0319ed2ddb4a61285bb933d997ceeb6c309bf3249e650d3007ef469e3"};
+const pin={"version":"3.5.0","url":"https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-Termux-3.5.0-fe2cf7ef735f.tar.gz","sha256":"fe2cf7ef735f8adee4346c16ed7302dd0f6d6da45c32c7baaeba3ac94777dd3a","size":22017914,"manifestSha256":"5c4bfdd4b9145dcc3ddfe9da696a0f047049eb0a270a37de65e6c449777a64a3"};
 const archive=(()=>{const module={exports:{}};'use strict';
 // Built-in modules only: portable packages never require a native ZIP/tar tool.
 const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib');
@@ -67,8 +67,8 @@ module.exports={safeName,tarGzip,extractTarGzip,zip};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 function launcher(base,target){
  const quote=s=>"'"+s.replace(/'/g,"'\"'\"'")+"'";
- const file=path.join(base,'GathinTV-AutoSetup.sh'),temp=file+'.new-'+crypto.randomUUID();
- fs.writeFileSync(temp,'#!/usr/bin/env bash\nset -Eeuo pipefail\nexec bash '+quote(path.join(target,'GathinTV-AutoSetup.sh'))+' "$@"\n',{mode:0o700});fs.renameSync(temp,file);
+ const file=path.join(base,'MAC-WebOSTV-AutoSetup.sh'),temp=file+'.new-'+crypto.randomUUID();
+ fs.writeFileSync(temp,'#!/usr/bin/env bash\nset -Eeuo pipefail\nexec bash '+quote(path.join(target,'MAC-WebOSTV-AutoSetup.sh'))+' "$@"\n',{mode:0o700});fs.renameSync(temp,file);
 }
 function verify(directory){
  const file=path.join(directory,'runtime-manifest.json');if(hash(fs.readFileSync(file))!==pin.manifestSha256)throw Error('Runtime manifest checksum mismatch');
@@ -79,14 +79,14 @@ function verify(directory){
  for(const entry of manifest.files){const name=archive.safeName(entry.path);let p=directory;for(const part of name.split('/')){p=path.join(p,part);if(fs.lstatSync(p).isSymbolicLink())throw Error('Symlink in installed runtime');}if(hash(fs.readFileSync(p))!==entry.sha256)throw Error('Runtime file checksum mismatch: '+name);}
 }
 async function main(){
- const base=path.join(os.homedir(),'.gathintv'),releases=path.join(base,'releases'),target=path.join(releases,pin.version+'-'+pin.sha256.slice(0,12));
+ const base=path.join(os.homedir(),'.mac-webostv'),releases=path.join(base,'releases'),target=path.join(releases,pin.version+'-'+pin.sha256.slice(0,12));
  for(const folder of [base,releases]){fs.mkdirSync(folder,{recursive:true,mode:0o700});if(fs.lstatSync(folder).isSymbolicLink())throw Error('Unsafe installation directory');fs.chmodSync(folder,0o700);}
  if(fs.existsSync(target)){
   if(fs.lstatSync(target).isSymbolicLink())throw Error('Unsafe release directory');
   let valid=false;try{verify(target);valid=true;}catch{console.error('Cached release failed verification; downloading a clean copy.');}
   if(valid){launcher(base,target);process.stdout.write(target);return;}
  }
- console.error('Downloading pinned GathinTV '+pin.version+' (SHA-256 verified before extraction).');
+ console.error('Downloading pinned MAC-WebOSTV '+pin.version+' (SHA-256 verified before extraction).');
  const response=await fetch(pin.url,{signal:AbortSignal.timeout(600000)});if(!response.ok)throw Error('Release download HTTP '+response.status);
  const chunks=[];let length=0;for await(const chunk of response.body){length+=chunk.length;if(length>pin.size)throw Error('Download exceeds pinned size');chunks.push(chunk);}const bytes=Buffer.concat(chunks);
  if(length!==pin.size||hash(bytes)!==pin.sha256)throw Error('Release checksum mismatch; nothing executed');
@@ -102,7 +102,7 @@ main().catch(e=>{console.error(e.message);process.exitCode=1;});
 GATHIN_BOOTSTRAP_NODE
 )
 if ( : </dev/tty ) 2>/dev/null; then
-  exec bash "$install_dir/GathinTV-AutoSetup.sh" "$@" </dev/tty
+  exec bash "$install_dir/MAC-WebOSTV-AutoSetup.sh" "$@" </dev/tty
 else
-  exec bash "$install_dir/GathinTV-AutoSetup.sh" "$@"
+  exec bash "$install_dir/MAC-WebOSTV-AutoSetup.sh" "$@"
 fi

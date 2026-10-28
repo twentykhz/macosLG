@@ -50,8 +50,8 @@ function Test-MacTvConfirmation([string]$Value){return $Value.Trim().ToUpperInva
 $env:GATHIN_LANGUAGE=$Language
 $env:GATHIN_RECOVERY_SESSION=$null
 if(-not $PSBoundParameters.ContainsKey('DataDirectory')){
- $taskLegacyData=Join-Path $env:LOCALAPPDATA 'GathinTV'
- if(Test-Path -LiteralPath (Join-Path $taskLegacyData 'state')){$DataDirectory=$taskLegacyData}
+ $taskLegacyData=Join-Path $env:LOCALAPPDATA ('Gathin'+'TV')
+ if(-not (Test-Path -LiteralPath (Join-Path $DataDirectory 'state')) -and (Test-Path -LiteralPath (Join-Path $taskLegacyData 'state'))){$DataDirectory=$taskLegacyData}
 }
 trap {
  $taskFailure=$_.Exception.Message

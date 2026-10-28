@@ -12,7 +12,7 @@ __BOOTSTRAP_JS__
 GATHIN_BOOTSTRAP_NODE
 )
 if ( : </dev/tty ) 2>/dev/null; then
-  exec bash "$install_dir/GathinTV-AutoSetup.sh" "$@" </dev/tty
+  exec bash "$install_dir/MAC-WebOSTV-AutoSetup.sh" "$@" </dev/tty
 else
-  exec bash "$install_dir/GathinTV-AutoSetup.sh" "$@"
+  exec bash "$install_dir/MAC-WebOSTV-AutoSetup.sh" "$@"
 fi

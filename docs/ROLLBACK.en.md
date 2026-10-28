@@ -12,7 +12,7 @@ Rollback restores snapshotted launcher files, project service configuration/data
 
 This is **not a factory reset, firmware restore or unroot**. Accounts, all vendor apps/data, Developer Mode, system settings outside the snapshot and exploit changes are not guaranteed to be restored. Never transplant another TV's snapshot. See `config/recovery-roots.json` and the [recovery audit](PYTHON-COMPATIBILITY.en.md).
 
-Keep the original state directory: normally `%LOCALAPPDATA%\GathinTV\state` or `%LOCALAPPDATA%\MAC-WebOSTV\state` on Windows and `~/.gathintv/state` on Android/Linux. `sessions` contains journals; `backups/<timestamp>/snapshot.json` accompanies `before-restore.tar.gz`. An exported tar alone lacks the metadata required by this menu.
+Keep the original state directory: normally `%LOCALAPPDATA%\MAC-WebOSTV\state` or `%LOCALAPPDATA%\MAC-WebOSTV\state` on Windows and `~/.mac-webostv/state` on Android/Linux. `sessions` contains journals; `backups/<timestamp>/snapshot.json` accompanies `before-restore.tar.gz`. An exported tar alone lacks the metadata required by this menu.
 
 ## Windows
 
@@ -28,15 +28,15 @@ Replace IP/path with your own TV and backup. `-DryRun` validates the archive, ro
 ## Android / Termux / Linux / macOS
 
 ```bash
-cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh --language en
+cd "$HOME/.mac-webostv"
+./MAC-WebOSTV-AutoSetup.sh --language en
 ```
 
 Choose **5 — Rollback**, enter the TV IP, select a backup and confirm `YES/CO`. Alternatively:
 
 ```bash
-./GathinTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --language en
-./GathinTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --session "$HOME/.gathintv/state/backups/TIMESTAMP/snapshot.json" --dry-run --language en
+./MAC-WebOSTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --language en
+./MAC-WebOSTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --session "$HOME/.mac-webostv/state/backups/TIMESTAMP/snapshot.json" --dry-run --language en
 ```
 
 Non-interactive restoration requires both `--session PATH` and `--yes`; DryRun does not need confirmation. No newest-backup default is selected. To return to before first use, select the **first run's snapshot**; each snapshot represents the beginning of its own run.

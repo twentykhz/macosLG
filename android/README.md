@@ -1,4 +1,4 @@
-# Cài GathinTV trên Android / Termux
+# Cài MAC-WebOSTV trên Android / Termux
 
 [Trang chính](../README.md) · [English / Linux / macOS](README.en.md) · [Tôi dùng Windows](../windows/README.md)
 
@@ -11,8 +11,8 @@
 ```bash
 pkg update -y
 pkg install nodejs curl -y
-curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh -o "$HOME/install-gathintv.sh"
-bash "$HOME/install-gathintv.sh"
+curl -fL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh -o "$HOME/install-mac-webostv.sh"
+bash "$HOME/install-mac-webostv.sh"
 ```
 
 4. Chọn **2 — Tiếng Việt**, rồi nhập **số 1** cho TV chưa root hoặc **số 2** cho TV đã root. Nhập IP TV khi được hỏi. Chọn **4** để chỉ cài YouTube AdFree, LGWS và tối ưu app phụ trên TV đã root; chọn **5** để rollback. Menu cũng có kiểm tra TV và backup.
@@ -24,7 +24,7 @@ bash "$HOME/install-gathintv.sh"
 Mở lại menu sau này:
 
 ```bash
-bash "$HOME/.gathintv/GathinTV-AutoSetup.sh"
+bash "$HOME/.mac-webostv/MAC-WebOSTV-AutoSetup.sh"
 ```
 
 Bootstrap xác minh SHA-256 của runtime trước khi chạy. Setup cài YouTube AdFree 0.5.3, gỡ YouTube gốc/bản không khớp trước và giữ AdFree đúng bản. Có thể cần đăng nhập lại; rollback không phục hồi gói/dữ liệu đăng nhập của YouTube gốc.
@@ -33,6 +33,6 @@ Bootstrap xác minh SHA-256 của runtime trước khi chạy. Setup cài YouTub
 
 Root đã báo hoàn tất thì bật **SSH Server** trong Homebrew và gỡ **app Developer Mode** trước khi reboot; không chạy exploit khác chỉ vì SSH chưa sẵn sàng. HOME relay không còn khóa model SK8000, nhưng phải qua probe input thực tế. [Hướng dẫn HOME / root](../docs/HOME-ROOT-RECOVERY.md).
 
-`install-android.sh` là bootstrap đã ghim checksum. `GathinTV-AutoSetup.sh` là menu shell dùng cùng Node core; nếu chạy từ source, cài dependencies theo [hướng dẫn phát triển](../docs/DEVELOPMENT.vi.md).
+`install-android.sh` là bootstrap đã ghim checksum. `MAC-WebOSTV-AutoSetup.sh` là menu shell dùng cùng Node core; nếu chạy từ source, cài dependencies theo [hướng dẫn phát triển](../docs/DEVELOPMENT.vi.md).
 
 **Mục 4: chỉ giữ 9 app chính như SK8000PTA**, khóa và đóng app còn lại; giữ các thành phần hệ thống/HDMI cần thiết. [Danh sách 9 app, báo cáo và hoàn tác](../docs/KEEP-NINE.md). **Mục 5: Rollback**, backup hiện ngày giờ/múi giờ, mới nhất ở trên.

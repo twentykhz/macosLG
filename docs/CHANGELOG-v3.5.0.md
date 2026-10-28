@@ -1,4 +1,4 @@
-# GathinTV 3.5.0
+# MAC-WebOSTV 3.5.0
 
 [Cài Windows](../windows/README.md) · [Cài Android/Termux](../android/README.md) · [English](CHANGELOG-v3.5.0.en.md)
 
@@ -18,3 +18,7 @@ TV đã root: dùng bộ cài 3.5.0, chọn **TV đã root** để áp dụng th
 ## Cập nhật mục 4 — 29/10/2026
 
 Mục 4 dùng profile [chỉ giữ 9 app chính](KEEP-NINE.md), khóa mọi app khác được SAM quản lý ngoài thành phần hệ thống/HDMI bắt buộc, thay cho giới hạn ở danh sách app phụ. Mở lại app chính nếu đang khóa; báo từng app khóa thất bại hoặc chưa cài. Profile được lưu cho boot. Nhật ký trạng thái khóa được lưu cạnh backup để hoàn tác qua nhiều phiên. Setup/Restore thông thường giữ profile app phụ riêng.
+
+## Đổi tên thống nhất — MAC-WebOSTV
+
+Đổi tên hiển thị, hướng dẫn, shell launcher và gói Windows/Android/Docs sang MAC-WebOSTV. Cache Android mới dùng `~/.mac-webostv`; vẫn tự tìm dữ liệu backup/khóa SSH đã lưu ở thư mục cũ. Tải lại bộ cài/đường dẫn mới khi nâng cấp.

@@ -98,7 +98,7 @@ Created:
 
 Modified (including the generated checksum-pinned bootstrap):
 
-- `GathinTV-AutoSetup.sh`
+- `MAC-WebOSTV-AutoSetup.sh`
 - `README.en.md`
 - `README.md`
 - `checksums.json`

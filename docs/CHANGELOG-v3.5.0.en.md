@@ -1,4 +1,4 @@
-# GathinTV 3.5.0
+# MAC-WebOSTV 3.5.0
 
 [Windows](../windows/README.en.md) · [Android/Termux](../android/README.en.md) · [Tiếng Việt](CHANGELOG-v3.5.0.md)
 
@@ -19,3 +19,7 @@ Validation covers source, generated packages and simulated TV installation/recov
 ## Menu 4 refresh — 2026-10-29
 
 [Keep-nine profile](KEEP-NINE.md): enable the sample nine apps, lock/close other installed apps except essential system components/HDMI, report failed/missing apps, and reapply at boot. App lock history is saved with backups for recovery across multiple sessions. Full Setup/Restore retains its separate optional-app profile.
+
+## Unified MAC-WebOSTV branding
+
+Display names, guides, shell launcher and Windows/Android/Docs assets use MAC-WebOSTV. New Android caches use `~/.mac-webostv`; existing private backup/key state is discovered automatically. Refresh saved installer download commands when upgrading.

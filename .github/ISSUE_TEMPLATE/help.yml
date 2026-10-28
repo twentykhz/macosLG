@@ -21,7 +21,7 @@ body:
   - type: input
     id: windows
     attributes:
-      label: Windows version and release tag / Windows và bản GathinTV
+      label: Windows version and release tag / Windows và bản MAC-WebOSTV
     validations:
       required: true
   - type: dropdown

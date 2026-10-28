@@ -1,8 +1,8 @@
-# Cài GathinTV trên Windows
+# Cài MAC-WebOSTV trên Windows
 
 [Trang chính](../README.md) · [English](README.en.md) · [Tôi dùng Android](../android/README.md)
 
-**[Tải bộ cài Windows 3.5.0 — GathinTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/GathinTV-Windows-3.5.0.zip)**
+**[Tải bộ cài Windows 3.5.0 — MAC-WebOSTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-Windows-3.5.0.zip)**
 
 1. Tải ZIP ở trên và **giải nén toàn bộ** vào một thư mục.
 2. Bật TV; máy tính và TV cần cùng Wi-Fi/LAN.

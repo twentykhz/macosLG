@@ -22,12 +22,12 @@ __pycache__/
 /MAC-WebOSTV-Source.zip
 
 # Legacy generated filenames; never publish as source.
-/GathinTV-AutoSetup.ps1
-/GathinTV-AutoSetup.ps1.sha256
-/GathinTV-Source.zip
+/MAC-WebOSTV-AutoSetup.ps1
+/MAC-WebOSTV-AutoSetup.ps1.sha256
+/MAC-WebOSTV-Source.zip
 
 # Private state and portable build artifacts.
 /state/
-/.gathintv/
-/GathinTV-Backups/
-/GathinTV-Termux-*.tar.gz*
+/.mac-webostv/
+/MAC-WebOSTV-Backups/
+/MAC-WebOSTV-Termux-*.tar.gz*

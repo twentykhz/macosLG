@@ -7,7 +7,7 @@ The repository contains **MAC-WebOSTV-Source**. Generated **MAC-WebOSTV-Release*
 | Path | Contents |
 |---|---|
 | `windows/` | Windows guides, setup CMD, source PowerShell wrappers and Wake helper |
-| `android/` | Termux guides, checksum-pinned bootstrap and shell menu; from source run `bash android/GathinTV-AutoSetup.sh` |
+| `android/` | Termux guides, checksum-pinned bootstrap and shell menu; from source run `bash android/MAC-WebOSTV-AutoSetup.sh` |
 | `payload/app/` | Launcher HTML/CSS/JavaScript, widgets, dock, icons, images and public fonts |
 | `payload/advanced/files/` | Remote, wallpaper service, root bridge, voice and startup hooks |
 | `payload/advanced/map.json` | Source-to-TV installation path mapping |
@@ -37,7 +37,7 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` creates configuration, IPK and checksums. `package` uses built-in Node ZIP/tar generation with POSIX paths, keeps the existing single-file Windows assets and adds `GathinTV-Termux-3.5.0-HASH.tar.gz`, checksum, manifest and a checksum-pinned `install-android.sh` in the sibling `MAC-WebOSTV-Release` directory. The phone runtime omits tests, screenshot documentation and optional native optimizations, using the same core source. Generate the bootstrap after the tar; exclude it from that tar to avoid a circular hash. Retain immutable hash-named archives on Releases for published bootstraps. Repackage after source changes; rebuild first after payload changes.
+`build` creates configuration, IPK and checksums. `package` uses built-in Node ZIP/tar generation with POSIX paths, keeps the existing single-file Windows assets and adds `MAC-WebOSTV-Termux-3.5.0-HASH.tar.gz`, checksum, manifest and a checksum-pinned `install-android.sh` in the sibling `MAC-WebOSTV-Release` directory. The phone runtime omits tests, screenshot documentation and optional native optimizations, using the same core source. Generate the bootstrap after the tar; exclude it from that tar to avoid a circular hash. Retain immutable hash-named archives on Releases for published bootstraps. Repackage after source changes; rebuild first after payload changes.
 
 The generated installer is also copied to the repository root for local testing but ignored by Git. Upload it as a release asset rather than committing generated large files. The release ZIP includes production dependencies for the installer; source developers still run `npm.cmd ci` for build tools.
 

@@ -1,4 +1,4 @@
-# GathinTV · MAC-WebOSTV
+# MAC-WebOSTV
 
 A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device you will install from.** Keep it and the TV on the same Wi-Fi/LAN.
 
@@ -12,7 +12,7 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 
 **Installing only? You do not need Code → Download ZIP or the source folders.** Follow your platform's guide above.
 
-![GathinTV launcher](docs/screenshots/launcher-preview.jpg)
+![MAC-WebOSTV launcher](docs/screenshots/launcher-preview.jpg)
 
 [3.5.0 changes: startup, HOME, voice, debloat and privacy](docs/CHANGELOG-v3.5.0.en.md).
 
@@ -35,3 +35,5 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 ## Source layout
 
 `windows/` and `android/` are the platform entry points. `payload/` contains the TV launcher/services. `lib/`, `scripts/`, `config/`, `packages/` and `upstream/` support the shared installer and builds; `test/` contains automated checks. Packaged installers belong in [Releases](https://github.com/twentykhz/macosLG/releases/latest).
+
+Tên chính thức / Official name: **MAC-WebOSTV**. Download the current installer again when updating older saved launch commands. Existing private backup/key state is discovered automatically.

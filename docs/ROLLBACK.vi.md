@@ -12,7 +12,7 @@ Rollback khôi phục file launcher, cấu hình/dữ liệu dịch vụ của d
 
 Đây **không phải reset xuất xưởng**, khôi phục firmware hoặc hủy root. Tài khoản, toàn bộ app/data của hãng, Developer Mode, cấu hình hệ thống ngoài phạm vi snapshot và thay đổi do exploit root không được bảo đảm khôi phục. Không dùng backup của TV khác. Xem phạm vi chính xác trong `config/recovery-roots.json` và [audit khôi phục](PYTHON-COMPATIBILITY.md).
 
-Giữ nguyên thư mục state trên thiết bị đã chạy tool: Windows thường là `%LOCALAPPDATA%\GathinTV\state` hoặc `%LOCALAPPDATA%\MAC-WebOSTV\state`; Android/Linux mặc định `~/.gathintv/state`. Thư mục `sessions` chứa nhật ký; `backups/<thời-điểm>/snapshot.json` đi kèm `before-restore.tar.gz` chứa bản sao đầu phiên. Chỉ một file tar xuất riêng không đủ metadata để dùng menu này.
+Giữ nguyên thư mục state trên thiết bị đã chạy tool: Windows thường là `%LOCALAPPDATA%\MAC-WebOSTV\state` hoặc `%LOCALAPPDATA%\MAC-WebOSTV\state`; Android/Linux mặc định `~/.mac-webostv/state`. Thư mục `sessions` chứa nhật ký; `backups/<thời-điểm>/snapshot.json` đi kèm `before-restore.tar.gz` chứa bản sao đầu phiên. Chỉ một file tar xuất riêng không đủ metadata để dùng menu này.
 
 ## Windows
 
@@ -35,15 +35,15 @@ Thay IP/path bằng TV và backup của bạn. `-DryRun` xác minh archive, kế
 ## Android / Termux / Linux / macOS
 
 ```bash
-cd "$HOME/.gathintv"
-./GathinTV-AutoSetup.sh --language vi
+cd "$HOME/.mac-webostv"
+./MAC-WebOSTV-AutoSetup.sh --language vi
 ```
 
 Chọn **5 — Rollback**, nhập IP TV, chọn backup và xác nhận `CO/YES`. Hoặc:
 
 ```bash
-./GathinTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --language vi
-./GathinTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --session "$HOME/.gathintv/state/backups/THOI-DIEM/snapshot.json" --dry-run --language vi
+./MAC-WebOSTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --language vi
+./MAC-WebOSTV-AutoSetup.sh --mode Rollback --host 192.168.1.11 --session "$HOME/.mac-webostv/state/backups/THOI-DIEM/snapshot.json" --dry-run --language vi
 ```
 
 Chạy không tương tác cần cả `--session PATH` và `--yes`; `--dry-run` không cần xác nhận. Không chọn ngầm “backup mới nhất”. Muốn về trước lần đầu dùng tool, hãy chọn backup của **lần chạy đầu tiên**; mỗi backup thể hiện trạng thái trước phiên tương ứng.

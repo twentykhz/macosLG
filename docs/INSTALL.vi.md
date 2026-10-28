@@ -9,7 +9,7 @@ Bộ cài **3.5.0** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cầ
 ## 1. Tải và mở bộ cài
 
 1. Mở [release 3.5.0](https://github.com/twentykhz/macosLG/releases/tag/v3.5.0), mở **Assets**.
-2. Tải **[GathinTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/GathinTV-Windows-3.5.0.zip)** và giải nén toàn bộ vào một thư mục, ví dụ `Desktop\MAC-WebOSTV`. ZIP có sẵn `MAC-WebOSTV-AutoSetup.ps1` và `Start-Setup.cmd`. Nếu dùng bản cũ, tải lại ZIP mới.
+2. Tải **[MAC-WebOSTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-Windows-3.5.0.zip)** và giải nén toàn bộ vào một thư mục, ví dụ `Desktop\MAC-WebOSTV`. ZIP có sẵn `MAC-WebOSTV-AutoSetup.ps1` và `Start-Setup.cmd`. Nếu dùng bản cũ, tải lại ZIP mới.
 3. Không đổi tên hoặc giải nén file `.ps1`. Không cần tải `Source code (zip)`, cài Node.js, npm hay webOS CLI.
 4. Bật TV. Cho TV và PC Windows 64-bit cùng mạng LAN, tránh Wi-Fi khách có chặn thiết bị. Giữ PC hoạt động, không ngủ trong lúc cài.
 5. Nếu Windows chặn file tải về: kiểm tra đúng nguồn repo này, mở **Properties → Unblock → Apply** nếu có. Không cần tắt bảo vệ toàn máy.

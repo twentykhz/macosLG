@@ -24,7 +24,7 @@ for(const directory of require('../lib/production-dependencies').productionPacka
 }
 for(const name of ['.gitattributes','README.md','README.en.md','LICENSE','THIRD-PARTY.md','package.json','package-lock.json','checksums.json','.gitignore'])if(fs.existsSync(path.join(root,name)))fs.copyFileSync(path.join(root,name),path.join(stage,name));
 // Retain the installed shell entry path used by existing phone launchers.
-fs.copyFileSync(path.join(root,'android/GathinTV-AutoSetup.sh'),path.join(stage,'GathinTV-AutoSetup.sh'));
+fs.copyFileSync(path.join(root,'android/MAC-WebOSTV-AutoSetup.sh'),path.join(stage,'MAC-WebOSTV-AutoSetup.sh'));
 const files=walk(stage);const privateNames=files.filter(f=>path.relative(stage,f).split(path.sep).includes('.local')||f.endsWith('control-token.js')||/\.(pem|key|sqlite|db)$/.test(f));
 if(privateNames.length)throw Error('Private data leaked into share staging');
 const version=require('../package.json').version;
@@ -34,13 +34,13 @@ const runtimeFiles=readFiles(files).filter(f=>!f.name.startsWith('test/')&&!f.na
 const runtimeManifest=Buffer.from(JSON.stringify({version,files:runtimeFiles.map(f=>({path:f.name,sha256:sha256(f.data)}))},null,2));
 fs.writeFileSync(path.join(stage,'runtime-manifest.json'),runtimeManifest);
 const runtime=archive.tarGzip([...runtimeFiles,{name:'runtime-manifest.json',data:runtimeManifest}]);
-const runtimeHash=sha256(runtime),runtimeName='GathinTV-Termux-'+version+'-'+runtimeHash.slice(0,12)+'.tar.gz';
+const runtimeHash=sha256(runtime),runtimeName='MAC-WebOSTV-Termux-'+version+'-'+runtimeHash.slice(0,12)+'.tar.gz';
 fs.writeFileSync(path.join(dist,runtimeName),runtime);fs.writeFileSync(path.join(dist,runtimeName+'.sha256'),runtimeHash+'  '+runtimeName+'\n');
 const pin={version,url:'https://github.com/twentykhz/macosLG/releases/download/v'+version+'/'+runtimeName,sha256:runtimeHash,size:runtime.length,manifestSha256:sha256(runtimeManifest)};
 const bootstrapJS=fs.readFileSync(path.join(root,'scripts/bootstrap-android.js'),'utf8').replace('__RELEASE_PIN__',()=>JSON.stringify(pin)).replace('__ARCHIVE_READER__',()=>fs.readFileSync(path.join(root,'lib/release-archive.js'),'utf8'));
 const bootstrap=fs.readFileSync(path.join(root,'scripts/install-android.template.sh'),'utf8').replace('__BOOTSTRAP_JS__',()=>bootstrapJS).replace(/\r\n/g,'\n');
 for(const target of [path.join(root,'android/install-android.sh'),path.join(stage,'android/install-android.sh'),path.join(dist,'install-android.sh')]){fs.writeFileSync(target,bootstrap);fs.chmodSync(target,0o755);}
-fs.writeFileSync(path.join(dist,'GathinTV-Termux-manifest.json'),JSON.stringify({...pin,bootstrapSha256:sha256(Buffer.from(bootstrap))},null,2)+'\n');
+fs.writeFileSync(path.join(dist,'MAC-WebOSTV-Termux-manifest.json'),JSON.stringify({...pin,bootstrapSha256:sha256(Buffer.from(bootstrap))},null,2)+'\n');
 const share=walk(stage);fs.writeFileSync(path.join(stage,'release-manifest.json'),JSON.stringify({version,builtAt:new Date().toISOString(),files:share.map(f=>({path:path.relative(stage,f).split(path.sep).join('/'),sha256:sha256(fs.readFileSync(f))}))},null,2));
 const zip=path.join(dist,'MAC-WebOSTV-Source.zip');fs.writeFileSync(zip,archive.zip(readFiles(walk(stage))));
 const bytes=fs.readFileSync(zip),digest=sha256(bytes);const encoded=bytes.toString('base64').match(/.{1,120}/g).join('\r\n');
@@ -53,11 +53,11 @@ fs.copyFileSync(path.join(root,'README.en.md'),path.join(dist,'HUONG-DAN.en.md')
 // Share the Vietnamese documentation with a separate English companion archive.
 for(const [language,names] of Object.entries({vi:['README.md','docs/CHANGELOG-v3.4.1.md','docs/PYTHON-COMPATIBILITY.md','docs/VALIDATION.md','docs/ROLLBACK.vi.md','docs/CHANGELOG-v3.5.0.md','docs/INSTALL.vi.md','docs/ANDROID.vi.md'],en:['README.en.md','docs/CHANGELOG-v3.4.1.en.md','docs/PYTHON-COMPATIBILITY.en.md','docs/VALIDATION.en.md','docs/ROLLBACK.en.md','docs/CHANGELOG-v3.5.0.en.md','docs/INSTALL.en.md','docs/ANDROID.en.md']})){
  names.push('windows/README'+(language==='en'?'.en':'')+'.md','android/README'+(language==='en'?'.en':'')+'.md','docs/README'+(language==='en'?'.en':'')+'.md','docs/DEVELOPMENT.'+language+'.md','docs/FEATURES.'+language+'.md','docs/ROOTING-METHODS.md','docs/HOME-ROOT-RECOVERY.md','docs/KEEP-NINE.md');
- const name='GathinTV-Docs-'+version+'-'+language+'.zip',bytes=archive.zip(names.map(name=>({name,data:fs.readFileSync(path.join(root,name))})));
+ const name='MAC-WebOSTV-Docs-'+version+'-'+language+'.zip',bytes=archive.zip(names.map(name=>({name,data:fs.readFileSync(path.join(root,name))})));
  fs.writeFileSync(path.join(dist,name),bytes);fs.writeFileSync(path.join(dist,name+'.sha256'),sha256(bytes)+'  '+name+'\n');
 }
 for(const f of [ps,zip])fs.writeFileSync(f+'.sha256',sha256(fs.readFileSync(f))+'  '+path.basename(f)+'\n');
-const windowsName='GathinTV-Windows-'+version+'.zip';
+const windowsName='MAC-WebOSTV-Windows-'+version+'.zip';
 const windowsZip=archive.zip(['MAC-WebOSTV-AutoSetup.ps1','MAC-WebOSTV-AutoSetup.ps1.sha256','Start-Setup.cmd','Wake-TV.ps1'].map(name=>({name,data:fs.readFileSync(path.join(dist,name))})).concat([
  ...['README.md','README.en.md'].map(name=>({name,data:Buffer.from(fs.readFileSync(path.join(root,'windows',name),'utf8').replace(/\]\(\.\.\//g,'](https://github.com/twentykhz/macosLG/blob/main/'))}))
 ]));
