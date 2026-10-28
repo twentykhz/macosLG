@@ -196,13 +196,6 @@ Trên TV mở **Action Center → Điều khiển từ xa & Thiết lập**, qu�
 
 Khi TV tắt/chờ, trang web trên TV cũng dừng. Muốn đánh thức cần thiết bị khác còn bật trong LAN gửi Wake-on-LAN. Muốn dùng ngoài nhà cần VPN/subnet router hoặc thiết bị trung gian đã cấu hình; bộ cài không tự mở TV ra Internet. [Xem cách hoạt động](docs/FEATURES.vi.md#wake-on-lan-và-truy-cập-ngoài-nhà).
 
-## Nên đưa thư mục nào lên GitHub?
-
-- **Repo dùng `MAC-WebOSTV-Source`:** mã nguồn, cấu hình, script build, kiểm tra và tài liệu để mọi người đọc/chỉnh được.
-- **GitHub Releases dùng file từ `MAC-WebOSTV-Release`:** AutoSetup đã build, source ZIP tùy chọn và checksum để người mới tải.
-
-Không dùng thư mục Release thay toàn bộ source repo. Không đăng `.local`, `node_modules`, khóa SSH, token, passphrase hay backup cá nhân. [Chi tiết build và cấu trúc](docs/DEVELOPMENT.vi.md).
-
 ## Khi cần hỗ trợ
 
 [Tạo issue](https://github.com/twentykhz/macosLG/issues/new/choose), ghi model TV, firmware, SDK nếu biết, Windows đang dùng, bước đang làm và nguyên văn lỗi. Che QR, mật khẩu, passphrase, tài khoản và khóa riêng. Nếu báo không tương thích, dừng và gửi thông tin thay vì chạy exploit lặp lại.
