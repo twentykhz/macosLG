@@ -741,8 +741,8 @@
   },
   {
     "path": "payload/portable/maintenance.js",
-    "size": 4488,
-    "sha256": "f91735b31f430facdc32c9a378d654bd0383939dbacbc1dc08ee1867ecda9b96"
+    "size": 7258,
+    "sha256": "d31877996569f4952636630b8e0d730908b30b68bebc3cfb31c13a1a850a9c5d"
   },
   {
     "path": "payload/portable/native/MUSL-COPYRIGHT.txt",

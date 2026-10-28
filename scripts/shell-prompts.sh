@@ -18,7 +18,7 @@ shell_language() {
 }
 shell_menu() {
   printf '%s\n' '==================================' '        GathinTV AutoSetup' '          Android / Linux' '=================================='
-  shell_text $'[1] Set up a TV that is NOT rooted\n[2] Install / update on an ALREADY ROOTED TV\n[3] Doctor - check TV\n[4] Rooted TV: YouTube AdFree + LGWS + optimize optional apps\n[5] Rollback - choose a dated backup\n[6] Backup\n[7] Apps\n[8] Sync\n[9] Disable\n[0] Exit\n' $'[1] Cai dat TV CHUA ROOT\n[2] Cai / cap nhat TV DA ROOT\n[3] Kiem tra TV (Doctor)\n[4] TV da root: YouTube AdFree + LGWS + toi uu tat app phu\n[5] Rollback - chon backup theo ngay gio\n[6] Sao luu (Backup)\n[7] Ung dung (Apps)\n[8] Dong bo (Sync)\n[9] Tat dich vu (Disable)\n[0] Thoat\n'
+  shell_text $'[1] Set up a TV that is NOT rooted\n[2] Install / update on an ALREADY ROOTED TV\n[3] Doctor - check TV\n[4] Rooted TV: YouTube AdFree + LGWS + keep nine primary apps\n[5] Rollback - choose a dated backup\n[6] Backup\n[7] Apps\n[8] Sync\n[9] Disable\n[0] Exit\n' $'[1] Cai dat TV CHUA ROOT\n[2] Cai / cap nhat TV DA ROOT\n[3] Kiem tra TV (Doctor)\n[4] TV da root: YouTube AdFree + LGWS + chi giu 9 app chinh\n[5] Rollback - chon backup theo ngay gio\n[6] Sao luu (Backup)\n[7] Ung dung (Apps)\n[8] Dong bo (Sync)\n[9] Tat dich vu (Disable)\n[0] Thoat\n'
   local selection
   while true; do
     shell_read selection "$(shell_text 'Enter a number (0-9): ' 'Nhap so (0-9), vi du 1 cho TV chua root: ')" || return

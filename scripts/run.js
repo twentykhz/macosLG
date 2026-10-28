@@ -52,7 +52,9 @@ async function main(args=process.argv.slice(2)){
    await require('../lib/recovery').capture(client,o,device);
    const dependencies=require('../lib/dependencies');await dependencies.prepare(client,o,await dependencies.inspect(client,{maintenanceOnly:true}));
    const ensured=await require('../lib/post-install').ensureApps(client,{...o,compatibilityMode:true});device.apps=ensured.apps;
-   const result=await require('../lib/maintenance').install(client,o,device);console.log(JSON.stringify(result,null,2));return result;
+   const result=await require('../lib/maintenance').install(client,{...o,strictApps:true},device);console.log(JSON.stringify(result,null,2));
+   const report=result.appReport;if(report){const {text}=require('../lib/setup-language');console.log(text('Primary apps enabled: ','App chinh duoc giu: ')+report.kept.length+'/9 | '+text('Other apps locked: ','App khac da khoa: ')+report.disabled.length);if(report.missing.length)console.log(text('Not installed: ','Chua cai: ')+report.missing.join(', '));for(const failed of report.failed)console.error(text('FAILED app state change: ','KHONG DOI DUOC trang thai app: ')+failed.id+' - '+failed.error);if(report.failed.length)process.exitCode=2;}
+   return result;
   }
   if(mode==='Backup'){
    const result=await tv.backup(client,{...o,backupOnly:true});
@@ -66,6 +68,7 @@ async function main(args=process.argv.slice(2)){
    if(!device.compatibility){
    await exec(client,". /media/developer/apps/usr/palm/applications/ooo.lew.lifesgoodwithoutspying/init/nospy-lib.sh; conf_set domains.sdp off; /media/developer/apps/usr/palm/applications/ooo.lew.lifesgoodwithoutspying/init/nospy-apply.sh",{timeout:90000});
    await luna(client,'com.webos.applicationManager/lockApp',{id:'com.webos.app.discovery',lock:false});}
+   if(device.compatibility)await luna(client,'com.webos.applicationManager/lockApp',{id:'com.webos.app.discovery',lock:false});
    await luna(client,'com.webos.applicationManager/launch',{id:'com.webos.app.discovery'});
    console.log('LG Content Store opened. Install FPT Play/TV360/Netflix using the TV, then run -Mode Sync.');
   }else if(mode==='Disable'){

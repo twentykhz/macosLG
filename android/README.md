@@ -34,3 +34,5 @@ Bootstrap xác minh SHA-256 của runtime trước khi chạy. Setup cài YouTub
 Root đã báo hoàn tất thì bật **SSH Server** trong Homebrew và gỡ **app Developer Mode** trước khi reboot; không chạy exploit khác chỉ vì SSH chưa sẵn sàng. HOME relay không còn khóa model SK8000, nhưng phải qua probe input thực tế. [Hướng dẫn HOME / root](../docs/HOME-ROOT-RECOVERY.md).
 
 `install-android.sh` là bootstrap đã ghim checksum. `GathinTV-AutoSetup.sh` là menu shell dùng cùng Node core; nếu chạy từ source, cài dependencies theo [hướng dẫn phát triển](../docs/DEVELOPMENT.vi.md).
+
+**Mục 4: chỉ giữ 9 app chính như SK8000PTA**, khóa và đóng app còn lại; giữ các thành phần hệ thống/HDMI cần thiết. [Danh sách 9 app, báo cáo và hoàn tác](../docs/KEEP-NINE.md). **Mục 5: Rollback**, backup hiện ngày giờ/múi giờ, mới nhất ở trên.

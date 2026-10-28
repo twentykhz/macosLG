@@ -21,3 +21,5 @@ Setup installs YouTube AdFree 0.5.3, removing official/non-matching YouTube firs
 [Detailed prerequisites and steps](../docs/INSTALL.en.md) · [Rollback](../docs/ROLLBACK.en.md) · [Standalone PS1](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-AutoSetup.ps1)
 
 Source scripts `Setup-TV.ps1` and `Restore-TV.ps1` require Node.js/dependencies and are intended for developers. Regular installation uses the ZIP above. `Wake-TV.ps1` is an optional LAN wake helper.
+
+**Menu 4 keeps the nine primary apps and locks/closes other apps**, preserving essential system components/HDMI. [App list, reports and rollback](../docs/KEEP-NINE.md). **Menu 5: Rollback**, with local dates/timezone and newest first.

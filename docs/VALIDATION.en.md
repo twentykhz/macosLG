@@ -1,6 +1,6 @@
 # 3.5.0 validation
 
-186 automated tests pass without skips, including simulated ARM64 installation/rollback without Python, dependency ABI rejection, portable voice routing and privacy/debloat state handling. ARM32/ARM64 ELF loader/hash checks and Windows helper self-test pass. No physical UM7400 cold boot, input, recognition or FPS validation was performed. See [3.5.0 changes](CHANGELOG-v3.5.0.en.md). Historical evidence follows.
+188 automated tests pass without skips, including simulated ARM64 installation/rollback without Python, dependency ABI rejection, portable voice routing and privacy/debloat state handling. ARM32/ARM64 ELF loader/hash checks and Windows helper self-test pass. No physical UM7400 cold boot, input, recognition or FPS validation was performed. See [3.5.0 changes](CHANGELOG-v3.5.0.en.md). Historical evidence follows.
 
 # Validation — MAC-WebOSTV 3.1 / 2026-10-27
 

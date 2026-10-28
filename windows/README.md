@@ -21,3 +21,5 @@ Setup cài YouTube AdFree 0.5.3; nếu đang có YouTube gốc/bản không kh�
 [Hướng dẫn từng bước và điều kiện root](../docs/INSTALL.vi.md) · [Khôi phục backup](../docs/ROLLBACK.vi.md) · [Tải riêng file PS1](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-AutoSetup.ps1)
 
 Các file `Setup-TV.ps1` và `Restore-TV.ps1` trong source dành cho người phát triển đã cài Node.js/dependencies; người cài thông thường dùng ZIP ở trên. `Wake-TV.ps1` là tiện ích bật TV qua LAN.
+
+**Mục 4: chỉ giữ 9 app chính như SK8000PTA**, khóa và đóng app còn lại; giữ các thành phần hệ thống/HDMI cần thiết. [Danh sách 9 app, báo cáo và hoàn tác](../docs/KEEP-NINE.md). **Mục 5: Rollback**, backup hiện ngày giờ/múi giờ, mới nhất ở trên.

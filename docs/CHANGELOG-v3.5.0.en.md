@@ -15,3 +15,7 @@ Setup includes reversible debloat, also available through menu 4 on Windows and 
 Dock pointer layout reads are cached/coalesced per frame. Blur/shadow costs are reduced while retaining widgets and wallpapers.
 
 Validation covers source, generated packages and simulated TV installation/recovery. This release has not physically validated cold boot, HOME/Back/pointer, recognition or FPS on **55UM7400PTA / 05.40.97**. “Installed” is deployment evidence; physical behavior and vendor APIs still require testing. For an already rooted TV choose **Already rooted**. Enable Homebrew SSH Server and uninstall the Developer Mode application before reboot after rooting.
+
+## Menu 4 refresh — 2026-10-29
+
+[Keep-nine profile](KEEP-NINE.md): enable the sample nine apps, lock/close other installed apps except essential system components/HDMI, report failed/missing apps, and reapply at boot. App lock history is saved with backups for recovery across multiple sessions. Full Setup/Restore retains its separate optional-app profile.

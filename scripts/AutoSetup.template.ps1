@@ -139,7 +139,7 @@ if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
  Write-Host (L '1 - TV not rooted (check model/firmware before rooting)' '1 - TV chua root (kiem tra model/firmware truoc khi root)')
  Write-Host (L '2 - TV already rooted (install launcher, no rooting exploit)' '2 - TV da root (cai launcher, khong chay lai exploit)')
  Write-Host (L '3 - Check TV features and show report (no reinstall)' '3 - Kiem tra chuc nang TV va hien bao cao (khong cai lai)')
- Write-Host (L '4 - Rooted TV: install YouTube AdFree + LGWS and optimize optional apps' '4 - TV da root: cai YouTube AdFree + LGWS va toi uu tat app khong can thiet')
+ Write-Host (L '4 - Rooted TV: YouTube AdFree + LGWS; keep only the nine primary apps' '4 - TV da root: cai YouTube AdFree + LGWS, chi giu 9 app chinh')
  Write-Host (L '5 - Roll back: choose a dated backup' '5 - Rollback: chon backup theo ngay gio')
  do{$taskRootChoice=Read-Host (L 'Choose 1, 2, 3, 4 or 5' 'Chon 1, 2, 3, 4 hoac 5')}while($taskRootChoice.Trim() -notin @('1','2','3','4','5'))
  if($taskRootChoice.Trim() -eq '2'){$Mode='Restore';$AlreadyRooted=$true}

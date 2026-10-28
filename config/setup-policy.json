@@ -81,5 +81,33 @@
     "dns.disable_ipv6": "off",
     "lan.block": "off",
     "purge.boot": "off"
-  }
+  },
+  "primaryApps": [
+    "com.gathin.tvhome",
+    "youtube.leanback.v4",
+    "com.webos.app.browser",
+    "com.fpt.fptplay",
+    "com.viettel.media.tv360",
+    "netflix",
+    "airplay",
+    "org.webosbrew.hbchannel",
+    "ooo.lew.lifesgoodwithoutspying"
+  ],
+  "requiredSystemApps": [
+    "com.palm.app.settings",
+    "com.webos.app.settings",
+    "com.webos.app.voice",
+    "com.webos.app.voiceagent",
+    "com.webos.app.voiceview",
+    "com.webos.app.home",
+    "com.webos.app.livetv",
+    "com.webos.app.inputmgr",
+    "com.webos.app.connectionwizard",
+    "com.webos.app.accessibility",
+    "com.webos.app.notificationcenter",
+    "com.webos.app.remoteservice",
+    "com.webos.app.iot-thirdparty-login",
+    "com.webos.app.container",
+    "com.webos.app.systemui"
+  ]
 }
