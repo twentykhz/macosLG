@@ -6,6 +6,8 @@ Repo là nội dung của **MAC-WebOSTV-Source**. File sinh ra trong **MAC-WebOS
 
 | Đường dẫn | Nội dung |
 |---|---|
+| `windows/` | Hướng dẫn Windows, CMD mở setup, wrapper source PowerShell và tiện ích Wake |
+| `android/` | Hướng dẫn Termux, bootstrap ghim checksum và menu shell; từ source chạy `bash android/GathinTV-AutoSetup.sh` |
 | `payload/app/` | Toàn bộ HTML/CSS/JavaScript launcher, widget, dock, icon, ảnh và font công khai |
 | `payload/advanced/files/` | Dịch vụ remote, hình nền, root bridge, voice và hook khởi động |
 | `payload/advanced/map.json` | Ánh xạ file nguồn tới đường dẫn trên TV |
@@ -35,7 +37,7 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` sinh cấu hình, IPK và checksum. `package` dùng Node thuần để tạo ZIP với đường dẫn POSIX, giữ AutoSetup PowerShell tự chứa và sinh thêm `GathinTV-Termux-3.4.0-HASH.tar.gz`, checksum, manifest và `install-android.sh` ghim hash tại thư mục `MAC-WebOSTV-Release` cạnh repo. Runtime điện thoại bỏ test/ảnh tài liệu và native optimization, nhưng dùng cùng source core. Bootstrap được sinh sau tar để tránh hash vòng; không nằm trong chính tar mà nó xác minh. Giữ archive mang hash bất biến trên Releases cho bootstrap đã phát hành. Sau sửa source cần package lại; sửa payload cần build trước.
+`build` sinh cấu hình, IPK và checksum. `package` dùng Node thuần để tạo ZIP với đường dẫn POSIX, giữ AutoSetup PowerShell tự chứa và sinh thêm `GathinTV-Termux-3.4.2-HASH.tar.gz`, checksum, manifest và `install-android.sh` ghim hash tại thư mục `MAC-WebOSTV-Release` cạnh repo. Runtime điện thoại bỏ test/ảnh tài liệu và native optimization, nhưng dùng cùng source core. Bootstrap được sinh sau tar để tránh hash vòng; không nằm trong chính tar mà nó xác minh. Giữ archive mang hash bất biến trên Releases cho bootstrap đã phát hành. Sau sửa source cần package lại; sửa payload cần build trước.
 
 File AutoSetup tạo lại ở root để tiện kiểm tra nhưng được bỏ qua bởi Git; khi phát hành tải file đó lên Releases, không thêm file lớn sinh tự động vào source commit. Source ZIP của release có dependency production để dùng bộ cài; muốn build từ ZIP vẫn chạy `npm.cmd ci` để có công cụ phát triển.
 

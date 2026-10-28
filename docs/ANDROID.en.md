@@ -15,7 +15,7 @@ pkg update
 pkg install nodejs git curl
 termux-setup-storage     # optional shared Downloads access
 node --version          # must be >=20
-curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+curl -fsSL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh | bash
 ```
 
 Linux/macOS: install Bash, system Node >=20 and curl, then use the same bootstrap. No portable runtime is downloaded. Git is only required for cloning. OpenSSH, PowerShell, webOS CLI and a native compiler are not required by the runtime. macOS hardware has not been tested.

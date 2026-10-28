@@ -24,4 +24,4 @@ Các ảnh minh họa giao diện và cách tìm chức năng, không xác nhậ
 | [17](17-weather-settings.jpg) | Tìm và đổi hai địa điểm thời tiết |
 | [18](18-family-editor.jpg) | Sửa tên/ngày sinh, thêm hoặc xóa thành viên |
 
-[Xem toàn bộ ảnh trong README](../../README.md#ảnh-preview-từng-tính-năng).
+[Xem toàn bộ ảnh trong README](../OVERVIEW.vi.md#ảnh-preview-từng-tính-năng).

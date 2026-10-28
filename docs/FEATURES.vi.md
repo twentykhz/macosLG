@@ -2,7 +2,7 @@
 
 [Trang chính](../README.md) · [English](FEATURES.en.md) · [Cài đặt](INSTALL.vi.md)
 
-[Xem đủ 19 ảnh preview trong README](../README.md#ảnh-preview-từng-tính-năng). Các ảnh trong hướng dẫn này chụp từ source 3.4.0 với dữ liệu mẫu; QR demo không truy cập được TV thật. [Nguồn và phạm vi bộ ảnh](screenshots/README.md).
+[Xem đủ 19 ảnh preview trong README](OVERVIEW.vi.md#ảnh-preview-từng-tính-năng). Các ảnh trong hướng dẫn này chụp từ source 3.4.0 với dữ liệu mẫu; QR demo không truy cập được TV thật. [Nguồn và phạm vi bộ ảnh](screenshots/README.md).
 
 ## Màn hình chính và dock
 

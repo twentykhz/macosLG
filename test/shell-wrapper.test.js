@@ -6,7 +6,7 @@ const posix=p=>p.replace(/\\/g,'/').replace(/^([A-Za-z]):/,(_,drive)=>'/'+drive.
 test('Bash wrapper maps every mode and option to the existing core, including paths with spaces',{skip:!available},()=>{
  const base=fs.mkdtempSync(path.join(os.tmpdir(),'gathin shell ')),fixture=path.join(base,'source tree'),home=path.join(base,'private home'),bin=path.join(base,'bin'),capture=path.join(base,'args.json');
  for(const p of [fixture,home,bin,path.join(fixture,'scripts'),path.join(fixture,'lib')])fs.mkdirSync(p,{recursive:true});
- fs.copyFileSync(path.join(repo,'GathinTV-AutoSetup.sh'),path.join(fixture,'GathinTV-AutoSetup.sh'));
+ fs.copyFileSync(path.join(repo,'android/GathinTV-AutoSetup.sh'),path.join(fixture,'GathinTV-AutoSetup.sh'));
  for(const file of ['scripts/host-paths.js','lib/host-platform.js'])fs.copyFileSync(path.join(repo,file),path.join(fixture,file));
  for(const name of ['ssh2','ws']){const dir=path.join(fixture,'node_modules',name);fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.js'),'module.exports={};');}
  fs.writeFileSync(path.join(fixture,'scripts/verify.js'),'console.log("verification fixture");');fs.writeFileSync(path.join(fixture,'scripts/check-root.js'),'process.exit(0);');
@@ -29,8 +29,8 @@ test('Bash wrapper maps every mode and option to the existing core, including pa
  }finally{fs.rmSync(base,{recursive:true,force:true});}
 });
 test('missing system Node prints Termux prerequisites without running a package manager',{skip:!available},()=>{
- const r=spawnSync(bash,['-c','PATH=/no-such-directory; export PATH; source "$1" --mode Doctor --host tv','--',posix(path.join(repo,'GathinTV-AutoSetup.sh'))],{encoding:'utf8',env:{...process.env,PREFIX:'/data/data/com.termux/files/usr'}});assert.equal(r.status,2,r.stderr);assert.match(r.stderr,/pkg install nodejs/);assert.match(r.stderr,/OpenSSH is optional/);
+ const r=spawnSync(bash,['-c','PATH=/no-such-directory; export PATH; source "$1" --mode Doctor --host tv','--',posix(path.join(repo,'android/GathinTV-AutoSetup.sh'))],{encoding:'utf8',env:{...process.env,PREFIX:'/data/data/com.termux/files/usr'}});assert.equal(r.status,2,r.stderr);assert.match(r.stderr,/pkg install nodejs/);assert.match(r.stderr,/OpenSSH is optional/);
 });
 test('both shell entry templates have valid Bash syntax and use LF',{skip:!available},()=>{
- for(const name of ['GathinTV-AutoSetup.sh','scripts/install-android.template.sh']){assert(!fs.readFileSync(path.join(repo,name)).includes(13));const r=spawnSync(bash,['-n',posix(path.join(repo,name))],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);}
+ for(const name of ['android/GathinTV-AutoSetup.sh','scripts/install-android.template.sh']){assert(!fs.readFileSync(path.join(repo,name)).includes(13));const r=spawnSync(bash,['-n',posix(path.join(repo,name))],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);}
 });

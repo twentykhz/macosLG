@@ -207,7 +207,7 @@ Nếu điện thoại không hiện gì hoặc bạn lỡ từ chối thì cũng
 Copy **nguyên dòng** này:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+curl -fsSL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh | bash
 ```
 
 Dán vào Termux → Enter.
@@ -588,7 +588,7 @@ termux-setup-storage
 ```
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+curl -fsSL https://github.com/twentykhz/macosLG/releases/latest/download/install-android.sh | bash
 ```
 
 Sau đó:

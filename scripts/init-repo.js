@@ -7,8 +7,8 @@ const {root,walk}=require('../lib/local');
   if(fs.existsSync(path.join(root,'.git')))throw new Error('Repository already exists; refusing to rewrite history.');
   await git.init({fs,dir:root,defaultBranch:'main'});
   // Add only known project paths, never .local snapshots, credentials, or modules.
-  const top=['README.md','LICENSE','THIRD-PARTY.md','.gitignore','.gitattributes','package.json','package-lock.json','checksums.json','Restore-TV.ps1','Setup-TV.ps1'];
-  const files=top.map(name=>path.join(root,name)).concat(['config','lib','scripts','test','docs','payload','packages'].flatMap(name=>walk(path.join(root,name))));
+  const top=['README.md','README.en.md','LICENSE','THIRD-PARTY.md','.gitignore','.gitattributes','package.json','package-lock.json','checksums.json'];
+  const files=top.map(name=>path.join(root,name)).concat(['windows','android','config','lib','scripts','test','docs','payload','packages','upstream'].flatMap(name=>walk(path.join(root,name))));
   for(const file of files){
     const relative=path.relative(root,file).split(path.sep).join('/');
     if(relative==='config/device.json'||relative.endsWith('.pyc'))continue;

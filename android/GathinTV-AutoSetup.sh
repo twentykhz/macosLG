@@ -74,6 +74,9 @@ version=$(node --version) || die 'Cannot run node --version'
 [[ $version =~ ^v([0-9]+)\. ]] || die "Invalid Node version: $version"
 ((10#${BASH_REMATCH[1]} >= 20)) || { prerequisites; die 'Node.js >=20 is required'; }
 script_dir=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+if [[ ! -f "$script_dir/scripts/run.js" ]]; then
+  script_dir=$(cd -P -- "$script_dir/.." && pwd)
+fi
 if ! node -e 'require(process.argv[1]+"/node_modules/ssh2");require(process.argv[1]+"/node_modules/ws")' "$script_dir" >/dev/null 2>&1; then
   die "Missing JS dependencies. In $script_dir run: npm ci --omit=dev --omit=optional --ignore-scripts"
 fi

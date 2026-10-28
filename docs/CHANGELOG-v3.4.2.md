@@ -10,3 +10,4 @@
 - Giữ tag/artifact/checksum 3.4.1; phát hành 3.4.2 với bootstrap được pin riêng.
 
 [Hướng dẫn rollback](ROLLBACK.vi.md) · [Audit 3.4.1](PYTHON-COMPATIBILITY.md)
+- Bản sửa YouTube trong 3.4.2: gỡ YouTube gốc/bản không khớp trước khi cài YouTube AdFree 0.5.3; kiểm tra phiên bản sau cài và giữ nguyên AdFree đã đúng bản. `--no-extra-apps` bỏ qua bước này. Rollback snapshot không phục hồi gói YouTube gốc hoặc dữ liệu đăng nhập; có thể cài lại bản gốc từ LG Content Store.

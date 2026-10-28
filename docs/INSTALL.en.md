@@ -9,7 +9,7 @@ The updated **3.4.2** installer includes language choices, rootability checks, i
 ## 1. Download and start
 
 1. Open [release 3.4.2](https://github.com/twentykhz/macosLG/releases/tag/v3.4.2) and expand **Assets**.
-2. Download **`MAC-WebOSTV-AutoSetup.ps1`** and **`Start-Setup.cmd`** into the same folder, for example `Desktop\MAC-WebOSTV`. Download both again to use the current in-place update.
+2. Download **[GathinTV-Windows-3.4.2.zip](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/GathinTV-Windows-3.4.2.zip)** and extract all files into one folder, for example `Desktop\MAC-WebOSTV`. It includes `MAC-WebOSTV-AutoSetup.ps1` and `Start-Setup.cmd`. Download the new ZIP to update an older installer.
 3. Do not rename or unpack the PS1 file. GitHub's automatic Source code ZIP, Node.js, npm and the webOS CLI are not required.
 4. Turn on the TV. Connect it and a 64-bit Windows PC to the same LAN; avoid isolated guest Wi-Fi. Keep the PC awake during installation.
 5. If Windows blocks a downloaded file, verify that it came from this repository, then use **Properties → Unblock → Apply**, if available. Do not disable protection for the entire PC.

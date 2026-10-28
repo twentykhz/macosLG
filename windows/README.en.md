@@ -1,0 +1,19 @@
+# Install GathinTV on Windows
+
+[Home](../README.en.md) · [Tiếng Việt](README.md) · [I use Android](../android/README.en.md)
+
+**[Download Windows 3.4.2 — GathinTV-Windows-3.4.2.zip](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/GathinTV-Windows-3.4.2.zip)**
+
+1. Download the ZIP and **extract all files** into one folder.
+2. Turn on the TV; keep the PC and TV on the same Wi-Fi/LAN.
+3. Double-click **`Start-Setup.cmd`** in the extracted folder.
+4. Choose a language, then **1 — Not rooted**, **2 — Already rooted**, **3 — Check TV**, or **4 — Rollback**.
+5. Enter your TV's IP and follow setup. Rooted TVs do not need Developer Mode reinstallation.
+
+No separate Node.js, npm or webOS CLI installation is required. Keep `Start-Setup.cmd` and `MAC-WebOSTV-AutoSetup.ps1` together; do not run inside the ZIP.
+
+Setup installs YouTube AdFree 0.5.3, removing official/non-matching YouTube first and preserving a matching AdFree installation. Removal may require signing in again. Snapshot rollback does not restore the official YouTube package or sign-in data.
+
+[Detailed prerequisites and steps](../docs/INSTALL.en.md) · [Rollback](../docs/ROLLBACK.en.md) · [Standalone PS1](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/MAC-WebOSTV-AutoSetup.ps1)
+
+Source scripts `Setup-TV.ps1` and `Restore-TV.ps1` require Node.js/dependencies and are intended for developers. Regular installation uses the ZIP above. `Wake-TV.ps1` is an optional LAN wake helper.

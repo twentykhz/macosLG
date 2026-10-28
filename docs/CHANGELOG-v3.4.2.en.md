@@ -1,5 +1,7 @@
 # 3.4.2 changes
 
+- Fix YouTube provisioning: replace an existing official/non-pinned YouTube before installing pinned YouTube AdFree 0.5.3, verify its version after installation, and retain a matching AdFree installation. `--no-extra-apps` skips this step. Official YouTube and its sign-in data are not restored by snapshot rollback; reinstall the official app from LG Content Store if needed.
+
 [Tiếng Việt](CHANGELOG-v3.4.2.md) | **English**
 
 - Add Rollback to Windows and Android setup menus using the shared recovery core, including after successful installation.

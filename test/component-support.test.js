@@ -8,7 +8,7 @@ test('pinned IPK native architecture inventory matches deployment guards',()=>{
 });
 test('C2 never receives reference advanced payload or pinned ARM32 Homebrew',async()=>{
  const {parse}=require('../lib/tv-capabilities'),{transcript,info}=require('./helpers/tv-profiles');let uploads=0;
- require('../lib/ssh');require.cache[require.resolve('../lib/ssh')].exports={async upload(){uploads++;throw Error('Unexpected native/reference upload');},async luna(c,method){if(method.endsWith('getSystemInfo'))return info;return {apps:[{id:'youtube.leanback.v4'},{id:'ooo.lew.lifesgoodwithoutspying'}]};}};
+ require('../lib/ssh');require.cache[require.resolve('../lib/ssh')].exports={async upload(){uploads++;throw Error('Unexpected native/reference upload');},async luna(c,method){if(method.endsWith('getSystemInfo'))return info;return {apps:[{id:'youtube.leanback.v4',version:'0.5.3',title:'YouTube AdFree'},{id:'ooo.lew.lifesgoodwithoutspying'}]};}};
  const client={__gathinCapabilities:Promise.resolve(parse(transcript({arch:'aarch64',python:false})))};
  const result=await require('../lib/post-install').ensureApps(client,{compatibilityMode:true});assert(result.report.some(r=>r.feature==='org.webosbrew.hbchannel'&&r.status==='skipped'));
  const advanced=await require('../lib/advanced').installAdvanced(client);assert(advanced.skipped);
