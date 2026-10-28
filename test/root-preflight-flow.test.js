@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 let reportStatus='rootable',model='55UK6340PTF',checks=0,uid='1000';
-require('../lib/ssh');require.cache[require.resolve('../lib/ssh')].exports={async exec(c,cmd){if(cmd==='id -u')return uid;if(cmd.includes('getSystemInfo'))return JSON.stringify({modelName:model,firmwareVersion:'05.50.70',sdkVersion:'4.4.0',boardType:'LM18A_DVB_EU'});throw Error('Unexpected operation '+cmd);}};
+require('../lib/ssh');require.cache[require.resolve('../lib/ssh')].exports={async exec(c,cmd){if(cmd.includes('GATHIN_CAPABILITIES_V1'))return require('./helpers/tv-profiles').transcript({root:uid==='0'});if(cmd==='id -u')return uid;if(cmd.includes('getSystemInfo'))return JSON.stringify({modelName:model,firmwareVersion:'05.50.70',sdkVersion:'4.4.0',boardType:'LM18A_DVB_EU'});throw Error('Unexpected operation '+cmd);}};
 require('../lib/rootability');const actual=require('../lib/rootability');require.cache[require.resolve('../lib/rootability')].exports={...actual,async check(){checks++;return {status:reportStatus};},print(){}};
 const {AutorootSteps}=require('../lib/autoroot');
 function steps(options={}){const s=new AutorootSteps({host:'192.0.2.80',expectedModel:'55UK6340PTF',expectedFirmware:'05.50.70',...options});s.connectDeveloper=async()=>{s.devClient={end(){}};s.client=s.devClient;};return s;}

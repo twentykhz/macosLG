@@ -6,7 +6,7 @@ function tar(entries){const chunks=[];for(const e of entries){const b=Buffer.fro
 let captures=0,uploads=0,recoveryFails=false,wrongTV=false;
 const device={modelName:'fixture',firmwareVersion:'01.00.00',boardType:'test'},source=tar([{path:ROOTS[0]+'/control-token.js',data:'private test token'}]);
 require('../lib/ssh');require.cache[require.resolve('../lib/ssh')].exports={
- async exec(c,command){if(command==='id -u')return '0';if(command.includes('restore.py')){if(recoveryFails)throw Error('Recovery channel lost');return 'Restored';}return JSON.stringify({present:[ROOTS[0]],active:[],parents:Object.fromEntries(ROOTS.map(p=>[p,path.posix.dirname(p)]))});},
+ async exec(c,command){if(command.includes('GATHIN_CAPABILITIES_V1'))return require('./helpers/tv-profiles').transcript({node:false,stat:false});if(command==='id -u')return '0';if(command.includes('restore.py')){if(recoveryFails)throw Error('Recovery channel lost');return 'Restored';}return JSON.stringify({present:[ROOTS[0]],active:[],parents:Object.fromEntries(ROOTS.map(p=>[p,path.posix.dirname(p)]))});},
  async archive(c,files,destination){captures++;fs.writeFileSync(destination,source);return {file:destination,size:source.length,sha256:sha256(source)};},
  async luna(c,api){return api.includes('getSystemInfo')?{...device,modelName:wrongTV?'another TV':device.modelName}:{};},
  async connect(){return {end(){}};},async upload(){uploads++;}

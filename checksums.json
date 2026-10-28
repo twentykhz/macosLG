@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9492240,
-    "sha256": "d5c0e2ecad3542ca93d3737175d0fcd11cee42e57e1cab960db96565993196d2"
+    "size": 9492198,
+    "sha256": "dee8e71d29298f7fe12ed4a81d9772e83587b232b6b45a63e68f9bc85c8f6928"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -718,6 +718,16 @@
     "path": "payload/home/launch.sh",
     "size": 623,
     "sha256": "288b4e78c312f21991fb5f95f6af75baf55ab9d5d5188f433a4ea62d72946ede"
+  },
+  {
+    "path": "payload/portable/controls.js",
+    "size": 5975,
+    "sha256": "e68d423d957e916d2843bd34ed98d97c7c3fac4ed022f947a2e868f346751169"
+  },
+  {
+    "path": "payload/portable/hdmi.js",
+    "size": 2615,
+    "sha256": "c81d62f1923f5549e5c851d25be96d2617e2cb4e67aa6670dba890534859835a"
   },
   {
     "path": "payload/privacy/lifesgoodwithoutspying.conf",

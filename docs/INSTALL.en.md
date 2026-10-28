@@ -4,11 +4,11 @@
 
 [Home](../README.en.md) · [Tiếng Việt](INSTALL.vi.md) · [Features](FEATURES.en.md)
 
-The updated **3.4.0** installer includes language choices, rootability checks, installation branches and feature checks. Double-click `Start-Setup.cmd`, select a language, then your TV's state. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
+The updated **3.4.1** installer includes language choices, rootability checks, installation branches and feature checks. Double-click `Start-Setup.cmd`, select a language, then your TV's state. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
 
 ## 1. Download and start
 
-1. Open [release 3.4.0](https://github.com/twentykhz/macosLG/releases/tag/v3.4.0) and expand **Assets**.
+1. Open [release 3.4.1](https://github.com/twentykhz/macosLG/releases/tag/v3.4.1) and expand **Assets**.
 2. Download **`MAC-WebOSTV-AutoSetup.ps1`** and **`Start-Setup.cmd`** into the same folder, for example `Desktop\MAC-WebOSTV`. Download both again to use the current in-place update.
 3. Do not rename or unpack the PS1 file. GitHub's automatic Source code ZIP, Node.js, npm and the webOS CLI are not required.
 4. Turn on the TV. Connect it and a 64-bit Windows PC to the same LAN; avoid isolated guest Wi-Fi. Keep the PC awake during installation.

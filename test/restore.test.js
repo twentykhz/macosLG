@@ -9,6 +9,7 @@ require('../lib/ssh');
 require.cache[require.resolve('../lib/ssh')].exports={
   async exec(client,command){
     calls.push(['exec',command]);
+    if(command.includes('GATHIN_CAPABILITIES_V1'))return require('./helpers/tv-profiles').transcript();
     if(command==='id -u')return '0\n';
     if(command.includes('sys.version_info'))return '2\n16\n';
     if(command==='cat /proc/bus/input/devices')return `N: Name="${profile.sourceDeviceName}"\nN: Name="${profile.targetDeviceName}"\n`;
@@ -34,7 +35,7 @@ test('dry run only reads the TV, creates no backup and does not upload/install',
   calls.length=0;
   await restore({}, {dryRun:true});
   assert(!calls.some(([kind])=>['archive','upload','install'].includes(kind)));
-  assert(!calls.some(([kind,command])=>kind==='exec'&&/touch |mkdir |chmod |rm |mv |cp |kill /.test(command)));
+  assert(!calls.some(([kind,command])=>kind==='exec'&&!command.includes('GATHIN_CAPABILITIES_V1')&&/touch |mkdir |chmod |rm |mv |cp |kill /.test(command)));
 });
 test('backup failure aborts before app upload, hook stop or installation',async()=>{
   calls.length=0;failBackup=true;

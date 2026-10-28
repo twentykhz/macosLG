@@ -30,9 +30,10 @@ function parse(argv){
 async function inspect(client,options){
   if((await exec(client,'id -u')).trim()!=='0')throw new Error('Root SSH required; finish rooting first.');
   const info=await luna(client,'com.webos.service.tv.systemproperty/getSystemInfo',{keys:['modelName','firmwareVersion','sdkVersion','boardType']});
-  const reference=info.modelName===profile.modelName&&info.boardType===profile.boardType&&info.firmwareVersion===profile.firmwareVersion;
+  const caps=await require('../lib/tv-capabilities').probe(client);
+  const reference=caps.nodeFiles&&require('../lib/tv-capabilities').legacyHome(caps,info)&&info.modelName===profile.modelName&&info.boardType===profile.boardType&&info.firmwareVersion===profile.firmwareVersion;
   if(!reference){const {apps=[]}=await luna(client,'com.webos.applicationManager/listApps');console.log('Rooted compatibility mode: '+info.modelName+'/'+info.boardType);return {info,apps,compatibility:true};}
-  const python=(await exec(client,"python -c 'import sys,fcntl,select,struct,hashlib,json; print(sys.version_info[0]); print(struct.calcsize(\"llHHi\"))'" )).trim().split(/\r?\n/);
+  const python=(await exec(client,quote(caps.python2)+" -B -c 'import sys,fcntl,select,struct,hashlib,json; print(sys.version_info[0]); print(struct.calcsize(\"llHHi\"))'" )).trim().split(/\r?\n/);
   if(python[0]!=='2'||python[1]!=='16')throw new Error('This relay requires the verified TV Python 2 / 32-bit input ABI.');
   await exec(client,'test -x /var/lib/webosbrew/startup.sh && test -d /var/lib/webosbrew/init.d');
   const {apps=[]}=await luna(client,'com.webos.applicationManager/listApps');
@@ -159,7 +160,7 @@ async function main(argv=process.argv.slice(2)){
   const client=await connect(options);
   try{
     if(command==='doctor')await doctor(client,options);
-    else if(command==='backup')await backup(client,options);
+    else if(command==='backup')await backup(client,{...options,backupOnly:true});
     else if(command==='restore')await restore(client,options);
     else if(command==='sync-apps'){verify();if(!options.dryRun)await backup(client,options);await syncApps(client,options);}
     else if(command==='disable'){await inspect(client,options);await exec(client,'touch /home/root/DISABLE-GATHIN-HOME && '+stopHook);console.log('HOME interception disabled; stock LG remote input restored.');}

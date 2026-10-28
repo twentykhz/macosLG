@@ -10,13 +10,16 @@ const {parse,doctor,backup,restore}=require('./tv');
   try{
     const status=await doctor(client,options);
     await restore(client,{...options,dryRun:true});
-    await exec(client,'python -c '+quote("import sys; compile(sys.stdin.read(),'home-keyhook.py','exec'); print('TV Python compile OK')"),{input:fs.readFileSync(path.join(root,'payload/home/home-keyhook.py'))});
-    await exec(client,'python -c '+quote("import sys; compile(sys.stdin.read(),'remove-devmode.py','exec'); print('TV Python root-remover compile OK; not executed')"),{input:fs.readFileSync(path.join(root,'scripts/remove-devmode.py'))});
+    const caps=await require('../lib/tv-capabilities').probe(client);
+    if(caps.python2){
+    await exec(client,quote(caps.python2)+' -c '+quote("import sys; compile(sys.stdin.read(),'home-keyhook.py','exec'); print('TV Python compile OK')"),{input:fs.readFileSync(path.join(root,'payload/home/home-keyhook.py'))});
+    await exec(client,quote(caps.python2)+' -c '+quote("import sys; compile(sys.stdin.read(),'remove-devmode.py','exec'); print('TV Python root-remover compile OK; not executed')"),{input:fs.readFileSync(path.join(root,'scripts/remove-devmode.py'))});
+    }
     for(const name of ['boot.sh','launch.sh','41-gathin-home-keyhook','disable-home.sh']){
       await exec(client,'sh -n',{input:fs.readFileSync(path.join(root,'payload/home',name))});
     }
-    const saved=await backup(client,options);
-    const report={testedAt:new Date().toISOString(),status,dryRun:true,tvPythonCompile:true,shellSyntax:true,backup:saved};
+    const saved=await backup(client,{...options,backupOnly:true});
+    const report={testedAt:new Date().toISOString(),status,dryRun:true,tvPythonCompile:!!caps.python2,shellSyntax:true,backup:saved};
     fs.mkdirSync(state,{recursive:true});fs.writeFileSync(path.join(state,'live-check.json'),JSON.stringify(report,null,2));
     console.log('Live checks passed; no TV packages, hooks, settings or foreground app changed.');
   }finally{client.end();}

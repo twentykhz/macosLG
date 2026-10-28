@@ -1,5 +1,11 @@
 # Validation — MAC-WebOSTV 3.1 / 2026-10-27
 
+## Python-optional rooted compatibility (3.4.1)
+
+135/135 automated tests pass on host Node 24 and official Node 20.20.2, with no skipped tests. `npm run verify` verifies all 147 payload/package entries. Coverage includes the reference profile, C2/O22 aarch64 without Python, minimal backup-only TVs, missing checksum providers, real checked uploads, full compatibility Setup over mocked SSH transport, injected post-mutation failure, portable Node rollback and compensated rename failure. Existing Python rollback/preservation tests remain enabled.
+
+Portable helper, Luna controls and HDMI tracker syntax and controls health also passed on a checksum-verified official Windows Node 0.12.18 binary. That checks the legacy language/runtime floor; it is not a physical-TV test. A read-only SSH attempt to the reference TV timed out before handshake, with no TV installation or mutation. C2 remains a regression fixture until the user confirms post-patch hardware testing. [Investigation, complete Python/native audit and limits](PYTHON-COMPATIBILITY.md).
+
 ## Shared Windows / Android host support (3.4.0)
 
 116 automated tests pass on host Node 24 and official Node 20.20.2, including Bash option forwarding, Termux storage fallback, Windows/Linux/Android/macOS path selection, POSIX ZIP/tar, archive rejection, pinned-download rejection, cache integrity, pure-JS encrypted-key decryption, SSH and Node-20 WebSocket inspector forwarding. Windows regression tests remain enabled on Windows; Python checks use Python 3 when available.

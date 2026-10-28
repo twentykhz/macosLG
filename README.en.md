@@ -1,5 +1,17 @@
 # MAC-WebOSTV by 20khzpc
 
+**3.4.1:** rooted compatibility installation, snapshot/rollback, upload verification and portable Luna controls/HDMI no longer require Python. Windows and Android/Termux share the same Node core. [Audit and requirements](docs/PYTHON-COMPATIBILITY.md).
+
+## Compatibility with newer rooted LG TVs
+
+The hardware-tested reference remains **55SK8000PTA / M16PP_DVB_EU / 05.50.70**. Rooted TVs outside the reference profile use conservative capability-based installation. Unsupported model-specific features are skipped rather than forced.
+
+An early, cached, read-only capability probe selects working tools before backup and provisioning. Supported TV Node >=0.12 provides filesystem recovery and portable controls, HDMI learning, wallpaper and remote services. Host Node still requires >=20. SHA-256, tar and verified rollback are mandatory before managed installation. A minimal shell/tar TV without Node/Python can export a backup; installation is blocked until a safe rollback engine exists. No Python installation, alias or cross-architecture binary copying is performed.
+
+**OLED65C2PSA / O22_DVB_AJ / 33.31.68 / SDK 10.3.1** has regression fixtures covering no-Python Setup, injected failure and rollback. It is **not yet hardware-validated after this patch**. Luna API availability determines controls support. Native HOME interception, Python2 voice routing, reference QML/input changes and SK8000 tuning are skipped; native LG HOME/microphone behavior is retained. The pinned ARM32 Homebrew IPK is never auto-deployed on aarch64; an existing installation is preserved.
+
+Start with `./GathinTV-AutoSetup.sh --mode Doctor --host TV_IP --trust-new-host`, then `--mode Restore` for a rooted TV. Windows equivalents use `.\MAC-WebOSTV-AutoSetup.ps1 -Mode Doctor -HostName TV_IP -TrustNewHost` and `-Mode Restore`. Confirm your TV IP/fingerprint before trusting a new host. Doctor remains read-only. Failed Setup/Restore offers `YES/CO` recovery using that run's original snapshot, with model/firmware/host identity checks. [3.4.1 changes](docs/CHANGELOG-v3.4.1.md).
+
 Install and manage from **Windows or Android/Termux, Linux and macOS**, using the same Node core. Windows keeps `MAC-WebOSTV-AutoSetup.ps1`; POSIX hosts use `GathinTV-AutoSetup.sh` and system Node >=20. [Android/Linux instructions](docs/ANDROID.en.md).
 
 ## Android / Termux installation

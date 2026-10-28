@@ -10,8 +10,9 @@ const {connect,exec,luna}=require('../lib/ssh');
     const info=await luna(client,'com.webos.service.tv.systemproperty/getSystemInfo',{keys:['modelName','firmwareVersion','sdkVersion','boardType']});
     require('../lib/local').assertProfile(info);
     const app='/media/developer/apps/usr/palm/applications/'+profile.appId;
-    const code='import os,json; p='+JSON.stringify(app)+'; print(json.dumps([os.path.join(d,n) for d,ds,fs in os.walk(p) for n in fs if not os.path.islink(os.path.join(d,n))]))';
-    const files=JSON.parse(await exec(client,'python -c '+quote(code)));
+    const caps=await require('../lib/tv-capabilities').probe(client);if(!caps.nodeFiles)throw Error('Reference source capture requires Node filesystem support');
+    const code='var fs=require("fs"),files=[];function walk(p){fs.readdirSync(p).forEach(function(n){var f=p+"/"+n,s=fs.lstatSync(f);if(s.isDirectory())walk(f);else if(s.isFile())files.push(f);});}walk('+JSON.stringify(app)+');console.log(JSON.stringify(files));';
+    const files=JSON.parse(await exec(client,quote(caps.node)+' -e '+quote(code)));
     const hashes=[];
     const mappings=files.map(remote=>[remote,'payload/app/'+remote.slice(app.length+1)]).concat([
       ['/home/root/gathin-home-keyhook.py','payload/home/home-keyhook.py'],

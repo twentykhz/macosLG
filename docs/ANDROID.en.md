@@ -1,5 +1,7 @@
 # Android / Termux, Linux and macOS
 
+**3.4.1:** rooted compatibility mode makes Python optional with an early capability probe and verified Node backup/rollback path. Reference HOME/voice/tuning helpers are skipped on other boards. C2/O22 has regression fixtures, with post-patch physical installation still unconfirmed. Run Doctor first. [Requirements and complete audit](PYTHON-COMPATIBILITY.md).
+
 No Windows computer is required. Both `GathinTV-AutoSetup.sh` and the existing Windows `MAC-WebOSTV-AutoSetup.ps1` delegate to **the same `scripts/run.js` core**. Keep the phone and TV on the same LAN; avoid isolated guest Wi-Fi. Keep Termux active during setup. Android may otherwise terminate background processes.
 
 ## Install without cloning

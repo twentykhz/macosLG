@@ -4,7 +4,7 @@ umask 077
 
 usage() {
   cat <<'HELP'
-GathinTV AutoSetup - Android / Termux / Linux / macOS (Node >=20)
+GathinTV AutoSetup 3.4.1 - Android / Termux / Linux / macOS (Node >=20)
 Usage: ./GathinTV-AutoSetup.sh --mode MODE --host TV_IP [options]
        ./GathinTV-AutoSetup.sh Doctor TV_IP [options]
 Modes: Setup Restore Doctor Backup Apps Sync Disable
