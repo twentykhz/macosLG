@@ -31,7 +31,7 @@ AutoSetup hiển thị vị trí backup, TV và thời điểm, rồi hỏi:
 Ban co muon quay ve trang thai ban dau cua TV theo backup dau phien nay khong? (CO/YES)
 ```
 
-Nhập `co`, `CO`, `yes` hoặc `YES` đều được. Tiếng Anh có lựa chọn tương đương. Setup tự kết nối lại, kiểm tra đúng TV và SHA-256, chuẩn bị/kiểm tra file trước khi thay, khôi phục snapshot và chạy lại đúng các dịch vụ đã hoạt động trước đó. File phát sinh trong phạm vi dự án được chuyển sang nơi giữ chẩn đoán, không trộn vào backup. Ứng dụng dự án vừa thêm trong phiên được gỡ nếu trước đó chưa có; ứng dụng có sẵn được giữ. Nếu chưa có snapshot hợp lệ hoặc chưa thay đổi gì, không đề nghị dùng nhầm backup phiên khác.
+Nhập `co`, `CO`, `yes` hoặc `YES` đều được. Tiếng Anh có lựa chọn tương đương. Setup tự kết nối lại, kiểm tra đúng TV và SHA-256, chuẩn bị/kiểm tra file trước khi thay, khôi phục snapshot và chạy lại đúng các dịch vụ đã hoạt động trước đó. File phát sinh trong phạm vi dự án được chuyển sang thư mục chẩn đoán ẩn bên ngoài danh mục ứng dụng và `init.d`, không trộn vào backup hay bị khởi chạy nhầm khi boot. Ứng dụng dự án vừa thêm trong phiên được gỡ nếu trước đó chưa có; ứng dụng có sẵn được giữ. Nếu chưa có snapshot hợp lệ hoặc chưa thay đổi gì, không đề nghị dùng nhầm backup phiên khác.
 
 Nếu kết nối hoặc khôi phục không hoàn tất, setup báo lỗi khôi phục riêng và giữ backup để thử lại. Không báo thành công chỉ vì đã gửi lệnh. Giữ PC và TV cùng mạng, không tắt TV trong khi khôi phục.
 

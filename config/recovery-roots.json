@@ -1,7 +1,7 @@
 [
  "/media/developer/apps/usr/palm/applications/com.gathin.tvhome",
- "/media/developer/apps/usr/palm/applications/com.gathin.tvhome.upgrade-previous",
- "/media/developer/apps/usr/palm/applications/com.gathin.tvhome.upgrade-new",
+ "/media/developer/temp/gathin-app-upgrade-previous",
+ "/media/developer/temp/gathin-app-upgrade-new",
  "/home/root/gathin-home-keyhook.py",
  "/home/root/gathin-home-launch.sh",
  "/home/root/gathin-home-replacement",

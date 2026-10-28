@@ -4,7 +4,9 @@ stage=sys.argv[1]
 app='/media/developer/apps/usr/palm/applications/com.gathin.tvhome'
 assert stage.startswith('/tmp/gathin-app-upgrade-') and os.path.realpath(stage)==stage
 manifest=json.load(open(stage+'/manifest.json'))
-new=app+'.upgrade-new';old=app+'.upgrade-previous'
+new='/media/developer/temp/gathin-app-upgrade-new';old='/media/developer/temp/gathin-app-upgrade-previous'
+if not os.path.isdir(os.path.dirname(new)):os.makedirs(os.path.dirname(new))
+assert os.stat(app).st_dev==os.stat(os.path.dirname(new)).st_dev,'App staging must use the same filesystem'
 assert not os.path.lexists(new) and not os.path.lexists(old),'Previous app upgrade needs recovery first'
 expected=dict((e['path'],e['sha256']) for e in manifest)
 with tarfile.open(stage+'/app.tar.gz','r:gz') as archive:

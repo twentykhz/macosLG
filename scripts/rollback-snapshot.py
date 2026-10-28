@@ -66,6 +66,15 @@ def restore(stage):
  # Validate destination ancestors before touching a running TV.
  for root in roots:
   assert os.path.realpath(os.path.dirname(root))==record['parents'][root],root
+ displaced={}
+ for index,root in enumerate(roots):
+  base='/media/developer/temp' if root.startswith('/media/developer/') else '/home/root' if root.startswith('/home/root/') else '/var/lib'
+  work=base+'/.mac-tv-recovery-'+os.path.basename(stage)
+  if not os.path.isdir(work):os.makedirs(work,0o700)
+  parent=os.path.dirname(root)
+  while not os.path.exists(parent):parent=os.path.dirname(parent)
+  assert os.stat(parent).st_dev==os.stat(work).st_dev,'Recovery staging filesystem mismatch: '+root
+  displaced[root]=work+'/entry-'+str(index)
  targets=set(record['active']) | set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
  open('/home/root/DISABLE-GATHIN-HOME','a').close()
  found=[]
@@ -84,11 +93,11 @@ def restore(stage):
  else:raise RuntimeError('Previous runtime did not stop; no snapshot files replaced')
  subprocess.call(['luna-send','-w','3000','-n','1','luna://com.webos.applicationManager/closeByAppId','{"id":"com.gathin.tvhome"}'])
  remove_added_apps(record)
- # Keep displaced data beside each destination (same filesystem); no broad deletion.
+ # Retain displaced data outside app registries and init.d, on the same filesystem.
  journal=[]
  try:
   for root in roots:
-   old=root+'.rollback-'+os.path.basename(stage)
+   old=displaced[root]
    assert not os.path.lexists(old)
    source=extract+root
    if os.path.lexists(source):
@@ -135,6 +144,6 @@ def restore(stage):
  else:raise RuntimeError('Snapshot files restored but original runtime did not restart; keep recovery log')
  if record.get('foreground'):luna_once('com.webos.applicationManager/launch',{'id':record['foreground']})
  print('Snapshot files, private service state and original active services restored.')
- print('Displaced installation files retained beside restored roots for diagnosis.')
+ print('Displaced files retained in hidden recovery directories outside app registries and boot hooks.')
 
 if __name__=='__main__':restore(sys.argv[1])

@@ -12,7 +12,7 @@ def put(p,data):
  target=physical(p);os.makedirs(os.path.dirname(target),exist_ok=True)
  with open(target,'wb') as f:f.write(data)
 app=roots[0];control='/var/lib/webosbrew/gathin-controls';wall='/var/lib/webosbrew/gathin-wallpaper'
-files={app+'/control-token.js':b'window.GATHIN_CONTROL_TOKEN="original";',app+'/wallpaper.jpg':b'original wallpaper',control+'/bridge.token':b'original',wall+'/slideshow.json':b'{"selected":["wallpaper.jpg"],"interval":17}', '/home/root/gathin-home-keyhook.py':b'print("original")\n'}
+files={app+'/control-token.js':b'window.GATHIN_CONTROL_TOKEN="original";',app+'/wallpaper.jpg':b'original wallpaper',control+'/bridge.token':b'original',wall+'/slideshow.json':b'{"selected":["wallpaper.jpg"],"interval":17}', '/home/root/gathin-home-keyhook.py':b'print("original")\n','/var/lib/webosbrew/init.d/41-gathin-home-keyhook':b'#!/bin/sh\nexit 0\n'}
 stage='/tmp/gathin-app-upgrade-fixture' if '--preserve' in sys.argv or '--promote' in sys.argv else '/tmp/mac-tv-rollback-fixture';os.makedirs(physical(stage))
 archive=physical(stage+'/snapshot.tar.gz')
 with tarfile.open(archive,'w:gz') as t:
@@ -29,6 +29,7 @@ fakepath=types.SimpleNamespace(dirname=posixpath.dirname,basename=posixpath.base
 for name in ['exists','lexists','isfile','islink','isdir']:
  setattr(fakepath,name,lambda p,n=name:getattr(os.path,n)(physical(p)))
 fakeos=types.SimpleNamespace(path=fakepath,geteuid=lambda:0,listdir=lambda p:[] if p=='/proc' else os.listdir(physical(p)))
+fakeos.stat=lambda p:os.stat(physical(p))
 for name in ['mkdir','makedirs','unlink','readlink','chmod']:
  setattr(fakeos,name,lambda p,*a,n=name,**kw:getattr(os,n)(physical(p),*a,**kw))
 fault='--fail-during-restore' in sys.argv
@@ -82,6 +83,7 @@ try:
   assert open(physical(app+'/wallpaper.jpg'),'rb').read()==files[app+'/wallpaper.jpg']
   assert open(physical(app+'/control-token.js'),'rb').read()==files[app+'/control-token.js']
   assert open(physical(app+'/new-code.js'),'rb').read()==b'NEW CODE'
+  assert os.listdir(physical(posixpath.dirname(app)))==['com.gathin.tvhome'],'No duplicate app registration directories'
   print('Verified: new application code with original per-TV token and wallpaper')
   sys.exit(0)
  exec(compile(open(source,'rb').read(),source,'exec'),namespace)
@@ -100,5 +102,7 @@ try:
  assert not os.path.exists(physical(app+'/new-code.js'))
  assert not os.path.exists(physical(added))
  assert not os.path.exists(physical('/home/root/DISABLE-GATHIN-HOME'))
+ assert os.listdir(physical(posixpath.dirname(app)))==['com.gathin.tvhome'],'No duplicate app registration directories'
+ assert os.listdir(physical('/var/lib/webosbrew/init.d'))==['41-gathin-home-keyhook'],'No duplicate boot hooks'
  print('Verified: exact original files, tokens, wallpaper settings; added files/services removed; native HOME retained')
 finally:shutil.rmtree(base)
