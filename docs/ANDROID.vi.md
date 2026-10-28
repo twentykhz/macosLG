@@ -1,28 +1,125 @@
-# Cài MAC-WebOSTV bằng điện thoại Android
+# 📱 Cài Launcher MAC-WebOS LG bằng điện thoại Android
 
-Bạn **không cần máy tính Windows**.
+Không có máy tính Windows cũng cài được.
 
-Chỉ cần:
+Bạn chỉ cần:
 
-- Điện thoại Android
-- TV LG và điện thoại kết nối **cùng một mạng Wi-Fi/LAN**
-- Ứng dụng **Termux**
+- Một điện thoại Android
+- TV LG và điện thoại đang **cùng Wi-Fi**
+- Khoảng 5–10 phút
+- Làm lần lượt từng bước bên dưới
 
-> Trong lúc cài, hãy giữ Termux mở và không tắt Wi-Fi.
+> **Chưa từng dùng Termux cũng không sao.** Không cần biết Linux hay code gì cả, cứ copy đúng từng lệnh trong hướng dẫn.
 
 ---
 
-# Bước 1: Chuẩn bị Termux
+# Bước 1 — Cài Termux
 
-Mở **Termux**.
+**Termux** là ứng dụng chúng ta dùng để chạy bộ cài GathinTV trên điện thoại.
 
-Copy lệnh này, dán vào Termux rồi nhấn Enter:
+### Cách dễ nhất 
+
+Lên GOOGLE PLAY STORE -> Search TERMUX và tải về
+
+hoặc
+
+Mở trình duyệt trên điện thoại và vào:
+
+https://f-droid.org/packages/com.termux/
+
+Tìm phần **Versions** → bấm **Download APK**.
+
+Android có thể hiện cảnh báo cài ứng dụng ngoài CH Play.
+
+Chọn:
+
+**Cho phép từ nguồn này → Cài đặt**
+
+Sau khi cài xong, mở **Termux**.
+
+> Nên tải Termux từ **F-Droid hoặc GitHub chính thức**, không tải APK từ các trang chia sẻ linh tinh.
+
+Trang GitHub chính thức của Termux:
+
+https://github.com/termux/termux-app/releases
+
+---
+
+## Mở Termux lên sẽ thấy gì?
+
+Màn hình sẽ màu đen, có chữ trắng và dấu `$` ở cuối.
+
+Nó gần giống thế này:
+
+<p align="center">
+  <img src="https://f-droid.org/repo/com.termux/en-US/phoneScreenshots/1.jpg" width="320">
+</p>
+
+**Ảnh: giao diện Termux chính thức trên F-Droid**
+
+Thấy màn hình kiểu này là đúng.
+
+Bạn sẽ nhập lệnh vào ngay sau dấu:
+
+```text
+$
+```
+
+---
+
+# Bước 2 — Cập nhật Termux
+
+Copy dòng này:
 
 ```bash
 pkg update
 ```
 
-Nếu Termux hỏi:
+Sau đó quay lại Termux, **nhấn giữ vào màn hình → Paste/Dán → Enter**.
+
+Termux sẽ chạy một lúc.
+
+Nếu thấy:
+
+```text
+Do you want to continue? [Y/n]
+```
+
+thì nhập:
+
+```text
+y
+```
+
+rồi bấm **Enter**.
+
+### Nếu nó hỏi chọn mirror
+
+Một số máy có thể hiện danh sách máy chủ tải xuống.
+
+Nếu không biết chọn gì thì cứ chọn mặc định rồi Enter.
+
+Đợi đến khi màn hình lại xuất hiện:
+
+```text
+$
+```
+
+là xong bước này.
+
+---
+
+# Bước 3 — Cài những thứ GathinTV cần
+
+Copy nguyên dòng sau:
+
+```bash
+pkg install nodejs git curl
+```
+
+Dán vào Termux → Enter.
+
+Nếu hỏi:
 
 ```text
 Do you want to continue? [Y/n]
@@ -36,21 +133,52 @@ y
 
 rồi Enter.
 
-Tiếp theo chạy:
-
-```bash
-pkg install nodejs git curl
-```
-
-Nếu được hỏi `[Y/n]`, tiếp tục nhập:
+Đợi cho đến khi lại thấy dấu:
 
 ```text
-y
+$
 ```
 
 ---
 
-# Bước 2: Cho phép Termux truy cập bộ nhớ
+## Kiểm tra Node.js
+
+Chạy:
+
+```bash
+node --version
+```
+
+Nếu hiện kiểu:
+
+```text
+v20.x.x
+```
+
+hoặc:
+
+```text
+v22.x.x
+v24.x.x
+```
+
+là được.
+
+Chỉ cần số đầu tiên **từ 20 trở lên**.
+
+Ví dụ:
+
+```text
+v24.10.0
+```
+
+→ OK.
+
+---
+
+# Bước 4 — Cho Termux quyền lưu file
+
+Bước này để GathinTV có thể lưu backup vào thư mục **Download** của điện thoại.
 
 Chạy:
 
@@ -58,53 +186,53 @@ Chạy:
 termux-setup-storage
 ```
 
-Android sẽ hiện hộp thoại xin quyền truy cập file.
+Android sẽ hiện cửa sổ xin quyền.
 
-Chọn **Cho phép**.
+Chọn:
 
-> Bước này giúp GathinTV lưu file backup vào thư mục Download của điện thoại.
+**Cho phép**
+
+Nếu điện thoại không hiện gì hoặc bạn lỡ từ chối thì cũng chưa sao. Bộ cài vẫn chạy được, chỉ có file backup sẽ được lưu bên trong Termux thay vì thư mục Download.
 
 ---
 
-# Bước 3: Cài GathinTV
+# Bước 5 — Chạy bộ cài GathinTV
 
-Copy **nguyên dòng này** vào Termux:
+Đây là bước chính.
+
+Copy **nguyên dòng** này:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
 ```
 
-Nhấn Enter.
+Dán vào Termux → Enter.
 
-Bộ cài sẽ tự tải các file cần thiết và kiểm tra chúng trước khi chạy.
+Không sửa gì trong dòng trên.
 
----
+Bộ cài sẽ tự tải GathinTV về điện thoại và kiểm tra file trước khi chạy.
 
-# Bước 4: Nhập IP của TV
+Đợi một chút.
 
-Khi bộ cài hỏi IP TV, nhập IP của TV LG.
-
-Ví dụ:
-
-```text
-192.168.1.11
-```
-
-Bạn có thể xem IP trong phần **Cài đặt mạng** trên TV.
-
-Điện thoại và TV phải ở cùng mạng.
+Sau đó menu GathinTV sẽ hiện ra.
 
 ---
 
-# Bước 5: Chọn đúng tình trạng TV
+# Bước 6 — Chọn tình trạng TV
 
-Có 2 trường hợp.
+Bộ cài sẽ hỏi TV của bạn thuộc trường hợp nào.
 
-## Trường hợp A — TV đã root
+Có 2 trường hợp chính:
 
-Nếu TV đã có root/Homebrew và SSH root hoạt động:
+## 🟢 TV đã root
 
-Chọn:
+Nếu TV của bạn:
+
+- đã root;
+- đã từng dùng Homebrew;
+- SSH root đang hoạt động;
+
+thì chọn:
 
 ```text
 TV đã root
@@ -112,69 +240,181 @@ TV đã root
 
 Bộ cài sẽ **không root lại TV**.
 
-Sau đó làm theo hướng dẫn hiện trên Termux.
+Sau đó nhập IP TV khi được hỏi.
+
+Ví dụ:
+
+```text
+192.168.1.11
+```
 
 ---
 
-## Trường hợp B — TV chưa root
+## 🔵 TV chưa root
 
-Trước tiên trên TV:
+Nếu đây là TV mới, chưa root, trước tiên phải chuẩn bị **Developer Mode** trên TV.
 
-1. Cài ứng dụng **Developer Mode**.
-2. Đăng nhập tài khoản LG Developer.
-3. Bật **Dev Mode Status**.
-4. TV sẽ yêu cầu reboot.
-5. Sau khi TV bật lại, mở **Developer Mode**.
-6. Bật **Key Server**.
-7. Ghi lại:
-   - IP của TV
-   - Passphrase 6 ký tự
+### Trên TV LG
 
-Sau đó trên Termux chọn:
+Vào **LG Content Store** và cài:
+
+```text
+Developer Mode
+```
+
+Mở Developer Mode.
+
+Đăng nhập tài khoản LG Developer.
+
+Sau đó bật:
+
+```text
+Dev Mode Status
+```
+
+TV sẽ yêu cầu khởi động lại.
+
+Cho TV reboot.
+
+Sau khi TV bật lại:
+
+1. Mở **Developer Mode** lần nữa.
+2. Bật **Key Server**.
+3. Để nguyên màn hình này.
+
+Bạn cần ghi lại 2 thứ:
+
+```text
+IP Address
+Passphrase
+```
+
+Passphrase thường gồm **6 ký tự**.
+
+Ví dụ:
+
+```text
+IP: 192.168.1.11
+Passphrase: A1B2C3
+```
+
+Sau đó quay lại Termux.
+
+Chọn:
 
 ```text
 TV chưa root
 ```
 
-Khi bộ cài hỏi passphrase, nhập **6 ký tự đang hiện trong Developer Mode**.
-
-> Khi nhập mật khẩu/passphrase, màn hình có thể không hiện ký tự. Đây là bình thường.
-
-Bộ cài sẽ tự kiểm tra TV trước khi thực hiện các bước tiếp theo.
+và nhập IP vừa xem trên TV.
 
 ---
 
-# Bước 6: Chờ cài đặt hoàn tất
+# Bước 7 — Xác nhận đúng TV
 
-Sau khi bắt đầu cài:
+Ở lần kết nối đầu tiên, GathinTV có thể hỏi bạn xác nhận IP.
+
+Ví dụ:
+
+```text
+Kiem tra IP tren chinh TV cua ban: 192.168.1.11
+
+Nhap YES hoac CO neu day la TV cua ban:
+```
+
+Kiểm tra IP trên TV một lần nữa.
+
+Nếu đúng thì nhập:
+
+```text
+CO
+```
+
+hoặc:
+
+```text
+YES
+```
+
+rồi Enter.
+
+---
+
+# Bước 8 — Nếu TV chưa root, nhập Passphrase
+
+Bộ cài sẽ hỏi passphrase của Developer Mode.
+
+Nhập đúng 6 ký tự đang hiện trên TV.
+
+Ví dụ:
+
+```text
+A1B2C3
+```
+
+### ⚠️ Lưu ý
+
+Khi nhập password hoặc passphrase trong Termux, có thể:
+
+```text
+không hiện chữ
+không hiện dấu *
+không hiện gì cả
+```
+
+Đây là **bình thường**.
+
+Cứ nhập đúng rồi bấm Enter.
+
+---
+
+# Bước 9 — Để bộ cài chạy
+
+Từ đây cứ làm theo những gì GathinTV hỏi trên màn hình.
+
+Trong lúc cài:
 
 - Không tắt TV
+- Không rút điện TV
 - Không tắt Wi-Fi
 - Không đóng Termux
-- Không chuyển điện thoại sang chế độ tiết kiệm pin làm Termux bị dừng
+- Không để điện thoại chuyển sang chế độ tiết kiệm pin quá mạnh
 
-Làm theo thông báo trên màn hình cho đến khi bộ cài báo hoàn tất.
+TV có thể tự reboot trong quá trình cài.
 
-TV có thể reboot trong quá trình cài.
+Đó là bình thường.
+
+Khi bộ cài báo hoàn tất thì mới đóng Termux.
 
 ---
 
-# Muốn mở lại GathinTV Installer
+# Sau này muốn mở lại GathinTV
 
-Sau này muốn chạy lại bộ cài, mở Termux và chạy:
+Không cần chạy lại lệnh cài từ đầu.
+
+Mở Termux rồi chạy:
 
 ```bash
 cd "$HOME/.gathintv"
+```
+
+Enter.
+
+Sau đó:
+
+```bash
 ./GathinTV-AutoSetup.sh
 ```
+
+Enter.
 
 Menu GathinTV sẽ hiện lại.
 
 ---
 
-# Kiểm tra TV mà không cài lại
+# Chỉ kiểm tra TV
 
-Nếu chỉ muốn kiểm tra TV đã root:
+Nếu TV đã root và bạn chỉ muốn kiểm tra xem mọi thứ có hoạt động không:
 
 ```bash
 cd "$HOME/.gathintv"
@@ -189,28 +429,32 @@ Thay:
 
 bằng IP TV của bạn.
 
-Doctor chỉ kiểm tra và báo cáo tình trạng TV, không cài lại GathinTV.
+Doctor chỉ kiểm tra, không cài lại TV.
 
 ---
 
 # Backup TV
 
-Để tạo backup:
+Chạy:
 
 ```bash
 cd "$HOME/.gathintv"
 ./GathinTV-AutoSetup.sh --mode Backup --host 192.168.1.11
 ```
 
-Nếu bạn đã cho Termux quyền truy cập bộ nhớ, backup sẽ ưu tiên được lưu trong:
+Nếu đã cấp quyền bộ nhớ ở **Bước 4**, backup thường nằm trong:
 
 ```text
 Download/GathinTV-Backups
 ```
 
+Nếu chưa cấp quyền thì GathinTV sẽ lưu backup bên trong Termux và báo đường dẫn trên màn hình.
+
+Không nên chia sẻ file backup của TV lên mạng.
+
 ---
 
-# Nếu TV đã root và muốn cài lại GathinTV
+# TV đã root và muốn cài lại GathinTV
 
 Chạy:
 
@@ -219,85 +463,176 @@ cd "$HOME/.gathintv"
 ./GathinTV-AutoSetup.sh --mode Restore --host 192.168.1.11 --trust-new-host
 ```
 
-Thay IP bằng IP TV của bạn.
+Nhớ thay IP bằng IP TV của bạn.
 
-Lệnh này dành cho **TV đã root** và không chạy exploit root lại.
+Lệnh này dành cho **TV đã root**.
+
+Nó không chạy exploit root lại.
 
 ---
 
-# Nếu gặp lỗi
+# ❓ Một số lỗi thường gặp
 
-Trước tiên kiểm tra 3 thứ:
-
-### 1. Điện thoại và TV có cùng mạng không?
+## `command not found`
 
 Ví dụ:
 
 ```text
-Điện thoại: 192.168.1.xxx
-TV:         192.168.1.xxx
+node: command not found
 ```
 
-### 2. IP TV có đúng không?
+Chạy lại:
 
-Kiểm tra lại IP trực tiếp trong cài đặt mạng của TV.
-
-### 3. Nếu TV chưa root
-
-Kiểm tra:
-
-- Developer Mode đã bật
-- Dev Mode Status đang ON
-- Key Server đang ON
-- Passphrase 6 ký tự đúng
+```bash
+pkg install nodejs git curl
+```
 
 ---
 
-# Cài nhanh — dành cho người đã biết Termux
+## Không kết nối được TV
 
-Chạy lần lượt:
+Kiểm tra:
 
-```bash
-pkg update
-pkg install nodejs git curl
-termux-setup-storage
-curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+**Điện thoại và TV phải cùng Wi-Fi.**
+
+Ví dụ:
+
+```text
+Điện thoại: 192.168.1.25
+TV:         192.168.1.11
 ```
 
-Sau này mở lại:
+Như vậy thường là cùng mạng.
+
+Nếu TV đang dùng:
+
+```text
+192.168.1.xxx
+```
+
+nhưng điện thoại lại là:
+
+```text
+192.168.50.xxx
+```
+
+thì hãy kiểm tra lại mạng.
+
+---
+
+## `ECONNREFUSED ...:22`
+
+Nếu bạn chọn **TV đã root** nhưng gặp:
+
+```text
+connect ECONNREFUSED 192.168.x.x:22
+```
+
+thì TV hiện không có SSH root hoạt động.
+
+Nếu TV thực sự chưa root → chạy lại và chọn:
+
+```text
+TV chưa root
+```
+
+Nếu TV đã root → kiểm tra SSH/Homebrew trên TV.
+
+---
+
+## Không thấy chữ khi nhập mật khẩu
+
+Bình thường.
+
+Terminal cố tình ẩn mật khẩu.
+
+Nhập xong → Enter.
+
+---
+
+## Termux bị đóng giữa chừng
+
+Mở lại Termux.
+
+Chạy:
 
 ```bash
 cd "$HOME/.gathintv"
 ./GathinTV-AutoSetup.sh
 ```
 
----
-
-# Lưu ý
-
-- Android **không làm một model/firmware không hỗ trợ root trở thành hỗ trợ root**.
-- Không cố ép root nếu bộ cài báo TV không tương thích.
-- Nếu TV đã root, hãy chọn đúng chế độ **TV đã root** để tránh chạy exploit lại.
-- Không chia sẻ file backup, SSH key hoặc dữ liệu trong thư mục state của bạn lên mạng.
+Không chạy root lại nếu TV đã root thành công.
 
 ---
 
-## Tóm tắt
+# 🚀 Tóm tắt cho người không muốn đọc nhiều
 
-Nếu bạn chưa từng dùng Termux, chỉ cần nhớ:
+### Lần đầu dùng Android
+
+Mở Termux và chạy lần lượt **4 dòng**:
+
+```bash
+pkg update
+```
+
+```bash
+pkg install nodejs git curl
+```
+
+```bash
+termux-setup-storage
+```
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+```
+
+Sau đó:
 
 ```text
-1. Mở Termux
-        ↓
-2. Cài nodejs + git + curl
-        ↓
-3. Chạy install-android.sh
-        ↓
-4. Nhập IP TV
-        ↓
-5. Chọn TV đã root / chưa root
-        ↓
-6. Làm theo hướng dẫn trên màn hình
-        ↓
-7. Xong
+Nhập IP TV
+      ↓
+Chọn TV đã root / chưa root
+      ↓
+Làm theo hướng dẫn trên màn hình
+      ↓
+Xong
 ```
+
+---
+
+# Nếu TV chưa root, nhớ chuẩn bị trước
+
+```text
+LG Content Store
+      ↓
+Developer Mode
+      ↓
+Đăng nhập
+      ↓
+Dev Mode Status → ON
+      ↓
+TV reboot
+      ↓
+Mở lại Developer Mode
+      ↓
+Key Server → ON
+      ↓
+Lấy IP + Passphrase
+      ↓
+Quay lại Termux
+```
+
+---
+
+# Nguồn
+
+Project:
+
+https://github.com/twentykhz/macosLG
+
+Termux:
+
+https://github.com/termux/termux-app
+
+https://f-droid.org/packages/com.termux/
