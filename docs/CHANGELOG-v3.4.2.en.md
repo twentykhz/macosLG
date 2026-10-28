@@ -1,5 +1,8 @@
 # 3.4.2 changes
 
+- Auto-detect model/firmware by default, with no manual identity prompts. Require Dev Mode Status/Key Server for unrooted SSH setup, probe both services independently, report/retry readiness and confirm working Developer Mode only after authentication. Status logs exclude keys/passphrases.
+- Add dedicated DangBro instructions with upstream DVB/support constraints, TV pairing and independent root/identity verification. See `docs/DANGBRO.md`; no upstream exploit code is embedded on the installer host.
+
 - Windows/Termux: Enter auto-detects model/firmware; `SKIP`, `-SkipPreflight` and `--skip-preflight` bypass only the initial manual lookup. Authenticated TV identification, identity pinning and root compatibility gates remain enforced. Explain webOS22/7.6.0-1901 versus firmware and the Support → Software Update location.
 
 - Fix Termux prompts: select English/Vietnamese, describe rooted/unrooted branches, retry invalid menu/model/firmware input, and distinguish the TV model/software version from the Developer Mode passphrase. CLI validation rejects passphrases as model names before connecting to the TV.

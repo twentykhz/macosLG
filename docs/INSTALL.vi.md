@@ -30,7 +30,9 @@ Trước menu này, chọn **1 — English** hoặc **2 — Tieng Viet khong dau
 
 ### A1. Kiểm tra tương thích
 
-Ở ô model hoặc firmware, **nhấn Enter để tự nhận diện**, hoặc gõ **`SKIP`** để bỏ qua tra cứu ban đầu. Sau khi kết nối Developer Mode đã xác thực (bật Dev Mode Status và Key Server), setup đọc model/firmware thực tế rồi kiểm tra online tại [cani.rootmy.tv](https://cani.rootmy.tv/). Nếu nhập thủ công đủ hai thông tin, setup tra cứu ngay trước kết nối và đối chiếu lại sau đăng nhập. Kết quả chưa xác định hoặc không phù hợp vẫn chặn chạy exploit; `SKIP` không bỏ qua kiểm tra tương thích sau kết nối. [Các phương pháp và giới hạn tự động hóa](ROOTING-METHODS.md).
+**Mặc định setup không hỏi model/firmware nữa.** Nhập IP TV; bật **Dev Mode Status**, cho TV reboot, mở lại ứng dụng Developer Mode và bật **Key Server**. Setup kiểm tra SSH Developer Mode và Key Server, báo riêng từng kết quả và cho kiểm tra lại nếu chưa sẵn sàng. Sau khi nhập passphrase Developer Mode và xác thực thành công, setup tự đọc model/firmware thực tế, hiện thông tin đã nhận diện và kiểm tra online tại [cani.rootmy.tv](https://cani.rootmy.tv/). Không truy cập được dịch vụ có thể do chưa bật, hết phiên hoặc lỗi mạng; không khẳng định chắc chắn công tắc tắt.
+
+Kết quả chưa xác định hoặc không phù hợp vẫn chặn exploit. Chế độ nâng cao có thể dùng `-TVModel` / `-FirmwareVersion` để nhập thông tin đã biết; `Enter`/`SKIP` ở ô thủ công hoặc `-SkipPreflight` quay về tự nhận diện. Thông tin nhập vẫn phải khớp TV sau xác thực. [Các phương pháp và giới hạn tự động hóa](ROOTING-METHODS.md) · [DangBro qua trình duyệt](DANGBRO.md).
 
 **webOS 22 trở lên:** model ở **Hỗ trợ → Thông tin TV**; firmware đang cài ở **Cài đặt → Tất cả cài đặt → Hỗ trợ → Cập nhật phần mềm**. Chỉ xem phiên bản, không cần cập nhật. `webOS22 / 7.6.0-1901` là phiên bản hệ điều hành, không nhập vào ô firmware. Ví dụ model trong ảnh hỗ trợ là `55QNED80SQA`; không thể suy ra firmware chính xác chỉ từ nhãn webOS22. TV cũ có thể hiển thị firmware tại **Cài đặt chung → Giới thiệu về TV**. [Hướng dẫn LG](https://www.lg.com/us/support/help-library/lg-tv-how-can-i-update-the-tv-software--20154858251400).
 

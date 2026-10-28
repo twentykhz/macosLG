@@ -1,6 +1,13 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const {runSequence}=require('../lib/root-methods');
+test('DangBro guide uses the upstream browser flow and refuses known non-DVB/old SDK targets',()=>{
+ const {dangbroInstructions}=require('../lib/root-methods');
+ const guide=dangbroInstructions({host:'192.0.2.11',info:{boardType:'O22_DVB_AJ',sdkVersion:'7.6.0'}});assert(guide.supported);
+ const text=guide.lines.join('\n');assert.match(text,/https:\/\/azoffshowy.github.io\/dangbro\//);assert.match(text,/https:\/\/192.0.2.11:3001\//);assert.match(text,/pairing prompt/);assert.match(text,/UID 0/);assert(!text.includes('--disable-web-security'));assert(!text.includes('--ignore-certificate-errors'));
+ assert(!dangbroInstructions({info:{boardType:'O22_ATSC_KR',sdkVersion:'7.6.0'}}).supported);
+ assert(!dangbroInstructions({info:{boardType:'M16PP_DVB_EU',sdkVersion:'4.4.0'}}).supported);
+});
 const method=(key,other={})=>({key,status:'rootable',kind:'manual',...other});
 test('faultmanager runs first and a verified fallback stops the sequence',async()=>{
  const attempted=[],records=[];

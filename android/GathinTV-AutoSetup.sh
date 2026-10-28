@@ -93,13 +93,14 @@ if $interactive_menu && [[ $mode != Rollback ]]; then
 fi
 node "$script_dir/scripts/verify.js"
 if [[ $mode == Setup ]] && ! $already; then
+  if [[ -z $model && -z $firmware ]]; then skip_preflight=true; fi
   if ! $skip_preflight; then
     if ! shell_valid_model "$model" && [[ -t 0 ]]; then shell_model; fi
     if ! $skip_preflight && ! shell_valid_firmware "$firmware" && [[ -t 0 ]]; then shell_firmware; fi
   fi
   if $skip_preflight; then
     [[ -z $model ]] || shell_valid_model "$model" || die 'Invalid LG TV model; not the Developer Mode passphrase'
-    printf '%s\n' "$(shell_text 'Initial lookup skipped. Detecting model/firmware through authenticated Developer Mode or saved root SSH; compatibility is still checked before rooting.' 'Bo qua tra cuu ban dau. Se doc model/firmware qua Developer Mode hoac SSH root da luu; van kiem tra tuong thich truoc khi root.')"
+    printf '%s\n' "$(shell_text 'AUTO: reading model/firmware through authenticated Developer Mode or saved root SSH; no manual model/firmware input is needed. Compatibility is still checked before rooting.' 'AUTO: tu doc model/firmware qua Developer Mode hoac SSH root da luu; khong can nhap model/firmware. Van kiem tra tuong thich truoc khi root.')"
   elif [[ -z $model && -z $firmware && ! -t 0 ]]; then
     printf '%s\n' 'AUTO: detect authenticated TV model/firmware before checking rootability.'
   else

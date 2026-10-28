@@ -17,7 +17,7 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 ## Before installing
 
 - **Already rooted:** choose the rooted setup branch; Developer Mode reinstallation or factory reset is unnecessary.
-- **Not rooted:** setup checks model/firmware eligibility and explains prerequisites. Some LG TVs cannot use these methods.
+- **Not rooted:** enable **Dev Mode Status**, allow its reboot, then enable **Key Server**. Setup checks readiness, automatically reads authenticated model/firmware and reports compatibility. Some LG TVs cannot use these methods. [DangBro support](docs/DANGBRO.md).
 - Hardware-tested reference: **55SK8000PTA / firmware 05.50.70**. Other models use capability checks and may skip reference features. Physical C2 installation/rollback remains unconfirmed.
 
 ## Documentation

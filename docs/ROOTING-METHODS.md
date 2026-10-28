@@ -2,7 +2,9 @@
 
 ## Trước khi root
 
-Setup hỏi đúng **model TV** và **firmware đang cài**, rồi đọc dữ liệu đang được triển khai tại [CanI.RootMy.TV](https://cani.rootmy.tv/). Sau khi đăng nhập TV, thông tin thực tế được đối chiếu và kiểm tra online lại trước khi chạy exploit. Dữ liệu được đọc dưới dạng JSON từ source map của website; không thực thi JavaScript tải từ website trên PC.
+Setup mặc định **tự đọc model TV và firmware sau khi xác thực**, không hỏi người dùng nhập. Với TV chưa root, trước tiên bật **Dev Mode Status**, cho TV reboot rồi mở lại ứng dụng và bật **Key Server**. Bộ cài kiểm tra độc lập SSH Developer Mode và khóa do Key Server trả về, báo kết quả và cho kiểm tra lại sau khi bật. Xác thực thành công mới xác nhận dịch vụ Dev Mode hoạt động; mất kết nối không đồng nghĩa chắc chắn công tắc đang tắt. Xem [quy trình chính thức của LG](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app).
+
+Thông tin thực tế được tra cứu tại [CanI.RootMy.TV](https://cani.rootmy.tv/) và kiểm tra trước khi chạy exploit. Có thể chỉ định model/firmware thủ công bằng các tham số nâng cao; dữ liệu nhập vẫn phải khớp TV sau đăng nhập. Dữ liệu website được đọc dưới dạng JSON; không thực thi JavaScript của website trên PC. [Hướng dẫn DangBro](DANGBRO.md).
 
 - **Có thể root:** có ít nhất một cách phần mềm được dữ liệu xác nhận phù hợp. Đây không phải bảo đảm exploit sẽ thành công.
 - **Không có cách root phần mềm đã biết:** không có cách phù hợp cho đúng model, vùng OTAID, codename và firmware đã nhập. Setup dừng trước khi chạy exploit.
@@ -23,7 +25,8 @@ Nguồn danh sách: [webOSBrew Rooting](https://www.webosbrew.org/rooting/); cá
 | [RootMy.TV](https://rootmy.tv/) | Hướng dẫn mở và thực hiện trên trình duyệt TV nếu đúng firmware còn phù hợp. |
 | [GetMeNow](https://www.webosbrew.org/rooting/getmenow/) | Liệt kê trạng thái từ dữ liệu; chỉ hướng dẫn khi dữ liệu xác nhận phù hợp. Không coi firmware/Developer Mode mới là chưa vá. |
 | [NVM](https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1) | Ghi rõ cần thao tác phần cứng chuyên môn; không chạy tự động hoặc sửa NVRAM từ setup. |
-| [SlopBro](https://github.com/throwaway96/slopbro), [DangBro](https://azoffshowy.github.io/dangbro/), [ASM](https://github.com/illixion/root-my-webos-tv), [MVPD](https://github.com/throwaway96/mvpd-autoroot/) | Nếu cani xác nhận phù hợp, đưa vào lượt hướng dẫn dự phòng. DangBro chỉ được chọn khi dữ liệu model xác nhận tuner DVB. |
+| [DangBro](https://github.com/azoffshowy/dangbro) | Nếu dữ liệu xác nhận phù hợp với TV DVB, hiện bước hướng dẫn trình duyệt/ghép nối riêng. Kiểm tra Root OK, SSH UID 0 và đúng TV trước khi tiếp tục. [Chi tiết](DANGBRO.md). |
+| [SlopBro](https://github.com/throwaway96/slopbro), [ASM](https://github.com/illixion/root-my-webos-tv), [MVPD](https://github.com/throwaway96/mvpd-autoroot/) | Nếu cani xác nhận phù hợp, đưa vào lượt hướng dẫn dự phòng. |
 
 Sau bước thủ công, nhập `XONG` / `DONE` để kiểm tra root, `TIEP` / `NEXT` để bỏ qua, `DUNG` / `STOP` để dừng. Không phân biệt hoa/thường. Setup kiểm tra quyền root qua Homebrew hoặc SSH root trước khi cài tiếp; dòng “rooting complete” hay câu trả lời của người dùng không thay thế phép kiểm tra này. Khi đã xác minh root, các cách tiếp theo không được chạy.
 
@@ -47,10 +50,10 @@ Mật khẩu nhập được ẩn và không được ghi vào cấu hình/log. 
 
 ## English
 
-Choose English or unaccented Vietnamese before the installation branch. Setup checks the exact model/firmware against the live CanI.RootMy.TV dataset, then rechecks the authenticated TV before any exploit. Known compatible, no known software method, and unknown are separate outcomes. Unknown or patched status does not authorize an automatic attempt.
+Choose English or unaccented Vietnamese before the installation branch. Setup automatically reads the authenticated model/firmware by default. Unrooted TVs require Dev Mode Status enabled, its reboot completed, and Key Server enabled. SSH service and Key Server are probed independently; only authentication confirms working Developer Mode access. Unreachable services can indicate disabled/expired mode or a network issue. Setup then checks the actual identity against live CanI.RootMy.TV data before exploits. Unknown/patched status does not authorize an automatic attempt. [DangBro browser instructions](DANGBRO.md).
 
 faultmanager is preferred. A completed failure is shown and logged before the next eligible method. USB/browser methods require user actions and official instructions; NVM cannot be automated by a PC script. Each eligible method is attempted once. Root UID 0 must be verified before continuing, including after a partial failure or a skipped manual step. An uncertain in-flight exploit stops the sequence rather than starting another exploit concurrently.
 
-If Developer Mode is unavailable, guided alternatives can be offered after a successful exact-model preflight; an authenticated root connection must subsequently match that model/firmware. Existing root is reused. Default SSH password `alpine` is tried automatically when no key is used, with a hidden custom-password prompt only after rejection. `YES` and `CO` are accepted in either language, case-insensitively.
+If the initial Developer Mode readiness checks fail, enable the services and retry, or stop setup and follow the upstream DangBro browser instructions where supported, then return using the already-rooted branch. After a compatible method is attempted, setup verifies authenticated root and TV identity. Existing root is reused without requiring Developer Mode. Default SSH password `alpine` is tried automatically when no key is used, with a hidden custom-password prompt only after rejection. `YES` and `CO` are accepted in either language, case-insensitively.
 
 The fallback sequence has been tested using simulated failures and root checks. It has not been exercised by deliberately failing exploits, factory-resetting the reference TV, modifying TV hardware, or rooting a second TV.

@@ -9,6 +9,7 @@
 | Xem giao diện và ảnh | [Tổng quan](OVERVIEW.vi.md) |
 | Cách dùng tính năng | [Hướng dẫn sử dụng](FEATURES.vi.md) |
 | Kiểm tra root / firmware | [Phương pháp root](ROOTING-METHODS.md) |
+| Root bằng trình duyệt | [Hỗ trợ DangBro](DANGBRO.md) |
 | Khôi phục trạng thái trước cài | [Rollback](ROLLBACK.vi.md) |
 | Xử lý lỗi cài đặt | [Chẩn đoán và cứu hộ](diagnostics/RECOVERY.md) |
 | Phạm vi đã kiểm chứng | [Kiểm chứng](VALIDATION.md) · [Tương thích không Python](PYTHON-COMPATIBILITY.md) |

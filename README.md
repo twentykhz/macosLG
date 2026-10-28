@@ -17,7 +17,7 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 ## Trước khi cài
 
 - **TV đã root:** chọn nhánh đã root trong setup; không cần cài lại Developer Mode hay factory reset.
-- **TV chưa root:** setup kiểm tra model/firmware và hướng dẫn điều kiện root. Không phải mọi TV LG đều hỗ trợ.
+- **TV chưa root:** bật **Dev Mode Status**, cho reboot rồi bật **Key Server**. Setup kiểm tra trạng thái, tự đọc model/firmware sau xác thực và báo khả năng root; không phải mọi TV LG đều hỗ trợ. [Hỗ trợ DangBro](docs/DANGBRO.md).
 - Phần cứng đã kiểm chứng: **55SK8000PTA / firmware 05.50.70**. Model khác dùng kiểm tra khả năng và có thể bỏ qua tính năng riêng; C2 chưa được kiểm chứng cài/rollback trên TV thật.
 
 ## Tài liệu cần dùng

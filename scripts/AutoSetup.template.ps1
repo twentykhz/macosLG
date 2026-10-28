@@ -148,9 +148,10 @@ if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
 }
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){
- $taskPreflight=Read-MacTvPreflight $TVModel $FirmwareVersion ([bool]$SkipPreflight)
+ $taskAutoDetect=[bool]$SkipPreflight -or (-not $TVModel -and -not $FirmwareVersion)
+ $taskPreflight=Read-MacTvPreflight $TVModel $FirmwareVersion $taskAutoDetect
  $TVModel=$taskPreflight.Model;$FirmwareVersion=$taskPreflight.Firmware;$SkipPreflight=$taskPreflight.Skip
- if($SkipPreflight){Write-Host (L 'Initial lookup skipped. Model/firmware will be read from authenticated Developer Mode or saved root SSH. Root compatibility checks remain required.' 'Bo qua tra cuu ban dau. Se doc model/firmware qua Developer Mode hoac SSH root da luu. Van kiem tra tuong thich truoc khi root.') -ForegroundColor Cyan}
+ if($SkipPreflight){Write-Host (L 'AUTO: model/firmware will be read from authenticated Developer Mode or saved root SSH; no manual model/firmware input is needed. Root compatibility checks remain required.' 'AUTO: tu doc model/firmware qua Developer Mode hoac SSH root da luu; khong can nhap model/firmware. Van kiem tra tuong thich truoc khi root.') -ForegroundColor Cyan}
  else{
  & $node (Join-Path $release 'scripts/check-root.js') --model $TVModel --firmware $FirmwareVersion --language $Language
  if($LASTEXITCODE -eq 2){throw (L 'No known compatible software root method. Stopped before connecting or running an exploit.' 'Khong co cach root phan mem tuong thich da biet. Da dung truoc khi ket noi hay chay exploit.')}

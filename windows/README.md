@@ -8,11 +8,11 @@
 2. Bật TV; máy tính và TV cần cùng Wi-Fi/LAN.
 3. Nhấp đúp **`Start-Setup.cmd`** trong thư mục vừa giải nén.
 4. Chọn ngôn ngữ, rồi chọn **1 — TV chưa root**, **2 — TV đã root**, **3 — Kiểm tra TV** hoặc **4 — Rollback**.
-5. Nhập IP của chính TV và làm theo hướng dẫn. TV đã root không cần cài lại Developer Mode.
+5. Nhập IP của chính TV và làm theo hướng dẫn. TV chưa root cần bật **Dev Mode Status**, cho reboot, mở lại Developer Mode và bật **Key Server**. Setup kiểm tra hai dịch vụ, báo trạng thái và cho kiểm tra lại. TV đã root dùng SSH, không cần cài lại Developer Mode.
 
 Không cần tự cài Node.js, npm hoặc webOS CLI. Giữ `Start-Setup.cmd` và `MAC-WebOSTV-AutoSetup.ps1` cùng thư mục; không chạy trực tiếp trong ZIP.
 
-**Không biết firmware / dùng webOS22 trở lên?** Nhấn **Enter** ở ô model/firmware để tự nhận diện, hoặc nhập **`SKIP`** để bỏ qua tra cứu ban đầu. Cần bật Developer Mode + Key Server nếu TV chưa root. Firmware nằm tại **Hỗ trợ → Cập nhật phần mềm**; `webOS22 / 7.6.0-1901` không phải firmware. Sau kết nối, setup vẫn kiểm tra tương thích trước khi chạy root.
+**Model/firmware được tự đọc sau khi kết nối xác thực, không phải nhập.** Bạn chỉ nhập IP và passphrase Developer Mode khi được hỏi. Setup hiện model/firmware đã nhận diện và kết quả tương thích. Chế độ nhập thủ công chỉ dành cho tham số nâng cao; vẫn có Enter/SKIP. `webOS22 / 7.6.0-1901` là phiên bản hệ điều hành, không phải firmware. [Hỗ trợ root qua DangBro](../docs/DANGBRO.md).
 
 Setup cài YouTube AdFree 0.5.3; nếu đang có YouTube gốc/bản không khớp, setup gỡ trước rồi cài AdFree. AdFree đúng bản được giữ nguyên. Khi gỡ YouTube, có thể cần đăng nhập lại; snapshot không phục hồi gói/dữ liệu đăng nhập của YouTube gốc.
 

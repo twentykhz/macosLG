@@ -13,6 +13,10 @@ Inputs @('webOS22 / 7.6.0-1901','SKIP');$r=Read-MacTvPreflight '55QNED80SQA' '' 
 Inputs @('F02CFB','55QNED80SQA','03.33.65');$r=Read-MacTvPreflight '' '' $false;if($r.Skip -or $r.Model -ne '55QNED80SQA' -or $r.Firmware -ne '03.33.65'){throw 'Manual retry failed'}
 Inputs @();$r=Read-MacTvPreflight '' '' $true;if(-not $r.Skip){throw 'Switch skip failed'}
 Inputs @();$r=Read-MacTvPreflight '55QNED80SQA' '03.33.65' $false;if($r.Skip){throw 'Known manual values failed'}
+Inputs @();$Mode='Setup';$AlreadyRooted=$false;$TVModel='';$FirmwareVersion='';$SkipPreflight=$false
+$block=$ast.Find({param($n) $n -is [System.Management.Automation.Language.IfStatementAst] -and $n.Extent.Text.Contains('$taskAutoDetect=')},$true)
+if(-not $block){throw 'Automatic default entry point missing'};Invoke-Expression $block.Extent.Text
+if(-not $SkipPreflight -or $TVModel -or $FirmwareVersion){throw 'Default setup did not select automatic identification without prompts'}
 Write-Output 'Windows AUTO/SKIP preflight OK'`;
  const r=spawnSync('powershell.exe',['-NoProfile','-Command',script],{encoding:'utf8'});assert.equal(r.status,0,r.stderr||r.stdout);assert.match(r.stdout,/Windows AUTO\/SKIP preflight OK/);
 });

@@ -1,5 +1,8 @@
 # Thay đổi phiên bản 3.4.2
 
+- Mặc định tự lấy model/firmware, không hỏi nhập. Thêm yêu cầu bật Dev Mode Status và Key Server, kiểm tra SSH/key server độc lập, báo trạng thái, cho kiểm tra lại; chỉ xác nhận Dev Mode hoạt động sau xác thực thành công. Log trạng thái không chứa khóa/passphrase.
+- Hướng dẫn DangBro riêng cho TV DVB thuộc phạm vi upstream; giữ ghép nối trên TV, kiểm tra tương thích và xác minh root/đúng TV. Bổ sung `docs/DANGBRO.md`; không nhúng mã exploit upstream vào máy cài.
+
 - Windows/Termux: Enter để tự nhận diện model/firmware, `SKIP` để bỏ tra cứu ban đầu; thêm `-SkipPreflight` / `--skip-preflight`. Đọc thông tin qua kết nối đã xác thực, giữ đối chiếu đúng TV và chặn root khi chưa xác định tương thích. Giải thích webOS22/7.6.0-1901 khác firmware, chỉ đúng mục Hỗ trợ → Cập nhật phần mềm.
 
 - Sửa nhập liệu Termux: chọn tiếng Việt/Anh, mô tả rõ TV đã root/chưa root; nhập sai menu/model/firmware được hỏi lại. Hướng dẫn phân biệt model, phiên bản phần mềm và passphrase Developer Mode; chặn dùng passphrase làm model trước khi kết nối TV.

@@ -17,9 +17,9 @@ bash "$HOME/install-gathintv.sh"
 
 4. Chọn **2 — Tiếng Việt**, rồi nhập **số 1** cho TV chưa root hoặc **số 2** cho TV đã root. Nhập IP TV khi được hỏi. Menu cũng có kiểm tra TV, backup và rollback.
 
-**Nếu chọn TV chưa root:** mở **Cài đặt → Hỗ trợ → Thông tin TV** (hoặc **Giới thiệu về TV**), lấy model đầy đủ như `OLED65C2PSA` / `55SK8000PTA` và phiên bản phần mềm như `05.50.70`. Không dùng passphrase Developer Mode 6 ký tự (ví dụ `F02CFB`) làm model; không dùng phiên bản webOS như `4.4.0` làm firmware. Passphrase sẽ được hỏi riêng khi kết nối Developer Mode. Nhập sai thì setup cho nhập lại, không tự thoát.
+**Nếu chọn TV chưa root:** bật **Dev Mode Status**, cho TV reboot, mở lại ứng dụng Developer Mode và bật **Key Server**. Setup kiểm tra độc lập SSH Developer Mode và Key Server, báo trạng thái và cho kiểm tra lại. Sau xác thực bằng passphrase 6 ký tự, **setup tự đọc model/firmware, không bắt nhập thủ công**, rồi hiện kết quả tương thích. TV đã root dùng SSH, không phải cài lại Developer Mode.
 
-**webOS22 trở lên:** firmware thường nằm tại **Cài đặt → Tất cả cài đặt → Hỗ trợ → Cập nhật phần mềm**, không phải dòng `webOS22 / 7.6.0-1901`. Không biết firmware thì **nhấn Enter hoặc gõ `SKIP`** ở ô model/firmware; setup sẽ đọc thông tin sau khi kết nối Developer Mode đã xác thực (cần bật Dev Mode Status + Key Server). Chỉ bỏ tra cứu ban đầu, vẫn kiểm tra khả năng root thực tế. CLI có thể dùng `bash "$HOME/.gathintv/GathinTV-AutoSetup.sh" --mode Setup --host TV_IP --skip-preflight`.
+**webOS22 trở lên:** `webOS22 / 7.6.0-1901` không phải firmware; bộ cài đọc trực tiếp thông tin từ TV. Tham số nâng cao vẫn có `--expected-model` / `--expected-firmware` và `--skip-preflight`/Enter/SKIP; thông thường không cần dùng. [Hỗ trợ root qua DangBro](../docs/DANGBRO.md).
 
 Mở lại menu sau này:
 

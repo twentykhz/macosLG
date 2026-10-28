@@ -8,11 +8,11 @@
 2. Turn on the TV; keep the PC and TV on the same Wi-Fi/LAN.
 3. Double-click **`Start-Setup.cmd`** in the extracted folder.
 4. Choose a language, then **1 — Not rooted**, **2 — Already rooted**, **3 — Check TV**, or **4 — Rollback**.
-5. Enter your TV's IP and follow setup. Rooted TVs do not need Developer Mode reinstallation.
+5. Enter your TV's IP and follow setup. Unrooted TVs need **Dev Mode Status enabled**, its reboot completed, then **Key Server enabled** after reopening Developer Mode. Setup checks both services, reports readiness and offers retry. Rooted TVs use SSH without Developer Mode reinstallation.
 
 No separate Node.js, npm or webOS CLI installation is required. Keep `Start-Setup.cmd` and `MAC-WebOSTV-AutoSetup.ps1` together; do not run inside the ZIP.
 
-**Unknown firmware / webOS22 or newer?** Press **Enter** at model/firmware for auto identification, or type **`SKIP`** to skip the initial lookup. Unrooted TVs need Developer Mode + Key Server enabled. Installed firmware is under **Support → Software Update**; `webOS22 / 7.6.0-1901` is not firmware. Compatibility is still checked after authentication before rooting.
+**Model/firmware are read automatically after authentication; no manual input is required.** Enter only the TV IP and Developer Mode passphrase when prompted. Setup displays the detected identity and compatibility result. Advanced manual parameters still support Enter/SKIP; `webOS22 / 7.6.0-1901` is an OS label, not firmware. [DangBro rooting support](../docs/DANGBRO.md).
 
 Setup installs YouTube AdFree 0.5.3, removing official/non-matching YouTube first and preserving a matching AdFree installation. Removal may require signing in again. Snapshot rollback does not restore the official YouTube package or sign-in data.
 

@@ -17,9 +17,9 @@ bash "$HOME/install-gathintv.sh"
 
 4. Choose a language, then enter **1** for an unrooted TV or **2** for an already-rooted TV. Enter your TV's IP when prompted. The menu also provides Doctor, backup and rollback.
 
-For unrooted TVs, read the full model and Software Version from **Settings → Support → TV Information** (or **About This TV**). Examples: model `OLED65C2PSA` / `55SK8000PTA`, firmware `05.50.70`. A six-character Developer Mode passphrase such as `F02CFB` is not a TV model; webOS `4.4.0` is not the firmware. The passphrase is requested separately when connecting Developer Mode. Invalid input is retried instead of closing setup.
+For unrooted TVs, enable **Dev Mode Status**, allow the reboot, reopen Developer Mode and enable **Key Server**. Setup checks SSH and Key Server independently, reports readiness and offers retry. After authenticating with the six-character passphrase, **it reads the actual model/firmware automatically**, then displays compatibility results. Already-rooted TVs use SSH without Developer Mode reinstallation.
 
-For **webOS22 and newer**, installed firmware is usually in **Settings → All Settings → Support → Software Update**, not the `webOS22 / 7.6.0-1901` OS label. **Press Enter or type `SKIP`** at model/firmware to identify the TV after authenticated Developer Mode connection (Dev Mode Status + Key Server must be enabled). This only skips the initial lookup; actual root compatibility remains checked. CLI: `bash "$HOME/.gathintv/GathinTV-AutoSetup.sh" --mode Setup --host TV_IP --skip-preflight`.
+For **webOS22 and newer**, `webOS22 / 7.6.0-1901` is not firmware; setup reads the actual value from the TV. Advanced `--expected-model` / `--expected-firmware` and `--skip-preflight`/Enter/SKIP remain available, but normal setup does not need them. [DangBro rooting support](../docs/DANGBRO.md).
 
 Reopen the menu with:
 

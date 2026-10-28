@@ -39,3 +39,9 @@ test('automatic detection failure explains Developer Mode and never enters a fal
  s.connectDeveloper=async()=>{throw Error('Key Server unavailable');};s.runAutoroot=async()=>{attempted=true;};
  try{await assert.rejects(s.connectAndCheck(),/Automatic TV detection needs authenticated Developer Mode/);assert.equal(attempted,false);}finally{s.close();}
 });
+test('missing Developer Mode prerequisites or user cancellation cannot enter rooting fallback',async()=>{
+ for(const property of ['developerPrerequisite','cancelled']){
+  const s=steps();let attempted=false;s.connectDeveloper=async()=>{throw Object.assign(Error('Not ready'),{[property]:true});};s.runAutoroot=async()=>{attempted=true;};
+  try{await assert.rejects(s.connectAndCheck(),/Not ready/);assert.equal(attempted,false);}finally{s.close();}
+ }
+});
