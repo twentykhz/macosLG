@@ -1,6 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const {spawnSync}=require('node:child_process');
+const {python}=require('./helpers/host-tools');
 test('HDMI tile refreshes its label and destination; no history opens input picker',()=>{
  const names=[{textContent:'TV · HDMI'}],listeners={},requests=[];
  const app={id:'com.webos.app.hdmi3',title:'TV · HDMI 3'};
@@ -20,7 +21,7 @@ test('adaptive TV launch preserves explicit HDMI 3 input selection',()=>{
  vm.runInNewContext(code,context);context.K('com.webos.app.hdmi3','TV · HDMI 1');context.K('com.webos.app.hdmi3','HDMI 3');
  assert.deepEqual(calls,['com.webos.app.hdmi1','com.webos.app.hdmi3']);
 });
-test('viewing duration, standby, failed samples, suspend gaps and voice use the learned port',()=>{
+test('viewing duration, standby, failed samples, suspend gaps and voice use the learned port',{skip:!python},()=>{
  const code=`import runpy, json, tempfile, os, io
 t=runpy.run_path('payload/advanced/files/var/lib/webosbrew/gathin-hdmi/track.py')
 p=t['PORTS']; data={'seconds':dict((x,0) for x in p),'appId':None}; record=t['record']
@@ -46,6 +47,6 @@ assert calls[-1]['id']=='com.webos.app.inputmgr'
 v['execute'].__globals__['open']=lambda path:io.StringIO(json.dumps(data))
 v['execute']({'action':'open_tv'},call); assert calls[-1]['id']==p[1]
 print('HDMI tracking and voice OK')`;
- const result=spawnSync('python',['-c',code],{cwd:path.resolve(__dirname,'..'),encoding:'utf8'});
+ const result=spawnSync(python,['-c',code],{cwd:path.resolve(__dirname,'..'),encoding:'utf8'});
  assert.equal(result.status,0,result.stderr||result.stdout);
 });

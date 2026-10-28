@@ -24,7 +24,7 @@ cd macosLG
 npm.cmd ci
 ```
 
-Yêu cầu Windows, Node.js 20+ và npm. File AutoSetup cho người dùng cuối không yêu cầu bước này.
+Yêu cầu Node.js 20+ và npm trên Windows, Android/Termux, Linux hoặc macOS. POSIX dùng `npm` thay cho `npm.cmd`; có thể dùng `npm ci --omit=optional --ignore-scripts` để bỏ tối ưu native không bắt buộc. Bộ test phát triển cần thêm Bash/Python 3, riêng test PowerShell chỉ chạy trên Windows. Người dùng release không phải cài dependency bằng npm.
 
 Sửa địa điểm và `family` trong `config/launcher.json`. Mỗi người có `name`, `day`, `month`, `year`; dùng 1–6 người. Thông tin mẫu không phải dữ liệu gia đình chủ TV. Sửa app dock trong `payload/app/config.js`. Không điền IP/khóa QR cố định: dịch vụ trên TV tự tạo token và QR theo IP đích.
 
@@ -35,7 +35,7 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` sinh cấu hình, IPK và checksum. `package` tạo AutoSetup tự chứa và ZIP ở thư mục `MAC-WebOSTV-Release` cạnh repo. Sau sửa payload phải build và package lại; không dùng AutoSetup cũ rồi kỳ vọng nó đọc source mới.
+`build` sinh cấu hình, IPK và checksum. `package` dùng Node thuần để tạo ZIP với đường dẫn POSIX, giữ AutoSetup PowerShell tự chứa và sinh thêm `GathinTV-Termux-3.4.0-HASH.tar.gz`, checksum, manifest và `install-android.sh` ghim hash tại thư mục `MAC-WebOSTV-Release` cạnh repo. Runtime điện thoại bỏ test/ảnh tài liệu và native optimization, nhưng dùng cùng source core. Bootstrap được sinh sau tar để tránh hash vòng; không nằm trong chính tar mà nó xác minh. Giữ archive mang hash bất biến trên Releases cho bootstrap đã phát hành. Sau sửa source cần package lại; sửa payload cần build trước.
 
 File AutoSetup tạo lại ở root để tiện kiểm tra nhưng được bỏ qua bởi Git; khi phát hành tải file đó lên Releases, không thêm file lớn sinh tự động vào source commit. Source ZIP của release có dependency production để dùng bộ cài; muốn build từ ZIP vẫn chạy `npm.cmd ci` để có công cụ phát triển.
 

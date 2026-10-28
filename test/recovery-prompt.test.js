@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),{spawnSync}=require('node:child_process');
-test('actual PowerShell failure handler accepts mixed-case CO/YES and never selects another run or TV',()=>{
+test('actual PowerShell failure handler accepts mixed-case CO/YES and never selects another run or TV',{skip:process.platform!=='win32'},()=>{
  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-tv-prompt-')),scripts=path.join(folder,'scripts');fs.mkdirSync(scripts);
  const template=fs.readFileSync(path.join(__dirname,'../scripts/AutoSetup.template.ps1'),'utf8'),handler=template.slice(template.indexOf('trap {'),template.indexOf("if($Mode -notin @('Prepare','Extract'))"));
  fs.writeFileSync(path.join(scripts,'recover-session.js'),"require('fs').writeFileSync(process.env.TEST_RECOVERY_RESULT,JSON.stringify(process.argv.slice(2)));");

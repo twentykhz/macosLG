@@ -24,7 +24,7 @@ cd macosLG
 npm.cmd ci
 ```
 
-Development requires Windows, Node.js 20+ and npm. End users running AutoSetup do not need these steps.
+Development requires Node.js 20+ and npm on Windows, Android/Termux, Linux or macOS. Use `npm` instead of `npm.cmd` on POSIX; `npm ci --omit=optional --ignore-scripts` avoids native optimization builds. Full tests also use Bash and Python 3. PowerShell-specific tests run only on Windows. Release users do not need npm installation.
 
 Edit locations and `family` in `config/launcher.json`. Each of 1–6 members has `name`, `day`, `month`, `year`. Samples are not the reference owner's family data. Configure dock apps in `payload/app/config.js`. Do not hard-code IPs or QR keys; target-TV services generate their own token and URL.
 
@@ -35,7 +35,7 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` creates configuration, IPK and checksums. `package` creates the one-file installer and ZIP under the sibling `MAC-WebOSTV-Release` folder. Rebuild/repackage after changing payload; an older installer does not read newer loose source files automatically.
+`build` creates configuration, IPK and checksums. `package` uses built-in Node ZIP/tar generation with POSIX paths, keeps the existing single-file Windows assets and adds `GathinTV-Termux-3.4.0-HASH.tar.gz`, checksum, manifest and a checksum-pinned `install-android.sh` in the sibling `MAC-WebOSTV-Release` directory. The phone runtime omits tests, screenshot documentation and optional native optimizations, using the same core source. Generate the bootstrap after the tar; exclude it from that tar to avoid a circular hash. Retain immutable hash-named archives on Releases for published bootstraps. Repackage after source changes; rebuild first after payload changes.
 
 The generated installer is also copied to the repository root for local testing but ignored by Git. Upload it as a release asset rather than committing generated large files. The release ZIP includes production dependencies for the installer; source developers still run `npm.cmd ci` for build tools.
 

@@ -1,4 +1,6 @@
-# Install MAC-WebOSTV by 20khzpc on Windows
+# Install MAC-WebOSTV by 20khzpc on Windows and Android
+
+**Choose your installer host:** the Windows PowerShell steps follow below. **Android/Termux, Linux and macOS** use the [shared-core shell guide](ANDROID.en.md); no Windows computer is required. TV-side rooting prerequisites still apply.
 
 [Home](../README.en.md) · [Tiếng Việt](INSTALL.vi.md) · [Features](FEATURES.en.md)
 
@@ -65,7 +67,7 @@ Only if you need to supply an external SSH key that setup has not saved, see [ad
 
 1. Run **`Start-Setup.cmd`**, select **3 — Check TV features and show report**.
 2. Enter the IP, verify a new host key if required, and authenticate with root SSH as in branch B.
-3. Setup checks root, registered apps, remote/settings HTTP servers, one screen capture, audio, brightness/picture, network and Bluetooth APIs.
+3. Doctor checks root, registered apps, remote/settings HTTP servers, audio, brightness/picture, network and Bluetooth APIs. Capture is a manual check in Doctor.
 4. Detailed results appear directly in the window. JSON/TXT report paths are also printed.
 
 | Status | Meaning |
@@ -74,7 +76,7 @@ Only if you need to supply an external SSH key that setup has not saved, see [ad
 | **CHECK** — red | Read the error on that line; do not treat it as passed |
 | **MANUAL** — yellow | Physical operation has not been verified; test it on the TV |
 
-Branch 3 does not reinstall the launcher, inject keys or power-cycle the TV. It captures one test frame and deletes the temporary file, and may generate PC wake scripts from the TV's network details. Home/Back, navigation, mouse, voice, power and Wake-on-LAN still require physical checks. A successful single capture does not prove sustained stream FPS.
+Branch 3 does not reinstall the launcher, inject keys, write/delete TV files or power-cycle the TV. It may generate local wake helpers from the TV's network details. Capture, Home/Back, navigation, mouse, voice, power and Wake-on-LAN still require physical checks. Temporary capture validation runs during installation, not in Doctor.
 
 Reports normally live under `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-reports`. Upgrades may retain the older data folder to preserve SSH keys; **use the actual path printed in the report**. Do not share the entire private state folder.
 

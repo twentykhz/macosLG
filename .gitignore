@@ -25,3 +25,9 @@ __pycache__/
 /GathinTV-AutoSetup.ps1
 /GathinTV-AutoSetup.ps1.sha256
 /GathinTV-Source.zip
+
+# Private state and portable build artifacts.
+/state/
+/.gathintv/
+/GathinTV-Backups/
+/GathinTV-Termux-*.tar.gz*

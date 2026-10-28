@@ -1,4 +1,6 @@
-# Cài MAC-WebOSTV by 20khzpc trên Windows
+# Cài MAC-WebOSTV by 20khzpc trên Windows và Android
+
+**Chọn thiết bị chạy bộ cài:** Windows dùng PowerShell theo các bước bên dưới; **Android/Termux, Linux hoặc macOS** dùng [hướng dẫn shell cùng Node core](ANDROID.vi.md). Điện thoại cùng LAN với TV là đủ, không bắt buộc có máy Windows. Điều kiện root và các bước trên TV vẫn giữ nguyên.
 
 [Trang chính](../README.md) · [English](INSTALL.en.md) · [Các tính năng](FEATURES.vi.md)
 
@@ -85,7 +87,7 @@ Nếu chỉ có **file khóa SSH riêng** chưa được lưu trong bộ cài, x
 | **CẦN KIỂM TRA / CHECK** — đỏ | Đọc chi tiết lỗi cùng dòng; chưa coi là đạt |
 | **THỬ TRÊN TV / MANUAL** — vàng | Chưa kiểm chứng thao tác thực tế; cần bạn thử |
 
-Nhánh 3 không cài lại launcher, tự bấm phím hay tắt/reboot TV. Nó chụp một ảnh kiểm tra rồi xóa file tạm, tạo script Wake-TV trên PC nếu đọc được thông tin mạng. Home/Back, điều hướng/OK, chuột, voice, nguồn và WoL vẫn cần thử thực tế. Một lần capture đạt không chứng minh FPS stream ổn định.
+Nhánh 3 không cài lại launcher, tự bấm phím, ghi/xóa file hay tắt/reboot TV. Nó đọc trạng thái và tạo báo cáo/Wake-TV trên thiết bị chạy bộ cài nếu đọc được thông tin mạng. Capture, Home/Back, điều hướng/OK, chuột, voice, nguồn và WoL vẫn cần thử thực tế. Capture chỉ được kiểm tra bằng file tạm trong quá trình cài, không trong Doctor.
 
 Báo cáo mặc định nằm trong `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-reports`. Khi nâng cấp từ tên cũ, bộ cài có thể tiếp tục dùng thư mục dữ liệu cũ để giữ khóa SSH; **xem đường dẫn thực tế ở cuối báo cáo**. Không chia sẻ toàn bộ thư mục dữ liệu vì có khóa riêng.
 

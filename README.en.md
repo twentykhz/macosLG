@@ -1,5 +1,18 @@
 # MAC-WebOSTV by 20khzpc
 
+Install and manage from **Windows or Android/Termux, Linux and macOS**, using the same Node core. Windows keeps `MAC-WebOSTV-AutoSetup.ps1`; POSIX hosts use `GathinTV-AutoSetup.sh` and system Node >=20. [Android/Linux instructions](docs/ANDROID.en.md).
+
+## Android / Termux installation
+
+```bash
+pkg update
+pkg install nodejs git curl
+termux-setup-storage # optional shared Downloads access
+curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+```
+
+The bootstrap verifies a pinned release checksum before execution. Reopen with `cd "$HOME/.gathintv"` and run `./GathinTV-AutoSetup.sh`. Check first with `./GathinTV-AutoSetup.sh --mode Doctor --host TV_IP`; add `--trust-new-host` only after checking your TV's IP. Doctor needs root SSH and does not change the TV. Use `--mode Restore` for rooted TVs, `--mode Setup` for fresh setup and `--mode Backup` for an owner backup. No Windows computer or OpenSSH binary is required. Keep phone and TV on the same LAN; model/firmware compatibility still applies. [Commands, storage fallback, flags and safety](docs/ANDROID.en.md).
+
 **3.4.0 installation recovery:** authenticated service checks precede HOME activation. On failure, answer `YES/CO` to restore the first snapshot from that run. [Reported screenshot, diagnosis and recovery scope](docs/diagnostics/RECOVERY.md).
 
 [View all 19 feature screenshots](README.md#ảnh-preview-từng-tính-năng): launcher, adaptive HDMI, controls, weather, calendar, desktop/mobile remote, wallpaper cropping and family settings. The previews use sample data; [capture details](docs/screenshots/README.md).
@@ -12,9 +25,9 @@
 
 [Tiếng Việt](README.md) | **English**
 
-A macOS-inspired home screen for compatible, rooted LG webOS TVs. A single Windows installer sets up the launcher and its supporting services. The complete launcher source is available in this repository.
+A macOS-inspired home screen for compatible, rooted LG webOS TVs. Windows and POSIX wrappers install the launcher and its supporting services through the same Node core. The complete launcher source is available in this repository.
 
-![Launcher preview](preview.png)
+![Launcher preview](preview.jpg)
 
 **Tested reference TV:** LG 55SK8000PTA, firmware 05.50.70, webOS SDK 4.4.0, M16PP_DVB_EU, ARM32/Python 2. Rooted installation detects available capabilities instead of requiring the reference model. Unrooted setup checks exact model/firmware eligibility using live CanI.RootMy.TV data, prefers faultmanager and guides compatible fallback methods if needed. Unsupported features are reported and reference-only tuning is not transplanted. A clean installation on a second TV has not yet been validated.
 
@@ -26,6 +39,7 @@ Choose **English** or **Tieng Viet khong dau** in setup. First-connection confir
 |---|---|
 | Install it without learning programming | [Step-by-step installation guide](docs/INSTALL.en.md) |
 | Download the Windows installer | [Latest release](https://github.com/twentykhz/macosLG/releases/latest) |
+| Install from Android/Termux, Linux or macOS | [Shell installer guide](docs/ANDROID.en.md) |
 | Understand every feature | [Feature guide](docs/FEATURES.en.md) |
 | Read or change the source | [Developer/source guide](docs/DEVELOPMENT.en.md) · [Launcher files](payload/app) |
 | Find out what was checked | [Validation notes](docs/VALIDATION.md) |
@@ -38,7 +52,7 @@ Already rooted? Do not reinstall Developer Mode; follow the [already-rooted inst
 
 Write down **your TV's IP address** and **the six-character Developer Mode passphrase**. The passphrase is case-sensitive and is not your LG account password or the root SSH password. Never copy another TV's credentials or publish them in an issue. The installer asks for them when needed; you do not edit passwords into the script.
 
-The TV and PC must be on the same home network. Rooting and HOME/voice integration change how the TV operates; compatibility checks remain enabled. You do not have to factory-reset a working rooted TV to update this launcher.
+The TV and installer host (Windows PC, Android phone or POSIX computer) must be on the same home network. Rooting and HOME/voice integration change how the TV operates; compatibility checks remain enabled. You do not have to factory-reset a working rooted TV to update this launcher.
 
 ## What you get
 
@@ -75,6 +89,6 @@ Do not upload `.local`, `node_modules`, SSH private keys, access keys, passphras
 
 ## Getting help
 
-[Open an issue](https://github.com/twentykhz/macosLG/issues/new/choose) with your TV model, firmware, SDK if known, Windows version, installation step and error text. Hide credentials, QR codes, account information and private keys. If the installer reports an unsupported profile, stop and include that message instead of rerunning the exploit repeatedly.
+[Open an issue](https://github.com/twentykhz/macosLG/issues/new/choose) with your TV model, firmware, SDK if known, installer OS/version, installation step and error text. Hide credentials, QR codes, account information and private keys. If the installer reports an unsupported profile, stop and include that message instead of rerunning the exploit repeatedly.
 
 Project maintained by [twentykhz](https://github.com/twentykhz). See [LICENSE](LICENSE) and [third-party notices](THIRD-PARTY.md). This is an independent project, not an Apple or LG product.

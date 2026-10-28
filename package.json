@@ -10,13 +10,14 @@
     "tv": "node scripts/tv.js",
     "setup": "node scripts/bootstrap.js",
     "build": "node scripts/build.js",
-    "test": "node --test test/*.test.js",
+    "test": "node scripts/test.js",
     "verify": "node scripts/verify.js",
     "repo:init": "node scripts/init-repo.js",
     "package": "node scripts/build-single.js"
   },
   "dependencies": {
-    "ssh2": "1.17.0"
+    "ssh2": "1.17.0",
+    "ws": "8.22.0"
   },
   "devDependencies": {
     "@webos-tools/cli": "3.2.6",

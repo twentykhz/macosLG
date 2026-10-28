@@ -11,6 +11,8 @@
 
 No LG firmware binaries, account databases, cookies or private SSH keys are redistributed in the share installer.
 
+The host runtime also bundles [ws](https://github.com/websockets/ws) 8.22.0 (MIT) for Node 20's WebSocket fallback. ssh2 1.17.0, bcrypt-pbkdf, asn1/safer-buffer and tweetnacl retain their upstream license files in the release dependency tree. Optional native cpu-features, sshcrypto, bufferutil and utf-8 acceleration are not required or shipped in the portable runtime.
+
 ## Optional rooting references and data
 
 Rootability checks read the live dataset deployed at [CanI.RootMy.TV](https://cani.rootmy.tv/), maintained by [webosbrew/caniroot](https://github.com/webosbrew/caniroot). Downloaded JavaScript is not executed. The website's generated model/exploit JSON data is parsed for each check and is not bundled as a stale offline rootability guarantee.

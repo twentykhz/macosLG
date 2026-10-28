@@ -8,9 +8,34 @@
 
 **Tiếng Việt** | [English](README.en.md)
 
-Biến màn hình chính của TV LG webOS tương thích thành giao diện lấy cảm hứng từ macOS. Người dùng Windows cài bằng **một file AutoSetup**; người muốn tìm hiểu có thể xem toàn bộ mã nguồn launcher ngay trong repo.
+Biến màn hình chính của TV LG webOS tương thích thành giao diện lấy cảm hứng từ macOS. Hỗ trợ cài và quản lý từ **Windows hoặc Android/Termux, Linux, macOS** qua cùng Node core. Windows giữ file AutoSetup PowerShell; điện thoại dùng shell và Node hệ thống, không cần máy tính Windows.
 
-![Giao diện launcher](preview.png)
+![Giao diện launcher](preview.jpg)
+
+## Cài từ Android / Termux
+
+Android và TV phải cùng mạng LAN. Trong Termux:
+
+```bash
+pkg update
+pkg install nodejs git curl
+termux-setup-storage  # tùy chọn: backup vào Downloads
+curl -fsSL https://raw.githubusercontent.com/twentykhz/macosLG/main/install-android.sh | bash
+```
+
+Bootstrap tải release được ghim version/SHA-256 và kiểm tra trước khi chạy. Không cần clone, PowerShell, OpenSSH hoặc compiler. Node hệ thống phải >=20. Mở lại và **chạy Doctor trước**:
+
+```bash
+cd "$HOME/.gathintv"
+./GathinTV-AutoSetup.sh --mode Doctor --host 192.168.1.11
+# TV đã root:
+./GathinTV-AutoSetup.sh --mode Restore --host 192.168.1.11 --trust-new-host
+# TV chưa root: hỏi model/firmware và passphrase trong terminal:
+./GathinTV-AutoSetup.sh --mode Setup --host 192.168.1.11 --trust-new-host
+./GathinTV-AutoSetup.sh --mode Backup --host 192.168.1.11
+```
+
+Thay IP bằng IP TV của bạn. Host mới mặc định bị từ chối; chỉ thêm `--trust-new-host` sau khi kiểm tra đúng TV. Doctor cần root SSH và không thay đổi TV. Termux không thay đổi điều kiện hỗ trợ model/firmware. Backup ưu tiên Downloads nếu có quyền, nếu không tự dùng `~/GathinTV-Backups`. State/key lưu riêng tại `~/.gathintv/state`. [Hướng dẫn Android, Linux/macOS, các option và recovery](docs/ANDROID.vi.md).
 
 **TV tham chiếu đã chạy thực tế:** LG 55SK8000PTA · firmware 05.50.70 · webOS SDK 4.4.0 · M16PP_DVB_EU · ARM32/Python 2. TV đã root được dò khả năng thực tế, không bắt trùng model mẫu. TV chưa root được kiểm tra online theo đúng model/firmware trên cani.rootmy.tv trước khi làm; chỉ thử các cách được xác định phù hợp và giữ kiểm tra của công cụ gốc. Tính năng thiếu điều kiện được báo rõ; tinh chỉnh riêng của TV mẫu không áp sang TV khác. Chưa kiểm chứng cài mới sau reset trên TV thứ hai.
 
@@ -20,6 +45,7 @@ Biến màn hình chính của TV LG webOS tương thích thành giao diện l�
 |---|---|
 | Cài launcher, chưa biết lập trình | [Hướng dẫn từng bước từ đầu](docs/INSTALL.vi.md) |
 | Tải bộ cài Windows | [Bản phát hành mới nhất](https://github.com/twentykhz/macosLG/releases/latest) |
+| Cài từ Android/Termux, Linux hoặc macOS | [Hướng dẫn shell, không cần Windows](docs/ANDROID.vi.md) |
 | Xem từng tính năng và cách dùng | [Hướng dẫn tính năng](docs/FEATURES.vi.md) |
 | Xem/chỉnh mã nguồn | [Hướng dẫn mã nguồn](docs/DEVELOPMENT.vi.md) · [Source launcher](payload/app) |
 | Biết bản này đã kiểm tra đến đâu | [Ghi chú kiểm chứng](docs/VALIDATION.md) |
@@ -32,7 +58,7 @@ Biến màn hình chính của TV LG webOS tương thích thành giao diện l�
 
 Ghi **IP của chính TV cần cài** và **passphrase 6 ký tự trong Developer Mode**. Passphrase phân biệt chữ hoa/thường, khác mật khẩu tài khoản LG và mật khẩu SSH root. Không lấy thông tin của TV mẫu để điền vào TV khác. Không đăng chúng lên issue.
 
-Bộ cài sẽ hỏi khi cần; không phải mở file script để sửa mật khẩu. TV và PC cần chung mạng nhà. Root và việc đổi HOME/voice tác động tới hoạt động TV nên bộ cài vẫn giữ kiểm tra tương thích. TV đã root đang hoạt động không cần factory reset chỉ để cập nhật launcher.
+Bộ cài sẽ hỏi khi cần; không phải mở file script để sửa mật khẩu. TV và thiết bị chạy bộ cài (Windows/Android/Linux/macOS) cần chung mạng nhà. Root và việc đổi HOME/voice tác động tới hoạt động TV nên bộ cài vẫn giữ kiểm tra tương thích. TV đã root đang hoạt động không cần factory reset chỉ để cập nhật launcher.
 
 **TV đã root:** ưu tiên khóa SSH đã lưu hoặc được chỉ định. Nếu không dùng khóa, bộ cài tự thử mật khẩu mặc định `alpine`; chỉ khi TV từ chối mới hỏi mật khẩu root riêng của bạn, nhập ẩn và không lưu mật khẩu.
 

@@ -1,5 +1,13 @@
 # Validation — MAC-WebOSTV 3.1 / 2026-10-27
 
+## Shared Windows / Android host support (3.4.0)
+
+116 automated tests pass on host Node 24 and official Node 20.20.2, including Bash option forwarding, Termux storage fallback, Windows/Linux/Android/macOS path selection, POSIX ZIP/tar, archive rejection, pinned-download rejection, cache integrity, pure-JS encrypted-key decryption, SSH and Node-20 WebSocket inspector forwarding. Windows regression tests remain enabled on Windows; Python checks use Python 3 when available.
+
+The first live TV check for this port was Doctor through Bash and the shared core from the Windows workstation. It exited successfully without TV file writes, capture, input injection, installation or reboot. Root, launcher, audio, picture, brightness, network, Bluetooth and HTTP availability were verified; network-input service-info remains needs-attention on the reference firmware. Capture and physical controls remain manual checks. This is not a physical Android/Termux or macOS hardware test, nor a new rooting/Restore deployment to the TV. The generated POSIX tar passed system-tar extraction and all 145 payload hashes; the new ZIP passed Windows single-file Prepare. An isolated runtime-only npm ci installed six required JS packages without build scripts or optional dependencies.
+
+The portable runtime uses only required JS packages from the production graph. Optional native acceleration and bundled development CLI tools are excluded. Android/Linux uses system Node >=20, checksum-pinned tar and private state outside source. Windows retains its PowerShell entry point and portable-runtime configuration. Older validation history follows.
+
 - Synced 125 current static runtime files from the reference TV; no live reinstall, reboot, factory reset or exploit replay performed during this source refresh.
 - Rebuilt launcher IPK and verified all 141 payload/package checksums.
 - 45/45 automated tests passed, including root sequencing, restore interruption, SSH, hash validation, per-TV remote token/IP generation and configurable family payload.
