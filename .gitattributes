@@ -24,3 +24,5 @@ packages/*.ipk -text
 *.yml text eol=lf
 
 *.ps1 whitespace=cr-at-eol
+
+payload/portable/native/gathin-input-* -text

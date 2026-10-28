@@ -7,7 +7,7 @@ test('A: reference ARM32 Python2 retains validated HOME capability',()=>{
  assert(!cap.legacyHome(c,info));
 });
 test('B: C2 has complete portable recovery and core without any Python',()=>{
- const c=cap.parse(transcript({python:false,arch:'aarch64'})),r=summarize({...c,info});assert.equal(c.python,null);assert.equal(c.python2,null);assert.equal(c.python3,null);assert(r.backup&&r.rollback&&r.launcher&&r.controls&&r.hdmi);assert(!r.homeRelay&&!r.voice&&!r.referenceTuning);
+ const c=cap.parse(transcript({python:false,arch:'aarch64'})),r=summarize({...c,info});assert.equal(c.python,null);assert.equal(c.python2,null);assert.equal(c.python3,null);assert(r.backup&&r.rollback&&r.launcher&&r.controls&&r.hdmi);assert(!r.homeRelay&&!r.voice);assert(r.maintenanceSupported);
 });
 test('C: shell/tar-only TV permits backup, refuses managed installation and optional services',()=>{
  const c=cap.parse(transcript({python:false,node:false})),r=summarize({...c,info});assert(r.backup&&r.launcher);assert(!r.rollback&&!r.controls&&!r.nodeServices&&!r.homeRelay);

@@ -37,10 +37,14 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` sinh cấu hình, IPK và checksum. `package` dùng Node thuần để tạo ZIP với đường dẫn POSIX, giữ AutoSetup PowerShell tự chứa và sinh thêm `GathinTV-Termux-3.4.2-HASH.tar.gz`, checksum, manifest và `install-android.sh` ghim hash tại thư mục `MAC-WebOSTV-Release` cạnh repo. Runtime điện thoại bỏ test/ảnh tài liệu và native optimization, nhưng dùng cùng source core. Bootstrap được sinh sau tar để tránh hash vòng; không nằm trong chính tar mà nó xác minh. Giữ archive mang hash bất biến trên Releases cho bootstrap đã phát hành. Sau sửa source cần package lại; sửa payload cần build trước.
+`build` sinh cấu hình, IPK và checksum. `package` dùng Node thuần để tạo ZIP với đường dẫn POSIX, giữ AutoSetup PowerShell tự chứa và sinh thêm `GathinTV-Termux-3.5.0-HASH.tar.gz`, checksum, manifest và `install-android.sh` ghim hash tại thư mục `MAC-WebOSTV-Release` cạnh repo. Runtime điện thoại bỏ test/ảnh tài liệu và native optimization, nhưng dùng cùng source core. Bootstrap được sinh sau tar để tránh hash vòng; không nằm trong chính tar mà nó xác minh. Giữ archive mang hash bất biến trên Releases cho bootstrap đã phát hành. Sau sửa source cần package lại; sửa payload cần build trước.
 
 File AutoSetup tạo lại ở root để tiện kiểm tra nhưng được bỏ qua bởi Git; khi phát hành tải file đó lên Releases, không thêm file lớn sinh tự động vào source commit. Source ZIP của release có dependency production để dùng bộ cài; muốn build từ ZIP vẫn chạy `npm.cmd ci` để có công cụ phát triển.
 
 Chỉ mã dự án thuộc LICENSE; font/artwork/thành phần upstream có giấy phép riêng. Bản 3.1.1 dùng SF Pro theo TV tham chiếu, có Inter dự phòng; giấy phép MIT của mã dự án không áp dụng thay cho điều khoản font bên thứ ba. Kiểm tra `THIRD-PARTY.md` khi thêm tài sản mới.
 
 Không commit `.local`, `node_modules`, khóa SSH, access key/PIN, passphrase, log hoặc backup. Xem [VALIDATION.md](VALIDATION.md) trước khi tuyên bố hỗ trợ model mới. Giữ kiểm tra model/firmware/ABI và xác minh khóa SSH. Thay đổi profile phải có kiểm chứng thực tế, không chỉ đổi tên model trong JSON.
+
+## Static input/PTY build (3.5.0)
+
+Run `node scripts/build-input-helper.js` with `ZIG_BINARY` pointing to Zig 0.14.1. The Windows x86_64 compiler ZIP SHA-256 is `554f5378228923ffd558eac35e21af020c73789d87afeabf4bfd16f2e6feed2c`. The script checks static ELF ARM32/ARM64 metadata, records source/binary digests and executes the Windows protocol self-test. Do not ship the compiler or assume ELF checks replace physical input testing.

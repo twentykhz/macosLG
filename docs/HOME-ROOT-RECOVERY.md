@@ -4,14 +4,14 @@
 
 ## TV đã cài xong nhưng HOME vẫn mở LG Home
 
-Bản sửa 3.4.2 bỏ giới hạn model/firmware SK8000 cho **HOME relay**. TV như **55UM7400PTA / K5LP_DVB_EU / 05.40.97** được xét theo khả năng thực tế: root, startup, ARM32, Python2 với input modules/ABI phù hợp và hai kênh Magic Remote. Sau backup, bộ cài probe thiết bị, đối chiếu khả năng input và xác nhận compositor đang nghe kênh nhận trước khi bật relay. Probe không giữ độc quyền phím; có phát SYN_REPORT vào kênh nhận để kiểm tra đường truyền.
+Bản sửa 3.5.0 bỏ giới hạn model/firmware SK8000 cho **HOME relay**. TV như **55UM7400PTA / K5LP_DVB_EU / 05.40.97** được xét theo khả năng thực tế: root, startup, ARM32, Python2 với input modules/ABI phù hợp và hai kênh Magic Remote. Sau backup, bộ cài probe thiết bị, đối chiếu khả năng input và xác nhận compositor đang nghe kênh nhận trước khi bật relay. Probe không giữ độc quyền phím; có phát SYN_REPORT vào kênh nhận để kiểm tra đường truyền.
 
-1. Tải lại bộ cài **3.4.2**, chọn **TV đã root**. Không root lại TV đã có UID 0.
+1. Tải lại bộ cài **3.5.0**, chọn **TV đã root**. Không root lại TV đã có UID 0.
 2. Không giữ phím remote trong lúc cài; để Magic Remote kết nối bình thường.
 3. Xem dòng `HOME relay ACTIVE` và mục `home-relay` trong báo cáo. PID phải khớp tín hiệu sẵn sàng sau khi grab input thành công, không chỉ là process còn chạy.
 4. Thử HOME từ app/HDMI, Back và con trỏ trên TV. Kiểm thử tự động chưa thay thế được thao tác remote thực tế.
 
-Thiếu ABI/runtime/kênh input, probe hoặc startup lỗi thì giữ input LG và báo nguyên nhân cụ thể. Không ép relay lên phần cứng chưa kiểm tra. Voice/QML/tuning SK8000 vẫn có giới hạn riêng, không quyết định HOME của model khác. Failsafe: tạo `/home/root/DISABLE-GATHIN-HOME` để relay nhả remote.
+Thiếu ABI/runtime/kênh input, probe hoặc startup lỗi thì giữ input LG và báo nguyên nhân cụ thể. Không ép relay lên phần cứng chưa kiểm tra. Giọng nói và debloat/privacy dùng runtime portable chung, không bị khóa theo tên SK8000. Failsafe: tạo `/home/root/DISABLE-GATHIN-HOME` để relay nhả remote.
 
 ## Faultmanager báo Rooting complete / Payload complete nhưng SSH bị từ chối
 
@@ -28,6 +28,6 @@ Nguồn: [faultmanager-autoroot](https://github.com/throwaway96/faultmanager-aut
 
 ## English
 
-HOME is no longer restricted to the SK8000 identity. Compatible ARM32/Python2 TVs must pass device capability, compositor and input-ABI checks after a recovery snapshot. Activation requires the relay process and its matching readiness PID; failure preserves native LG input. Reference voice/QML/tuning remain separate. Physical HOME/Back/pointer testing is still required; no physical UM7400 input takeover was performed to validate this change.
+HOME is no longer restricted to the SK8000 identity. ARM32/Python2 or verified static ARM32/ARM64 backends must pass device capability, compositor and input-ABI checks after a recovery snapshot. Activation requires the relay process and its matching readiness PID; failure preserves native LG input. Portable Node voice and reversible debloat/privacy use the common feature engine. Physical HOME/Back/pointer testing is still required; no physical UM7400 input takeover was performed to validate this change.
 
 A reported faultmanager completion followed by refused SSH is **pending root verification**, not permission to run another exploit. Setup retries the Homebrew bridge/root SSH, preserves a TV-bound pending journal and stops the method chain. Confirm Root OK and enable SSH Server in Homebrew. Remove the LG Developer Mode app before any reboot; automated reboot stays gated on verified removal and root reconnect. If Homebrew requires a reboot to appear, follow upstream's app-removal order first. Resume the already-rooted branch once SSH is available.

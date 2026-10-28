@@ -1,0 +1,4 @@
+/* Preserve widgets and wallpapers while reducing continuous composition on TV GPUs. */
+#glass,#dockBand,.card,#controlCenter{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.card{box-shadow:0 4px 12px rgba(0,0,0,.20)!important}
+@media(prefers-reduced-motion:reduce){#viewport,#dockBand,.card{transition:none!important}}

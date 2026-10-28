@@ -1,0 +1,25 @@
+{
+  "protocol": 1,
+  "compiler": "Zig 0.14.1; static musl",
+  "sourceSha256": "1a328609863a77b35bb53ff15c2d2a698fa346d328151f5f3c6d5a6c7b6c24a0",
+  "files": [
+    {
+      "arch": "armv7l",
+      "file": "gathin-input-armv7l",
+      "bits": 32,
+      "eventSize": 16,
+      "elfMachine": 40,
+      "size": 65936,
+      "sha256": "443cb3c66598d450b2e93558aeedfa21f03575c2236220c51adb278b4d79cbae"
+    },
+    {
+      "arch": "aarch64",
+      "file": "gathin-input-aarch64",
+      "bits": 64,
+      "eventSize": 24,
+      "elfMachine": 183,
+      "size": 65832,
+      "sha256": "1fb881288603a635163f8660c8c388d703c3ff8acb92ad55b0897a9a93ed6936"
+    }
+  ]
+}

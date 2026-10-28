@@ -4,10 +4,10 @@ umask 077
 
 usage() {
   cat <<'HELP'
-GathinTV AutoSetup 3.4.2 - Android / Termux / Linux / macOS (Node >=20)
+GathinTV AutoSetup 3.5.0 - Android / Termux / Linux / macOS (Node >=20)
 Usage: ./GathinTV-AutoSetup.sh --mode MODE --host TV_IP [options]
        ./GathinTV-AutoSetup.sh Doctor TV_IP [options]
-Modes: Setup Restore Doctor Backup Apps Sync Disable Rollback
+Modes: Setup Restore Doctor Backup Apps Sync Disable Debloat Rollback
 Options:
   --already-rooted --dry-run --trust-new-host --no-reboot --remove-extra-apps
   --key PATH --developer-key PATH --backup-file PATH --output-dir PATH
@@ -69,7 +69,7 @@ if [[ -z $mode ]]; then
   [[ $mode != Exit ]] || exit 0
 fi
 case "$mode" in
-  Setup|setup) mode=Setup;;Restore|restore) mode=Restore;;Doctor|doctor) mode=Doctor;;Backup|backup) mode=Backup;;Apps|apps) mode=Apps;;Sync|sync) mode=Sync;;Disable|disable) mode=Disable;;Rollback|rollback) mode=Rollback;;*) die "Unknown mode: $mode";;
+  Setup|setup) mode=Setup;;Restore|restore) mode=Restore;;Doctor|doctor) mode=Doctor;;Backup|backup) mode=Backup;;Apps|apps) mode=Apps;;Sync|sync) mode=Sync;;Disable|disable) mode=Disable;;Rollback|rollback) mode=Rollback;;Debloat|debloat) mode=Debloat;;*) die "Unknown mode: $mode";;
 esac
 if [[ -z $host && -t 0 ]]; then shell_read host "$(shell_text 'TV IP: ' 'Dia chi IP cua TV: ')"; fi
 [[ ${#host} -le 253 && $host =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ ]] || die 'Missing/invalid --host: enter only TV IP or hostname, without scheme, port or spaces'

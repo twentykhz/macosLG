@@ -1,13 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const {runSequence}=require('../lib/root-methods');
-test('DangBro guide uses the upstream browser flow and refuses known non-DVB/old SDK targets',()=>{
- const {dangbroInstructions}=require('../lib/root-methods');
- const guide=dangbroInstructions({host:'192.0.2.11',info:{boardType:'O22_DVB_AJ',sdkVersion:'7.6.0'}});assert(guide.supported);
- const text=guide.lines.join('\n');assert.match(text,/https:\/\/azoffshowy.github.io\/dangbro\//);assert.match(text,/https:\/\/192.0.2.11:3001\//);assert.match(text,/pairing prompt/);assert.match(text,/UID 0/);assert(!text.includes('--disable-web-security'));assert(!text.includes('--ignore-certificate-errors'));
- assert(!dangbroInstructions({info:{boardType:'O22_ATSC_KR',sdkVersion:'7.6.0'}}).supported);
- assert(!dangbroInstructions({info:{boardType:'M16PP_DVB_EU',sdkVersion:'4.4.0'}}).supported);
-});
+test('DangBro is excluded from the setup policy',()=>{assert(require('../config/setup-policy.json').disabledRootMethods.includes('dangbro'));});
 const method=(key,other={})=>({key,status:'rootable',kind:'manual',...other});
 test('faultmanager runs first and a verified fallback stops the sequence',async()=>{
  const attempted=[],records=[];
@@ -24,7 +18,7 @@ test('uncertain in-flight exploit or cancellation is logged and never starts ano
  for(const flag of ['uncertain','cancelled']){let count=0;const records=[];await assert.rejects(runSequence([method('faultmanager'),method('dejavuln')],{attempt:async()=>{count++;throw Object.assign(Error('stop'),{[flag]:true});},verify:async()=>{throw Error('must not proceed');},record:async r=>records.push(r)}),/stop/);assert.equal(count,1);assert.equal(records[0].status,flag==='uncertain'?'in-progress':'cancelled');}
 });
 test('failed root verification tries every remaining eligible method once',async()=>{
- const attempts=[],records=[];await assert.rejects(runSequence(['faultmanager','dejavuln','wta','crashd','rootmytv','getmenow','asm','mvpd','slopbro','dangbro'].map(k=>method(k)),{attempt:async m=>attempts.push(m.key),verify:async()=>{throw Error('UID not 0');},record:async r=>records.push(r)}),/No method/);assert.equal(new Set(attempts).size,10);assert.equal(records.filter(r=>r.status==='failed').length,10);
+ const attempts=[],records=[];await assert.rejects(runSequence(['faultmanager','dejavuln','wta','crashd','rootmytv','getmenow','asm','mvpd','slopbro','dangbro'].map(k=>method(k)),{attempt:async m=>attempts.push(m.key),verify:async()=>{throw Error('UID not 0');},record:async r=>records.push(r)}),/No method/);assert.equal(new Set(attempts).size,9);assert.equal(records.filter(r=>r.status==='failed').length,9);assert(!attempts.includes('dangbro'));assert(records.some(r=>r.method==='dangbro'&&r.status==='disabled'));
 });
 
 test('root found after a skipped manual step prevents a second method',async()=>{

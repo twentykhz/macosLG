@@ -19,7 +19,7 @@ bash "$HOME/install-gathintv.sh"
 
 For unrooted TVs, enable **Dev Mode Status**, allow the reboot, reopen Developer Mode and enable **Key Server**. Setup checks SSH and Key Server independently, reports readiness and offers retry. After authenticating with the six-character passphrase, **it reads the actual model/firmware automatically**, then displays compatibility results. Already-rooted TVs use SSH without Developer Mode reinstallation.
 
-For **webOS22 and newer**, `webOS22 / 7.6.0-1901` is not firmware; setup reads the actual value from the TV. Advanced `--expected-model` / `--expected-firmware` and `--skip-preflight`/Enter/SKIP remain available, but normal setup does not need them. [DangBro rooting support](../docs/DANGBRO.md).
+For **webOS22 and newer**, `webOS22 / 7.6.0-1901` is not firmware; setup reads the actual value from the TV. Advanced `--expected-model` / `--expected-firmware` and `--skip-preflight`/Enter/SKIP remain available, but normal setup does not need them.
 
 Reopen the menu with:
 

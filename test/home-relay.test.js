@@ -4,8 +4,8 @@ const cap=require('../lib/tv-capabilities'),{transcript}=require('./helpers/tv-p
 const caps=cap.parse(transcript()),um={modelName:'55UM7400PTA',boardType:'K5LP_DVB_EU',firmwareVersion:'05.40.97',sdkVersion:'4.10.0'};
 test('UM7400 HOME uses runtime/input capabilities instead of an SK8000 model whitelist',()=>{
  assert(cap.homeRelayCandidate(caps));assert(!cap.legacyHome(caps,um));
- const features=summarize({...caps,info:um,homeProbe:true});assert(features.homeRelay&&features.homeRelayCandidate);assert(!features.voice&&!features.referenceTuning);
- for(const changed of [{python2:null},{root:false},{startup:false},{inputModules:false},{homeChannels:false},{eventSize:24},{arch:'aarch64'}])assert(!cap.homeRelayCandidate({...caps,...changed}));
+ const features=summarize({...caps,info:um,homeProbe:true});assert(features.homeRelay&&features.homeRelayCandidate);assert(features.maintenanceSupported);assert(!features.voice);
+ for(const changed of [{python2:null},{root:false},{startup:false},{inputModules:false},{homeChannels:false},{eventSize:24},{arch:'aarch64'}])assert(!cap.pythonHomeCandidate({...caps,...changed}));
 });
 async function install({probeFails=false,startFails=false,capabilities=caps,options={}}={}){
  const ssh=require('../lib/ssh'),recovery=require('../lib/recovery'),saved={upload:ssh.upload,exec:ssh.exec,mark:recovery.markMutation};const calls=[],client={};
@@ -27,6 +27,6 @@ test('HOME startup failure enables the failsafe and does not claim an active rel
  const {result,calls,client}=await install({startFails:true});assert.equal(result.status,'needs-attention');assert.equal(client.__gathinHomeRelay.active,false);assert(calls.some(x=>x.startsWith("touch '/home/root/DISABLE-GATHIN-HOME'")));
 });
 test('unsupported input ABI and dry run never upload, grab input or change markers',async()=>{
- const unsupported=await install({capabilities:{...caps,arch:'aarch64'}});assert.equal(unsupported.result.status,'unsupported');assert.deepEqual(unsupported.calls,[]);
+ const unsupported=await install({capabilities:{...caps,arch:'aarch64'}});assert.equal(unsupported.result.status,'needs-attention');assert.deepEqual(unsupported.calls,[]);
  const dry=await install({options:{dryRun:true}});assert.equal(dry.result.status,'manual-check-required');assert.deepEqual(dry.calls,[]);
 });

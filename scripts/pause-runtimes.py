@@ -2,14 +2,14 @@
 from __future__ import print_function
 import os,signal,time
 assert os.geteuid()==0
-targets=set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-controls/bridge.js','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-hdmi/track.js','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
+targets=set(['/var/lib/webosbrew/gathin-controls/input-helper','/var/lib/webosbrew/gathin-youtube-voice/voice.js','/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-controls/bridge.js','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-hdmi/track.js','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
 for name in ['HOME','CONTROLS','HDMI','YOUTUBE-VOICE','REMOTE','WALLPAPER']:open('/home/root/DISABLE-GATHIN-'+name,'a').close()
 found=[]
 for name in os.listdir('/proc'):
  if not name.isdigit():continue
  try:
   args=open('/proc/'+name+'/cmdline').read().split(chr(0))
-  if len(args)>1 and args[1] in targets:found.append(int(name))
+  if (args[0] in targets and len(args)>1 and args[1]=='--home') or (len(args)>1 and args[1] in targets):found.append(int(name))
  except IOError:pass
 for pid in found:
  try:os.kill(pid,signal.SIGTERM)

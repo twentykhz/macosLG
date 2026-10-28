@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9492198,
-    "sha256": "dee8e71d29298f7fe12ed4a81d9772e83587b232b6b45a63e68f9bc85c8f6928"
+    "size": 9492546,
+    "sha256": "898989d07625c50e49cd42752cb0c74a157d3f2fc44ceb6f93f83b21f062ce39"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
@@ -206,8 +206,8 @@
   },
   {
     "path": "payload/app/dock-compact.js",
-    "size": 2188,
-    "sha256": "57755e7dda6137863d46f4f05d0e2082f4b3f709da36de34370d2a56a6d109b9"
+    "size": 2519,
+    "sha256": "5680f0826551a0c46b6e0c14fd4dec5afaf43ffb6026421a81e6da707dfabbe0"
   },
   {
     "path": "payload/app/family-config.js",
@@ -511,8 +511,8 @@
   },
   {
     "path": "payload/app/index.html",
-    "size": 5828,
-    "sha256": "da3cff60819701f589d9c4e31a5e956e654a95fbd83e30ee7fa328788dbb0654"
+    "size": 5883,
+    "sha256": "4bdbaefc692a7556c9002e817d2bf11a430396a6959b0c28535214731d8787cf"
   },
   {
     "path": "payload/app/largeIcon.png",
@@ -553,6 +553,11 @@
     "path": "payload/app/neutral-surfaces.css",
     "size": 2730,
     "sha256": "4b78317cc0b0e2eeefdc2cd9ea03cfc2c689834a987057f6deef07b57b35f975"
+  },
+  {
+    "path": "payload/app/performance.css",
+    "size": 344,
+    "sha256": "599e75c7b5ba628a3f25735d9d3779557acaa982099e563a18c5c214d985d975"
   },
   {
     "path": "payload/app/place-names.js",
@@ -721,13 +726,53 @@
   },
   {
     "path": "payload/portable/controls.js",
-    "size": 5975,
-    "sha256": "e68d423d957e916d2843bd34ed98d97c7c3fac4ed022f947a2e868f346751169"
+    "size": 6295,
+    "sha256": "fd921a42459656f54e7d27707a6b4b5102c758b17d0a8f88c60d2a7e8182188d"
   },
   {
     "path": "payload/portable/hdmi.js",
     "size": 2615,
     "sha256": "c81d62f1923f5549e5c851d25be96d2617e2cb4e67aa6670dba890534859835a"
+  },
+  {
+    "path": "payload/portable/input-helper.c",
+    "size": 8689,
+    "sha256": "1a328609863a77b35bb53ff15c2d2a698fa346d328151f5f3c6d5a6c7b6c24a0"
+  },
+  {
+    "path": "payload/portable/maintenance.js",
+    "size": 4488,
+    "sha256": "f91735b31f430facdc32c9a378d654bd0383939dbacbc1dc08ee1867ecda9b96"
+  },
+  {
+    "path": "payload/portable/native/MUSL-COPYRIGHT.txt",
+    "size": 6204,
+    "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+  },
+  {
+    "path": "payload/portable/native/ZIG-LICENSE.txt",
+    "size": 1080,
+    "sha256": "5c537d6853e005298a285d508cff9ac7192cea23576c840d485b2b586a7ff177"
+  },
+  {
+    "path": "payload/portable/native/gathin-input-aarch64",
+    "size": 65832,
+    "sha256": "1fb881288603a635163f8660c8c388d703c3ff8acb92ad55b0897a9a93ed6936"
+  },
+  {
+    "path": "payload/portable/native/gathin-input-armv7l",
+    "size": 65936,
+    "sha256": "443cb3c66598d450b2e93558aeedfa21f03575c2236220c51adb278b4d79cbae"
+  },
+  {
+    "path": "payload/portable/native/manifest.json",
+    "size": 653,
+    "sha256": "551a38752e090f96ce254b838a3cb9d1c7ecc0362468388533b9df25a5c011bf"
+  },
+  {
+    "path": "payload/portable/voice.js",
+    "size": 12566,
+    "sha256": "840dc921162d78c291ace3fdf4bbde3c3f4c4f9d9e8b7b349885706dcbd25df3"
   },
   {
     "path": "payload/privacy/lifesgoodwithoutspying.conf",

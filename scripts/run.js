@@ -13,7 +13,7 @@ function parse(args){
   else throw Error('Unknown option '+args[i]);
  }
  if(!/^[a-zA-Z0-9.-]+$/.test(o.host))throw Error('Enter a TV IPv4 address or hostname');
- if(!['Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Rollback'].includes(mode))throw Error('Unknown mode');
+ if(!['Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Rollback','Debloat'].includes(mode))throw Error('Unknown mode');
  if(mode!=='Rollback'&&(o.recoverySession||o.confirmRollback))throw Error('--session and --yes are only available for Rollback');
  return {mode,o};
 }
@@ -36,6 +36,7 @@ async function main(args=process.argv.slice(2)){
    await steps.prepare();await steps.connectAndCheck();if(o.dryRun){await steps.plan();return;}
    await steps.captureInitialState();
    await steps.prepareRootReconnect();
+   await steps.remindRootSafety();
    if(steps.options.compatibilityMode){await tv.restore(steps.client,{...o,advanced:true,compatibilityMode:true});return;}
    await steps.assertDeveloperModeAbsent();await steps.installApps();await steps.restoreInterface();
    if(!o.noFinalReboot)await steps.rebootAndReconnect('restore');await steps.verifyInstallation();
@@ -46,6 +47,13 @@ async function main(args=process.argv.slice(2)){
   if(mode==='Doctor')return await require('../lib/post-install').checkFeatures(client,{...o,readOnly:true});
   const device=await tv.inspect(client,o);
   if(o.dryRun){console.log('Read-only check succeeded; no '+mode+' mutation performed.');return;}
+  if(mode==='Debloat'){
+   if(!o.recoverySession)o.recoverySession=path.join(state,'debloat-'+Date.now()+'.json');
+   await require('../lib/recovery').capture(client,o,device);
+   const ensured=await require('../lib/post-install').ensureApps(client,{...o,compatibilityMode:true});device.apps=ensured.apps;
+   await require('../lib/dependencies').prepare(client,o);
+   const result=await require('../lib/maintenance').install(client,o,device);console.log(JSON.stringify(result,null,2));return result;
+  }
   if(mode==='Backup'){
    const result=await tv.backup(client,{...o,backupOnly:true});
    const destination=path.resolve(o.outputDir||path.join(state,'exports'));fs.mkdirSync(destination,{recursive:true});
@@ -62,7 +70,7 @@ async function main(args=process.argv.slice(2)){
    console.log('LG Content Store opened. Install FPT Play/TV360/Netflix using the TV, then run -Mode Sync.');
   }else if(mode==='Disable'){
    const caps=await require('../lib/tv-capabilities').probe(client);if(!caps.nodeFiles&&!caps.python2)throw Error('No safe runtime-stop engine; no disable markers changed');if(caps.nodeFiles)await require('../lib/portable-tv').helper(client);
-   await exec(client,"touch /home/root/DISABLE-GATHIN-HOME /home/root/DISABLE-GATHIN-HDMI /home/root/DISABLE-GATHIN-YOUTUBE-VOICE /home/root/DISABLE-GATHIN-CONTROLS /home/root/DISABLE-GATHIN-TRIM /home/root/DISABLE-GATHIN-LGWS /home/root/DISABLE-GATHIN-REMOTE /home/root/DISABLE-GATHIN-WALLPAPER");
+   await exec(client,"if [ -d /home/root/gathin-home-replacement ]; then touch /home/root/gathin-home-replacement/disabled; fi; touch /home/root/DISABLE-GATHIN-HOME /home/root/DISABLE-GATHIN-HDMI /home/root/DISABLE-GATHIN-YOUTUBE-VOICE /home/root/DISABLE-GATHIN-CONTROLS /home/root/DISABLE-GATHIN-TRIM /home/root/DISABLE-GATHIN-DEBLOAT /home/root/DISABLE-GATHIN-LGWS /home/root/DISABLE-GATHIN-REMOTE /home/root/DISABLE-GATHIN-WALLPAPER");
    await require('../lib/launcher-install').pause(client);
    await luna(client,'com.webos.applicationManager/lockApp',{id:'com.webos.app.voiceview',lock:false});
    console.log('Custom input/voice/control runtimes disabled. Root and installed apps retained. Run Restore to re-enable.');

@@ -19,7 +19,7 @@ bash "$HOME/install-gathintv.sh"
 
 **Nếu chọn TV chưa root:** bật **Dev Mode Status**, cho TV reboot, mở lại ứng dụng Developer Mode và bật **Key Server**. Setup kiểm tra độc lập SSH Developer Mode và Key Server, báo trạng thái và cho kiểm tra lại. Sau xác thực bằng passphrase 6 ký tự, **setup tự đọc model/firmware, không bắt nhập thủ công**, rồi hiện kết quả tương thích. TV đã root dùng SSH, không phải cài lại Developer Mode.
 
-**webOS22 trở lên:** `webOS22 / 7.6.0-1901` không phải firmware; bộ cài đọc trực tiếp thông tin từ TV. Tham số nâng cao vẫn có `--expected-model` / `--expected-firmware` và `--skip-preflight`/Enter/SKIP; thông thường không cần dùng. [Hỗ trợ root qua DangBro](../docs/DANGBRO.md).
+**webOS22 trở lên:** `webOS22 / 7.6.0-1901` không phải firmware; bộ cài đọc trực tiếp thông tin từ TV. Tham số nâng cao vẫn có `--expected-model` / `--expected-firmware` và `--skip-preflight`/Enter/SKIP; thông thường không cần dùng.
 
 Mở lại menu sau này:
 

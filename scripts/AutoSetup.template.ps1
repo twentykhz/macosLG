@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
- [ValidateSet('Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Rollback','Prepare','Extract')][string]$Mode='Setup',
+ [ValidateSet('Setup','Restore','Backup','Doctor','Apps','Sync','Disable','Debloat','Rollback','Prepare','Extract')][string]$Mode='Setup',
  [string]$HostName,
  [switch]$AlreadyRooted,[switch]$DryRun,[switch]$TrustNewHost,[switch]$NoReboot,[switch]$RemoveExtraApps,[switch]$PortableNode,[switch]$NoPause,[switch]$ConfirmRollback,[switch]$SkipPreflight,
  [string]$RootKeyPath,[string]$DeveloperKeyPath,[string]$BackupFile,[string]$OutputDirectory,[string]$RecoverySession,
@@ -82,7 +82,7 @@ if($Mode -notin @('Prepare','Extract')){
  Write-Host ((L 'Setup log: ' 'Log setup: ')+$taskSetupLog)
  Write-Host ((L 'Runtime log: ' 'Log tien trinh: ')+$taskRuntimeLog)
 }
-Write-Host (L 'MAC-WebOSTV by 20khzpc 3.4.2: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.4.2: dung IP va thong tin dang nhap cua chinh TV nay.')
+Write-Host (L 'MAC-WebOSTV by 20khzpc 3.5.0: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.5.0: dung IP va thong tin dang nhap cua chinh TV nay.')
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -93,7 +93,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.4.2-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.5.0-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)
@@ -140,11 +140,13 @@ if(-not $PSBoundParameters.ContainsKey('Mode') -and -not $AlreadyRooted){
  Write-Host (L '2 - TV already rooted (install launcher, no rooting exploit)' '2 - TV da root (cai launcher, khong chay lai exploit)')
  Write-Host (L '3 - Check TV features and show report (no reinstall)' '3 - Kiem tra chuc nang TV va hien bao cao (khong cai lai)')
  Write-Host (L '4 - Roll back to a snapshot from before running the tool' '4 - Khoi phuc trang thai truoc khi chay tool tu backup')
- do{$taskRootChoice=Read-Host (L 'Choose 1, 2, 3 or 4' 'Chon 1, 2, 3 hoac 4')}while($taskRootChoice.Trim() -notin @('1','2','3','4'))
+ Write-Host (L '5 - Debloat TV (reversible app locks and privacy)' '5 - Debloat TV (tat app phu va bat chan quang cao)')
+ do{$taskRootChoice=Read-Host (L 'Choose 1, 2, 3, 4 or 5' 'Chon 1, 2, 3, 4 hoac 5')}while($taskRootChoice.Trim() -notin @('1','2','3','4','5'))
  if($taskRootChoice.Trim() -eq '2'){$Mode='Restore';$AlreadyRooted=$true}
  elseif($taskRootChoice.Trim() -eq '3'){$Mode='Doctor';$AlreadyRooted=$true}
+ elseif($taskRootChoice.Trim() -eq '5'){$Mode='Debloat';$AlreadyRooted=$true}
  elseif($taskRootChoice.Trim() -eq '4'){$Mode='Rollback';$AlreadyRooted=$true}
- elseif($taskRootChoice.Trim() -ne '1'){throw (L 'Choose 1, 2, 3 or 4. No TV changes made.' 'Chon 1, 2, 3 hoac 4. Chua thay doi TV.')}
+ elseif($taskRootChoice.Trim() -ne '1'){throw (L 'Choose 1, 2, 3, 4 or 5. No TV changes made.' 'Chon 1, 2, 3, 4 hoac 5. Chua thay doi TV.')}
 }
 $env:GATHIN_STATE_DIRECTORY=Join-Path $DataDirectory 'state'
 if($Mode -eq 'Setup' -and -not $AlreadyRooted){

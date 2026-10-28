@@ -1,7 +1,76 @@
 {
-  "launcher": {"architectures": ["*"], "requires": ["root", "verifiedRollback", "sha256", "tar"], "native": false},
-  "portableServices": {"architectures": ["*"], "requires": ["node>=0.12", "homebrewStartup"], "native": false},
-  "referenceHomeHook": {"architectures": ["armv7l", "armv7"], "boards": ["M16PP_DVB_EU"], "models": ["55SK8000PTA"], "firmware": ["05.50.70"], "requires": ["python2", "inputEventSize=16", "validatedInputProbe"], "native": false},
-  "referenceVoiceAndTuning": {"architectures": ["armv7l", "armv7"], "boards": ["M16PP_DVB_EU"], "requires": ["exactReferenceProfile", "python2"], "native": false},
-  "org.webosbrew.hbchannel": {"architectures": ["armv7l", "armv7"], "requires": ["root"], "native": true, "elfClass": 1, "elfMachine": 40, "components": ["dropbear", "rsync", "scp", "sftp-server", "telnetd"], "note": "Audited pinned 0.7.3 IPK. Do not deploy these ARM32 executables on aarch64 without a separately verified compatibility ABI."}
+  "launcher": {
+    "architectures": [
+      "*"
+    ],
+    "requires": [
+      "root",
+      "verifiedRollback",
+      "sha256",
+      "tar"
+    ],
+    "native": false
+  },
+  "portableServices": {
+    "architectures": [
+      "*"
+    ],
+    "requires": [
+      "node>=0.12",
+      "homebrewStartup"
+    ],
+    "native": false
+  },
+  "org.webosbrew.hbchannel": {
+    "architectures": [
+      "armv7l",
+      "armv7"
+    ],
+    "requires": [
+      "root"
+    ],
+    "native": true,
+    "elfClass": 1,
+    "elfMachine": 40,
+    "components": [
+      "dropbear",
+      "rsync",
+      "scp",
+      "sftp-server",
+      "telnetd"
+    ],
+    "note": "Audited pinned 0.7.3 IPK. Do not deploy these ARM32 executables on aarch64 without a separately verified compatibility ABI."
+  },
+  "portableHome": {
+    "architectures": [
+      "armv7l",
+      "armv7",
+      "aarch64"
+    ],
+    "requires": [
+      "root",
+      "homebrewStartup",
+      "validatedInputProbe",
+      "dualMagicRemoteChannels"
+    ],
+    "native": true,
+    "backends": [
+      "Python2 input ABI 16",
+      "static project adapter ABI 16/24"
+    ]
+  },
+  "portableVoiceAndTuning": {
+    "architectures": [
+      "armv7l",
+      "armv7",
+      "aarch64"
+    ],
+    "requires": [
+      "node>=0.12",
+      "verifiedStaticPTY",
+      "ls-monitor",
+      "Luna NLP access"
+    ],
+    "native": false
+  }
 }

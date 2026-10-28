@@ -2,7 +2,7 @@
 
 A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device you will install from.** Keep it and the TV on the same Wi-Fi/LAN.
 
-[Tiếng Việt](README.md) | **English** · Version **3.4.2**
+[Tiếng Việt](README.md) | **English** · Version **3.5.0**
 
 | Your device | Start here | What to download |
 |---|---|---|
@@ -14,11 +14,13 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 
 ![GathinTV launcher](docs/screenshots/launcher-preview.jpg)
 
+[3.5.0 changes: startup, HOME, voice, debloat and privacy](docs/CHANGELOG-v3.5.0.en.md).
+
 ## Before installing
 
 - **Already rooted:** choose the rooted setup branch; Developer Mode reinstallation or factory reset is unnecessary.
-- **Not rooted:** enable **Dev Mode Status**, allow its reboot, then enable **Key Server**. Setup checks readiness, automatically reads authenticated model/firmware and reports compatibility. Some LG TVs cannot use these methods. [DangBro support](docs/DANGBRO.md).
-- Hardware-tested reference: **55SK8000PTA / firmware 05.50.70**. Other models use capability checks and may skip reference features. Physical C2 installation/rollback remains unconfirmed.
+- **Not rooted:** enable **Dev Mode Status**, allow its reboot, then enable **Key Server**. Setup checks readiness, automatically reads authenticated model/firmware and reports compatibility. Some LG TVs cannot use these methods.
+- Hardware-tested reference: **55SK8000PTA / firmware 05.50.70**. All models use the same startup/HOME/voice/debloat/privacy pipeline, with hardware/API checks before activation. UM7400/C2 have not been physically validated in this release.
 
 ## Documentation
 
@@ -26,7 +28,7 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 |---|---|
 | Features and screenshots | [Feature guide](docs/FEATURES.en.md) · [Gallery](docs/OVERVIEW.vi.md) |
 | Backup / restore | [Rollback guide](docs/ROLLBACK.en.md) |
-| Version 3.4.2 | [Rollback and YouTube AdFree fix](docs/CHANGELOG-v3.4.2.en.md) |
+| Version 3.5.0 | [Rollback and YouTube AdFree fix](docs/CHANGELOG-v3.5.0.en.md) |
 | Troubleshooting / compatibility | [Documentation index](docs/README.en.md) |
 | Source / building | [Development guide](docs/DEVELOPMENT.en.md) |
 

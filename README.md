@@ -2,7 +2,7 @@
 
 Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Chọn thiết bị bạn dùng để cài bên dưới.** TV và thiết bị cài cần cùng Wi-Fi/LAN.
 
-**Tiếng Việt** | [English](README.en.md) · Phiên bản **3.4.2**
+**Tiếng Việt** | [English](README.en.md) · Phiên bản **3.5.0**
 
 | Bạn đang dùng | Bắt đầu tại đây | Cần tải gì? |
 |---|---|---|
@@ -14,11 +14,13 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 
 ![Giao diện GathinTV](docs/screenshots/launcher-preview.jpg)
 
+[Xem thay đổi 3.5.0: boot, HOME, voice, debloat và privacy](docs/CHANGELOG-v3.5.0.md).
+
 ## Trước khi cài
 
 - **TV đã root:** chọn nhánh đã root trong setup; không cần cài lại Developer Mode hay factory reset.
-- **TV chưa root:** bật **Dev Mode Status**, cho reboot rồi bật **Key Server**. Setup kiểm tra trạng thái, tự đọc model/firmware sau xác thực và báo khả năng root; không phải mọi TV LG đều hỗ trợ. [Hỗ trợ DangBro](docs/DANGBRO.md).
-- Phần cứng đã kiểm chứng: **55SK8000PTA / firmware 05.50.70**. Model khác dùng kiểm tra khả năng và có thể bỏ qua tính năng riêng; C2 chưa được kiểm chứng cài/rollback trên TV thật.
+- **TV chưa root:** bật **Dev Mode Status**, cho reboot rồi bật **Key Server**. Setup kiểm tra trạng thái, tự đọc model/firmware sau xác thực và báo khả năng root; không phải mọi TV LG đều hỗ trợ.
+- Phần cứng đã kiểm chứng: **55SK8000PTA / firmware 05.50.70**. Mọi model dùng chung luồng boot/HOME/voice/debloat/privacy, kiểm tra phần cứng và API trước khi kích hoạt. UM7400/C2 chưa được kiểm chứng vật lý trong bản này.
 
 ## Tài liệu cần dùng
 
@@ -26,7 +28,7 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 |---|---|
 | Tính năng, giao diện và ảnh | [Xem trước](docs/OVERVIEW.vi.md) · [Cách sử dụng](docs/FEATURES.vi.md) |
 | Backup / khôi phục | [Hướng dẫn Rollback](docs/ROLLBACK.vi.md) |
-| Thay đổi 3.4.2 | [Rollback và bản sửa YouTube AdFree](docs/CHANGELOG-v3.4.2.md) |
+| Thay đổi 3.5.0 | [Rollback và bản sửa YouTube AdFree](docs/CHANGELOG-v3.5.0.md) |
 | Khắc phục lỗi, tương thích | [Mục lục tài liệu](docs/README.md) |
 | Sửa mã nguồn / tự build | [Hướng dẫn phát triển](docs/DEVELOPMENT.vi.md) |
 

@@ -9,6 +9,7 @@ require('../lib/ssh');require.cache[require.resolve('../lib/ssh')].exports={
 require('../lib/recovery');require.cache[require.resolve('../lib/recovery')].exports={async capture(){assert(allowWrites);calls.push('initialSnapshot');},markMutation(){assert(calls.includes('initialSnapshot'));}};
 require('../lib/portable-tv');require.cache[require.resolve('../lib/portable-tv')].exports={async run(){assert(allowWrites);return JSON.stringify({complete:true});}};
 require('../lib/runtime-health');require.cache[require.resolve('../lib/runtime-health')].exports={async verify(){assert(allowWrites);}};
+for(const name of ['dependencies','full-features','maintenance']){require('../lib/'+name);require.cache[require.resolve('../lib/'+name)].exports={async inspect(){return {};},async prepare(){assert(calls.includes('initialSnapshot'));return {};},async install(){assert(calls.includes('initialSnapshot'));return name==='full-features'?[]:{feature:'debloat-privacy',status:'verified'};}};}
 const {AutorootSteps}=require('../lib/autoroot'),{restore}=require('../scripts/tv');
 test('already-rooted UK6340 passes real connectAndCheck path without an SK8000 model assertion',async()=>{
  const steps=new AutorootSteps({host:'192.0.2.27',alreadyRooted:true});await steps.connectAndCheck();assert.equal(steps.options.compatibilityMode,true);assert.equal(steps.info.modelName,'55UK6340PTF');steps.close();

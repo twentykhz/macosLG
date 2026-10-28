@@ -1,3 +1,7 @@
+# Historical reference — excluded from GathinTV 3.5.0 root flow
+
+This document records an older integration. Current setup does not offer or invoke DangBro. See [current root methods](ROOTING-METHODS.md).
+
 # DangBro trong setup 3.4.2 / DangBro in setup 3.4.2
 
 [Trang chính](../README.md) · [Root và phương pháp dự phòng](ROOTING-METHODS.md)

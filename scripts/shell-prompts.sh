@@ -18,16 +18,16 @@ shell_language() {
 }
 shell_menu() {
   printf '%s\n' '==================================' '        GathinTV AutoSetup' '          Android / Linux' '=================================='
-  shell_text $'[1] Set up a TV that is NOT rooted\n[2] Install / update on an ALREADY ROOTED TV\n[3] Doctor - check TV\n[4] Backup\n[5] Apps\n[6] Sync\n[7] Disable\n[8] Rollback\n[0] Exit\n' $'[1] Cai dat TV CHUA ROOT\n[2] Cai / cap nhat TV DA ROOT\n[3] Kiem tra TV (Doctor)\n[4] Sao luu (Backup)\n[5] Ung dung (Apps)\n[6] Dong bo (Sync)\n[7] Tat dich vu (Disable)\n[8] Khoi phuc backup (Rollback)\n[0] Thoat\n'
+  shell_text $'[1] Set up a TV that is NOT rooted\n[2] Install / update on an ALREADY ROOTED TV\n[3] Doctor - check TV\n[4] Backup\n[5] Apps\n[6] Sync\n[7] Disable\n[8] Rollback\n[9] Debloat TV\n[0] Exit\n' $'[1] Cai dat TV CHUA ROOT\n[2] Cai / cap nhat TV DA ROOT\n[3] Kiem tra TV (Doctor)\n[4] Sao luu (Backup)\n[5] Ung dung (Apps)\n[6] Dong bo (Sync)\n[7] Tat dich vu (Disable)\n[8] Khoi phuc backup (Rollback)\n[9] Debloat TV\n[0] Thoat\n'
   local selection
   while true; do
-    shell_read selection "$(shell_text 'Enter a number (0-8): ' 'Nhap so (0-8), vi du 1 cho TV chua root: ')" || return
+    shell_read selection "$(shell_text 'Enter a number (0-9): ' 'Nhap so (0-9), vi du 1 cho TV chua root: ')" || return
     case "$selection" in
       1|Setup|setup|'TV chua root'|'tv chua root'|'TV chưa root'|'tv chưa root') mode=Setup;return;;
       2|Restore|restore|'TV da root'|'tv da root'|'TV đã root'|'tv đã root') mode=Restore;return;;
-      3) mode=Doctor;return;;4) mode=Backup;return;;5) mode=Apps;return;;6) mode=Sync;return;;7) mode=Disable;return;;8) mode=Rollback;return;;0) mode=Exit;return;;
+      3) mode=Doctor;return;;4) mode=Backup;return;;5) mode=Apps;return;;6) mode=Sync;return;;7) mode=Disable;return;;8) mode=Rollback;return;;9) mode=Debloat;return;;0) mode=Exit;return;;
     esac
-    printf '%s\n' "$(shell_text 'Invalid choice. Enter a number from 0 to 8; try again.' 'Lua chon chua dung. Nhap so tu 0 den 8; thu lai.')" >&2
+    printf '%s\n' "$(shell_text 'Invalid choice. Enter a number from 0 to 9; try again.' 'Lua chon chua dung. Nhap so tu 0 den 9; thu lai.')" >&2
   done
 }
 shell_valid_model() {

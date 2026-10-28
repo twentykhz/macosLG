@@ -17,9 +17,11 @@ describe_root() {
 for p do describe_root "$p"; done
 for file in /proc/[0-9]*/cmdline; do
  [ -r "$file" ] || continue
+ first=$(tr '\000' '\n' < "$file" 2>/dev/null | sed -n '1p')
+ if [ "$first" = /var/lib/webosbrew/gathin-controls/input-helper ]; then second=$(tr '\000' '\n' < "$file" 2>/dev/null | sed -n '2p'); if [ "$second" = --home ]; then printf 'active\t%s\n' "$first"; fi; continue; fi
  script=$(tr '\000' '\n' < "$file" 2>/dev/null | sed -n '2p')
  case "$script" in
- /home/root/gathin-home-keyhook.py|/home/root/gathin-youtube-voice-router.py|/var/lib/webosbrew/gathin-controls/bridge.py|/var/lib/webosbrew/gathin-controls/bridge.js|/var/lib/webosbrew/gathin-hdmi/track.py|/var/lib/webosbrew/gathin-hdmi/track.js|/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js|/var/lib/webosbrew/gathin-remote/server.js) printf 'active\t%s\n' "$script";;
+ /var/lib/webosbrew/gathin-youtube-voice/voice.js|/home/root/gathin-home-keyhook.py|/home/root/gathin-youtube-voice-router.py|/var/lib/webosbrew/gathin-controls/bridge.py|/var/lib/webosbrew/gathin-controls/bridge.js|/var/lib/webosbrew/gathin-hdmi/track.py|/var/lib/webosbrew/gathin-hdmi/track.js|/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js|/var/lib/webosbrew/gathin-remote/server.js) printf 'active\t%s\n' "$script";;
  esac
 done
 printf 'end\tGATHIN_SNAPSHOT_V1\n'

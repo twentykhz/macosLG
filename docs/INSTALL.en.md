@@ -4,12 +4,12 @@
 
 [Home](../README.en.md) · [Tiếng Việt](INSTALL.vi.md) · [Features](FEATURES.en.md)
 
-The updated **3.4.2** installer includes language choices, rootability checks, installation branches and feature checks. Double-click `Start-Setup.cmd`, select a language, then your TV's state. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
+The updated **3.5.0** installer includes language choices, rootability checks, installation branches and feature checks. Double-click `Start-Setup.cmd`, select a language, then your TV's state. **Already-rooted TVs do not require a manual Restore command, Developer Mode installation or a factory reset.**
 
 ## 1. Download and start
 
-1. Open [release 3.4.2](https://github.com/twentykhz/macosLG/releases/tag/v3.4.2) and expand **Assets**.
-2. Download **[GathinTV-Windows-3.4.2.zip](https://github.com/twentykhz/macosLG/releases/download/v3.4.2/GathinTV-Windows-3.4.2.zip)** and extract all files into one folder, for example `Desktop\MAC-WebOSTV`. It includes `MAC-WebOSTV-AutoSetup.ps1` and `Start-Setup.cmd`. Download the new ZIP to update an older installer.
+1. Open [release 3.5.0](https://github.com/twentykhz/macosLG/releases/tag/v3.5.0) and expand **Assets**.
+2. Download **[GathinTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/GathinTV-Windows-3.5.0.zip)** and extract all files into one folder, for example `Desktop\MAC-WebOSTV`. It includes `MAC-WebOSTV-AutoSetup.ps1` and `Start-Setup.cmd`. Download the new ZIP to update an older installer.
 3. Do not rename or unpack the PS1 file. GitHub's automatic Source code ZIP, Node.js, npm and the webOS CLI are not required.
 4. Turn on the TV. Connect it and a 64-bit Windows PC to the same LAN; avoid isolated guest Wi-Fi. Keep the PC awake during installation.
 5. If Windows blocks a downloaded file, verify that it came from this repository, then use **Properties → Unblock → Apply**, if available. Do not disable protection for the entire PC.
@@ -30,7 +30,7 @@ First select **1 — English** or **2 — Tieng Viet khong dau**. Then choose th
 
 **Setup no longer asks for model/firmware by default.** Enter the TV IP, enable **Dev Mode Status**, allow the reboot, reopen Developer Mode and enable **Key Server**. Setup probes Developer Mode SSH and Key Server independently, reports readiness and offers retry. After entering the Developer Mode passphrase and authenticating, it reads/displays the actual model/firmware and checks live [CanI.RootMy.TV](https://cani.rootmy.tv/) data before rooting. Unreachable services may be disabled, expired or blocked by the network; the UI switches cannot be read directly without authentication.
 
-Unknown/incompatible results still stop exploits. Advanced users can provide `-TVModel` / `-FirmwareVersion`; `Enter`/`SKIP` at a manual prompt or `-SkipPreflight` selects auto identification. Manual identity must still match the authenticated TV. [Methods and logs](ROOTING-METHODS.md) · [DangBro browser flow](DANGBRO.md).
+Unknown/incompatible results still stop exploits. Advanced users can provide `-TVModel` / `-FirmwareVersion`; `Enter`/`SKIP` at a manual prompt or `-SkipPreflight` selects auto identification. Manual identity must still match the authenticated TV. [Methods and logs](ROOTING-METHODS.md)
 
 For **webOS 22 and later**, model is under **Support → TV Information**; installed firmware is under **Settings → All Settings → Support → Software Update**. Read the installed version without starting an update. `webOS22 / 7.6.0-1901` is an OS label, not firmware; the exact firmware cannot be inferred from it. Older TVs may show Software Version in **General → About This TV**. [LG instructions](https://www.lg.com/us/support/help-library/lg-tv-how-can-i-update-the-tv-software--20154858251400).
 

@@ -31,7 +31,7 @@ async function inspect(client,options){
   if((await exec(client,'id -u')).trim()!=='0')throw new Error('Root SSH required; finish rooting first.');
   const info=await luna(client,'com.webos.service.tv.systemproperty/getSystemInfo',{keys:['modelName','firmwareVersion','sdkVersion','boardType']});
   const caps=await require('../lib/tv-capabilities').probe(client);
-  const reference=caps.nodeFiles&&require('../lib/tv-capabilities').legacyHome(caps,info)&&info.modelName===profile.modelName&&info.boardType===profile.boardType&&info.firmwareVersion===profile.firmwareVersion;
+  const reference=!!options.backupFile&&require('../lib/tv-capabilities').legacyHome(caps,info); // One feature engine for every model; owner backups remain identity-bound.
   if(!reference){const {apps=[]}=await luna(client,'com.webos.applicationManager/listApps');console.log('Rooted compatibility mode: '+info.modelName+'/'+info.boardType);return {info,apps,compatibility:true};}
   const python=(await exec(client,quote(caps.python2)+" -B -c 'import sys,fcntl,select,struct,hashlib,json; print(sys.version_info[0]); print(struct.calcsize(\"llHHi\"))'" )).trim().split(/\r?\n/);
   if(python[0]!=='2'||python[1]!=='16')throw new Error('This relay requires the verified TV Python 2 / 32-bit input ABI.');

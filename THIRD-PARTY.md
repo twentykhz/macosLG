@@ -18,3 +18,7 @@ The host runtime also bundles [ws](https://github.com/websockets/ws) 8.22.0 (MIT
 Rootability checks read the live dataset deployed at [CanI.RootMy.TV](https://cani.rootmy.tv/), maintained by [webosbrew/caniroot](https://github.com/webosbrew/caniroot). Downloaded JavaScript is not executed. The website's generated model/exploit JSON data is parsed for each check and is not bundled as a stale offline rootability guarantee.
 
 The optional DejaVuln fallback downloads the unchanged [dejavuln-autoroot v0.0.10 release archive](https://github.com/throwaway96/dejavuln-autoroot/releases/tag/v0.0.10), with pinned size/SHA-256. Its upstream code is AGPL-3.0; the archive and upstream notices remain intact. USB, browser and hardware methods retain their official procedures and are linked from [rooting instructions](docs/ROOTING-METHODS.md).
+
+## Project static input/PTY adapters (3.5.0)
+
+Source: `payload/portable/input-helper.c`, under the project LICENSE. Static ARM32/ARM64 builds use Zig 0.14.1 and musl. Their copyright notices are included in `payload/portable/native/MUSL-COPYRIGHT.txt` and `ZIG-LICENSE.txt`. No LG native library is redistributed. Compiler source and official distribution: https://ziglang.org/download/0.14.1/ . Native source/build hashes and ELF metadata are in the adjacent manifest.

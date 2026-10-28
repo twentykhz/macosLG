@@ -3,7 +3,7 @@
 var fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process'),zlib=require('zlib');
 var ROOTS=typeof GATHIN_ROOTS!=='undefined'?GATHIN_ROOTS:require('../config/recovery-roots.json');
 var APP='/media/developer/apps/usr/palm/applications/com.gathin.tvhome';
-var TARGETS=['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-controls/bridge.js','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-hdmi/track.js','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'];
+var TARGETS=['/var/lib/webosbrew/gathin-controls/input-helper','/var/lib/webosbrew/gathin-youtube-voice/voice.js','/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-controls/bridge.js','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-hdmi/track.js','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'];
 function assert(ok,message){if(!ok)throw Error(message);}
 function exists(p){try{fs.lstatSync(p);return true;}catch(e){if(e.code==='ENOENT'||e.code==='ENOTDIR')return false;throw e;}}
 function mkdir(p){if(exists(p)){assert(fs.statSync(p).isDirectory(),'Not a directory: '+p);return;}mkdir(path.dirname(p));fs.mkdirSync(p,448);}
@@ -24,7 +24,7 @@ function remove(p){
  assert((/^\/tmp\/gathin-(portable|app-upgrade)-[a-zA-Z0-9-]+(?:\/.*)?$/.test(p)||p==='/media/developer/temp/gathin-app-upgrade-previous'||p.indexOf('/media/developer/temp/gathin-app-upgrade-previous/')===0)&&real(path.dirname(p))===path.dirname(p),'Unsafe cleanup path');
  if(!exists(p))return;var s=fs.lstatSync(p);if(s.isDirectory()&&!s.isSymbolicLink()){fs.readdirSync(p).forEach(function(n){remove(p+'/'+n);});fs.rmdirSync(p);}else fs.unlinkSync(p);
 }
-function processes(){var list=[];fs.readdirSync('/proc').forEach(function(pid){if(!/^\d+$/.test(pid))return;try{var args=fs.readFileSync('/proc/'+pid+'/cmdline','utf8').split('\0');if(TARGETS.indexOf(args[1])>=0)list.push({pid:Number(pid),script:args[1]});}catch(e){}});return list;}
+function processes(){var list=[];fs.readdirSync('/proc').forEach(function(pid){if(!/^\d+$/.test(pid))return;try{var args=fs.readFileSync('/proc/'+pid+'/cmdline','utf8').split('\0');var script=args[0]==='/var/lib/webosbrew/gathin-controls/input-helper'&&args[1]==='--home'?args[0]:args[1];if(TARGETS.indexOf(script)>=0)list.push({pid:Number(pid),script:script});}catch(e){}});return list;}
 function pause(done){
  ['HOME','CONTROLS','HDMI','YOUTUBE-VOICE','REMOTE','WALLPAPER'].forEach(function(n){fs.writeFileSync('/home/root/DISABLE-GATHIN-'+n,'',{mode:384});});
  var list=processes();list.forEach(function(p){try{process.kill(p.pid,'SIGTERM');}catch(e){if(e.code!=='ESRCH')throw e;}});
@@ -68,7 +68,7 @@ function rollback(data,done){var record=data.record,extractAt=verifyRollback(dat
  }catch(e){journal.reverse().forEach(function(j){if(exists(j.root))fs.renameSync(j.root,j.old+'.failed');if(j.has)fs.renameSync(j.old,j.root);});return done(e);}
  ROOTS.forEach(function(r){if(r.indexOf('/var/lib/webosbrew/gathin-')===0&&exists(r)&&fs.lstatSync(r).isDirectory())fs.readdirSync(r).forEach(function(n){if(/\.pid$/.test(n)&&fs.lstatSync(r+'/'+n).isFile())fs.unlinkSync(r+'/'+n);});});if(exists('/tmp/gathin-home-keyhook.pid'))fs.unlinkSync('/tmp/gathin-home-keyhook.pid');
  if(exists('/usr/sbin/ls-control'))['scan-services','scan-volatile-dirs'].forEach(function(arg){try{cp.execFileSync('/usr/sbin/ls-control',[arg]);}catch(e){}});
- var pairs=[['track.py','37-gathin-hdmi'],['track.js','37-gathin-hdmi'],['bridge.py','38-gathin-controls'],['bridge.js','38-gathin-controls'],['wallpaper-service.js','39-gathin-wallpaper'],['gathin-youtube-voice-router.py','42-gathin-youtube-voice'],['server.js','45-gathin-remote'],['gathin-home-keyhook.py','41-gathin-home-keyhook']],hooks=[];
+ var pairs=[['input-helper','41-gathin-home-keyhook'],['voice.js','42-gathin-youtube-voice'],['track.py','37-gathin-hdmi'],['track.js','37-gathin-hdmi'],['bridge.py','38-gathin-controls'],['bridge.js','38-gathin-controls'],['wallpaper-service.js','39-gathin-wallpaper'],['gathin-youtube-voice-router.py','42-gathin-youtube-voice'],['server.js','45-gathin-remote'],['gathin-home-keyhook.py','41-gathin-home-keyhook']],hooks=[];
  pairs.forEach(function(pair){if(record.active.some(function(p){return path.basename(p)===pair[0];})&&hooks.indexOf(pair[1])<0)hooks.push(pair[1]);});
  function start(){if(!hooks.length)return check();var hook='/var/lib/webosbrew/init.d/'+hooks.shift();cp.execFile('/bin/sh',[hook],{timeout:45000},function(e){if(e)return done(Error('Snapshot restored but original boot hook failed'));start();});}
  var until=Date.now()+10000;function check(){var running=processes().map(function(p){return p.script;});if(record.active.every(function(p){return running.filter(function(s){return s===p;}).length===1;}))return done();if(Date.now()>until)return done(Error('Snapshot files restored but original runtime did not restart'));setTimeout(check,100);}start();

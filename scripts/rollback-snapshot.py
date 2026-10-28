@@ -75,14 +75,14 @@ def restore(stage):
   while not os.path.exists(parent):parent=os.path.dirname(parent)
   assert os.stat(parent).st_dev==os.stat(work).st_dev,'Recovery staging filesystem mismatch: '+root
   displaced[root]=work+'/entry-'+str(index)
- targets=set(record['active']) | set(['/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-controls/bridge.js','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-hdmi/track.js','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
+ targets=set(record['active']) | set(['/var/lib/webosbrew/gathin-controls/input-helper','/var/lib/webosbrew/gathin-youtube-voice/voice.js','/home/root/gathin-home-keyhook.py','/home/root/gathin-youtube-voice-router.py','/var/lib/webosbrew/gathin-controls/bridge.py','/var/lib/webosbrew/gathin-controls/bridge.js','/var/lib/webosbrew/gathin-hdmi/track.py','/var/lib/webosbrew/gathin-hdmi/track.js','/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js','/var/lib/webosbrew/gathin-remote/server.js'])
  open('/home/root/DISABLE-GATHIN-HOME','a').close()
  found=[]
  for pid in os.listdir('/proc'):
   if not pid.isdigit():continue
   try:
    args=open('/proc/'+pid+'/cmdline').read().split(chr(0))
-   if len(args)>1 and args[1] in targets:found.append(int(pid))
+   if (args[0] in targets and len(args)>1 and args[1]=='--home') or (len(args)>1 and args[1] in targets):found.append(int(pid))
   except IOError:pass
  for pid in found:
   try:os.kill(pid,signal.SIGTERM)
@@ -127,7 +127,7 @@ def restore(stage):
  if os.path.isfile('/tmp/gathin-home-keyhook.pid'):os.unlink('/tmp/gathin-home-keyhook.pid')
  subprocess.call(['/usr/sbin/ls-control','scan-services'])
  subprocess.call(['/usr/sbin/ls-control','scan-volatile-dirs'])
- pairs=[('track.py','37-gathin-hdmi'),('track.js','37-gathin-hdmi'),('bridge.py','38-gathin-controls'),('bridge.js','38-gathin-controls'),('wallpaper-service.js','39-gathin-wallpaper'),('gathin-youtube-voice-router.py','42-gathin-youtube-voice'),('server.js','45-gathin-remote'),('gathin-home-keyhook.py','41-gathin-home-keyhook')]
+ pairs=[('input-helper','41-gathin-home-keyhook'),('voice.js','42-gathin-youtube-voice'),('track.py','37-gathin-hdmi'),('track.js','37-gathin-hdmi'),('bridge.py','38-gathin-controls'),('bridge.js','38-gathin-controls'),('wallpaper-service.js','39-gathin-wallpaper'),('gathin-youtube-voice-router.py','42-gathin-youtube-voice'),('server.js','45-gathin-remote'),('gathin-home-keyhook.py','41-gathin-home-keyhook')]
  for script,hook in pairs:
   if any(p.endswith('/'+script) for p in record['active']):
    subprocess.check_call(['/bin/sh','/var/lib/webosbrew/init.d/'+hook])
@@ -137,7 +137,7 @@ def restore(stage):
    if not pid.isdigit():continue
    try:
     args=open('/proc/'+pid+'/cmdline').read().split(chr(0))
-    if len(args)>1:running.append(args[1])
+    if len(args)>1:running.append(args[0] if args[0] in targets and args[1]=='--home' else args[1])
    except IOError:pass
   if all(running.count(p)==1 for p in set(record['active'])):break
   time.sleep(.1)

@@ -1,0 +1,13 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm');
+test('maintenance filters SDP, keeps original lock states and only unmounts project overlays',async()=>{
+ const P='/var/lib/webos-debloat/gathin-final',A='/media/developer/apps/usr/palm/applications/ooo.lew.lifesgoodwithoutspying',files=new Map(),calls=[],module={exports:{}};
+ files.set(P+'/policy.json',JSON.stringify(require('../config/setup-policy.json')));files.set(P+'/journal.json',JSON.stringify({session:'test',apps:[]}));files.set(A+'/init/blocklist.d/45-sdp.txt','clock.nextlgsdp.com\n');files.set(A+'/init/blocklist.d/20-acr.txt','ads.example.com\nvoice.lg.com\napi.lgeapi.com\n');
+ files.set('/proc/self/mountinfo','25 1 0:1 '+P+'/privacy-lists/45-sdp.txt '+A+'/init/blocklist.d/45-sdp.txt rw - ext4 /dev/root rw\n26 1 0:1 /other/file /etc/hosts rw - ext4 /dev/root rw\n');
+ const io={statSync:p=>({dev:1,ino:p.endsWith('/45-sdp.txt')?45:20}),readFileSync:p=>{assert(files.has(p),p);return files.get(p);},writeFileSync:(p,v)=>files.set(p,String(v)),existsSync:p=>p===A+'/init/blocklist.d'||files.has(p),readdirSync:p=>p===A+'/init/blocklist.d'?['45-sdp.txt','20-acr.txt']:['45-sdp.txt','20-acr.txt']};
+ const child={execFile(file,args,options,done){calls.push({file,args});if(file==='/usr/bin/luna-send'){const api=args[4],data=JSON.parse(args[5]);if(api.endsWith('/listApps'))return done(null,JSON.stringify({returnValue:true,apps:[{id:'com.webos.app.tips',locked:false},{id:'com.webos.app.brandshop'},{id:'com.webos.app.tvuserguide',locked:true},{id:'com.webos.app.miracast',locked:false}]}));return done(null,'{"returnValue":true}');}done(null,'');}};
+ vm.runInNewContext(fs.readFileSync('payload/portable/maintenance.js','utf8'),{module,console:{log(){}},process:{argv:[]},require:n=>n==='fs'?io:child});
+ await module.exports.main('debloat');let locks=calls.filter(c=>c.args[4]&&c.args[4].endsWith('/lockApp')).map(c=>JSON.parse(c.args[5]));assert.deepEqual(locks,[{id:'com.webos.app.tips',lock:true}]);assert.equal(JSON.parse(files.get(P+'/journal.json')).apps.length,3);
+ await module.exports.main('privacy');assert.equal(files.get(P+'/privacy-lists/45-sdp.txt'),'\n');assert.equal(files.get(P+'/privacy-lists/20-acr.txt'),'ads.example.com\n');assert(!calls.some(c=>c.file==='umount'&&c.args[0]==='/etc/hosts'));
+ await module.exports.main('undo');locks=calls.filter(c=>c.args[4]&&c.args[4].endsWith('/lockApp')).map(c=>JSON.parse(c.args[5]));assert(locks.some(c=>c.id==='com.webos.app.tips'&&c.lock===false));assert(!locks.some(c=>c.id==='com.webos.app.brandshop'));assert(!locks.some(c=>c.id==='com.webos.app.miracast'));
+});

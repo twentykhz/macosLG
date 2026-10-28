@@ -15,7 +15,7 @@ test('missing exact model or region never borrows a similar device result',()=>{
 });
 test('unknown firmware formats, missing latest data and non-DVB requirements do not pass',()=>{
  assert.equal(evaluate({...info,firmwareVersion:'latest'},fixture()).status,'unknown');const d=fixture();d.exploits['exact-region'].goldilocks.faultmanager={};assert.equal(evaluate(info,d).status,'unknown');
- d.models.SK8000PTA.broadcast='atsc';d.exploits['exact-region'].goldilocks.dangbro={latest:{version:'05.50.70'}};assert.equal(evaluate(info,d).methods.find(m=>m.key==='dangbro').status,'incompatible');
+ d.models.SK8000PTA.broadcast='atsc';d.exploits['exact-region'].goldilocks.dangbro={latest:{version:'05.50.70'}};assert(!evaluate(info,d).methods.some(m=>m.key==='dangbro'));
 });
 test('firmware upgrade selects the upgraded codename data',()=>{
  const d=fixture();d.models.SK8000PTA.variants=[{codename:'ombre',swMajor:'23'}];d.exploits['exact-region'].ombre={faultmanager:{latest:{version:'23.10.01'}}};const r=evaluate({...info,firmwareVersion:'23.10.01'},d);assert.equal(r.codename,'ombre');assert.equal(r.status,'rootable');

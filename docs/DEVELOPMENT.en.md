@@ -37,10 +37,14 @@ npm.cmd test
 npm.cmd run package
 ```
 
-`build` creates configuration, IPK and checksums. `package` uses built-in Node ZIP/tar generation with POSIX paths, keeps the existing single-file Windows assets and adds `GathinTV-Termux-3.4.2-HASH.tar.gz`, checksum, manifest and a checksum-pinned `install-android.sh` in the sibling `MAC-WebOSTV-Release` directory. The phone runtime omits tests, screenshot documentation and optional native optimizations, using the same core source. Generate the bootstrap after the tar; exclude it from that tar to avoid a circular hash. Retain immutable hash-named archives on Releases for published bootstraps. Repackage after source changes; rebuild first after payload changes.
+`build` creates configuration, IPK and checksums. `package` uses built-in Node ZIP/tar generation with POSIX paths, keeps the existing single-file Windows assets and adds `GathinTV-Termux-3.5.0-HASH.tar.gz`, checksum, manifest and a checksum-pinned `install-android.sh` in the sibling `MAC-WebOSTV-Release` directory. The phone runtime omits tests, screenshot documentation and optional native optimizations, using the same core source. Generate the bootstrap after the tar; exclude it from that tar to avoid a circular hash. Retain immutable hash-named archives on Releases for published bootstraps. Repackage after source changes; rebuild first after payload changes.
 
 The generated installer is also copied to the repository root for local testing but ignored by Git. Upload it as a release asset rather than committing generated large files. The release ZIP includes production dependencies for the installer; source developers still run `npm.cmd ci` for build tools.
 
 Project code uses LICENSE; fonts, artwork and upstream components have their own terms. Release 3.1.1 uses the reference TV’s SF Pro with Inter fallback; the code’s MIT license does not relicense third-party fonts. Check `THIRD-PARTY.md` before adding assets.
 
 Never commit `.local`, `node_modules`, SSH keys, access keys/PINs, passphrases, logs or personal backups. Read [validation](VALIDATION.en.md) before claiming support for new TVs. Keep hardware/firmware/ABI and SSH host-key checks. Editing a model name in JSON is not evidence of compatibility.
+
+## Static input/PTY build (3.5.0)
+
+Run `node scripts/build-input-helper.js` with `ZIG_BINARY` pointing to Zig 0.14.1. The Windows x86_64 compiler ZIP SHA-256 is `554f5378228923ffd558eac35e21af020c73789d87afeabf4bfd16f2e6feed2c`. The script checks static ELF ARM32/ARM64 metadata, records source/binary digests and executes the Windows protocol self-test. Do not ship the compiler or assume ELF checks replace physical input testing.
