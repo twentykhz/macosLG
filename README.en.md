@@ -1,5 +1,7 @@
 # MAC-WebOSTV by 20khzpc
 
+[View all 19 feature screenshots](README.md#ảnh-preview-từng-tính-năng): launcher, adaptive HDMI, controls, weather, calendar, desktop/mobile remote, wallpaper cropping and family settings. The previews use sample data; [capture details](docs/screenshots/README.md).
+
 **3.4.0:** The TV shortcut learns the HDMI port with the most viewing time. Before history exists, it opens the input picker. Explicit HDMI selections stay unchanged.
 
 **Updated 3.3.0 installer:** redownload MAC-WebOSTV-AutoSetup.ps1 and Start-Setup.cmd. Run CMD: choose **1** for unrooted setup, **2** for rooted installation, or **3** for an inline feature report. [Branch-by-branch guide](docs/INSTALL.en.md).

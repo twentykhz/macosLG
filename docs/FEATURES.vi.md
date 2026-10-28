@@ -2,7 +2,13 @@
 
 [Trang chính](../README.md) · [English](FEATURES.en.md) · [Cài đặt](INSTALL.vi.md)
 
+[Xem đủ 19 ảnh preview trong README](../README.md#ảnh-preview-từng-tính-năng). Các ảnh trong hướng dẫn này chụp từ source 3.4.0 với dữ liệu mẫu; QR demo không truy cập được TV thật. [Nguồn và phạm vi bộ ảnh](screenshots/README.md).
+
 ## Màn hình chính và dock
+
+![Màn hình chính với đồng hồ, thời tiết, âm lịch, giọng nói và dock](screenshots/01-home.jpg)
+
+![Dock mở rộng, hiển thị tên ứng dụng đang được chọn](screenshots/02-dock.jpg)
 
 Đồng hồ và ngày dùng chữ lớn, shadow giúp nổi trên nền ảnh. Dock có chín vị trí icon; tên xuất hiện khi điều hướng/hover rồi thu lại để bớt chiếm màn hình. Icon, nút trên cùng và widget có highlight/zoom nhẹ.
 
@@ -10,11 +16,23 @@ Dùng trái/phải để chọn app trong dock, OK để mở. Dùng lên/xuốn
 
 Nút nguồn mở menu nhỏ có Tắt TV/Khởi động lại; nguồn vào mở bộ chọn input. Settings gọi cài đặt gốc. Restart có xác nhận trong trang remote. Không cần mở cửa sổ toàn màn hình chỉ để tắt TV.
 
+![Menu nguồn gọn trên launcher](screenshots/04-power-menu.jpg)
+
+## Shortcut TV tự chọn cổng HDMI
+
+![Icon TV hiển thị HDMI 2 theo lựa chọn minh họa](screenshots/10-adaptive-hdmi.jpg)
+
+Từ 3.4.0, icon TV và lệnh “mở ti-vi” dùng cổng HDMI có tổng thời gian xem cao nhất kể từ khi bộ theo dõi được cài. Không mặc định HDMI 3. Khi chưa có lịch sử, chọn TV sẽ mở bảng đầu vào; sau khoảng 15–30 giây xem HDMI, bộ theo dõi bắt đầu có dữ liệu. Không tính standby, lỗi đọc hoặc khoảng ngắt dài. Chọn HDMI cụ thể vẫn mở đúng cổng được yêu cầu. [Điều kiện và giới hạn](CHANGELOG-v3.4.0.md).
+
 ## Action Center
+
+![Action Center: kết nối, chế độ hình ảnh, độ sáng, âm lượng và truy cập remote](screenshots/03-action-center.jpg)
 
 Mở nút Action Center phía trên. Bảng có Wi-Fi, Bluetooth, chế độ hình ảnh, độ sáng, âm lượng, tắt tiếng và **Điều khiển từ xa & Thiết lập**. Wi-Fi/Bluetooth đã kết nối có nền xanh, chữ trắng. Các tùy chọn phụ thuộc API và phần cứng TV; không phải mọi Bluetooth profile đều là thiết bị âm thanh có thể kết nối từ bảng này.
 
 ## Thời tiết hai địa điểm
+
+![Thời tiết với hai tab địa điểm, dự báo 12 giờ và 10 ngày](screenshots/05-weather.jpg)
 
 Widget bên trái chứa cả hai địa điểm: tên, nhiệt độ, biểu tượng, tình trạng và khoảng cao/thấp. Mở widget bằng OK hoặc chuột để xem chi tiết.
 
@@ -26,15 +44,23 @@ Widget bên trái chứa cả hai địa điểm: tên, nhiệt độ, biểu t�
 
 Đổi địa điểm: quét QR remote → **Hình nền & vị trí thời tiết** → tìm/chọn đủ hai vị trí → **Áp dụng hai khu vực**. Tên ưu tiên xã/phường, tỉnh/thành phố; địa danh trả về phụ thuộc nhà cung cấp.
 
+![Tìm và chọn hai khu vực thời tiết trong trình duyệt](screenshots/17-weather-settings.jpg)
+
 ## Âm lịch và lịch chi tiết
+
+![Lịch tháng, can chi, giờ tốt và việc nên làm, không nên làm](screenshots/07-calendar.jpg)
 
 Widget giữa có ngày âm, tháng/năm, can chi, chỉ số/đánh giá ngày, nhắc việc chính và giờ tốt hiện tại/kế tiếp.
 
 Mở lịch: chọn ngày bằng bốn hướng, OK để đọc chi tiết; Back một lần về chọn ngày, thêm lần nữa đóng. Nút **Về hôm nay** đưa ngày đang xem về hiện tại. Phần chi tiết có giờ tốt và tên thành viên; chọn thành viên để đổi phần nên/không nên làm. Hai nhóm công việc đặt cạnh nhau để dễ đọc.
 
-Thông tin này theo quy ước dân gian, không phải dự đoán bảo đảm. Bản công khai dùng thành viên/ngày sinh mẫu. Muốn dùng người thật: chỉnh `family` trong `config/launcher.json`, build lại theo [hướng dẫn mã nguồn](DEVELOPMENT.vi.md). Không đăng cấu hình gia đình thật nếu không muốn công khai.
+Thông tin này theo quy ước dân gian, không phải dự đoán bảo đảm. Bản công khai dùng thành viên/ngày sinh mẫu. Muốn đổi thành viên trên TV: mở remote → **Hình nền & vị trí thời tiết** → **Thành viên gia đình · Lịch vạn niên**, sửa tên/ngày sinh rồi **Lưu thành viên**. Đóng và mở lại lịch để đọc dữ liệu mới. Người build source cũng có thể chỉnh `family` trong `config/launcher.json` theo [hướng dẫn mã nguồn](DEVELOPMENT.vi.md). Không đăng cấu hình gia đình thật nếu không muốn công khai.
+
+![Sửa tên và ngày sinh, thêm hoặc xóa thành viên trong trang thiết lập](screenshots/18-family-editor.jpg)
 
 ## Widget giọng nói
+
+![Widget micro trên launcher, với các nhãn gợi ý YouTube, Phim và Ứng dụng](screenshots/09-voice-widget.jpg)
 
 Chọn widget micro bên phải, nhấn OK hoặc bấm chuột. Widget gọi **LG Voice Agent** mà bộ định tuyến giọng nói tùy chỉnh đang dùng, không mở ô tìm kiếm gõ chữ thông thường.
 
@@ -46,6 +72,10 @@ Chọn widget micro bên phải, nhấn OK hoặc bấm chuột. Widget gọi **
 Tập lệnh và alias nằm trong `payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py`. Một câu ngoài danh sách hoặc dịch vụ LG không nhận dạng được có thể không thực hiện. Không phải mọi lệnh giọng nói ở mọi đời LG đều được hỗ trợ.
 
 ## Remote trên điện thoại hoặc PC
+
+![QR demo mở remote và trang thiết lập](screenshots/11-remote-qr.jpg)
+
+![Remote desktop với ảnh launcher mẫu, chất lượng 1080p và các nút điều khiển](screenshots/12-remote-desktop.jpg)
 
 1. TV đang bật: Action Center → **Điều khiển từ xa & Thiết lập**.
 2. Dùng điện thoại cùng LAN quét QR, mở liên kết. PC có thể mở liên kết đó trong trình duyệt.
@@ -60,6 +90,10 @@ Bật điều khiển chuột rồi rê/bấm trên ảnh để tác động và
 **Lưu Screenshot:** tải PNG gốc 1920×1080 qua trình duyệt. Muốn chọn thư mục mỗi lần, mở cài đặt Downloads/Tải xuống của trình duyệt và bật hỏi vị trí lưu trước khi tải. Ảnh đã bấm lưu là file của bạn; stream không tự ghi lịch sử ảnh vào Downloads.
 
 ## Hình nền, crop và slideshow
+
+![Thư viện hình nền và cấu hình slideshow 15 giây](screenshots/14-wallpaper-library.jpg)
+
+![Crop và zoom bản nháp trước khi lưu vào thư viện TV](screenshots/16-wallpaper-crop-detail.jpg)
 
 Từ remote, mở **Hình nền & vị trí thời tiết**:
 
