@@ -11,7 +11,7 @@ install_dir=$(node <<'GATHIN_BOOTSTRAP_NODE'
 'use strict';
 // Inlined into the published shell bootstrap, together with the archive reader.
 const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
-const pin={"version":"3.6.0","url":"https://github.com/twentykhz/macosLG/releases/download/v3.6.0/MAC-WebOSTV-Termux-3.6.0-c2e2c4adec2a.tar.gz","sha256":"c2e2c4adec2a6a35db499e4228c6e47d859350c414cf6de633efd389d84041f7","size":22069292,"manifestSha256":"c051e3bef38969140dba9664692ad4235606f89ba0a9600ac2fd9ea7d3755b6d"};
+const pin={"version":"3.6.0","url":"https://github.com/twentykhz/macosLG/releases/download/v3.6.0/MAC-WebOSTV-Termux-3.6.0-52f43d94d6c7.tar.gz","sha256":"52f43d94d6c7af114dea1b975b04f13ff9605af5a580464c91016a2752322436","size":22069347,"manifestSha256":"1e155530a77745da804ae1060127814cd2f8a79b090cb87ab5bfa2b5ead4e44f"};
 const archive=(()=>{const module={exports:{}};'use strict';
 // Built-in modules only: portable packages never require a native ZIP/tar tool.
 const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib');

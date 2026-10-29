@@ -41,3 +41,8 @@ test('Dev Mode inventory/launch denial falls back to one SSAP pairing and still 
  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-slopbro-ssap-run-'));let paired=0,closed=0,completed=false;
  try{const result=await slop.run({host:'127.0.0.1',info:{sdkVersion:'6.5.3'},folder,timeout:1000,localIpResolver:async()=> '127.0.0.1',wait:async()=>{},developer:{capabilities:async()=>({arch:'armv7l'}),apps:async()=>{throw Error('Permission denied');},launch:async()=>{throw Error('Permission denied');}},transportFactory:async()=>{paired++;return {apps:async()=>[{id:'com.webos.app.adoverlayex'}],launch:async(id,params)=>{const u=new URL(params.interactiveUrl);await fetch(u);await fetch(new URL('evidence',u),{method:'POST',body:'{"state":"complete","uid":0}'});completed=true;},close(){closed++;}};},rootProbe:async()=>{assert(completed);}});assert(result.rootVerified);assert.equal(paired,1);assert.equal(closed,1);}finally{fs.rmSync(folder,{recursive:true,force:true});}
 });
+
+test('automatic root SSH probe supplies cached-key/default auth explicitly without a second password prompt',async()=>{
+ const ssh=require('../lib/ssh'),saved={connect:ssh.connect,exec:ssh.exec},calls=[];const {AutorootSteps}=require('../lib/autoroot'),s=new AutorootSteps({host:'192.0.2.230'});const info={modelName:'55NANO753PR',firmwareVersion:'03.53.45',boardType:'K7LP_DVB_EU'};s.info=info;
+ try{ssh.connect=async options=>{calls.push(options);assert(options.key||options.auth?.password==='alpine');return {end(){}};};ssh.exec=async(c,command)=>command==='id -u'?'0':JSON.stringify(info);await s.verifyRootSSH();assert(s.rooted);assert.equal(calls.length,1);}finally{ssh.connect=saved.connect;ssh.exec=saved.exec;s.close();}
+});

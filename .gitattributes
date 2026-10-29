@@ -26,3 +26,6 @@ packages/*.ipk -text
 *.ps1 whitespace=cr-at-eol
 
 payload/portable/native/gathin-input-* -text
+
+# Preserve upstream source bytes used by the SlopBro SHA-256 pin.
+upstream/slopbro/COPYING text eol=lf

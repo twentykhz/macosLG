@@ -1,6 +1,6 @@
 # 3.6.0 SlopBro refresh validation
 
-209 automated tests pass with zero skips on this build host. Added pinned SlopBro source/SDK selection, HTTP payload scope, UID/completion evidence, genuine root probe, faultmanager-first fallback, uncertain-state stop, SSAP pairing/key reuse and denied Developer Mode fallback tests. No physical SlopBro TV root was performed. Previous 3.6.0 validation follows.
+210 automated tests pass with zero skips on this build host. Added pinned SlopBro source/SDK selection, HTTP payload scope, UID/completion evidence, genuine root probe, faultmanager-first fallback, uncertain-state stop, SSAP pairing/key reuse and denied Developer Mode fallback tests. No physical SlopBro TV root was performed. Previous 3.6.0 validation follows.
 
 # 3.6.0 validation
 
