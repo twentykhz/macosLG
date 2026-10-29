@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),{spawnSync}=require('node:child_process');
-const repo=path.resolve(__dirname,'..'),bash=process.platform==='win32'?'C:/Program Files/Git/bin/bash.exe':'bash';
+const repo=path.resolve(__dirname,'..'),bash=require('./helpers/host-tools').requireBash();
 const available=spawnSync(bash,['--version'],{encoding:'utf8'}).status===0;
 const posix=p=>p.replace(/\\/g,'/').replace(/^([A-Za-z]):/,(_,drive)=>'/'+drive.toLowerCase());
 test('Bash wrapper maps every mode and option to the existing core, including paths with spaces',{skip:!available},()=>{

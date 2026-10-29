@@ -43,7 +43,10 @@
     "com.fpt.fptplay",
     "com.viettel.media.tv360",
     "com.webos.app.remoteservice",
-    "com.webos.app.iot-thirdparty-login"
+    "com.webos.app.iot-thirdparty-login",
+    "com.webos.app.inputcommon",
+    "com.webos.app.voiceconductor",
+    "com.webos.app.thinqtv"
   ],
   "optionalApps": [
     "com.webos.app.brandshop",
@@ -108,6 +111,9 @@
     "com.webos.app.remoteservice",
     "com.webos.app.iot-thirdparty-login",
     "com.webos.app.container",
-    "com.webos.app.systemui"
+    "com.webos.app.systemui",
+    "com.webos.app.inputcommon",
+    "com.webos.app.voiceconductor",
+    "com.webos.app.thinqtv"
   ]
 }

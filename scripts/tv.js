@@ -118,7 +118,7 @@ async function restore(client,options){
     await upload(client,packageFile,remotePackage);
     require('../lib/recovery').markMutation(options,'launcher installation');
     paused=true;
-    await exec(client,'touch /home/root/DISABLE-GATHIN-HOME && '+stopHook);
+    await exec(client,'touch /home/root/DISABLE-GATHIN-HOME && '+stopHook);await require('../lib/home-stop').stop(client);
     if(options.advanced)await require('../lib/launcher-install').pause(client);
     await require('../lib/launcher-install').install(client,options,apps,remotePackage);
     const result=await luna(client,'com.webos.applicationManager/listApps');

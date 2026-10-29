@@ -3,7 +3,7 @@
   var slot = 'com.webos.app.hdmi3', title = 'TV · HDMI', busy = false;
   window.GATHIN_TV_INPUT = 'com.webos.app.inputmgr';
   function apply(data) {
-    var id = /^com\.webos\.app\.hdmi[1-4]$/.test(data.appId || '') ? data.appId : null;
+    var id = /^com\.webos\.app\.hdmi[1-4]$/.test(data.appId || '') && Array.isArray(data.inputs) && data.inputs.some(function(p){return p.appId===data.appId;}) ? data.appId : null;
     window.GATHIN_TV_INPUT = id || 'com.webos.app.inputmgr';
     var next = id ? 'TV · HDMI ' + id.slice(-1) : 'TV · HDMI';
     (window.TV_APPS.apps || []).forEach(function (app) {

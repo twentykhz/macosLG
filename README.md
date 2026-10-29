@@ -2,7 +2,7 @@
 
 Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Chọn thiết bị bạn dùng để cài bên dưới.** TV và thiết bị cài cần cùng Wi-Fi/LAN.
 
-**Tiếng Việt** | [English](README.en.md) · Phiên bản **3.5.0**
+**Tiếng Việt** | [English](README.en.md) · Phiên bản **3.6.0**
 
 | Bạn đang dùng | Bắt đầu tại đây | Cần tải gì? |
 |---|---|---|
@@ -14,7 +14,9 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 
 ![Giao diện MAC-WebOSTV](docs/screenshots/01-home.jpg)
 
-[Xem thay đổi 3.5.0: boot, HOME, voice, debloat và privacy](docs/CHANGELOG-v3.5.0.md).
+[Xem thay đổi 3.6.0: sửa lỗi runtime từ report NANO753PR](docs/CHANGELOG-v3.6.0.md).
+
+Bản 3.6.0 bổ sung kiểm tra từ chính launcher và sửa lỗi từ report NANO753PR. [Phạm vi đã kiểm chứng và phần còn cần thử](docs/NANO753PR.vi.md); mic gốc được giữ khi chưa có adapter voiceconductor đã kiểm chứng.
 
 ## Trước khi cài
 
@@ -28,7 +30,7 @@ Giao diện lấy cảm hứng từ macOS cho TV LG webOS tương thích. **Ch�
 |---|---|
 | Tính năng, giao diện và ảnh | [Xem trước](docs/OVERVIEW.vi.md) · [Cách sử dụng](docs/FEATURES.vi.md) |
 | Backup / khôi phục | [Hướng dẫn Rollback](docs/ROLLBACK.vi.md) |
-| Thay đổi 3.5.0 | [Rollback và bản sửa YouTube AdFree](docs/CHANGELOG-v3.5.0.md) |
+| Thay đổi 3.6.0 | [Bản sửa runtime, audio và HOME/BACK](docs/CHANGELOG-v3.6.0.md) |
 | Khắc phục lỗi, tương thích | [Mục lục tài liệu](docs/README.md) |
 | Sửa mã nguồn / tự build | [Hướng dẫn phát triển](docs/DEVELOPMENT.vi.md) |
 

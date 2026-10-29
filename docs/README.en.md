@@ -13,6 +13,6 @@
 | Installation troubleshooting | [Diagnostics / recovery](diagnostics/RECOVERY.md) |
 | Validation and compatibility | [Validation](VALIDATION.en.md) · [Python-free compatibility](PYTHON-COMPATIBILITY.en.md) |
 | Develop / build | [Development](DEVELOPMENT.en.md) |
-| Latest changes | [3.5.0](CHANGELOG-v3.5.0.en.md) |
+| Latest changes | [3.6.0](CHANGELOG-v3.6.0.en.md) |
 
 `CHANGELOG-*` files are version history, not installers. Shared source folders remain available for builds, testing and recovery.

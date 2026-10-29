@@ -2,7 +2,7 @@
 
 [Home](../README.en.md) · [Tiếng Việt](README.md) · [I use Android](../android/README.en.md)
 
-**[Download Windows 3.5.0 — MAC-WebOSTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-Windows-3.5.0.zip)**
+**[Download Windows 3.6.0 — MAC-WebOSTV-Windows-3.6.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.6.0/MAC-WebOSTV-Windows-3.6.0.zip)**
 
 1. Download the ZIP and **extract all files** into one folder.
 2. Turn on the TV; keep the PC and TV on the same Wi-Fi/LAN.
@@ -18,7 +18,7 @@ Setup installs YouTube AdFree 0.5.3, removing official/non-matching YouTube firs
 
 **Reported root but SSH unavailable / HOME skipped?** Enable SSH Server in Homebrew and uninstall Developer Mode before rebooting. Resume **already rooted** rather than running another exploit. HOME uses independent input checks instead of an SK8000 model restriction. [Recovery guide](../docs/HOME-ROOT-RECOVERY.md).
 
-[Detailed prerequisites and steps](../docs/INSTALL.en.md) · [Rollback](../docs/ROLLBACK.en.md) · [Standalone PS1](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-AutoSetup.ps1)
+[Detailed prerequisites and steps](../docs/INSTALL.en.md) · [Rollback](../docs/ROLLBACK.en.md) · [Standalone PS1](https://github.com/twentykhz/macosLG/releases/download/v3.6.0/MAC-WebOSTV-AutoSetup.ps1)
 
 Source scripts `Setup-TV.ps1` and `Restore-TV.ps1` require Node.js/dependencies and are intended for developers. Regular installation uses the ZIP above. `Wake-TV.ps1` is an optional LAN wake helper.
 

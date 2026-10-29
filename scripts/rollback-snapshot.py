@@ -20,7 +20,7 @@ def luna_apps():
 
 def remove_added_apps(record):
  original=set(a['id'] for a in record['apps'])
- owned=set(['com.gathin.tvhome','youtube.leanback.v4','ooo.lew.lifesgoodwithoutspying'])
+ owned=set(['/home/root/gathin-home-replacement/observe-home.py','com.gathin.tvhome','youtube.leanback.v4','ooo.lew.lifesgoodwithoutspying'])
  for app in luna_apps():
   name=app['id']
   if name in original or name not in owned:continue
@@ -127,10 +127,10 @@ def restore(stage):
  if os.path.isfile('/tmp/gathin-home-keyhook.pid'):os.unlink('/tmp/gathin-home-keyhook.pid')
  subprocess.call(['/usr/sbin/ls-control','scan-services'])
  subprocess.call(['/usr/sbin/ls-control','scan-volatile-dirs'])
- pairs=[('input-helper','41-gathin-home-keyhook'),('voice.js','42-gathin-youtube-voice'),('track.py','37-gathin-hdmi'),('track.js','37-gathin-hdmi'),('bridge.py','38-gathin-controls'),('bridge.js','38-gathin-controls'),('wallpaper-service.js','39-gathin-wallpaper'),('gathin-youtube-voice-router.py','42-gathin-youtube-voice'),('server.js','45-gathin-remote'),('gathin-home-keyhook.py','41-gathin-home-keyhook')]
+ pairs=[('observe-home.py','/home/root/gathin-home-replacement/observer.sh'),('input-helper','41-gathin-home-keyhook'),('voice.js','42-gathin-youtube-voice'),('track.py','37-gathin-hdmi'),('track.js','37-gathin-hdmi'),('bridge.py','38-gathin-controls'),('bridge.js','38-gathin-controls'),('wallpaper-service.js','39-gathin-wallpaper'),('gathin-youtube-voice-router.py','42-gathin-youtube-voice'),('server.js','45-gathin-remote'),('gathin-home-keyhook.py','41-gathin-home-keyhook')]
  for script,hook in pairs:
   if any(p.endswith('/'+script) for p in record['active']):
-   subprocess.check_call(['/bin/sh','/var/lib/webosbrew/init.d/'+hook])
+   subprocess.check_call(['/bin/sh',(hook if hook.startswith('/') else '/var/lib/webosbrew/init.d/'+hook)])
  for unused in range(50):
   running=[]
   for pid in os.listdir('/proc'):

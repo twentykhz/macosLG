@@ -1,0 +1,13 @@
+{
+  "modelName": "55NANO753PR",
+  "boardType": "K7LP_DVB_EU",
+  "firmwareVersion": "03.53.45",
+  "sdkVersion": "6.5.3",
+  "evidence": "Owner-supplied sanitized installer report, 2026-10-29",
+  "verification": "runtime-tested-partial",
+  "voiceFramework": "voiceconductor",
+  "recognizedVoiceAdapterVerified": false,
+  "coldBootVerified": false,
+  "physicalHomeBackVerified": false,
+  "fullRollbackVerified": false
+}

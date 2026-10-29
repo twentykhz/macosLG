@@ -23,6 +23,7 @@
   window.GathinOpenSettings=function(){rootCall('settings_key',{},function(r){if(r.returnValue===false){var bridge=new PalmServiceBridge();bridges.push(bridge);bridge.onservicecallback=function(){};bridge.call('luna://com.webos.applicationManager/launch',JSON.stringify({id:'com.palm.app.settings'}));}});};
   window.GathinVoiceSearch=function(done){rootCall('voice_search',{},function(r){if(r.returnValue===false)message('Không mở được tìm kiếm giọng nói');if(done)done(r);});};
   window.GathinNativeInput=function(){rootCall('input',{},function(r){if(r.returnValue===false)message('Input menu unavailable');});};
+  window.MacTvControlRequest=rootCall;
   function call(endpoint, data, done, subscription) {
     var rootActions={'com.webos.service.wifi/getstatus':'wifi_status','com.webos.service.wifi/setstate':'set_wifi','com.webos.service.bluetooth2/adapter/getStatus':'bluetooth_status','com.webos.service.bluetooth2/adapter/setState':'set_bluetooth','com.webos.audio/getVolume':'volume','com.webos.audio/setVolume':'set_volume','com.webos.audio/setMuted':'set_muted'};
     if(rootActions[endpoint]){rootCall(rootActions[endpoint],data||{},done);return;}
@@ -73,19 +74,19 @@
     if(busy.mode||!state.modes.length||!state.mode)return;
     var i=state.modes.indexOf(state.mode), next=state.modes[(Math.max(0,i)+delta+state.modes.length)%state.modes.length];
     busy.mode=true;
-    call('com.webos.service.settings/setSystemSettings',{category:'picture',settings:{pictureMode:next}},function(r){busy.mode=false;if(!failed(r)){state.mode=next;paint();readBrightness();}});
+    call('com.webos.service.settings/setSystemSettings',{category:'picture',settings:{pictureMode:next}},function(r){busy.mode=false;failed(r);rootCall('picture',{},function(actual){if(actual.returnValue!==false&&actual.settings)state.mode=actual.settings.pictureMode;paint();readBrightness();});});
   }
   function readBrightness(){rootCall('backlight',{},function(r){unsupported.brightness=r.returnValue===false||!r.settings||r.settings.backlight===undefined;if(unsupported.brightness){state.brightness=null;paint();return;}var value=Number((r.settings||{}).backlight);if(isFinite(value)){state.brightness=value;paint();}});}
   function brightness(value){
     if(state.brightness===null)return;
     value=Math.max(0,Math.min(100,Math.round(value)));state.brightness=value;paint();
-    clearTimeout(brightnessTimer);brightnessTimer=setTimeout(function(){rootCall('set_backlight',{value:value},function(r){if(failed(r))readBrightness();});},180);
+    clearTimeout(brightnessTimer);brightnessTimer=setTimeout(function(){rootCall('set_backlight',{value:value},function(r){failed(r);readBrightness();});},180);
   }
   function volume(value) {
     value=Math.max(0,Math.min(100,Math.round(value)));state.volume=value;paint();
-    clearTimeout(volumeTimer);volumeTimer=setTimeout(function(){call('com.webos.audio/setVolume',{volume:value},function(r){if(!failed(r))call('com.webos.audio/getVolume',{},readVolume);});},100);
+    clearTimeout(volumeTimer);volumeTimer=setTimeout(function(){call('com.webos.audio/setVolume',{volume:value},function(r){failed(r);call('com.webos.audio/getVolume',{},readVolume);});},100);
   }
-  function mute() {call('com.webos.audio/setMuted',{muted:!state.muted},function(r){if(!failed(r)){state.muted=!state.muted;paint();}});}
+  function mute() {call('com.webos.audio/setMuted',{muted:!state.muted},function(r){failed(r);call('com.webos.audio/getVolume',{},readVolume);});}
   function targets(){return [$('ccWifi'),$('ccBluetooth'),$('ccPicture'),$('ccBrightness'),$('ccVolume'),$('ccMute'),$('ccWallpaper'),$('ccClose')];}
   function focus(index){focusIndex=Math.max(0,Math.min(targets().length-1,index));targets().forEach(function(e,i){e.classList.toggle('cc-focused',i===focusIndex);});targets()[focusIndex].focus();}
   function close() {

@@ -32,6 +32,7 @@ require.cache[require.resolve('../lib/ssh')].exports={
 require('../lib/recovery');require.cache[require.resolve('../lib/recovery')].exports={async capture(){calls.push(['archive']);if(failBackup)throw Error('Backup transfer failed');},markMutation(){calls.push(['journal']);}};
 require('../lib/launcher-install');require.cache[require.resolve('../lib/launcher-install')].exports={async install(){calls.push(['install']);},async finish(){},async pause(){calls.push(['pause']);}};
 for(const name of ['dependencies','full-features','maintenance','runtime-health','post-install']){require('../lib/'+name);require.cache[require.resolve('../lib/'+name)].exports={async inspect(){return {};},async prepare(){return {};},async install(){return name==='full-features'?[]:{feature:'debloat-privacy',status:'verified'};},async verify(){},async ensureApps(){return {apps:[],report:[]};},async checkFeatures(){}};}
+require('../lib/app-runtime');require.cache[require.resolve('../lib/app-runtime')].exports={async prepare(){return 'browser-fixture';},async verify(){return {feature:'app-runtime',status:'verified'};}};
 const {restore}=require('../scripts/tv');
 test('dry run only reads the TV, creates no backup and does not upload/install',async()=>{
   calls.length=0;

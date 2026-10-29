@@ -2,7 +2,7 @@
 
 A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device you will install from.** Keep it and the TV on the same Wi-Fi/LAN.
 
-[Tiếng Việt](README.md) | **English** · Version **3.5.0**
+[Tiếng Việt](README.md) | **English** · Version **3.6.0**
 
 | Your device | Start here | What to download |
 |---|---|---|
@@ -14,7 +14,9 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 
 ![MAC-WebOSTV launcher](docs/screenshots/launcher-preview.jpg)
 
-[3.5.0 changes: startup, HOME, voice, debloat and privacy](docs/CHANGELOG-v3.5.0.en.md).
+[3.6.0 changes: startup, HOME, voice, debloat and privacy](docs/CHANGELOG-v3.6.0.en.md).
+
+3.6.0 adds launcher-originated verification and fixes from the NANO753PR report. [Evidence and remaining device checks](docs/NANO753PR.en.md); native microphone is retained where voiceconductor routing is unverified.
 
 ## Before installing
 
@@ -28,7 +30,7 @@ A macOS-inspired home screen for compatible LG webOS TVs. **Choose the device yo
 |---|---|
 | Features and screenshots | [Feature guide](docs/FEATURES.en.md) · [Gallery](docs/OVERVIEW.vi.md) |
 | Backup / restore | [Rollback guide](docs/ROLLBACK.en.md) |
-| Version 3.5.0 | [Rollback and YouTube AdFree fix](docs/CHANGELOG-v3.5.0.en.md) |
+| Version 3.6.0 | [Rollback and YouTube AdFree fix](docs/CHANGELOG-v3.6.0.en.md) |
 | Troubleshooting / compatibility | [Documentation index](docs/README.en.md) |
 | Source / building | [Development guide](docs/DEVELOPMENT.en.md) |
 

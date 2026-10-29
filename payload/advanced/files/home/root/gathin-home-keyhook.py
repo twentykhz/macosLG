@@ -53,7 +53,8 @@ def device(name):
 def compositor_has_device(path):
     for proc in glob.glob('/proc/[0-9]*'):
         try:
-            if b'/usr/bin/surface-manager-starfish' not in open(proc + '/cmdline', 'rb').read():
+            command = open(proc + '/cmdline', 'rb').read().split(b'\0')[0]
+            if os.path.basename(command) not in (b'surface-manager-starfish', b'surface-manager'):
                 continue
             for entry in glob.glob(proc + '/fd/*'):
                 try:
@@ -71,35 +72,6 @@ def write_event(fd, data):
     if count != len(data):
         raise RuntimeError('incomplete input event write')
 
-
-
-def back_context():
-    # Read local state only on a Back press. Preserve overlays and LG voice.
-    def call(endpoint):
-        proc = subprocess.Popen(['/usr/bin/luna-send', '-w', '600', '-n', '1', 'luna://' + endpoint, '{}'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        try:
-            result = json.loads(proc.stdout.read())
-            proc.wait()
-            return result
-        finally:
-            if proc.poll() is None:
-                proc.terminate()
-            proc.stdin.close()
-    try:
-        foreground = call('com.webos.applicationManager/getForegroundAppInfo')
-        app = foreground.get('appId')
-        if not foreground.get('returnValue') or not app or app == 'com.gathin.tvhome':
-            return False
-        surface = call('com.webos.surfacemanager/getCurrentState')
-        if not surface.get('returnValue') or surface.get('currentState') != 'none':
-            return False
-        voice = call('com.webos.service.nlp/getNlpStatus')
-        if not voice.get('returnValue') or voice.get('status') != 'ready':
-            return False
-        return True
-    except Exception:
-        # Failure preserves stock key delivery and the existing home fallback.
-        return False
 
 
 def main():
@@ -151,7 +123,6 @@ def main():
         log('ACTIVE HOME blocked before LG; seconds=%s' % seconds)
         deadline = time.time() + seconds if seconds else None
         home_down = False
-        back_consumed = False
         pointer_events = 0
         while running and not os.path.exists(MARKER) and (deadline is None or time.time() < deadline):
             children = [child for child in children if child.poll() is None]
@@ -171,18 +142,6 @@ def main():
                 sec, usec, typ, code, value = struct.unpack(FMT, raw)
                 if typ == 0 and code == 3:
                     raise RuntimeError('SYN_DROPPED; releasing remote')
-                if typ == 1 and code == BACK:
-                    if value == 1:
-                        back_consumed = back_context()
-                        if back_consumed:
-                            with open('/dev/null', 'r') as null, open(LOG, 'a') as output:
-                                child = subprocess.Popen(['/usr/bin/luna-send', '-n', '1', 'luna://com.webos.applicationManager/launch', '{"id":"com.gathin.tvhome"}'], stdin=null, stdout=output, stderr=output, close_fds=True)
-                            children.append(child)
-                            log('BACK consumed before LG; MAC-WebOSTV launch pid=%d' % child.pid)
-                    if back_consumed:
-                        if value == 0:
-                            back_consumed = False
-                        continue
                 if typ == 1 and code == HOME:
                     if value == 1 and not home_down:
                         home_down = True

@@ -1,7 +1,7 @@
 {
   "protocol": 1,
   "compiler": "Zig 0.14.1; static musl",
-  "sourceSha256": "1a328609863a77b35bb53ff15c2d2a698fa346d328151f5f3c6d5a6c7b6c24a0",
+  "sourceSha256": "fa7a7bba3d252ed3e97b501185916e9a6a963a8f0c4c816086c7965cf0f3ca72",
   "files": [
     {
       "arch": "armv7l",
@@ -9,8 +9,8 @@
       "bits": 32,
       "eventSize": 16,
       "elfMachine": 40,
-      "size": 65936,
-      "sha256": "443cb3c66598d450b2e93558aeedfa21f03575c2236220c51adb278b4d79cbae"
+      "size": 64624,
+      "sha256": "307978bc6d85cd165959a23988820569f999bc33ef72462e7cc42d48256eba0b"
     },
     {
       "arch": "aarch64",
@@ -18,8 +18,8 @@
       "bits": 64,
       "eventSize": 24,
       "elfMachine": 183,
-      "size": 65832,
-      "sha256": "1fb881288603a635163f8660c8c388d703c3ff8acb92ad55b0897a9a93ed6936"
+      "size": 64440,
+      "sha256": "a8d401dc340d026681d91ea841a6427f967d1ba02436a88d93f77a669cc84fd6"
     }
   ]
 }

@@ -1,0 +1,1 @@
+window.MAC_RUNTIME_CHALLENGE = '';

@@ -22,12 +22,12 @@ test('D: checksum chain falls back only to verified providers and fails closed',
  assert.throws(()=>cap.parse('uid\t0'),/incomplete/);
 });
 test('capability probe is valid POSIX shell and memoized per SSH connection',async()=>{
- const shell=process.platform==='win32'?'C:/Program Files/Git/bin/bash.exe':'sh';const result=spawnSync(shell,['-n'],{input:cap.probeCommand(),encoding:'utf8'});assert.equal(result.status,0,result.stderr);
+ const shell=require('./helpers/host-tools').requireBash();const result=spawnSync(shell,['-n'],{input:cap.probeCommand(),encoding:'utf8'});assert.equal(result.status,0,result.stderr);
  const c={__gathinCapabilities:Promise.resolve(cap.parse(transcript({python:false})))};assert.equal(await cap.probe(c),await cap.probe(c));
  assert(!/\b(?:touch|mkdir|reboot|kill)\s/.test(cap.probeCommand()));
 });
 test('actual shell probe tolerates absent Python commands without invoking them',()=>{
- const shell=process.platform==='win32'?'C:/Program Files/Git/bin/bash.exe':'bash';
+ const shell=require('./helpers/host-tools').requireBash();
  const prefix='command() { case "$2" in python|python2|python3) return 1;; esac; builtin command "$@"; }\n';
  const result=spawnSync(shell,['-s'],{input:prefix+cap.probeCommand(),encoding:'utf8',timeout:15000});
  assert.equal(result.status,0,result.stderr);const c=cap.parse(result.stdout);assert.equal(c.python,null);assert.equal(c.python2,null);assert.equal(c.python3,null);assert(!/python.*not found/i.test(result.stderr));

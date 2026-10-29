@@ -8,7 +8,7 @@ try{key=fs.readFileSync(keyFile,'utf8').trim();}catch(e){key=crypto.randomBytes(
 var pinFile=path.join(data,'desktop-pin'),pin;
 try{pin=fs.readFileSync(pinFile,'utf8').trim();}catch(e){pin=String(100000+crypto.randomBytes(4).readUInt32BE(0)%900000);fs.writeFileSync(pinFile,pin,{mode:384});}
 var attempts={};
-function atomic(file,bytes){try{if(fs.readFileSync(file,'utf8')===bytes)return;}catch(e){}fs.writeFileSync(file+'.new',bytes);fs.renameSync(file+'.new',file);}
+function atomic(file,bytes){try{if(fs.readFileSync(file,'utf8')===bytes){if(file.indexOf(app+'/')===0)fs.chmodSync(file,420);return;}}catch(e){}fs.writeFileSync(file+'.new',bytes);fs.renameSync(file+'.new',file);if(file.indexOf(app+'/')===0)fs.chmodSync(file,420);}
 var defaults=require('./defaults.json');
 var stateFile=path.join(data,'slideshow.json'),state;
 try{state=JSON.parse(fs.readFileSync(stateFile,'utf8'));}catch(e){state={gallery:fs.readdirSync(app).filter(function(n){return n==='wallpaper.jpg'||/^wall-[a-f0-9]+\.(jpg|png|webp)$/.test(n);}),selected:[],enabled:defaults.slideshow.enabled,interval:defaults.slideshow.interval,revision:0};state.selected=state.gallery.slice();}
@@ -47,6 +47,12 @@ return body(req,res,50*1024*1024,function(image){var ext=image.length>3&&image[0
 var crop=null;if(u.query.crop){try{crop=JSON.parse(u.query.crop);}catch(e){return reply(res,400,{error:'Crop không hợp lệ'});}if(!crop||['sizeX','sizeY','posX','posY'].some(function(k){return typeof crop[k]!=='number'||!isFinite(crop[k]);})||crop.sizeX<100||crop.sizeY<100||crop.posX<0||crop.posX>100||crop.posY<0||crop.posY>100)return reply(res,400,{error:'Crop không hợp lệ'});}
 var id='wall-'+crypto.randomBytes(10).toString('hex')+ext;atomic(path.join(app,id),image);state.gallery.push(id);if(crop)state.crops[id]=crop;
 if(u.pathname==='/api/upload'){state.selected=[id];state.enabled=false;state.revision++;atomic(path.join(app,'wallpaper.jpg'),image);}persist();reply(res,200,{id:id});});}
+if(req.method==='POST'&&u.pathname==='/api/delete')return body(req,res,1024,function(bytes){
+ var id;try{id=JSON.parse(bytes.toString('utf8')).id;}catch(e){return reply(res,400,{error:'Invalid image'});}
+ if(typeof id!=='string'||!/^wall-[a-f0-9]+\.(jpg|png|webp)$/.test(id)||state.gallery.indexOf(id)<0)return reply(res,400,{error:'Only uploaded gallery images can be deleted'});
+ var before=JSON.parse(JSON.stringify(state));state.gallery=state.gallery.filter(function(n){return n!==id;});state.selected=state.selected.filter(function(n){return n!==id;});delete state.crops[id];if(!state.selected.length)state.selected=state.gallery.slice(0,1);state.revision++;
+ try{if(state.selected.length)atomic(path.join(app,'wallpaper.jpg'),fs.readFileSync(path.join(app,state.selected[0])));persist();}catch(e){state=before;throw e;}
+ try{fs.unlinkSync(path.join(app,id));}catch(e){state=before;persist();throw e;}reply(res,200,{ok:true});});
 if(req.method==='POST'&&u.pathname==='/api/settings')return body(req,res,16384,function(bytes){var next;try{next=JSON.parse(bytes.toString('utf8'));}catch(e){return reply(res,400,{error:'Dữ liệu không hợp lệ'});}
 if(!Array.isArray(next.selected)||!next.selected.length||next.selected.some(function(id){return state.gallery.indexOf(id)<0;})||typeof next.enabled!=='boolean'||typeof next.interval!=='number'||next.interval<5||next.interval>60||next.interval%1)return reply(res,400,{error:'Chọn ảnh và thời gian nguyên từ 5 đến 60 giây.'});
 state.selected=next.selected.filter(function(id,i,a){return a.indexOf(id)===i;});state.enabled=next.enabled;state.interval=next.interval;state.revision++;atomic(path.join(app,'wallpaper.jpg'),fs.readFileSync(path.join(app,state.selected[0])));persist();reply(res,200,{ok:true});});

@@ -9,7 +9,7 @@ async function run(home,pin,bytes){let downloaded=0,output='',error='';const sta
 test('bootstrap verifies pinned archive and cached files; extra native code forces clean download',async()=>{
  const home=fs.mkdtempSync(path.join(os.tmpdir(),'gathin bootstrap ')),{pin,bytes}=fixture();try{
   const first=await run(home,pin,bytes);assert.equal(first.exitCode,undefined,first.error);assert.equal(first.downloaded,1);assert(fs.existsSync(path.join(first.output,'MAC-WebOSTV-AutoSetup.sh')));
-  const bash=process.platform==='win32'?'C:/Program Files/Git/bin/bash.exe':'bash',alias=path.join(home,'.mac-webostv/MAC-WebOSTV-AutoSetup.sh');
+  const bash=require('./helpers/host-tools').requireBash(),alias=path.join(home,'.mac-webostv/MAC-WebOSTV-AutoSetup.sh');
   if(spawnSync(bash,['--version']).status===0){const launched=spawnSync(bash,[alias],{encoding:'utf8'});assert.equal(launched.status,0,launched.stderr);assert.match(launched.stdout,/fixture/);}
   assert.equal((await run(home,pin,bytes)).downloaded,0);
   fs.writeFileSync(path.join(first.output,'unexpected.node'),'not executable fixture');const repaired=await run(home,pin,bytes);assert.equal(repaired.exitCode,undefined,repaired.error);assert.equal(repaired.downloaded,1);assert(!fs.existsSync(path.join(repaired.output,'unexpected.node')));

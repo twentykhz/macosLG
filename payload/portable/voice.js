@@ -1,6 +1,7 @@
 'use strict';
 // Passive recognized-text router. No microphone recording, shell commands or QML patches.
 var fs=require('fs'),cp=require('child_process'),path=require('path');
+var physicalInputs=require('./inputs');
 var ROOT='/var/lib/webosbrew/gathin-youtube-voice',MARKER='/home/root/DISABLE-GATHIN-YOUTUBE-VOICE',HELPER='/var/lib/webosbrew/gathin-controls/input-helper';
 var ALIASES={'youtube':'youtube.leanback.v4','you tube':'youtube.leanback.v4','fpt play':'com.fpt.fptplay','fptplay':'com.fpt.fptplay','fpt':'com.fpt.fptplay','tv360':'com.viettel.media.tv360','tv 360':'com.viettel.media.tv360','netflix':'netflix','net flix':'netflix','trinh duyet':'com.webos.app.browser','browser':'com.webos.app.browser','homebrew':'org.webosbrew.hbchannel','lgws':'ooo.lew.lifesgoodwithoutspying','airplay':'airplay','trang chu':'com.gathin.tvhome','launcher':'com.gathin.tvhome','home':'com.gathin.tvhome','cai dat':'com.palm.app.settings','settings':'com.palm.app.settings'};
 var extraAliases={'du tube':'youtube.leanback.v4','fpt plei':'com.fpt.fptplay','tv 3 60':'com.viettel.media.tv360','viettel tv':'com.viettel.media.tv360','net flit':'netflix','trinh duyet web':'com.webos.app.browser','safari':'com.webos.app.browser','home brew':'org.webosbrew.hbchannel','lg ws':'ooo.lew.lifesgoodwithoutspying','lg without spying':'ooo.lew.lifesgoodwithoutspying','air play':'airplay'};Object.keys(extraAliases).forEach(function(k){ALIASES[k]=extraAliases[k];});
@@ -44,12 +45,15 @@ function inspect(message){
  if(message.type==='return'&&message.sender==='com.webos.service.nlp'&&p.returnValue!==false&&p.event==='sttResult'&&!((p.sttSymbol||[]).length)){var text=Array.isArray(p.sttResult)?p.sttResult[0]:p.recognizedText||p.text||(p.sttResult||{}).text;return typeof text==='string'?parse(text,true):null;}return null;
 }
 function call(api,data){return new Promise(function(resolve){var child=cp.execFile('/usr/bin/luna-send',['-w','3000','-n','1','luna://'+api,JSON.stringify(data||{})],{timeout:5000,maxBuffer:1048576},function(e,out){try{var r=JSON.parse(out);resolve(e?{returnValue:false}:r);}catch(x){resolve({returnValue:false});}});child.on('error',function(){resolve({returnValue:false});});});}
-function execute(route,luna){
+function execute(route,luna,control){
+ control=control||function(action,data){return new Promise(function(resolve){try{require('/var/lib/webosbrew/gathin-controls/bridge.js').run(action,data,resolve);}catch(e){resolve({returnValue:false,errorText:'Verified audio adapter unavailable'});}});};
  luna=luna||call;var a=route.action,launch='com.webos.applicationManager/launch';
  if(a==='youtube')return luna(launch,{id:'youtube.leanback.v4',params:{target:'q='+encodeURIComponent(route.keyword)}});
- if(a==='open_tv'){var id;try{id=JSON.parse(fs.readFileSync('/var/lib/webosbrew/gathin-hdmi/usage.json')).appId;}catch(e){}return luna(launch,{id:/^com\.webos\.app\.hdmi[1-4]$/.test(id)?id:'com.webos.app.inputmgr'});}
+ if(a==='open_tv'){var id;try{id=JSON.parse(fs.readFileSync('/var/lib/webosbrew/gathin-hdmi/usage.json')).appId;}catch(e){}return luna('com.webos.service.apiadapter/tv/getExternalInputList',{}).then(function(r){var rows=physicalInputs.parse(r);return luna(launch,{id:rows&&rows.some(function(p){return p.appId===id;})?id:'com.webos.app.inputmgr'});});}
+ if(a==='open'&&/^com\.webos\.app\.hdmi[1-4]$/.test(route.app))return luna('com.webos.service.apiadapter/tv/getExternalInputList',{}).then(function(r){var ports=physicalInputs.parse(r);return ports&&ports.some(function(p){return p.appId===route.app;})?luna(launch,{id:route.app}):{returnValue:false,errorText:'HDMI port not reported'};});
  if(a==='open'&&(Object.keys(ALIASES).some(function(k){return ALIASES[k]===route.app;})||/^com\.webos\.app\.hdmi[1-4]$/.test(route.app)))return luna(launch,{id:route.app});
- if(a==='mute')return luna('com.webos.audio/setMuted',{muted:route.muted});
+ if(a==='mute')return control('set_muted',{muted:route.muted});
+ if(a==='volume')return control(route.relative?'volume_step':'set_volume',route.relative?{delta:route.value}:{volume:route.value});
  if(a==='volume'||a==='backlight'){
   var get=a==='volume'?'com.webos.audio/getVolume':'com.webos.service.settings/getSystemSettings',data=a==='volume'?{}:{category:'picture',keys:['backlight']};return luna(get,data).then(function(r){var current=a==='volume'?(r.volumeStatus||r).volume:(r.settings||{}).backlight;if(r.returnValue===false||current===undefined)return {returnValue:false};var n=route.relative?Math.max(0,Math.min(100,Number(current)+route.value)):route.value;if(!isFinite(n)||n<0||n>100)return {returnValue:false};return luna(a==='volume'?'com.webos.audio/setVolume':'com.webos.service.settings/setSystemSettings',a==='volume'?{volume:n}:{category:'picture',settings:{backlight:String(n)}});});
  }

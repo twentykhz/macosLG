@@ -8,7 +8,7 @@ test('HDMI tile refreshes its label and destination; no history opens input pick
  const context={window:{TV_APPS:{apps:[app]}},document:{hidden:false,querySelectorAll:()=>names,addEventListener:(k,fn)=>{listeners[k]=fn;}},Date,setInterval(){},XMLHttpRequest:function(){requests.push(this);this.open=()=>{};this.send=()=>{};}};
  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../payload/app/hdmi-shortcut.js'),'utf8'),context);
  assert.equal(context.window.GATHIN_TV_INPUT,'com.webos.app.inputmgr');
- const req=requests[0];req.status=0;req.responseText=JSON.stringify({appId:'com.webos.app.hdmi2'});req.onload();
+ const req=requests[0];req.status=0;req.responseText=JSON.stringify({appId:'com.webos.app.hdmi2',inputs:[{appId:'com.webos.app.hdmi2'}]});req.onload();
  assert.equal(app.title,'TV · HDMI 2');assert.equal(names[0].textContent,'TV · HDMI 2');
  assert.equal(context.window.GATHIN_TV_INPUT,'com.webos.app.hdmi2');
  listeners.webOSRelaunch();requests[1].status=200;requests[1].responseText='{"appId":"untrusted.app"}';requests[1].onload();

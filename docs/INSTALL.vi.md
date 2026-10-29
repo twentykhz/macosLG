@@ -4,12 +4,12 @@
 
 [Trang chính](../README.md) · [English](INSTALL.en.md) · [Các tính năng](FEATURES.vi.md)
 
-Bộ cài **3.5.0** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cần nhấp đúp `Start-Setup.cmd`, chọn đúng tình trạng TV và trả lời câu hỏi trên màn hình. **TV đã root không cần tự gõ lệnh Restore, cài lại Developer Mode hoặc factory reset.**
+Bộ cài **3.6.0** có sẵn các nhánh cài đặt và kiểm tra. Chỉ cần nhấp đúp `Start-Setup.cmd`, chọn đúng tình trạng TV và trả lời câu hỏi trên màn hình. **TV đã root không cần tự gõ lệnh Restore, cài lại Developer Mode hoặc factory reset.**
 
 ## 1. Tải và mở bộ cài
 
-1. Mở [release 3.5.0](https://github.com/twentykhz/macosLG/releases/tag/v3.5.0), mở **Assets**.
-2. Tải **[MAC-WebOSTV-Windows-3.5.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.5.0/MAC-WebOSTV-Windows-3.5.0.zip)** và giải nén toàn bộ vào một thư mục, ví dụ `Desktop\MAC-WebOSTV`. ZIP có sẵn `MAC-WebOSTV-AutoSetup.ps1` và `Start-Setup.cmd`. Nếu dùng bản cũ, tải lại ZIP mới.
+1. Mở [release 3.6.0](https://github.com/twentykhz/macosLG/releases/tag/v3.6.0), mở **Assets**.
+2. Tải **[MAC-WebOSTV-Windows-3.6.0.zip](https://github.com/twentykhz/macosLG/releases/download/v3.6.0/MAC-WebOSTV-Windows-3.6.0.zip)** và giải nén toàn bộ vào một thư mục, ví dụ `Desktop\MAC-WebOSTV`. ZIP có sẵn `MAC-WebOSTV-AutoSetup.ps1` và `Start-Setup.cmd`. Nếu dùng bản cũ, tải lại ZIP mới.
 3. Không đổi tên hoặc giải nén file `.ps1`. Không cần tải `Source code (zip)`, cài Node.js, npm hay webOS CLI.
 4. Bật TV. Cho TV và PC Windows 64-bit cùng mạng LAN, tránh Wi-Fi khách có chặn thiết bị. Giữ PC hoạt động, không ngủ trong lúc cài.
 5. Nếu Windows chặn file tải về: kiểm tra đúng nguồn repo này, mở **Properties → Unblock → Apply** nếu có. Không cần tắt bảo vệ toàn máy.
@@ -113,7 +113,7 @@ Báo cáo mặc định nằm trong `%LOCALAPPDATA%\MAC-WebOSTV\state\feature-re
 | CMD báo thiếu file | Tải PS1 mới, đặt cùng CMD mới |
 | Connection timed out | TV bật, IP đúng, cùng LAN; tránh Wi-Fi khách chặn thiết bị |
 | Authentication failed ở nhánh 2/3 | Dùng mật khẩu/khóa SSH root của TV, không dùng passphrase Developer Mode |
-| Wrong TV ở bản cũ | Tải lại cả hai file 3.5.0 mới, chọn 2; không ép sửa profile |
+| Wrong TV ở bản cũ | Tải lại cả hai file 3.6.0 mới, chọn 2; không ép sửa profile |
 | ABI/Node/API không hỗ trợ | Đọc báo cáo; ghi model/firmware và lỗi để hỏi |
 | Device or resource busy | Dừng các phiên capture/stream khác, thử lại và xem dòng stream-capture |
 | QR không mở | TV bật, điện thoại cùng LAN; quét lại nếu IP TV đổi |

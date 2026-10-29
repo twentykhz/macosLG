@@ -7,7 +7,7 @@ test('portable voice routes accented Vietnamese and prevents search text becomin
  assert.equal(voice.parse('tìm cách tắt TV trên YouTube').action,'youtube');
  assert.equal(voice.parse('tắt TV').action,'power_off');assert.equal(voice.parse('mở youtube rồi tắt TV'),null);
  assert.equal(voice.parse('tăng âm lượng thêm mười').value,10);
- const calls=[];await voice.execute(voice.parse('mở HDMI hai'),async(api,data)=>{calls.push({api,data});return {returnValue:true};});assert.equal(calls[0].data.id,'com.webos.app.hdmi2');
+ const calls=[];await voice.execute(voice.parse('mở HDMI hai'),async(api,data)=>{calls.push({api,data});return api.indexOf('getExternalInputList')>=0?{returnValue:true,devices:[{id:'HDMI_2'}]}:{returnValue:true};});assert.equal(calls[1].data.id,'com.webos.app.hdmi2');
  assert.equal(voice.inspect({transport:'TX',type:'return',sender:'com.webos.service.nlp',payload:{result:{ServiceType:'TV_CONTROL',ActionType:'setVolume'}}}).system,true);
 });
 test('privacy protects functional network endpoints and never disables sample voice/casting services',()=>{
@@ -34,6 +34,6 @@ test('startup and voice hooks install independently of model and preserve native
   const report=await require('../lib/full-features').install({__gathinNativeInput:{path:'adapter'}},{},{node:'/usr/bin/node'},[{id:'youtube.leanback.v4',version:'0.5.3'}]);
   assert(report.some(r=>r.feature==='voice-router'));assert(files.has('/var/lib/webosbrew/init.d/40-gathin-home'));assert(files.has('/var/lib/webosbrew/init.d/42-gathin-youtube-voice'));
   const boot=files.get('/home/root/gathin-home-replacement/boot.sh').toString();assert.match(boot,/core-boot-done/);assert.match(boot,/\$i" -lt 45/);assert(!boot.includes('SK8000'));assert(!commands.some(c=>/Qt5|systemUi|killall/.test(c)));
-  for(const [name,bytes]of files)if(name.endsWith('.sh')||name.includes('/init.d/')){const shell=process.platform==='win32'?'C:/Program Files/Git/bin/bash.exe':'sh';const r=cp.spawnSync(shell,['-n'],{input:bytes});assert.equal(r.status,0,name+': '+r.stderr);}
+  for(const [name,bytes]of files)if(name.endsWith('.sh')||name.includes('/init.d/')){const shell=require('./helpers/host-tools').requireBash();const r=cp.spawnSync(shell,['-n'],{input:bytes});assert.equal(r.status,0,name+': '+r.stderr);}
  }finally{ssh.upload=saved.upload;ssh.exec=saved.exec;recovery.markMutation=saved.mark;}
 });

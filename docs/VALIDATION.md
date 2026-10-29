@@ -1,3 +1,7 @@
+# 3.6.0 validation
+
+199 automated tests pass with zero skips on this build host. Includes real upload-validator transport, WAM startup script, output-specific audio/readback, physical HDMI inventory, HOME observer policy and dark-frame regressions. No new physical NANO753PR test was performed. Full device rollback, cold boot and voiceconductor routing remain unverified. See [3.6.0 changes](CHANGELOG-v3.6.0.md). Historical evidence follows.
+
 # 3.5.0 validation
 
 189 automated tests pass without skips, including simulated ARM64 installation/rollback without Python, dependency ABI rejection, portable voice routing and privacy/debloat state handling. ARM32/ARM64 ELF loader/hash checks and Windows helper self-test pass. No physical UM7400 cold boot, input, recognition or FPS validation was performed. See [3.5.0 changes](CHANGELOG-v3.5.0.en.md). Historical evidence follows.

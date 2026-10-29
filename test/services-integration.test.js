@@ -18,6 +18,10 @@ test('real remote and wallpaper services repair overwritten configuration and re
   const landing=await fetch('http://127.0.0.1:'+remotePort+'/?k='+rkey,{redirect:'manual'});assert.equal(landing.status,302);assert.match(landing.headers.get('set-cookie'),/tvremote=/);
   assert.equal((await fetch('http://127.0.0.1:'+remotePort+'/')).status,403);
   assert.equal((await fetch('http://127.0.0.1:'+wallPort+'/api/state')).status,403);
+  const post=(route,data)=>fetch('http://127.0.0.1:'+wallPort+route+'?k='+wkey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  const upload=await fetch('http://127.0.0.1:'+wallPort+'/api/images?k='+wkey,{method:'POST',body:Buffer.from([255,216,255,217])}).then(r=>r.json());assert(upload.id);assert(fs.existsSync(path.join(app,upload.id)));assert.equal((await post('/api/settings',{selected:[upload.id],enabled:true,interval:17})).status,200);
+  assert.equal((await post('/api/delete',{id:'../access-key'})).status,400);assert.equal((await post('/api/delete',{id:'wallpaper.jpg'})).status,400);assert.equal((await post('/api/delete',{id:upload.id})).status,200);assert(!fs.existsSync(path.join(app,upload.id)));assert(fs.existsSync(path.join(app,'wallpaper.jpg')));
+  const saved=JSON.parse(fs.readFileSync(path.join(wall,'slideshow.json')));assert(!saved.gallery.includes(upload.id));assert.deepEqual(saved.selected,['wallpaper.jpg']);
   const state=await fetch('http://127.0.0.1:'+wallPort+'/api/state?k='+wkey).then(r=>r.json());assert.deepEqual(state.selected,['wallpaper.jpg']);assert.equal(state.interval,17);
   // Run the production readiness probe against both actual services and a read-only controls fixture.
   fs.writeFileSync(path.join(app,'control-token.js'),'window.GATHIN_CONTROL_TOKEN="fixture";');let completed=0;const outcome={},probeErrors=[];

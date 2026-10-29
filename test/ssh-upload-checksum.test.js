@@ -15,3 +15,9 @@ test('app removal requires subscribed completion and rejects reported failure',a
  await ssh.removePackage(client({statusValue:31}),'com.gathin.tvhome');await assert.rejects(ssh.removePackage(client({returnValue:false,errorText:'refused'}),'com.gathin.tvhome'),/removal failed/);
 });
 test.after(()=>fs.rmSync(directory,{recursive:true,force:true}));
+
+// The real transport validator must accept managed hooks, not just a mocked upload method.
+test('real upload transport accepts recovery-managed hooks and rejects unknown hooks before sending bytes',async()=>{
+ const client=connection(cap.parse(transcript()));await ssh.upload(client,file,'/var/lib/webosbrew/init.d/40-gathin-home','755');assert.equal(client.calls.length,3);assert(client.calls[2].includes('chmod 755'));
+ const denied=connection(cap.parse(transcript()));for(const p of ['/var/lib/webosbrew/init.d/99-owner','/etc/test','/var/lib/webosbrew/gathin-controls/../unknown'])await assert.rejects(ssh.upload(denied,file,p));assert.equal(denied.calls.length,0);
+});

@@ -51,8 +51,8 @@ for(const name of ['Start-Setup.cmd','Wake-TV.ps1'])fs.copyFileSync(path.join(ro
 fs.copyFileSync(path.join(root,'README.md'),path.join(dist,'HUONG-DAN.md'));
 fs.copyFileSync(path.join(root,'README.en.md'),path.join(dist,'HUONG-DAN.en.md'));
 // Share the Vietnamese documentation with a separate English companion archive.
-for(const [language,names] of Object.entries({vi:['README.md','docs/CHANGELOG-v3.4.1.md','docs/PYTHON-COMPATIBILITY.md','docs/VALIDATION.md','docs/ROLLBACK.vi.md','docs/CHANGELOG-v3.5.0.md','docs/INSTALL.vi.md','docs/ANDROID.vi.md'],en:['README.en.md','docs/CHANGELOG-v3.4.1.en.md','docs/PYTHON-COMPATIBILITY.en.md','docs/VALIDATION.en.md','docs/ROLLBACK.en.md','docs/CHANGELOG-v3.5.0.en.md','docs/INSTALL.en.md','docs/ANDROID.en.md']})){
- names.push('windows/README'+(language==='en'?'.en':'')+'.md','android/README'+(language==='en'?'.en':'')+'.md','docs/README'+(language==='en'?'.en':'')+'.md','docs/DEVELOPMENT.'+language+'.md','docs/FEATURES.'+language+'.md','docs/ROOTING-METHODS.md','docs/HOME-ROOT-RECOVERY.md','docs/KEEP-NINE.md');
+for(const [language,names] of Object.entries({vi:['README.md','docs/CHANGELOG-v3.4.1.md','docs/PYTHON-COMPATIBILITY.md','docs/VALIDATION.md','docs/ROLLBACK.vi.md','docs/CHANGELOG-v3.6.0.md','docs/INSTALL.vi.md','docs/ANDROID.vi.md'],en:['README.en.md','docs/CHANGELOG-v3.4.1.en.md','docs/PYTHON-COMPATIBILITY.en.md','docs/VALIDATION.en.md','docs/ROLLBACK.en.md','docs/CHANGELOG-v3.6.0.en.md','docs/INSTALL.en.md','docs/ANDROID.en.md']})){
+ names.push('windows/README'+(language==='en'?'.en':'')+'.md','android/README'+(language==='en'?'.en':'')+'.md','docs/README'+(language==='en'?'.en':'')+'.md','docs/DEVELOPMENT.'+language+'.md','docs/FEATURES.'+language+'.md','docs/ROOTING-METHODS.md','docs/HOME-ROOT-RECOVERY.md','docs/KEEP-NINE.md','docs/NANO753PR.'+language+'.md');
  const name='MAC-WebOSTV-Docs-'+version+'-'+language+'.zip',bytes=archive.zip(names.map(name=>({name,data:fs.readFileSync(path.join(root,name))})));
  fs.writeFileSync(path.join(dist,name),bytes);fs.writeFileSync(path.join(dist,name+'.sha256'),sha256(bytes)+'  '+name+'\n');
 }

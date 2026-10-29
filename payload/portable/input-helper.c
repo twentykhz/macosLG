@@ -46,9 +46,8 @@ static void launch(void){pid_t p=fork();if(p)return;int n=open("/dev/null",O_RDW
 static int query(const char *api,const char *key,const char *value){
  int pipes[2];if(pipe(pipes))return 0;pid_t p=fork();if(p<0){close(pipes[0]);close(pipes[1]);return 0;}if(!p){dup2(pipes[1],1);close(pipes[0]);close(pipes[1]);int n=open("/dev/null",O_RDWR);if(n>=0){dup2(n,0);dup2(n,2);}execl("/usr/bin/luna-send","luna-send","-w","600","-n","1",api,"{}",(char*)NULL);_exit(127);}close(pipes[1]);char out[8192],compact[8192],wanted[256];size_t count=0;for(int i=0;i<12&&count<sizeof(out)-1;i++){struct pollfd fd={pipes[0],POLLIN,0};int r=poll(&fd,1,100);if(r>0){ssize_t n=read(pipes[0],out+count,sizeof(out)-1-count);if(n<=0)break;count+=(size_t)n;}}close(pipes[0]);if(waitpid(p,NULL,WNOHANG)==0){kill(p,SIGTERM);waitpid(p,NULL,0);}out[count]=0;size_t at=0;for(size_t i=0;i<count;i++)if(out[i]!=' '&&out[i]!='\n'&&out[i]!='\r'&&out[i]!='\t')compact[at++]=out[i];compact[at]=0;snprintf(wanted,sizeof(wanted),"\"%s\":\"%s\"",key,value);if(!*value){snprintf(wanted,sizeof(wanted),"\"%s\":\"",key);char *v=strstr(compact,wanted);return strstr(compact,"\"returnValue\":true")&&v&&v[strlen(wanted)]!='"';}return strstr(compact,"\"returnValue\":true")&&strstr(compact,wanted);
 }
-static int consume_back(void){return query("luna://com.webos.applicationManager/getForegroundAppInfo","appId","")&&!query("luna://com.webos.applicationManager/getForegroundAppInfo","appId","com.gathin.tvhome")&&query("luna://com.webos.surfacemanager/getCurrentState","currentState","none")&&query("luna://com.webos.service.nlp/getNlpStatus","status","ready");}
 static int relay(int probe){
- char source[64],target[64];int in=-1,out=-1,grabbed=0,rc=1,home_down=0,back=0;unsigned char downs[MAX_KEYS]={0};
+ char source[64],target[64];int in=-1,out=-1,grabbed=0,rc=1,home_down=0;unsigned char downs[MAX_KEYS]={0};
  if(geteuid()!=0){fputs("root required\n",stderr);return 1;}
  if((!probe&&exists(marker))||devices(source,target)){fputs("Magic Remote source/target missing or disabled\n",stderr);return 1;}
  in=open(source,O_RDONLY|O_NONBLOCK|O_CLOEXEC);out=open(target,O_RDWR|O_NONBLOCK|O_CLOEXEC);if(in<0||out<0||!compositor(target)){fputs("input open/compositor check failed\n",stderr);goto done;}
@@ -61,7 +60,7 @@ static int relay(int probe){
   reap();struct pollfd p={in,POLLIN,0};int count=poll(&p,1,250);if(count<0){if(errno==EINTR)continue;goto done;}if(p.revents&(POLLERR|POLLHUP|POLLNVAL))goto done;if(!(p.revents&POLLIN))continue;n=read(in,events,sizeof(events));if(n<=0||n%sizeof(events[0]))goto done;
   for(size_t i=0;i<(size_t)n/sizeof(events[0]);i++){struct input_event *e=&events[i];if(e->type==EV_SYN&&e->code==SYN_DROPPED)goto done;
    if(is_home(e->type,e->code)){if(e->value==1&&!home_down){home_down=1;launch();}if(e->value==0)home_down=0;continue;}
-   if(e->type==EV_KEY&&e->code==BACK_KEY){if(e->value==1){back=consume_back();if(back)launch();}if(back){if(e->value==0)back=0;continue;}}
+   /* BACK remains owned by the foreground app, including its navigation stack. */
    if(e->type==EV_KEY&&e->code<MAX_KEYS){if(e->value==1)downs[e->code]=1;else if(e->value==0)downs[e->code]=0;}if(emit(out,e))goto done;
   }
  }rc=0;

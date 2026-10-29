@@ -1,13 +1,13 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9492546,
-    "sha256": "898989d07625c50e49cd42752cb0c74a157d3f2fc44ceb6f93f83b21f062ce39"
+    "size": 9494374,
+    "sha256": "d30ad5a466baaee10f7c553dd733260858b04919be45c7415f32de167909cf18"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",
-    "size": 9490,
-    "sha256": "aea14f75c046e58abdbb4692b470a60f3825775b8713d3dc24942ef9f3f9016f"
+    "size": 7484,
+    "sha256": "5a5ed37996fafeb72dea2f6db2d20dba2f0772166c4509243cdd5aebf066ebfa"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-launch.sh",
@@ -66,13 +66,13 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/remote.html",
-    "size": 8925,
-    "sha256": "ca8c8fbbd407b3b150205e587981e3f2d21506a2386299a42d96baa220be3108"
+    "size": 9680,
+    "sha256": "ffefb9d15336d7105da9b6e3e9ba87576ef4a76fad0ead962c554000d3b9d29c"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-remote/server.js",
-    "size": 11315,
-    "sha256": "470638384a95892156f9a85a0cf8e7a6351f33beedb8030c030ff612aae02b55"
+    "size": 12439,
+    "sha256": "e4ad9d0cce3fa7c8641952dbe5fdbc08e6176a3443ccf96f3d3f022b62f3d565"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/defaults.json",
@@ -86,13 +86,13 @@
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-service.js",
-    "size": 11337,
-    "sha256": "6b5b3e1f1138d8992970790c91edf9ae0290c0614f5bf917ac168ecd10f4b45d"
+    "size": 12378,
+    "sha256": "4ca84a600c9ca8ebe6a6382ace864852bcbc92919cc774483625d790bbb7d918"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-wallpaper/wallpaper-upload.html",
-    "size": 17602,
-    "sha256": "7539290a995d98b6bc83791ad6c90365b3306e542939f296df959272c5763d8a"
+    "size": 18087,
+    "sha256": "1c8354647a70e3e2a348219f67b3fd66063dd0422b46cc0b7e8e6a2ffea2df0d"
   },
   {
     "path": "payload/advanced/files/var/lib/webosbrew/gathin-youtube-voice/commands.py",
@@ -176,8 +176,8 @@
   },
   {
     "path": "payload/app/app.js",
-    "size": 13428,
-    "sha256": "cc929bfac461835c2fcde392a97b95ccf393c4997e96ded8b7ac2411da501348"
+    "size": 13662,
+    "sha256": "f4cafe42cfa16ca9c322741b09ce74213530b95f6fd6d532b1e3fea11545fc7c"
   },
   {
     "path": "payload/app/appinfo.json",
@@ -201,8 +201,8 @@
   },
   {
     "path": "payload/app/controls.js",
-    "size": 17630,
-    "sha256": "289b07656e557ddfa4b4b83cce6649a18a278c8777162bf2dba418e66a321fc1"
+    "size": 17777,
+    "sha256": "478abc3fd1fee6e8a0ccdece7f4490443f99dd400eea7e255eaed8b2220c1a21"
   },
   {
     "path": "payload/app/dock-compact.js",
@@ -210,9 +210,19 @@
     "sha256": "5680f0826551a0c46b6e0c14fd4dec5afaf43ffb6026421a81e6da707dfabbe0"
   },
   {
+    "path": "payload/app/dock-refresh.js",
+    "size": 623,
+    "sha256": "7a5232af863e64f4769c0f8185cd8712ebde0558b381c6cf4400659085623a42"
+  },
+  {
     "path": "payload/app/family-config.js",
     "size": 360,
     "sha256": "26b11c4afc323048be77599cea6b2e8e53a9195a3aacfd981d714b3e5f1a0a5f"
+  },
+  {
+    "path": "payload/app/feature-flags.js",
+    "size": 124,
+    "sha256": "709bf03007fbdb09129355cd18771e39a1c6192a9a23d54ce812aa154f07d348"
   },
   {
     "path": "payload/app/font-dense.css",
@@ -271,8 +281,8 @@
   },
   {
     "path": "payload/app/hdmi-shortcut.js",
-    "size": 1395,
-    "sha256": "50e4c89e8c637f6b9885a63d525e0f75b14d5e8f5e1ec1f6b777928fcf425f62"
+    "size": 1488,
+    "sha256": "4916cd35a9876edec2a7897833e6ad2438587862699e609c7bab5ad19ce6b199"
   },
   {
     "path": "payload/app/icon.png",
@@ -511,8 +521,13 @@
   },
   {
     "path": "payload/app/index.html",
-    "size": 5883,
-    "sha256": "4bdbaefc692a7556c9002e817d2bf11a430396a6959b0c28535214731d8787cf"
+    "size": 6093,
+    "sha256": "25b988bce7354941c2a1e463d7b2fcdcd7233e4bab701be0bf6351138da459f9"
+  },
+  {
+    "path": "payload/app/input-picker.js",
+    "size": 2493,
+    "sha256": "1b7d528325c361b9c7d7cf70cf73b3f4014f2408b660a2665a2ef790bc29dc57"
   },
   {
     "path": "payload/app/largeIcon.png",
@@ -585,6 +600,16 @@
     "sha256": "7827df3a0c7d596f937370b01fd1c92698fbd09274a20b1cdd81e942642fd6d8"
   },
   {
+    "path": "payload/app/runtime-check.js",
+    "size": 1775,
+    "sha256": "32e8e2326f16a36a5853cac0132c2deb322b4b6eb0775d8049b5ab38263a3cf2"
+  },
+  {
+    "path": "payload/app/runtime-request.js",
+    "size": 35,
+    "sha256": "36cf94c4c2f0195768b05c1ac06a245b8bca833995fbe547161010ac91db7498"
+  },
+  {
     "path": "payload/app/style.css",
     "size": 11189,
     "sha256": "04b1122be48eb6d16e944983153343d360caa36cc6967098c75ec32dca574528"
@@ -601,8 +626,8 @@
   },
   {
     "path": "payload/app/voice-search.js",
-    "size": 2887,
-    "sha256": "328eb83b0f2e384dcb52c1db446f5007197472b3ef1c02bc03f0545f0d5993cd"
+    "size": 2974,
+    "sha256": "7cc531cbdb0ebc33f37aa4c5aed959095d139cb7109f1c682696ec6d066c3399"
   },
   {
     "path": "payload/app/voice-weather-widget.css",
@@ -716,8 +741,8 @@
   },
   {
     "path": "payload/home/home-keyhook.py",
-    "size": 9835,
-    "sha256": "416cd2835ca1c0047fac5ec851d5e7d955dfea4aa0012bda998b21ba0b52e844"
+    "size": 7829,
+    "sha256": "9217ebdfb9e4ad1ce4b299745299c68267c919a23d18bc70bde802a134f07fac"
   },
   {
     "path": "payload/home/launch.sh",
@@ -725,19 +750,29 @@
     "sha256": "288b4e78c312f21991fb5f95f6af75baf55ab9d5d5188f433a4ea62d72946ede"
   },
   {
+    "path": "payload/home/observe-home.py",
+    "size": 4582,
+    "sha256": "ef0741ec1d8e51748a93009990296ba7a546636190b1f369254b9e09527ed36f"
+  },
+  {
     "path": "payload/portable/controls.js",
-    "size": 6295,
-    "sha256": "fd921a42459656f54e7d27707a6b4b5102c758b17d0a8f88c60d2a7e8182188d"
+    "size": 10302,
+    "sha256": "aa6c54bd62db5974a9b33b673a19d1babdf41f2b3b999f2fbfa3d863c604842d"
   },
   {
     "path": "payload/portable/hdmi.js",
-    "size": 2615,
-    "sha256": "c81d62f1923f5549e5c851d25be96d2617e2cb4e67aa6670dba890534859835a"
+    "size": 3362,
+    "sha256": "263b85ea82a447303aba970aa6e2ed5ffd749924cd15509485304f205a1dc5e9"
   },
   {
     "path": "payload/portable/input-helper.c",
-    "size": 8689,
-    "sha256": "1a328609863a77b35bb53ff15c2d2a698fa346d328151f5f3c6d5a6c7b6c24a0"
+    "size": 8265,
+    "sha256": "fa7a7bba3d252ed3e97b501185916e9a6a963a8f0c4c816086c7965cf0f3ca72"
+  },
+  {
+    "path": "payload/portable/inputs.js",
+    "size": 779,
+    "sha256": "598e81fd645214263ba8c0a42cde0d62533e46858c55855fa4a72a1ff84a95f8"
   },
   {
     "path": "payload/portable/maintenance.js",
@@ -756,23 +791,23 @@
   },
   {
     "path": "payload/portable/native/gathin-input-aarch64",
-    "size": 65832,
-    "sha256": "1fb881288603a635163f8660c8c388d703c3ff8acb92ad55b0897a9a93ed6936"
+    "size": 64440,
+    "sha256": "a8d401dc340d026681d91ea841a6427f967d1ba02436a88d93f77a669cc84fd6"
   },
   {
     "path": "payload/portable/native/gathin-input-armv7l",
-    "size": 65936,
-    "sha256": "443cb3c66598d450b2e93558aeedfa21f03575c2236220c51adb278b4d79cbae"
+    "size": 64624,
+    "sha256": "307978bc6d85cd165959a23988820569f999bc33ef72462e7cc42d48256eba0b"
   },
   {
     "path": "payload/portable/native/manifest.json",
     "size": 653,
-    "sha256": "551a38752e090f96ce254b838a3cb9d1c7ecc0362468388533b9df25a5c011bf"
+    "sha256": "324a412331821ce5c34b46c0bc8a71590c855dde7873fafb56ca85921cbc22c1"
   },
   {
     "path": "payload/portable/voice.js",
-    "size": 12566,
-    "sha256": "840dc921162d78c291ace3fdf4bbde3c3f4c4f9d9e8b7b349885706dcbd25df3"
+    "size": 13463,
+    "sha256": "1fe96a83e74c36310309cc6c4f982c1c9e87b992e80834eeec3c3a592ec899e7"
   },
   {
     "path": "payload/privacy/lifesgoodwithoutspying.conf",
