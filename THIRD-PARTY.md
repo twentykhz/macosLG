@@ -22,3 +22,7 @@ The optional DejaVuln fallback downloads the unchanged [dejavuln-autoroot v0.0.1
 ## Project static input/PTY adapters (3.5.0)
 
 Source: `payload/portable/input-helper.c`, under the project LICENSE. Static ARM32/ARM64 builds use Zig 0.14.1 and musl. Their copyright notices are included in `payload/portable/native/MUSL-COPYRIGHT.txt` and `ZIG-LICENSE.txt`. No LG native library is redistributed. Compiler source and official distribution: https://ziglang.org/download/0.14.1/ . Native source/build hashes and ELF metadata are in the adjacent manifest.
+
+## SlopBro integration (3.6.0 refresh)
+
+[throwaway96/slopbro](https://github.com/throwaway96/slopbro), commit 21023d56ca424607bb03d2939609cc658c655fc7, copyright throwaway96, AGPL-3.0-or-later. Unmodified source and license are under upstream/slopbro; hashes and target app mapping are recorded in config/root-methods.json. lib/slopbro.js and lib/slopbro-ssap.js are AGPL-3.0-or-later integration adapters. The served main.js adds bounded root-execution telemetry; the generation source is included in lib/slopbro.js. Complete corresponding integration/source is available in this repository and the source release archive. Existing MIT notices do not relicense these components.

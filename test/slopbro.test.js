@@ -1,0 +1,43 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),vm=require('node:vm');
+const slop=require('../lib/slopbro'),{runSequence}=require('../lib/root-methods');
+const method=(key,status='rootable')=>({key,status,kind:'automatic'});
+test('SlopBro is the first eligible fallback after faultmanager, never after reported/pending root',async()=>{
+ const calls=[];const winner=await runSequence([method('dejavuln'),method('slopbro'),method('faultmanager')],{attempt:async m=>{calls.push(m.key);if(m.key==='faultmanager')throw Error('unavailable');return {rootReported:true};},verify:async m=>{if(m.key==='faultmanager')throw Error('not rooted');},record:async()=>{}});assert.equal(winner,'slopbro');assert.deepEqual(calls,['faultmanager','slopbro']);
+ for(const flag of ['rootReported','uncertain']){const calls=[];await assert.rejects(runSequence([method('faultmanager'),method('slopbro')],{attempt:async m=>{calls.push(m.key);throw Object.assign(Error('pending'),{[flag]:true});},verify:async()=>{throw Error('waiting');},record:async()=>{}}));assert.deepEqual(calls,['faultmanager']);}
+});
+test('SlopBro pin/source match and SDK targets require actual installed app inventory',()=>{
+ const sources=slop.assets();assert(sources.get('COPYING').length>30000);assert.equal(slop.targets({sdkVersion:'6.5.3'},[{id:'com.webos.app.voiceweb'},{id:'com.webos.app.adoverlayex'}])[0][0],'com.webos.app.adoverlayex');assert.equal(slop.targets({sdkVersion:'11.0.0'},[{id:'com.webos.app.voiceweb'}])[0][1],'URL');assert.equal(slop.targets({sdkVersion:'6.5.3'},[]).length,0);assert.throws(()=>slop.targets({},[]));
+});
+test('SlopBro host serves only pinned files under random capability path; callbacks need UID 0',async()=>{
+ const events=[],server=await slop.serve({host:'127.0.0.1',localIp:'127.0.0.1',source:slop.assets(),hbchannel:Buffer.from('fixture'),onEvidence:e=>events.push(e)});
+ try{assert.equal((await fetch(server.base+'index.html')).status,200);assert.equal((await fetch(server.base+'COPYING')).status,404);assert.equal((await fetch(server.base+'../autoroot.sh')).status,404);assert.equal((await fetch(server.base+'hbchannel.ipk')).status,200);assert.equal((await fetch(server.base+'evidence',{method:'POST',body:'{"state":"complete","uid":1000}'})).status,400);assert.equal((await fetch(server.base+'evidence',{method:'POST',body:'{"state":"running","uid":0}'})).status,204);assert.equal(events.length,1);assert((await fetch(server.base+'main.js').then(r=>r.text())).includes('module.exports.run=function'));}finally{await server.close();}
+});
+test('instrumented upstream main reports real execution UID and final payload status without secrets',()=>{
+ const events=[],module={exports:{}},fakeFs={appendFileSync(){},readFileSync:()=> 'result: success\n'},source=slop.instrumentMain(slop.assets().get('wwwroot/main.js').toString(),'http://127.0.0.1:9999/nonce/evidence');const context={module,Buffer,process:{argv:['node','main.js','/tmp/autoroot.sh'],getuid:()=>0},console:{log(){}},require(n){if(n==='fs')return fakeFs;if(n==='child_process')return {execFileSync(){}};if(n==='http')return {request(o,cb){return {setTimeout(){},on(){},end(b){events.push(JSON.parse(b));}};}};return require(n);}};vm.runInNewContext(source,context);module.exports.run();assert.deepEqual(events.map(x=>x.state),['running','complete']);assert(events.every(e=>e.uid===0));
+});
+test('accepted launch and downloaded payload are not root verification; uncertainty blocks later methods',async()=>{
+ const folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-slopbro-'));let reports=0,probes=0;
+ try{await assert.rejects(slop.run({host:'127.0.0.1',info:{sdkVersion:'6.5.3'},folder,timeout:10,localIpResolver:async()=> '127.0.0.1',wait:async()=>{},developer:{capabilities:async()=>({arch:'armv7l'}),apps:async()=>[{id:'com.webos.app.adoverlayex'}],launch:async(id,params)=>{await fetch(params.interactiveUrl);}},rootProbe:async()=>{probes++;throw Error('UID not root');},onRootReported:()=>reports++}),e=>e.uncertain===true&&!e.rootPending);assert(probes>0);assert.equal(reports,0);}finally{fs.rmSync(folder,{recursive:true,force:true});}
+});
+test('automatic SlopBro waits for payload completion AND verified Homebrew root without manual prompts',async()=>{
+ const folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-slopbro-success-'));let reports=0,root=false;
+ try{const result=await slop.run({host:'127.0.0.1',info:{sdkVersion:'6.5.3'},folder,timeout:1000,localIpResolver:async()=> '127.0.0.1',wait:async()=>{},developer:{capabilities:async()=>({arch:'armv7l'}),apps:async()=>[{id:'com.webos.app.adoverlayex'}],launch:async(id,params)=>{const u=new URL(params.interactiveUrl),base=u.origin+u.pathname.slice(0,u.pathname.lastIndexOf('/')+1);await fetch(params.interactiveUrl);root=true;for(const state of ['running','complete'])await fetch(base+'evidence',{method:'POST',body:JSON.stringify({state,uid:0})});}},rootProbe:async()=>{assert(root);},onRootReported:()=>reports++});assert.equal(result.rootVerified,true);assert.equal(reports,1);}finally{fs.rmSync(folder,{recursive:true,force:true});}
+});
+test('SlopBro wrapper refuses patched/unknown eligibility before any HTTP server or launch',async()=>{const {AutorootSteps}=require('../lib/autoroot');for(const status of ['patched','unknown']){const s=new AutorootSteps({host:'192.0.2.77'});s.rootability={methods:[method('slopbro',status)]};await assert.rejects(s.runSlopbro(),/not confirmed/);}});
+
+test('SSAP fallback pairs once, stores key privately and reuses it without exposing passphrase',async()=>{
+ const {EventEmitter}=require('node:events'),messages=[],folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-ssap-'));
+ class FakeWS extends EventEmitter{constructor(url,options){super();assert.equal(url,'wss://192.0.2.9:3001');assert.equal(options.rejectUnauthorized,false);queueMicrotask(()=>this.emit('open'));}send(bytes,done){const m=JSON.parse(bytes);messages.push(m);done();queueMicrotask(()=>this.emit('message',Buffer.from(JSON.stringify({id:m.id,type:m.type==='register'?'registered':'response',payload:m.type==='register'?{'client-key':'private-fixture'}:{returnValue:true}}))));}close(){this.emit('close');}terminate(){}}
+ try{for(let i=0;i<2;i++){const c=await require('../lib/slopbro-ssap').connect({host:'192.0.2.9',folder,WebSocketClass:FakeWS});await c.launch('com.webos.app.adoverlayex',{interactiveUrl:'http://fixture'});c.close();}assert.equal(messages[0].payload['client-key'],undefined);assert.equal(messages[2].payload['client-key'],'private-fixture');assert.equal(messages[1].uri,'ssap://system.launcher/launch');assert.equal(JSON.parse(fs.readFileSync(path.join(folder,'slopbro-ssap.json'))).host,'192.0.2.9');assert(!JSON.stringify(messages).includes('passphrase'));}finally{fs.rmSync(folder,{recursive:true,force:true});}
+});
+test('SSAP lost launch reply is uncertain and cannot be retried as a rejected launch',async()=>{
+ const {EventEmitter}=require('node:events'),folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-ssap-lost-'));
+ class FakeWS extends EventEmitter{constructor(){super();queueMicrotask(()=>this.emit('open'));}send(bytes,done){const m=JSON.parse(bytes);done();queueMicrotask(()=>{if(m.type==='register')this.emit('message',Buffer.from(JSON.stringify({id:m.id,type:'registered',payload:{}})));else this.emit('close');});}terminate(){}close(){}}
+ try{const c=await require('../lib/slopbro-ssap').connect({host:'192.0.2.9',folder,WebSocketClass:FakeWS});await assert.rejects(c.launch('app',{}),e=>e.uncertain===true);c.close();}finally{fs.rmSync(folder,{recursive:true,force:true});}
+});
+
+test('Dev Mode inventory/launch denial falls back to one SSAP pairing and still requires verified root',async()=>{
+ const folder=fs.mkdtempSync(path.join(os.tmpdir(),'mac-slopbro-ssap-run-'));let paired=0,closed=0,completed=false;
+ try{const result=await slop.run({host:'127.0.0.1',info:{sdkVersion:'6.5.3'},folder,timeout:1000,localIpResolver:async()=> '127.0.0.1',wait:async()=>{},developer:{capabilities:async()=>({arch:'armv7l'}),apps:async()=>{throw Error('Permission denied');},launch:async()=>{throw Error('Permission denied');}},transportFactory:async()=>{paired++;return {apps:async()=>[{id:'com.webos.app.adoverlayex'}],launch:async(id,params)=>{const u=new URL(params.interactiveUrl);await fetch(u);await fetch(new URL('evidence',u),{method:'POST',body:'{"state":"complete","uid":0}'});completed=true;},close(){closed++;}};},rootProbe:async()=>{assert(completed);}});assert(result.rootVerified);assert.equal(paired,1);assert.equal(closed,1);}finally{fs.rmSync(folder,{recursive:true,force:true});}
+});

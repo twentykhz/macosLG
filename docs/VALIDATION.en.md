@@ -1,3 +1,7 @@
+# 3.6.0 SlopBro refresh validation
+
+209 automated tests pass with zero skips on this build host. Added pinned SlopBro source/SDK selection, HTTP payload scope, UID/completion evidence, genuine root probe, faultmanager-first fallback, uncertain-state stop, SSAP pairing/key reuse and denied Developer Mode fallback tests. No physical SlopBro TV root was performed. Previous 3.6.0 validation follows.
+
 # 3.6.0 validation
 
 199 automated tests pass with zero skips on this build host. Includes real upload-validator transport, WAM startup script, output-specific audio/readback, physical HDMI inventory, HOME observer policy and dark-frame regressions. No new physical NANO753PR test was performed. Full device rollback, cold boot and voiceconductor routing remain unverified. See [3.6.0 changes](CHANGELOG-v3.6.0.en.md). Historical evidence follows.

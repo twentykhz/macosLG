@@ -4,5 +4,125 @@
     "url": "https://github.com/throwaway96/dejavuln-autoroot/releases/download/v0.0.10/dejavuln-autoroot-0.0.10.zip",
     "size": 1700171,
     "sha256": "83f39e95ec702e6370df65bde16acced9861a87e473f763a9e55de948aa7756f"
+  },
+  "slopbro": {
+    "upstream": "https://github.com/throwaway96/slopbro",
+    "commit": "21023d56ca424607bb03d2939609cc658c655fc7",
+    "license": "AGPL-3.0-or-later",
+    "files": [
+      {
+        "path": "COPYING",
+        "size": 34523,
+        "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+      },
+      {
+        "path": "README.md",
+        "size": 6703,
+        "sha256": "b5b57985851189771f9c0b2bfea67fb946b739525b5e9449999cb6ecacc46b3c"
+      },
+      {
+        "path": "slopbro.py",
+        "size": 39537,
+        "sha256": "1a64f7050b3682ab1ac50a3e2998946a93c07abba0dffca0c4b8afc77403d75f"
+      },
+      {
+        "path": "wwwroot/index.html",
+        "size": 15051,
+        "sha256": "0430d93c45885de73ba5f3e2f32b1e4ef9e713234de818162f0cb8ac20a1ff36"
+      },
+      {
+        "path": "wwwroot/autoroot.sh",
+        "size": 12555,
+        "sha256": "16bedff5ee8f8c754e6e302e3251dfc904f6aa7ca71c0b0483f7e5fc6bbb3611"
+      },
+      {
+        "path": "wwwroot/main.js",
+        "size": 1049,
+        "sha256": "3a6830ac858bb71f0bd0b9f45514ff1fd85d707170f59941e6771d454102f791"
+      },
+      {
+        "path": "wwwroot/package.json",
+        "size": 68,
+        "sha256": "f573657cb5db54fd8b0f724ae69d8f8fd6903ec6ca0f038ce2b47e4f45ef1ef0"
+      }
+    ],
+    "targets": [
+      [
+        "com.webos.app.voiceweb",
+        "URL",
+        [
+          11
+        ]
+      ],
+      [
+        "com.webos.app.adoverlayex",
+        "interactiveUrl",
+        [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ],
+      [
+        "com.webos.app.adoverlay",
+        "interactiveUrl",
+        [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ],
+      [
+        "com.webos.app.acroverlay",
+        "contentTarget",
+        [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ],
+      [
+        "com.webos.app.tinybrowser",
+        "contentTarget",
+        [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ],
+      [
+        "com.webos.app.dangbei-overlay",
+        "target",
+        [
+          3,
+          4,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ]
+    ]
   }
 }

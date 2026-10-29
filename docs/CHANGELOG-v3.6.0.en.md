@@ -20,3 +20,11 @@ The webOS 6 voiceconductor recognized-result adapter is not implemented/verified
 Runtime preloader/IoT masks in the report were made outside this source tree without their original journal. This release does not create/adopt or blindly unmask them. Doctor reports overrides; project rollback cannot claim restoration of unjournaled owner state.
 
 Menu 4 retains rooted-TV YouTube AdFree/LGWS/keep-nine optimization; Rollback remains menu 5 with dated backups. Existing app IDs/internal paths remain compatible with installed data and backups.
+
+## Automatic SlopBro refresh (same 3.6.0 release)
+
+Faultmanager remains first. An eligible SlopBro fallback now automatically uses authenticated Developer Mode identity/SDK/app inventory, a Node-hosted pinned payload and pinned Homebrew IPK; host Python is unnecessary. Upstream commit: 21023d56ca424607bb03d2939609cc658c655fc7.
+
+Developer SSH launch is preferred; if explicitly denied, SSAP pairing is used and the TV may require a physical approval. The Developer Mode passphrase cannot replace this approval. Pairing keys remain private. SSAP uses the TV's local self-signed TLS certificate as upstream does; payload/IPK HTTPS verification is not disabled.
+
+Both payload completion and actual Homebrew UID 0 are required. Reported/pending/uncertain root blocks another exploit. The existing persistent SSH, Developer Mode removal and setup flow follows verification. No physical SlopBro device run was performed for this refresh.

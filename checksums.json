@@ -1,8 +1,8 @@
 [
   {
     "path": "packages/com.gathin.tvhome_1.4.0_all.ipk",
-    "size": 9494374,
-    "sha256": "d30ad5a466baaee10f7c553dd733260858b04919be45c7415f32de167909cf18"
+    "size": 9494346,
+    "sha256": "eeeeee3e90538598dcf5d50c8bfce5718f32c2ed71e9fdc9b3f0f0b36ec0c813"
   },
   {
     "path": "payload/advanced/files/home/root/gathin-home-keyhook.py",

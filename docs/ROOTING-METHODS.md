@@ -25,7 +25,8 @@ Nguồn danh sách: [webOSBrew Rooting](https://www.webosbrew.org/rooting/); cá
 | [RootMy.TV](https://rootmy.tv/) | Hướng dẫn mở và thực hiện trên trình duyệt TV nếu đúng firmware còn phù hợp. |
 | [GetMeNow](https://www.webosbrew.org/rooting/getmenow/) | Liệt kê trạng thái từ dữ liệu; chỉ hướng dẫn khi dữ liệu xác nhận phù hợp. Không coi firmware/Developer Mode mới là chưa vá. |
 | [NVM](https://gist.github.com/throwaway96/827ff726981cc2cbc46a22a2ad7337a1) | Ghi rõ cần thao tác phần cứng chuyên môn; không chạy tự động hoặc sửa NVRAM từ setup. |
-| [SlopBro](https://github.com/throwaway96/slopbro), [ASM](https://github.com/illixion/root-my-webos-tv), [MVPD](https://github.com/throwaway96/mvpd-autoroot/) | Nếu cani xác nhận phù hợp, đưa vào lượt hướng dẫn dự phòng. |
+| [SlopBro](https://github.com/throwaway96/slopbro) | Tự động ngay sau faultmanager nếu đúng model/firmware còn phù hợp. Dùng phiên Dev Mode đã xác thực, tự chọn app theo SDK/inventory, phục vụ payload ghim checksum và kiểm tra root; fallback ghép đôi SSAP khi firmware chặn mở app qua Dev Mode. Có thể cần bấm chấp nhận trên TV. |
+| [ASM](https://github.com/illixion/root-my-webos-tv), [MVPD](https://github.com/throwaway96/mvpd-autoroot/) | Nếu cani xác nhận phù hợp, đưa vào lượt hướng dẫn dự phòng. |
 
 Sau bước thủ công, nhập `XONG` / `DONE` để kiểm tra root, `TIEP` / `NEXT` để bỏ qua, `DUNG` / `STOP` để dừng. Không phân biệt hoa/thường. Dòng “rooting complete” / “Payload complete” hoặc xác nhận đã làm xong không thay thế kiểm tra UID 0, nhưng sẽ chuyển setup sang **chờ xác minh root**, không thử exploit khác khi SSH chưa sẵn sàng. Bật **SSH Server** trong Homebrew, gỡ app Developer Mode trước khi reboot rồi kiểm tra lại. [Xử lý HOME / root đang chờ](HOME-ROOT-RECOVERY.md).
 

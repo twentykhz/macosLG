@@ -5,12 +5,12 @@
   ],
   "rootPriority": [
     "faultmanager",
+    "slopbro",
     "dejavuln",
     "wta",
     "crashd",
     "rootmytv",
     "getmenow",
-    "slopbro",
     "asm",
     "mvpd"
   ],

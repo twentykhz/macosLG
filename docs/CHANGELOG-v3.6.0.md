@@ -20,3 +20,13 @@ Adapter nhận kết quả giọng nói `voiceconductor` của webOS 6 chưa đ�
 Các runtime mask preloader/IoT trong report được tạo bởi phiên sửa ngoài repo, không có journal gốc đi kèm. Bản này không tạo/adopt các mask đó và không tự unmask trạng thái của chủ máy. Doctor báo override để người quản lý khôi phục theo journal gốc; rollback project không tuyên bố khôi phục các thay đổi không có bản ghi.
 
 Menu giữ nguyên: **4 — YouTube AdFree + LGWS + tối ưu 9 app** cho TV đã root; **5 — Rollback** với backup có ngày giờ. Các định danh ứng dụng/path nội bộ cũ được giữ để nâng cấp và phục hồi dữ liệu đã cài.
+
+## SlopBro tự động — cập nhật trong 3.6.0
+
+Nhập IP TV và passphrase Developer Mode một lần trong setup. Setup tự đọc model/firmware/SDK, ưu tiên faultmanager; nếu bị vá, không khả dụng hoặc thất bại rõ ràng, chạy SlopBro khi dữ liệu chính xác xác nhận phù hợp. Không chuyển method khi faultmanager đã báo root hoặc chưa rõ tiến trình đã dừng.
+
+SlopBro dùng source commit `21023d56ca424607bb03d2939609cc658c655fc7`, checksum từng file và Homebrew IPK được ghim; không cần Python trên Windows/Termux. App đích được chọn theo SDK và inventory thực tế. Máy chạy bộ cài và TV phải cùng LAN, cho phép TV kết nối HTTP tới bộ cài. Bộ cài đóng server khi kết thúc. Không dùng tùy chọn bỏ xác minh TLS khi tải payload/IPK.
+
+Ưu tiên mở app qua phiên Developer Mode đã xác thực. Nếu firmware từ chối, tự chuyển SSAP; người dùng cần chấp nhận thông báo ghép đôi trên TV khi hiện. Passphrase Dev Mode không thay thế quyền chấp nhận ghép đôi SSAP. Khóa ghép đôi được lưu riêng trong state, không in ra log; SSAP dùng TLS với chứng chỉ tự ký cục bộ của TV như upstream.
+
+Tạo được file hay mở được app chưa chứng minh root. Phải có bằng chứng payload chạy UID 0, hoàn tất và Homebrew trả UID 0; sau đó setup tự cấp khóa SSH, gỡ/xác minh Developer Mode và tiếp tục quy trình cài. Nếu mất kết nối hay payload còn chạy, giữ trạng thái pending/uncertain và không thử exploit khác. Chưa kiểm chứng SlopBro trên TV thật trong lần cập nhật này.
