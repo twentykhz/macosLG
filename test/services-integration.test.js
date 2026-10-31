@@ -23,6 +23,11 @@ test('real remote and wallpaper services repair overwritten configuration and re
   assert.equal((await post('/api/delete',{id:'../access-key'})).status,400);assert.equal((await post('/api/delete',{id:'wallpaper.jpg'})).status,400);assert.equal((await post('/api/delete',{id:upload.id})).status,200);assert(!fs.existsSync(path.join(app,upload.id)));assert(fs.existsSync(path.join(app,'wallpaper.jpg')));
   const saved=JSON.parse(fs.readFileSync(path.join(wall,'slideshow.json')));assert(!saved.gallery.includes(upload.id));assert.deepEqual(saved.selected,['wallpaper.jpg']);
   const state=await fetch('http://127.0.0.1:'+wallPort+'/api/state?k='+wkey).then(r=>r.json());assert.deepEqual(state.selected,['wallpaper.jpg']);assert.equal(state.interval,17);
+  const places=[{name:'One',latitude:20,longitude:105},{name:'Two',latitude:21,longitude:106}];
+  assert.equal((await post('/api/weather',{locations:places,displayCount:1})).status,200);
+  let weather=await fetch('http://127.0.0.1:'+wallPort+'/api/state?k='+wkey).then(r=>r.json());assert.equal(weather.weatherDisplayCount,1);assert.equal(weather.weatherLocations.length,2,'The hidden second location is retained');
+  assert.equal((await post('/api/weather',{displayCount:2})).status,200);assert.equal((await post('/api/weather',{displayCount:3})).status,400);assert.equal((await post('/api/weather',{locations:[places[0]],displayCount:2})).status,400);
+  weather=JSON.parse(fs.readFileSync(path.join(wall,'slideshow.json')));assert.equal(weather.weatherDisplayCount,2);assert.match(fs.readFileSync(path.join(app,'wall.js'),'utf8'),/WEATHER_DISPLAY_COUNT=2/);
   // Run the production readiness probe against both actual services and a read-only controls fixture.
   fs.writeFileSync(path.join(app,'control-token.js'),'window.GATHIN_CONTROL_TOKEN="fixture";');let completed=0;const outcome={},probeErrors=[];
   function mapped(p){if(p.endsWith('/gathin-controls/bridge.token'))return null;if(p.startsWith('/media/developer/apps/usr/palm/applications/com.gathin.tvhome/'))return path.join(app,path.basename(p));if(p.includes('/gathin-remote/'))return path.join(remote,path.basename(p));if(p.includes('/gathin-wallpaper/'))return path.join(wall,path.basename(p));throw Error('Unexpected probe path');}

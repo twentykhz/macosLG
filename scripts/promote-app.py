@@ -19,7 +19,7 @@ with tarfile.open(stage+'/app.tar.gz','r:gz') as archive:
 for name,digest in expected.items():assert hashlib.sha256(open(new+'/'+name,'rb').read()).hexdigest()==digest
 assert json.load(open(new+'/appinfo.json'))['id']=='com.gathin.tvhome'
 # Preserve private generated configuration and user images, never replace code from backup.
-preserve=['control-token.js','remote-access.js','wall.js','family-config.js','apps.js','wallpaper.jpg']
+preserve=['dock-config.js','control-token.js','remote-access.js','wall.js','family-config.js','apps.js','wallpaper.jpg']
 for name in os.listdir(app):
  if name in preserve or (name.startswith('wall-') and name.endswith(('.jpg','.png','.webp'))):
   assert os.path.isfile(app+'/'+name) and not os.path.islink(app+'/'+name)

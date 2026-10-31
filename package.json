@@ -1,6 +1,6 @@
 {
   "name": "mac-webostv",
-  "version": "3.6.0",
+  "version": "3.6.36",
   "private": true,
   "description": "MAC-WebOSTV by 20khzpc — macOS-inspired LG webOS launcher and TV-hosted remote setup",
   "engines": {

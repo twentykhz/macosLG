@@ -14,7 +14,7 @@ test('Node recovery validates before mutation, compensates an interrupted rename
  }finally{tv.dispose();}
 });
 test('same-version portable promotion verifies all files and preserves private wallpaper/token files',async()=>{
- const tv=sandbox(),run=prepare(tv);try{const packed=packApp(path.resolve('payload/app')),stage='/tmp/gathin-app-upgrade-fixture';tv.put(stage+'/app.tar.gz',packed.bytes);tv.put(stage+'/manifest.json',JSON.stringify(packed.files));await run('promote',{stage,tar:['/bin/tar']});assert.equal(tv.io.readFileSync(tv.APP+'/control-token.js','utf8'),'window.GATHIN_CONTROL_TOKEN="original";');assert(tv.io.existsSync(tv.APP+'/index.html'));assert(tv.io.existsSync('/media/developer/temp/gathin-app-upgrade-previous/appinfo.json'));
+ const tv=sandbox(),run=prepare(tv);try{tv.put(tv.APP+'/dock-config.js','window.MAC_DOCK={ids:["com.example.extra"],apps:[]};');const packed=packApp(path.resolve('payload/app')),stage='/tmp/gathin-app-upgrade-fixture';tv.put(stage+'/app.tar.gz',packed.bytes);tv.put(stage+'/manifest.json',JSON.stringify(packed.files));await run('promote',{stage,tar:['/bin/tar']});assert.equal(tv.io.readFileSync(tv.APP+'/control-token.js','utf8'),'window.GATHIN_CONTROL_TOKEN="original";');assert(tv.io.existsSync(tv.APP+'/index.html'));assert.match(tv.io.readFileSync(tv.APP+'/dock-config.js','utf8'),/com.example.extra/);assert(tv.io.existsSync('/media/developer/temp/gathin-app-upgrade-previous/appinfo.json'));
  await run('cleanup',{paths:['/media/developer/temp/gathin-app-upgrade-previous',stage]});assert(!tv.io.existsSync(stage));await assert.rejects(run('cleanup',{paths:['/etc']}),/Unsafe cleanup/);
  }finally{tv.dispose();}
 });

@@ -1,1 +1,1 @@
-window.WEATHER_LOCATIONS=[{"name":"Cẩm Thủy, Thanh Hóa","latitude":20.2151,"longitude":105.4774},{"name":"Thanh Xuân, Hà Nội","latitude":20.994,"longitude":105.811}];window.WALL_STATE={selected:["wallpaper.jpg"],enabled:false,interval:30,revision:0,crops:{}};
+window.WEATHER_LOCATIONS=[{"name":"Cẩm Thủy, Thanh Hóa","latitude":20.2151,"longitude":105.4774},{"name":"Thanh Xuân, Hà Nội","latitude":20.994,"longitude":105.811}];window.WEATHER_DISPLAY_COUNT=2;window.WALL_STATE={selected:["wallpaper.jpg"],enabled:true,interval:30,revision:0,crops:{}};

@@ -1,11 +1,11 @@
 /* Full-bleed tvOS-inspired home: wallpaper, centered information, and a single app dock.
    Stage coordinates are 1920x1080, as in the original skin. */
 
-@font-face {font-family:'Inter';src:url('fonts/Inter-Light.woff2') format('woff2');font-style:normal;font-weight:300;}
-@font-face {font-family:'Inter';src:url('fonts/Inter-Regular.woff2') format('woff2');font-style:normal;font-weight:400;}
-@font-face {font-family:'Inter';src:url('fonts/Inter-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;}
+@font-face {font-display:swap;font-family:'Inter';src:url('fonts/Inter-Light.woff2') format('woff2');font-style:normal;font-weight:300;}
+@font-face {font-display:swap;font-family:'Inter';src:url('fonts/Inter-Regular.woff2') format('woff2');font-style:normal;font-weight:400;}
+@font-face {font-display:swap;font-family:'Inter';src:url('fonts/Inter-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;}
 
-@font-face {font-family:'SF Pro';src:url('fonts/SF-Pro.ttf') format('truetype');font-style:normal;font-weight:100 1000;}
+@font-face {font-display:swap;font-family:'SF Pro';src:url('fonts/SF-Pro.ttf') format('truetype');font-style:normal;font-weight:100 1000;}
 
 * {
   box-sizing: border-box;

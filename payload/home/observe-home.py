@@ -58,6 +58,17 @@ def redirect(state):
  if not blocked(fresh.get('appId'),surface.get('currentState'),strict_mode()):return
  result=call('com.webos.applicationManager/launch',{'id':APP})
  log('stock foreground redirect accepted='+str(result.get('returnValue') is True))
+def decode_messages(buffer):
+ messages=[]
+ while buffer:
+  start=buffer.find(u'{')
+  if start<0:return messages,u''
+  buffer=buffer[start:]
+  try:value,end=json.JSONDecoder().raw_decode(buffer)
+  except ValueError:break
+  messages.append(value);buffer=buffer[end:].lstrip()
+ return messages,buffer
+
 def main():
  owner=open('/tmp/gathin-home-observer.owner','a')
  try:fcntl.flock(owner,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -71,18 +82,17 @@ def main():
   while running and not disabled() and retry<6:
    master,slave=os.openpty()
    p=subprocess.Popen(['/usr/bin/luna-send','-i','luna://com.webos.surfacemanager/getCurrentState','{"subscribe":true}'],stdin=subprocess.PIPE,stdout=slave,stderr=slave,close_fds=True)
-   os.close(slave);buffer=b'';last=0
+   os.close(slave);buffer=u'';last=0
    try:
     while running and p.poll() is None and not disabled():
      if not select.select([master],[],[],.25)[0]:continue
      chunk=os.read(master,8192)
      if not chunk:break
-     buffer+=chunk
+     buffer+=chunk.decode('utf-8','replace')
      if len(buffer)>65536:raise RuntimeError('Subscription buffer exceeded')
-     while b'\n' in buffer:
-      line,buffer=buffer.split(b'\n',1)
-      try:r=json.loads(line.decode('utf-8','replace').strip())
-      except ValueError:continue
+     messages,buffer=decode_messages(buffer)
+     for r in messages:
+      if not isinstance(r,dict):continue
       if r.get('returnValue') is False:raise RuntimeError('Home subscription rejected')
       if 'currentState' not in r:continue
       with open(READY,'w') as f:f.write(str(os.getpid()))

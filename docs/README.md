@@ -14,6 +14,6 @@
 | Xử lý lỗi cài đặt | [Chẩn đoán và cứu hộ](diagnostics/RECOVERY.md) |
 | Phạm vi đã kiểm chứng | [Kiểm chứng](VALIDATION.md) · [Tương thích không Python](PYTHON-COMPATIBILITY.md) |
 | Sửa source, build bộ cài | [Phát triển](DEVELOPMENT.vi.md) |
-| Thay đổi mới nhất | [3.6.0](CHANGELOG-v3.6.0.md) |
+| Thay đổi mới nhất | [3.6.36](CHANGELOG-v3.6.36.md) |
 
 Các file `CHANGELOG-*` ghi lại lịch sử phiên bản; không phải bộ cài. Các thư mục source ở root được giữ để build, kiểm thử và phục hồi.

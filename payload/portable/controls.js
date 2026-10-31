@@ -1,7 +1,7 @@
 'use strict';
 // Portable Luna-only controls. No input grab, QML patch, Python or model tuning.
 var fs=require('fs'),http=require('http'),cp=require('child_process');
-var inputs=require('./inputs');
+var inputs=require('./inputs'),dock=require('./dock');
 var root=process.env.GATHIN_CONTROL_DATA||'/var/lib/webosbrew/gathin-controls',token=fs.readFileSync(root+'/bridge.token','utf8').trim();
 if(!token)throw Error('Controls token is missing');
 var appRuntime=null;
@@ -22,7 +22,11 @@ function audioWrite(kind,value,done){
   luna(api,data,function(written){audioStatus(function(after){var okay=after.returnValue===true&&after.engine===before.engine&&after.soundOutput===before.soundOutput&&(isVolume?after.volume===volume:after.muted===muted);after.returnValue=okay&&written.returnValue===true;after.verified=after.returnValue;after.writeAccepted=written.returnValue===true;if(!okay)after.errorText='Audio write/readback mismatch or output changed';done(after);});});
  });
 }
+function dockStore(){return dock.create(root,process.env.GATHIN_CONTROL_APP||'/media/developer/apps/usr/palm/applications/com.gathin.tvhome');}
+function weatherDisplay(count,done){var finished=false;function finish(value){if(finished)return;finished=true;done(value);}var token;try{token=fs.readFileSync('/var/lib/webosbrew/gathin-wallpaper/access-key','utf8').trim();}catch(e){return finish({returnValue:false,errorText:'Wallpaper settings service unavailable'});}var body=JSON.stringify({displayCount:count}),r=http.request({hostname:'127.0.0.1',port:8090,path:'/api/weather?k='+encodeURIComponent(token),method:'POST',headers:{'Content-Type':'application/json','Content-Length':Buffer.byteLength(body)}},function(s){var out='';s.on('data',function(b){out+=b;});s.on('end',function(){try{var value=JSON.parse(out);finish({returnValue:s.statusCode===200&&value.ok===true,displayCount:value.displayCount,locations:value.locations,errorText:value.error});}catch(e){finish({returnValue:false});}});});r.setTimeout(4000,function(){r.abort();});r.on('error',function(){finish({returnValue:false,errorText:'Weather settings request failed'});});r.end(body);}
 function run(action,data,done){
+ if(action==='weather_display'&&(data.count===1||data.count===2))return weatherDisplay(data.count,done);
+ if(action==='dock_apps'||action==='dock_save')return luna('com.webos.applicationManager/listApps',{},function(r){if(r.returnValue!==true||!Array.isArray(r.apps))return done({returnValue:false,errorText:'Installed app inventory unavailable'});try{if(action==='dock_apps')return done({returnValue:true,apps:dock.catalog(r.apps),dock:dockStore().read()});done({returnValue:true,dock:dockStore().save(data.ids,r.apps)});}catch(e){done({returnValue:false,errorText:e.message});}});
  if(action==='health')return done({returnValue:true,protocol:2,engine:'node',homeInterception:false});
  if(action==='app_runtime'&&/^[a-f0-9]{64}$/.test(data.challenge||'')&&typeof data.errorCount==='number'&&data.errorCount>=0&&data.errorCount<10000){appRuntime={challenge:data.challenge,tokenReadable:data.tokenReadable===true,backendProtocol:data.backendProtocol,stagePresent:data.stagePresent===true,configReadable:data.configReadable===true,errorCount:data.errorCount,testedAt:new Date().toISOString()};return done({returnValue:true});}
  if(action==='app_runtime_status')return done(appRuntime&&appRuntime.challenge===data.challenge?{returnValue:true,evidence:appRuntime}:{returnValue:false,pending:true});
@@ -44,7 +48,7 @@ function run(action,data,done){
  if(Object.prototype.hasOwnProperty.call(methods,action))return luna(methods[action][0],methods[action][1],done);
  done({returnValue:false,supported:false,errorText:'Unsupported action or invalid arguments'});
 }
-function serve(){return http.createServer(function(req,res){
+function serve(){try{var saved=dockStore().read();if(saved)dockStore().publish(saved);}catch(e){console.error('Dock preferences require attention');}return http.createServer(function(req,res){
  function reply(code,data){res.writeHead(code,{'Content-Type':'application/json','Cache-Control':'no-store','Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Content-Type,X-Gathin-Token','Access-Control-Allow-Methods':'POST,OPTIONS','Access-Control-Allow-Private-Network':'true'});res.end(JSON.stringify(data));}
  if(req.method==='OPTIONS')return reply(200,{});if(req.method!=='POST')return reply(405,{});if(req.headers['x-gathin-token']!==token)return reply(403,{});
  var body='',ended=false;req.setTimeout(10000,function(){req.destroy();});req.on('data',function(b){if(ended)return;body+=b;if(Buffer.byteLength(body)>16384){ended=true;reply(413,{});}});req.on('end',function(){if(ended)return;var data;try{data=JSON.parse(body);}catch(e){return reply(400,{});}if(!data||typeof data!=='object')return reply(400,{});run(data.action,data,function(r){reply(200,r);});});

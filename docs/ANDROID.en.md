@@ -1,6 +1,6 @@
 # Android / Termux, Linux and macOS
 
-**3.6.0:** menu item **5 — Rollback** restores a selected initial snapshot after `YES/CO` confirmation. [Rollback guide](ROLLBACK.en.md) | [Tiếng Việt](ROLLBACK.vi.md).
+**3.6.36:** menu item **5 — Rollback** restores a selected initial snapshot after `YES/CO` confirmation. [Rollback guide](ROLLBACK.en.md) | [Tiếng Việt](ROLLBACK.vi.md).
 
 **3.4.1:** rooted compatibility mode makes Python optional with an early capability probe and verified Node backup/rollback path. Reference HOME/voice/tuning helpers are skipped on other boards. C2/O22 has regression fixtures, with post-patch physical installation still unconfirmed. Run Doctor first. [Requirements and complete audit](PYTHON-COMPATIBILITY.en.md).
 

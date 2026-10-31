@@ -6,7 +6,7 @@ app='/media/developer/apps/usr/palm/applications/com.gathin.tvhome'
 assert stage.startswith('/tmp/gathin-app-upgrade-') and os.path.realpath(stage)==stage
 data=stage+'/user-files';manifest=stage+'/user-files.json'
 def allowed(name):
- return name in ['control-token.js','remote-access.js','wall.js','family-config.js','apps.js','wallpaper.jpg'] or re.match(r'^wall-[a-f0-9]+\.(jpg|png|webp)$',name)
+ return name in ['dock-config.js','control-token.js','remote-access.js','wall.js','family-config.js','apps.js','wallpaper.jpg'] or re.match(r'^wall-[a-f0-9]+\.(jpg|png|webp)$',name)
 if mode=='save':
  os.mkdir(data,0o700);entries=[]
  for name in os.listdir(app) if os.path.isdir(app) else []:

@@ -7,7 +7,7 @@
   if(!/^[a-f0-9]{64}$/.test(window.MAC_RUNTIME_CHALLENGE||''))return;
   if(!window.GATHIN_CONTROL_TOKEN){if(++attempts<15)setTimeout(check,1000);return;}
   request('health',{},function(r){if(r.returnValue!==true||r.protocol!==2){if(++attempts<15)setTimeout(check,1000);return;}
-   var config=!!(window.TV_REMOTE_URL&&window.WALL_URL&&Array.isArray(window.GATHIN_FAMILY)&&Array.isArray(window.WEATHER_LOCATIONS)&&window.WEATHER_LOCATIONS.length===2&&window.WALL_STATE&&window.WALL_STATE.selected&&window.WALL_STATE.selected.length);
+   var config=!!(window.TV_REMOTE_URL&&window.WALL_URL&&Array.isArray(window.GATHIN_FAMILY)&&Array.isArray(window.WEATHER_LOCATIONS)&&window.WEATHER_LOCATIONS.length>=1&&window.WEATHER_LOCATIONS.length<=2&&window.WALL_STATE&&window.WALL_STATE.selected&&window.WALL_STATE.selected.length);
    if(!config&&++attempts<15){setTimeout(check,1000);return;}
    request('app_runtime',{challenge:window.MAC_RUNTIME_CHALLENGE,tokenReadable:true,backendProtocol:r.protocol,stagePresent:!!document.getElementById('stage'),configReadable:config,errorCount:errors},function(){});
   });

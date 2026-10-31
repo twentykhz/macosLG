@@ -1,7 +1,8 @@
 (function () {
   'use strict';
-  var box=document.createElement('section');box.id='multiWeather';box.setAttribute('aria-label','Thời tiết hai khu vực');
+  var box=document.createElement('section');box.id='multiWeather';box.setAttribute('aria-label','Thời tiết');
   document.querySelector('header').appendChild(box);
+  window.addEventListener('keydown',function(e){var el=document.activeElement;if(!el||!el.classList||!el.classList.contains('mw-count-toggle'))return;if(e.keyCode===13)el.click();else if(e.keyCode===461||e.keyCode===27){if(window.GathinWidgetUI)window.GathinWidgetUI.focus(0);}else return;e.preventDefault();e.stopImmediatePropagation();},true);
   var cards=[],signature='',requests=[],lastRead=0;
   var labels={0:'Quang đãng',1:'Trời quang',2:'Có mây',3:'Nhiều mây',45:'Sương mù',48:'Sương mù',51:'Mưa phùn',53:'Mưa phùn',55:'Mưa phùn dày',56:'Mưa phùn đóng băng',57:'Mưa phùn đóng băng',61:'Mưa nhẹ',63:'Mưa',65:'Mưa to',66:'Mưa đóng băng',67:'Mưa đóng băng lớn',71:'Tuyết nhẹ',73:'Tuyết',75:'Tuyết dày',77:'Mưa tuyết',80:'Mưa rào',81:'Mưa rào',82:'Mưa rào mạnh',85:'Mưa tuyết rào',86:'Mưa tuyết rào mạnh',95:'Mưa giông',96:'Mưa giông có mưa đá',99:'Mưa giông có mưa đá lớn'};
   function icon(code){
@@ -19,11 +20,11 @@
     card.querySelector('.mw-status').textContent=stale?'Dữ liệu đã lưu · đang chờ mạng':'';
   }
   function refresh(){
-    var places=window.WEATHER_LOCATIONS;if(!places||places.length!==2)return;
+    var configured=window.WEATHER_LOCATIONS||[],count=Number(window.WEATHER_DISPLAY_COUNT)||Math.min(2,configured.length),places=configured.slice(0,count);if(places.length<1||places.length>2)return;
     var key=JSON.stringify(places),changed=signature!==key;
     if(!changed&&Date.now()-lastRead<10*60*1000)return;
     lastRead=Date.now();
-    if(changed){requests.forEach(function(r){r.abort();});requests=[];signature=key;box.innerHTML='<article id="weatherCombined" class="mw-card"></article>';var combined=document.getElementById('weatherCombined');combined.setAttribute('aria-label','Thời tiết hai địa điểm');cards=places.map(function(place){var card=document.createElement('article');card.className='mw-place';card.innerHTML='<div class="mw-location"></div><div class="mw-main"><span class="mw-temp">—°</span><span class="mw-icon"></span></div><div class="mw-bottom"><span class="mw-condition">Đang cập nhật…</span><span class="mw-range">↑—° ↓—°</span></div><div class="mw-status"></div>';var name=window.GathinPlaceName(place);card.querySelector('.mw-location').textContent=name;card.setAttribute('aria-label','Thời tiết '+name);combined.appendChild(card);return card;});}
+    if(changed){requests.forEach(function(r){r.abort();});requests=[];signature=key;box.innerHTML='<article id="weatherCombined" class="mw-card"></article>';var combined=document.getElementById('weatherCombined');combined.setAttribute('aria-label','Thời tiết '+places.length+' địa điểm');combined.className='mw-card mw-count-'+places.length;var toggle=document.createElement('button');toggle.className='mw-count-toggle';toggle.type='button';toggle.textContent=places.length+' địa điểm';toggle.title='Đổi số địa điểm hiển thị';toggle.disabled=configured.length<2;toggle.onclick=function(e){e.stopPropagation();if(!window.MacTvControlRequest)return;toggle.disabled=true;window.MacTvControlRequest('weather_display',{count:places.length===1?2:1},function(r){if(r.returnValue===true){window.WEATHER_DISPLAY_COUNT=r.displayCount;window.WEATHER_LOCATIONS=r.locations;refresh();var next=box.querySelector('.mw-count-toggle');if(next)next.focus();}else{toggle.disabled=false;toggle.title=r.errorText||'Không lưu được cấu hình';}});};box.appendChild(toggle);cards=places.map(function(place){var card=document.createElement('article');card.className='mw-place';card.innerHTML='<div class="mw-location"></div><div class="mw-main"><span class="mw-temp">—°</span><span class="mw-icon"></span></div><div class="mw-bottom"><span class="mw-condition">Đang cập nhật…</span><span class="mw-range">↑—° ↓—°</span></div><div class="mw-status"></div>';var name=window.GathinPlaceName(place);card.querySelector('.mw-location').textContent=name;card.setAttribute('aria-label','Thời tiết '+name);combined.appendChild(card);return card;});}
     requests=[];
     places.forEach(function(place,index){
       var cacheKey='gathin.weather.'+place.latitude+','+place.longitude,cached=null;

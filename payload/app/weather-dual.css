@@ -14,3 +14,7 @@
 .mw-range { white-space:nowrap; font-size:20px; }
 .mw-status { font-size:14px; color:#d7e2ef; }
 .mw-status:not(:empty) { margin-top:7px; }
+
+#multiWeather .mw-count-toggle{position:absolute;left:0;top:-34px;font:inherit;font-size:17px;padding:4px 12px;color:#fff;background:#41454c;border:1px solid #8994a4;border-radius:8px;pointer-events:auto;cursor:pointer}#multiWeather .mw-count-toggle:focus{outline:2px solid #fff}#weatherCombined.mw-count-1 .mw-place{width:100%!important;border:0!important}
+
+body #weatherCombined.mw-count-1 .mw-place{display:flex;flex-direction:column;justify-content:space-around}body #weatherCombined.mw-count-1 .mw-temp{font-size:80px}body #weatherCombined.mw-count-1 .mw-main{height:90px}body #weatherCombined.mw-count-1 .mw-icon svg{width:72px;height:72px}

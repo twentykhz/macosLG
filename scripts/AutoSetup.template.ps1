@@ -82,7 +82,7 @@ if($Mode -notin @('Prepare','Extract')){
  Write-Host ((L 'Setup log: ' 'Log setup: ')+$taskSetupLog)
  Write-Host ((L 'Runtime log: ' 'Log tien trinh: ')+$taskRuntimeLog)
 }
-Write-Host (L 'MAC-WebOSTV by 20khzpc 3.6.0: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.6.0: dung IP va thong tin dang nhap cua chinh TV nay.')
+Write-Host (L 'MAC-WebOSTV by 20khzpc 3.6.36: use the IP and credentials of THIS TV.' 'MAC-WebOSTV by 20khzpc 3.6.36: dung IP va thong tin dang nhap cua chinh TV nay.')
 [Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $bytes=[Convert]::FromBase64String(@'
 __PAYLOAD_BASE64__
@@ -93,7 +93,7 @@ $actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToL
 if($actual -ne $expected){throw 'Embedded package checksum mismatch; nothing executed.'}
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$release=Join-Path $DataDirectory ('releases/3.6.0-'+$expected.Substring(0,12))
+$release=Join-Path $DataDirectory ('releases/3.6.36-'+$expected.Substring(0,12))
 if($Mode -eq 'Extract'){
  if(-not $OutputDirectory){$OutputDirectory=Join-Path $PSScriptRoot 'MAC-WebOSTV-Source'}
  $release=[IO.Path]::GetFullPath($OutputDirectory)

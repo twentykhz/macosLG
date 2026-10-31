@@ -1,4 +1,16 @@
-/* Preserve widgets and wallpapers while reducing continuous composition on TV GPUs. */
-#glass,#dockBand,.card,#controlCenter{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
-.card{box-shadow:0 4px 12px rgba(0,0,0,.20)!important}
-@media(prefers-reduced-motion:reduce){#viewport,#dockBand,.card{transition:none!important}}
+/* Lightweight profile: opaque surfaces, static focus, no blur, no continuous effects. */
+body *{animation:none!important;transition:none!important;-webkit-filter:none!important;filter:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;text-shadow:none!important;scroll-behavior:auto!important}
+body #dockBand{background:#2b2d31!important}
+body #multiWeather .mw-card,body #lunarWidget,body #voiceSearch,body #controlCenter,body #inputsPanel,body #widgetDetail{background:#41454c!important}
+body #stage .item .card{transition:none!important;box-shadow:none!important}
+body #stage .item.focused .card{transform:none!important;outline:2px solid #e6ebf2!important;outline-offset:2px}
+body .mw-card.widget-focused,body #lunarWidget.widget-focused,body .mw-card:focus,body #lunarWidget:focus{transform:none!important;outline:2px solid #e6ebf2!important;outline-offset:2px;background:#596371!important}
+body #ambientA,body #ambientB,body #hero,body #glass{display:none!important}
+body #widgetDetailBackdrop{background:#24262a!important}
+
+html body #viewport,html body #dockBand,html body #stage .item .card,html body #stage .item.focused .card,html body #multiWeather .mw-card,html body #multiWeather .mw-card.widget-focused,html body #lunarWidget,html body #lunarWidget.widget-focused,html body #voiceSearch,html body #clock,html body #controlCenter,html body #controlCenter *,html body #widgetDetail,html body #widgetDetail *{box-shadow:none!important;text-shadow:none!important;-webkit-filter:none!important;filter:none!important;transition:none!important;animation:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html body #clock{-webkit-text-stroke:0!important}
+html body #stage .item.focused .card,html body #lunarWidget.widget-focused,html body #multiWeather .mw-card.widget-focused{transform:none!important;outline:2px solid #e6ebf2!important;outline-offset:2px}
+
+/* Slideshow remains active; only opacity animates during the short image switch. */
+html body #wallpaperMotion>div{transition:opacity 180ms linear!important}

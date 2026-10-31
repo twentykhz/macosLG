@@ -18,7 +18,7 @@
     xhr.timeout=9000;
     xhr.onload=function(){var r;try{r=JSON.parse(xhr.responseText);}catch(e){r={returnValue:false};}if(xhr.status!==200){r.returnValue=false;r.serviceUnavailable=true;}if(done)done(r);};
     xhr.onerror=xhr.ontimeout=function(){if(done)done({returnValue:false,serviceUnavailable:true,errorText:'Local controls unavailable'});};
-    xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(data));return xhr;
   }
   window.GathinOpenSettings=function(){rootCall('settings_key',{},function(r){if(r.returnValue===false){var bridge=new PalmServiceBridge();bridges.push(bridge);bridge.onservicecallback=function(){};bridge.call('luna://com.webos.applicationManager/launch',JSON.stringify({id:'com.palm.app.settings'}));}});};
   window.GathinVoiceSearch=function(done){rootCall('voice_search',{},function(r){if(r.returnValue===false)message('Không mở được tìm kiếm giọng nói');if(done)done(r);});};

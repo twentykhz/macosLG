@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm'),cp=require('child_process');
 const {python}=require('./helpers/host-tools');
-function bridge(reply){const calls=[],module={exports:{}};vm.runInNewContext(fs.readFileSync('payload/portable/controls.js','utf8'),{module,Buffer,process:{env:{}},setTimeout(){},require(n){if(n==='./inputs')return require('../payload/portable/inputs');if(n==='fs')return {readFileSync:()=> 'fixture',existsSync:()=>false};if(n==='child_process')return {execFile(f,a,o,cb){const api=a[4].slice(7),data=JSON.parse(a[5]);calls.push({api,data});cb(null,JSON.stringify(reply(api,data)));}};return require(n);}});return {run:(a,d={})=>new Promise(r=>module.exports.run(a,d,r)),calls};}
+function bridge(reply){const calls=[],module={exports:{}};vm.runInNewContext(fs.readFileSync('payload/portable/controls.js','utf8'),{module,Buffer,process:{env:{}},setTimeout(){},require(n){if(n==='./dock')return require('../payload/portable/dock');if(n==='./inputs')return require('../payload/portable/inputs');if(n==='fs')return {readFileSync:()=> 'fixture',existsSync:()=>false};if(n==='child_process')return {execFile(f,a,o,cb){const api=a[4].slice(7),data=JSON.parse(a[5]);calls.push({api,data});cb(null,JSON.stringify(reply(api,data)));}};return require(n);}});return {run:(a,d={})=>new Promise(r=>module.exports.run(a,d,r)),calls};}
 test('NANO audio uses live speaker volume 10 instead of scenario 100, includes output and verifies readback',async()=>{
  let volume=10,muted=false,output='tv_speaker';const b=bridge((api,d)=>{
   if(api.endsWith('/getVolume'))return {returnValue:true,volume:100,muted:false};
@@ -45,5 +45,5 @@ test('device profile preserves native voice on observed voiceconductor and Node8
 
 test('dock refresh reuses the renderer, retains selected app and attaches normal tile behavior',()=>{
  const source=fs.readFileSync('payload/app/app.js','utf8'),start=source.indexOf('function refreshDock(){'),end=source.indexOf('window.MacRefreshDock=',start),code=source.slice(start,end);const names=[];
- function el(){return {style:{},classList:{add(){}},appendChild(){}};}const context={x:[{app:{id:'keep'}}],N:0,U:null,g:{innerHTML:'',appendChild:e=>names.push(e)},v:{style:{}},document:{createElement:el},q:()=>[{id:'new',title:'New'},{id:'keep',title:'Keep'}],R:a=>a.title,et(){},nt(){},ct(){},wt(){}};vm.runInNewContext(code,context);context.refreshDock();assert.equal(context.x.length,2);assert.equal(context.N,1);assert.equal(typeof context.x[0].img.onload,'function');assert.equal(names.length,2);
+ function el(){return {style:{},classList:{add(){}},appendChild(){},setAttribute(){}};}const context={x:[{app:{id:'keep'}}],N:0,U:null,g:{innerHTML:'',appendChild:e=>names.push(e)},v:{style:{}},document:{createElement:el},q:()=>[{id:'new',title:'New'},{id:'keep',title:'Keep'}],R:a=>a.title,et(){},nt(){},ct(){},wt(){}};vm.runInNewContext(code,context);context.refreshDock();assert.equal(context.x.length,2);assert.equal(context.N,1);assert.equal(typeof context.x[0].img.onload,'function');assert.equal(names.length,2);
 });

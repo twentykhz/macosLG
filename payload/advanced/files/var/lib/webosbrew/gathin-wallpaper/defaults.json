@@ -52,5 +52,6 @@
   "slideshow": {
     "enabled": true,
     "interval": 30
-  }
+  },
+  "weatherDisplayCount": 2
 }
